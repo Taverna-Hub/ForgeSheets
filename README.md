@@ -7,23 +7,14 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
 
 ## 🚀 Tecnologias
 <div style="display: flex; align-items: center; text-decoration: none;">
-
-<a href="https://www.python.org/" style="color: white;">
   <img src="https://img.shields.io/badge/Python-7f1d1d?style=for-the-badge&logo=python&logoColor=white"/>
-</a>
-<a href="https://www.djangoproject.com/" >
   <img src="https://img.shields.io/badge/Django-000?style=for-the-badge&logo=django&logoColor=white"/>
-</a>
-<a href="https://www.sqlite.org/">
   <img src="https://img.shields.io/badge/sqlite-7f1d1d?style=for-the-badge&logo=sqlite&logoColor=white"/>
-</a>
-<a href="https://www.javascript.com/">
   <img src="https://img.shields.io/badge/javascript-000?style=for-the-badge&logo=javascript&logoColor=white"/>
-</a>
-<img src="https://img.shields.io/badge/html5-7f1d1d?style=for-the-badge&logo=html5&logoColor=white"/>
-<img src="https://img.shields.io/badge/css3-000?style=for-the-badge&logo=css3&logoColor=white"/>
-<img src="https://img.shields.io/badge/PostgreSQL-7f1d1d?style=for-the-badge&logo=postgresql&logoColor=white"/>
-<img src="https://img.shields.io/badge/Microsoft_Azure-000?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>  
+  <img src="https://img.shields.io/badge/html5-7f1d1d?style=for-the-badge&logo=html5&logoColor=white"/>
+  <img src="https://img.shields.io/badge/css3-000?style=for-the-badge&logo=css3&logoColor=white"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-7f1d1d?style=for-the-badge&logo=postgresql&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Microsoft_Azure-000?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>  
 </div>
 
 ## 🔨 Ferramentas
@@ -46,22 +37,27 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
 # Entrega 01
 <br/>
 <p align="center" style="">
-<a href="https://www.youtube.com/watch?v=oNvP1qluKYE" >
-  <img src="https://img.shields.io/badge/link do screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white"/>
+<a href="https://www.youtube.com/watch?v=oNvP1qluKYE"">
+  <img src="https://img.shields.io/badge/link do screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
 </a>
 <a href="https://www.figma.com/file/GevyRkqG9ICW9ZyhrXDtl1/Forge-Sheets-(Lo-Fi)?type=design&node-id=0%3A1&mode=design&t=1tBcAI8RKL5A3Zd2-1">
-  <img src="https://img.shields.io/badge/link do figma-000?style=for-the-badge&logo=figma&logoColor=white"/>
+  <img src="https://img.shields.io/badge/link do figma-000?style=for-the-badge&logo=figma&logoColor=white"  height="35px"/>
 </a>
+  <a href="https://forgesheets.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMDJkY2ZjNTMyNDg5NGRkODlmZWQwZDc5ZTZkY2U5ZTYiLCJwIjoiaiJ9">
+    <img src="https://img.shields.io/badge/link do jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"  height="35px"/>
+  </a>
 </p>
 <br/>
 
 - <strong> Backlog </strong>
+
   <img src="https://github.com/Taverna-Hub/ForgeSheets/blob/main/backlog.png"  />
 
 <br/>
 <br/>
   
 - <strong> Board </strong>
+
   <img src="https://github.com/Taverna-Hub/ForgeSheets/blob/main/board.png" />
 
 ## 👥 Equipe
@@ -141,3 +137,6 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDEuNzM0MzkwMjU4Nzg5MDYiIGhlaWdodD0iMzUiIHZpZXdCb3g9IjAgMCAyMDEuNzM0MzkwMjU4Nzg5MDYgMzUiPjxyZWN0IHdpZHRoPSI4OC4yMTA5NDUxMjkzOTQ1MyIgaGVpZ2h0PSIzNSIgZmlsbD0iIzAwMDAwMCIvPjxyZWN0IHg9Ijg4LjIxMDk0NTEyOTM5NDUzIiB3aWR0aD0iMTEzLjUyMzQ0NTEyOTM5NDUzIiBoZWlnaHQ9IjM1IiBmaWxsPSIjN2YxZDFkIi8+PHRleHQgeD0iNDQuMTA1NDcyNTY0Njk3MjY2IiB5PSIxNy41IiBmb250LXNpemU9IjEyIiBmb250LWZhbWlseT0iJ1JvYm90bycsIHNhbnMtc2VyaWYiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+QlVJTFQgQlk8L3RleHQ+PHRleHQgeD0iMTQ0Ljk3MjY2NzY5NDA5MTgiIHk9IjE3LjUiIGZvbnQtc2l6ZT0iMTIiIGZvbnQtZmFtaWx5PSInTW9udHNlcnJhdCcsIHNhbnMtc2VyaWYiIGZpbGw9IiNGRkZGRkYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSI5MDAiIGFsaWdubWVudC1iYXNlbGluZT0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+Jmx0Oy9UQVZFUk5BJmd0OzwvdGV4dD48L3N2Zz4="/>
   </a>
 </p>
+
+<p align="center"><img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/9287638f-8716-4e62-9989-a40882fbfed6" width="40px"></p>
+<p align="center">Projeto para a disciplina de <strong>Fundamentos de Desenvolvimento de Software</strong> na <strong>CESAR School‎‎</strong></p>
