@@ -7,7 +7,8 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
 
 ## 🚀 Tecnologias
 <div style="display: flex; align-items: center; text-decoration: none;">
-<a href="https://www.python.org/">
+
+<a href="https://www.python.org/" style="color: white;">
   <img src="https://img.shields.io/badge/Python-7f1d1d?style=for-the-badge&logo=python&logoColor=white"/>
 </a>
 <a href="https://www.djangoproject.com/" >
@@ -120,7 +121,7 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href="https://github.com/deadcube04">
+        <a href="https://github.com/deadcube04" >
         <div  
           style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;"
         >
