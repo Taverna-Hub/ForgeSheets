@@ -64,7 +64,7 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
 - <strong> Board </strong>
   <img src="https://github.com/Taverna-Hub/ForgeSheets/blob/main/board.png" />
 
-## 🤝 Equipe
+## 👥 Equipe
 <table>
 <tr>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
