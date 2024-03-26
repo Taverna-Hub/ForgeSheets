@@ -3,17 +3,18 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
-# from django.contrib.auth.decorations import login_required
+from django.contrib.auth.decorators import login_required
+
+def sign(request):
+    if request.method == "POST":
+        if 'login' in request.POST: 
+            return login(request, request.POST.get('user'), request.POST.get('password'))
+        elif 'cadastro' in request.POST:
+            return HttpResponse('cadastro')
+    else:
+        return render(request, 'sign.html')
 
 
-#precisa mudar o nome das html
-# def home(request):
-# 	if request.user.is_autenticated:
-# 		name = request.user.username
-# 		return render (request, 'login.hmtl', {'singed_in': True, 'user':name}) 
-# 	else:
-# 		return render (request, 'login.html')
-	
 def cadastro(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -32,22 +33,11 @@ def cadastro(request):
     else:
         return render(request, 'cadastro.html')
 
-def login(request):
-  	#return render(request, 'login.html')
-
-	if request.method == 'GET':
-			return render(request, 'login.html')
-
-	elif request.method == 'POST':
-
-		username = request.POST.get('username')
-		password = request.POST.get('password')
-		
-		user = authenticate(username=username, password=password)
-
-		if user:
-			login_django(request, user)
-			#return redirect('login') #redirecionar para a pagina de fichas
-			return HttpResponse('It runs 👍')
-		else:
-			return HttpResponse('Usuário ou senha inválidos')
+def login(request, username, password):
+    print(username, password)
+    user = authenticate(username=username, password=password)
+    if user:
+        login_django(request, user)
+        return HttpResponse('It runs 👍')
+    else:
+        return HttpResponse('Usuário ou senha inválidos')
