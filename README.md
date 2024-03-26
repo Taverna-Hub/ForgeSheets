@@ -13,8 +13,7 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
   <img src="https://img.shields.io/badge/javascript-000?style=for-the-badge&logo=javascript&logoColor=white"/>
   <img src="https://img.shields.io/badge/html5-7f1d1d?style=for-the-badge&logo=html5&logoColor=white"/>
   <img src="https://img.shields.io/badge/css3-000?style=for-the-badge&logo=css3&logoColor=white"/>
-  <img src="https://img.shields.io/badge/PostgreSQL-7f1d1d?style=for-the-badge&logo=postgresql&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Microsoft_Azure-000?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>  
+  <img src="https://img.shields.io/badge/Microsoft_Azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white"/>  
 </div>
 
 ## 🔨 Ferramentas
