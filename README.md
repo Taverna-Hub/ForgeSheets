@@ -51,14 +51,15 @@ Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para j
 
 - <strong> Backlog </strong>
 
-  <img src="https://github.com/Taverna-Hub/ForgeSheets/blob/main/backlog.png"  />
+![Backlog](https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/5d5905b3-ec45-4257-8c98-7193c315c8c9)
 
 <br/>
 <br/>
   
 - <strong> Board </strong>
 
-  <img src="https://github.com/Taverna-Hub/ForgeSheets/blob/main/board.png" />
+![Board](https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/19a74ee6-9026-4e66-9f26-bf19cfb8b945)
+
 
 ## 👥 Equipe
 <table>
