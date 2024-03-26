@@ -1,0 +1,124 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}  
+
+:root {
+  --red: #DC2626;
+  --white: #f7f7f7;
+  --gray-200: #e5e7eb;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+button:hover {
+  filter: brightness(0.9);
+  transition: all .3s;
+}
+
+input {
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+
+  background-image: url('https://i.imgur.com/hB35S2o.png');
+  background-size: cover;
+}
+
+.left {
+  width: 90%;
+}
+
+.right {
+  background-color: rgba(105, 105, 105, 0.25);
+  color: var(--white);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 0 5%;
+  width: 58%;
+
+  margin-top: -5%;
+}
+
+.right img {
+  width: 70%;
+  margin: 10% 0;
+  align-self: center;
+}
+
+.right h3 {
+  font-size: 20px;
+  margin-bottom: 24px;
+}
+
+.right label {
+  display: block;
+  margin-top: 16px;
+  margin-bottom: 8px;
+
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.right input,.right button {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+}
+
+.right input {
+  background-color: var(--white);
+}
+
+.right button {
+  margin-top: 24px;
+  background-color: var(--red);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.right p {
+  text-align: center;
+  margin-top: 24px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.right p a {
+  color: var(--red);
+}
+
+@media (max-width: 1230px) {
+  main {
+    background-position: 30%, 0;
+  }
+}
+
+@media (max-width: 990px) {
+  .left {
+    width: 0;
+  }
+
+  .right {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(12px);
+  }
+}
+
+ 

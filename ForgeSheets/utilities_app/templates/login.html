@@ -1,4 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" href="{% static 'utilities_app/css/login.css' %}">
+{% endblock %}
 
 {% block 'title' %}
   Login
@@ -6,10 +11,22 @@
 
 {% block 'body' %}
   <main>
-    <section class="left"></section>
+    <section class="left">
+    </section>
     <section class="right">
-      <h1>LOGO</h1>
+      <img src="https://i.imgur.com/8vp9bCa_d.webp?maxwidth=760&fidelity=grand" alt="Logo ForgeSheets">
+      <h3>Acesse sua conta</h3>
+      
+      <form action="">
+        <label for="email">E-mail: </label>
+        <input type="text" id="email" name="email">
+  
+        <label for="password">Senha: </label>
+        <input type="text" id="email" name="password">
 
+        <button type="submit">ENTRAR</button>
+        <p>Ainda não tem uma conta? <a href="">Clique aqui</a> para cadastrar-se</p>
+      </form>
     </section>
   </main>
 {% endblock %}
