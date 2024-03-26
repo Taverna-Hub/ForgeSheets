@@ -29,7 +29,7 @@ def login(request):
 		username = request.POST.get('username')
 		password = request.POST.get('password')
 		
-		user = autenticate(username=username, password=password)
+		user = authenticate(username=username, password=password)
 
 		if user:
 			login_django(request, user)
