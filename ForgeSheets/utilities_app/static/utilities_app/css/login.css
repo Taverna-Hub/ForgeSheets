@@ -46,7 +46,7 @@ section {
   width: 100%;
 
   background-image: url('https://pbs.twimg.com/media/GJrI9rRWEAAyRlN?format=jpg&name=large');
-  background-size: 100% 100%;
+  background-size: cover;
   visibility: hidden;
 }
 
@@ -59,7 +59,8 @@ section {
   top: 0;
 
   background-image: url('https://pbs.twimg.com/media/GJraM6fWAAELGCm?format=jpg&name=large');
-  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .left {
