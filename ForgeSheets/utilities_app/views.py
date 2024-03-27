@@ -15,7 +15,7 @@ def sign(request):
         elif 'register' in request.POST:
             return register(request, username, email, password)
     else:
-        return render(request, 'sign.html')
+        return render(request, 'utilitites_app/sign.html')
 
 
 def register(request, username, email, password):
