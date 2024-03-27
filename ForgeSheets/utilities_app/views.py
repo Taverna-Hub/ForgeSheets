@@ -7,10 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 def sign(request):
     if request.method == "POST":
+        username = request.POST.get('user')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
         if 'login' in request.POST: 
-            return login(request, request.POST.get('user'), request.POST.get('password'))
+            return login(request, username, password)
         elif 'register' in request.POST:
-            return register(request, request.POST.get('user'), request.POST.get('email'), request.POST.get('password'))
+            return register(request, username, email, password)
     else:
         return render(request, 'sign.html')
 
