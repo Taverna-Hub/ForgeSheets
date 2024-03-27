@@ -4,9 +4,13 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_django
 from django.contrib.auth.decorators import login_required
+from django.views import View
 
-def sign(request):
-    if request.method == "POST":
+class SignView(View):
+    def get(self, request):
+        return render(request, 'utilitites_app/sign.html')
+    
+    def post(self, request):
         username = request.POST.get('user')
         password = request.POST.get('password')
         email = request.POST.get('email')
@@ -14,9 +18,6 @@ def sign(request):
             return login(request, username, password)
         elif 'register' in request.POST:
             return register(request, username, email, password)
-    else:
-        return render(request, 'utilitites_app/sign.html')
-
 
 def register(request, username, email, password):
     user = User.objects.filter(username=username).first()
