@@ -44,7 +44,6 @@ section {
   display: flex;  
   height: 100%;
   width: 100%;
-
   background-image: url('https://pbs.twimg.com/media/GJrI9rRWEAAyRlN?format=jpg&name=large');
   background-size: cover;
   visibility: hidden;
@@ -54,13 +53,13 @@ section {
   display: flex;
   height: 100%;
   width: 100%;
-
   position: absolute;
   top: 0;
-
   background-image: url('https://pbs.twimg.com/media/GJraM6fWAAELGCm?format=jpg&name=large');
-  background-repeat: no-repeat;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-color: black;
+
 }
 
 .left {
