@@ -27,11 +27,13 @@ class SignView(View):
         elif 'register' in request.POST:
             register_result = register(username, email, password)
             if register_result == 1:
-                messages.success(request, 'Usuário cadastrado com sucesso!')
+                messages.success(request, 'Usuário cadastrado com sucesso')
                 return redirect('utilities:sign')
             elif register_result == 0:
-                messages.error(request, 'Usuário já cadastrado!')
-                return HttpResponse('Usuário já cadastrado!')
+                messages.error(request, 'Usuário inválido')
+                ctx = {'email': email, 'cadastro': 1}
+                return render(request, 'utilitites_app/sign.html', ctx)
             elif register_result == 2:
-                messages.error(request, 'E-mail  já cadastrado!')
-                return HttpResponse('E-mail já cadastrado!')
+                messages.error(request, 'E-mail inválido')
+                ctx = {'username': username, 'cadastro': 1}
+                return render(request, 'utilitites_app/sign.html', ctx)
