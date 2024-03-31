@@ -18,9 +18,10 @@ class SignView(View):
         if 'login' in request.POST: 
             login_result = login(request, username, password)
             if login_result == 1:
+                messages.success(request, 'Logado com sucesso!')
                 return HttpResponse('Logado com sucesso!')
             elif login_result == 0:
-                messages.success(request, 'Usuário ou senha inválidos')
+                messages.error(request, 'Usuário ou senha inválidos')
                 return redirect('utilities:sign')
 
         elif 'register' in request.POST:
@@ -29,6 +30,8 @@ class SignView(View):
                 messages.success(request, 'Usuário cadastrado com sucesso!')
                 return redirect('utilities:sign')
             elif register_result == 0:
+                messages.error(request, 'Usuário já cadastrado!')
                 return HttpResponse('Usuário já cadastrado!')
             elif register_result == 2:
+                messages.error(request, 'E-mail  já cadastrado!')
                 return HttpResponse('E-mail já cadastrado!')
