@@ -23,6 +23,10 @@ class SignView(View):
             elif login_result == 0:
                 messages.error(request, 'Usuário ou senha inválidos')
                 return redirect('utilities:sign')
+            elif login_result == 2:
+                ctx = {'username': username}
+                messages.error(request, 'Preencha todos os campos')
+                return render(request, 'utilitites_app/sign.html', ctx)
 
         elif 'register' in request.POST:
             register_result = register(username, email, password)

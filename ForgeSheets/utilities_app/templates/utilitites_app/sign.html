@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block 'head' %}
-  <link rel="stylesheet" type="text/css" href="{% static 'utilities_app/css/login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'utilities_app/css/sign.css' %}">
   <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 {% endblock %}
 
@@ -21,7 +21,7 @@
         {% for message in messages %}
         <div class="toast {{ message.tags }}">
           {% if message.tags  == 'success' %}
-           <svg
+          <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"
@@ -58,9 +58,9 @@
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
-          <input type="text" id="user" name="user">
+          <input type="text" id="user" name="user" value="{{username}}" required>
           <label for="password">Senha: </label>
-          <input type="password" id="password" name="password">
+          <input type="password" id="password" name="password" required>
           <input type="hidden" name="login">
           <button type="submit">ENTRAR</button>
           <p>Ainda não tem uma conta? <span class="registerAnchor">Clique aqui</span> para cadastrar-se</p>

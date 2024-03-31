@@ -29,6 +29,9 @@ def register(username, email, password):
 def login(request, username, password):
     user = authenticate(username=username, password=password)
 
+    if len(username) < 1 or len(password) < 1:
+        return 2
+
     if user:
         login_django(request, user)
         return 1
