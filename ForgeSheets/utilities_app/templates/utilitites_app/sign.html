@@ -18,7 +18,43 @@
       <section class="right">
         <img src="https://i.imgur.com/8vp9bCa_d.webp?maxwidth=760&fidelity=grand" alt="Logo ForgeSheets">
         <h3>Acesse sua conta</h3>
-        
+        {% for message in messages %}
+        <div class="toast {{ message.tags }}">
+          {% if message.tags  == 'success' %}
+           <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-circle-check"
+            ><circle cx="12" cy="12" r="10"/>
+            <path
+              d="m9 12 2 2 4-4"
+            />
+          </svg>
+
+          {% elif message.tags == 'error' %}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-alert"
+          ><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+          {% endif %}
+          <span>{{ message }}</span>
+        </div>
+        {% endfor %}
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
@@ -42,11 +78,11 @@
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
-          <input type="text" id="user" name="user">
+          <input type="text" id="user" name="user" value="{{username}}" required>
           <label for="email">E-mail: </label>
-          <input type="email" id="email" name="email">
+          <input type="email" id="email" name="email" value="{{email}}" required>
           <label for="password">Senha: </label>
-          <input type="password" id="password" name="password">
+          <input type="password" id="password" name="password" required>
           <input type="hidden" name="register">
           <button type="submit">CADASTRAR</button>
           <p>Já tem uma conta? <span class="loginAnchor">Clique aqui</span> para fazer login</p>

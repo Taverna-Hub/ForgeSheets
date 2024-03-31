@@ -2,8 +2,9 @@ from django.views import View
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
 from .utils import register, login
+from django.urls import reverse
 
 class SignView(View):
     def get(self, request):
@@ -17,15 +18,22 @@ class SignView(View):
         if 'login' in request.POST: 
             login_result = login(request, username, password)
             if login_result == 1:
+                messages.success(request, 'Logado com sucesso!')
                 return HttpResponse('Logado com sucesso!')
             elif login_result == 0:
-                return HttpResponse('Usuário ou senha inválidos!')
+                messages.error(request, 'Usuário ou senha inválidos')
+                return redirect('utilities:sign')
 
         elif 'register' in request.POST:
             register_result = register(username, email, password)
             if register_result == 1:
-                return HttpResponse('Cadastrado com sucesso!')
+                messages.success(request, 'Usuário cadastrado com sucesso')
+                return redirect('utilities:sign')
             elif register_result == 0:
-                return HttpResponse('Usuário já cadastrado!')
+                messages.error(request, 'Usuário inválido')
+                ctx = {'email': email, 'cadastro': 1}
+                return render(request, 'utilitites_app/sign.html', ctx)
             elif register_result == 2:
-                return HttpResponse('E-mail já cadastrado!')
+                messages.error(request, 'E-mail inválido')
+                ctx = {'username': username, 'cadastro': 1}
+                return render(request, 'utilitites_app/sign.html', ctx)
