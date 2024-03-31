@@ -44,9 +44,9 @@ section {
   display: flex;  
   height: 100%;
   width: 100%;
-  background-image: url('https://pbs.twimg.com/media/GJrI9rRWEAAyRlN?format=jpg&name=large');
+  background-image: url('https://pbs.twimg.com/media/GKBB7s4WAAAA2FQ?format=jpg&name=large');
   background-size: cover;
-  visibility: hidden;
+  
 }
 
 #register {
@@ -58,6 +58,7 @@ section {
   background-image: url('https://pbs.twimg.com/media/GJraM6fWAAELGCm?format=jpg&name=large');
   background-size: cover;
   background-repeat: no-repeat;
+  visibility: hidden;
   background-color: black;
 
 }
