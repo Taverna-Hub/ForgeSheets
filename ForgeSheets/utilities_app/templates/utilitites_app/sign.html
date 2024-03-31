@@ -18,7 +18,8 @@
       <section class="right">
         <img src="https://i.imgur.com/8vp9bCa_d.webp?maxwidth=760&fidelity=grand" alt="Logo ForgeSheets">
         <h3>Acesse sua conta</h3>
-        
+        {% for message in messages %}
+        {% endfor %}
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
