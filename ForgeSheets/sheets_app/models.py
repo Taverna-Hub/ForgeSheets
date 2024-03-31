@@ -1,7 +1,32 @@
 from django.db import models
 from django.core.validators import MinValueValidator
-class Sheet:
-    pass
+
+class Race(models.Model):
+     pass
+
+class Sheet(models.Models):
+     name = models.CharField(max_lenght=75)
+     image = models.URLField()
+     race = models.ForeignKey(Race, on_delete=models.CASCADE)
+     role = models.CharField(max_lenght=75)
+
+     strength = models.IntegerField(validators=[MinValueValidator(1)])
+     intelligence = models.IntegerField(validators=[MinValueValidator(1)])
+     wisdom = models.IntegerField(validators=[MinValueValidator(1)])
+     charisma = models.IntegerField(validators=[MinValueValidator(1)])
+     constitution = models.IntegerField(validators=[MinValueValidator(1)])
+     speed = models.IntegerField(validators=[MinValueValidator(1)])
+
+     healthPoint =  models.IntegerField(validators=[MinValueValidator(0)])
+     healthPointMax = models.IntegerField(validatores=[MinValueValidator(1)])
+     mana = models.IntegerField(validators=[MinValueValidator(0)])
+     manaMax = models.IntegerField(validators=[MinValueValidator(1)])
+     exp = models.IntegerField(validators=[MinValueValidator(0)])
+     expMax = models.IntegerField(validators=[MinValueValidator(1)])
+
+     notes = models.TextField(default='')
+     description = models.TextField(default='')
+
 class Equipment(models.Model):
     name = models.CharField(max_length=55)
     quantity = models.IntegerField(validators=[MinValueValidator(1)])
