@@ -63,7 +63,7 @@
           <input type="password" id="password" name="password" required>
           <input type="hidden" name="login">
           <button type="submit">ENTRAR</button>
-          <p>Ainda não tem uma conta? <span class="registerAnchor">Clique aqui</span> para cadastrar-se</p>
+          <p class="footerzinho">Ainda não tem uma conta? <span class="registerAnchor">Clique aqui</span> para cadastrar-se</p>
         </form>
       </section>
     </section>
@@ -78,14 +78,14 @@
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
-          <input type="text" id="user" name="user" value="{{username}}" required>
+          <input type="text" id="user" name="user" value="{{username}}">
           <label for="email">E-mail: </label>
           <input type="email" id="email" name="email" value="{{email}}" required>
           <label for="password">Senha: </label>
           <input type="password" id="password" name="password" required>
           <input type="hidden" name="register">
           <button type="submit">CADASTRAR</button>
-          <p>Já tem uma conta? <span class="loginAnchor">Clique aqui</span> para fazer login</p>
+          <p class="footerzinho">Já tem uma conta? <span class="loginAnchor">Clique aqui</span> para fazer login</p>
         </form>
       </section>
     </section>
