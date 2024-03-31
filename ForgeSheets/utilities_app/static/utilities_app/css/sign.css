@@ -47,25 +47,31 @@ a {
 }
 
 main {
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   width: 100vw;
 
-  overflow: hidden;
   position: relative;
 }
 
 #login {
   display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
   height: 100%;
+  max-width: 100vw;
   width: 100%;
   background-image: url('https://pbs.twimg.com/media/GKBB7s4WAAAA2FQ?format=jpg&name=large');
   background-size: cover;
-
+  background-repeat: no-repeat;
 }
 
 #register {
   display: flex;
+  justify-content: space-between;
+  min-height: 100vh;
   height: 100%;
+  max-width: 100vw;
   width: 100%;
   position: absolute;
   top: 0;
@@ -74,11 +80,6 @@ main {
   background-repeat: no-repeat;
   visibility: hidden;
   background-color: black;
-
-}
-
-.left {
-  width: 90%;
 }
 
 .right {
@@ -88,17 +89,17 @@ main {
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
 
-  padding: 0 5%;
-  width: 58%;
-
-  margin-top: -5%;
+  width: 40%;
+  min-height: 100vh;
+  height: 100%;
+  padding: 5%;
+  border: 1px solid red;
 }
 
 .right img {
-  width: 70%;
-  margin: 10% 0;
+  width: 60%;
+  margin: 0 0 10%;
   align-self: center;
 }
 
