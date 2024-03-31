@@ -143,6 +143,12 @@ main {
   cursor: pointer;
 }
 
+.right p span:hover {
+  text-decoration: underline;
+  filter: brightness(1.2);
+}
+
+
 @media (max-width: 1230px) {
   main {
     background-position: 30%, 0;
