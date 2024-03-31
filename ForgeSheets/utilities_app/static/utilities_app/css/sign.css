@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat'
 }
 
 :root {
   --red-600: #DC2626;
+  --red-700: #b91c1c;
   --green-500: #22c55e;
   --white: #f7f7f7;
   --gray-200: #e5e7eb;
@@ -30,7 +34,6 @@ button {
 }
 
 button:hover {
-  filter: brightness(0.9);
   transition: all .3s;
 }
 
@@ -108,8 +111,7 @@ main {
   display: block;
   margin-top: 16px;
   margin-bottom: 8px;
-
-  font-weight: 500;
+  font-weight: bold;
   font-size: 14px;
 }
 
@@ -131,6 +133,10 @@ main {
   font-weight: 700;
 }
 
+.right button:hover {
+  background-color: var(--red-700);
+}
+
 .right p {
   text-align: center;
   margin-top: 24px;
@@ -148,6 +154,9 @@ main {
   filter: brightness(1.2);
 }
 
+.footerzinho {
+  font-weight: bold;
+}
 
 @media (max-width: 1230px) {
   main {
