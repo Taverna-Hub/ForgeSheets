@@ -9,7 +9,7 @@ from sheets_app.models import Sheet
 
 class SignView(View):
     def get(self, request):
-        return render(request, 'utilitites_app/sign.html')
+        return render(request, 'utilities_app/sign.html')
     
     def post(self, request):
         password = request.POST.get('password')
@@ -27,7 +27,7 @@ class SignView(View):
             elif login_result == 2:
                 ctx = {'usernameL': username}
                 messages.error(request, 'Preencha todos os campos')
-                return render(request, 'utilitites_app/sign.html', ctx)
+                return render(request, 'utilities_app/sign.html', ctx)
 
         elif 'register' in request.POST:
             username = request.POST.get('userR')
@@ -38,12 +38,12 @@ class SignView(View):
             elif register_result == 0:
                 messages.error(request, 'Usuário inválido')
                 ctx = {'email': email, 'cadastro': 1}
-                return render(request, 'utilitites_app/sign.html', ctx)
+                return render(request, 'utilities_app/sign.html', ctx)
             elif register_result == 2:
                 messages.error(request, 'E-mail inválido')
                 ctx = {'usernameR': username, 'cadastro': 1}
-                return render(request, 'utilitites_app/sign.html', ctx)
+                return render(request, 'utilities_app/sign.html', ctx)
             elif register_result == 3:
                 messages.error(request, 'Preencha todos os campos')
                 ctx = {'usernameR': username, 'email': email, 'cadastro': 1}
-                return render(request, 'utilitites_app/sign.html', ctx)
+                return render(request, 'utilities_app/sign.html', ctx)
