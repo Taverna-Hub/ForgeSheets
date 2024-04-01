@@ -3,5 +3,6 @@ from . import views
 
 app_name = 'sheets'
 urlpatterns = [
-    path('', views.Sheets.as_view(), name="createsheets")
+    path('', views.Sheets.as_view(), name="homesheets"),
+    path('create/', views.CreateSheet.as_view(), name="createsheets"),
 ]

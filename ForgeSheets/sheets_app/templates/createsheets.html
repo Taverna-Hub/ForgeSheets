@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
+  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+  <title>Ciar fichas | ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+
+<section> 
+    <form action="{% url 'sheets:createsheets' %}" method="post">
+        <label for="name">Nome: </label>
+        <input type="text" name="name">
+        <label for="image">foto do personagem: </label>
+        <input type="url" name="image">
+        <label for="race">Raça do personagem: </label>
+        <input type="text" name="rece">
+        <label for="'"
+    </form>
+</section>
+
+{% endblock %}

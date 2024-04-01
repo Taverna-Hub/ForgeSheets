@@ -5,7 +5,11 @@ from django.http import HttpResponse
 class Sheets(View):
 
     def get(self, request):
-        return render(request, 'a.html')
+        return render(request, 'sheets.html')
     
     def post(self, request):
         pass
+
+class CreateSheet(View):
+    def get(self, request):
+        return render(request, 'createsheets.html')
