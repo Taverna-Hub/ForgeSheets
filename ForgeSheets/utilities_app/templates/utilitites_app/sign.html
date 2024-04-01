@@ -58,7 +58,7 @@
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
-          <input type="text" id="user" name="user" value="{{username}}" required>
+          <input type="text" id="user" name="userL" value="{{usernameL}}" required>
           <label for="password">Senha: </label>
           <input type="password" id="password" name="password" required>
           <input type="hidden" name="login">
@@ -78,7 +78,7 @@
         <form action="{% url 'utilities:sign' %}" method="POST">
           {% csrf_token %}
           <label for="user">Usuário: </label>
-          <input type="text" id="user" name="user" value="{{username}}">
+          <input type="text" id="user" name="userR" value="{{usernameR}}" required>
           <label for="email">E-mail: </label>
           <input type="email" id="email" name="email" value="{{email}}" required>
           <label for="password">Senha: </label>

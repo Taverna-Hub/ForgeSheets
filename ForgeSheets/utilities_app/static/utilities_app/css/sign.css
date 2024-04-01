@@ -179,7 +179,7 @@ main {
 
 .toast {
   position: absolute;
-  top: 10%;
+  top: 16px;
   right: 16px;
 
   display: flex;

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 
 class Race(models.Model):
@@ -13,6 +14,7 @@ class Race(models.Model):
 class Sheet(models.Model):
     name = models.CharField(max_length=75)
     image = models.URLField()
+
     race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
     role = models.CharField(max_length=75)
 
@@ -32,6 +34,8 @@ class Sheet(models.Model):
 
     notes = models.TextField(default='')
     description = models.TextField(default='')
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 class Equipment(models.Model):
     name = models.CharField(max_length=55)
