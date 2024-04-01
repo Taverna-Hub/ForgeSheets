@@ -7,4 +7,5 @@ from utilities_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('utilities_app.urls')),
+    path('campaign/', include('campaigns_app.urls')),
 ]
