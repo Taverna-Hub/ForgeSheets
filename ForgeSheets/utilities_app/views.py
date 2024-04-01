@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .utils import register, login
 from django.urls import reverse
+from sheets_app.models import Sheet
 
 class SignView(View):
     def get(self, request):
