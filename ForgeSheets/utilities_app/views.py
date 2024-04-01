@@ -11,11 +11,11 @@ class SignView(View):
         return render(request, 'utilitites_app/sign.html')
     
     def post(self, request):
-        username = request.POST.get('user')
         password = request.POST.get('password')
         email = request.POST.get('email')
 
         if 'login' in request.POST: 
+            username = request.POST.get('userL')
             login_result = login(request, username, password)
             if login_result == 1:
                 messages.success(request, 'Logado com sucesso!')
@@ -24,11 +24,12 @@ class SignView(View):
                 messages.error(request, 'Usuário ou senha inválidos')
                 return redirect('utilities:sign')
             elif login_result == 2:
-                ctx = {'username': username}
+                ctx = {'usernameL': username}
                 messages.error(request, 'Preencha todos os campos')
                 return render(request, 'utilitites_app/sign.html', ctx)
 
         elif 'register' in request.POST:
+            username = request.POST.get('userR')
             register_result = register(username, email, password)
             if register_result == 1:
                 messages.success(request, 'Usuário cadastrado com sucesso')
@@ -39,9 +40,9 @@ class SignView(View):
                 return render(request, 'utilitites_app/sign.html', ctx)
             elif register_result == 2:
                 messages.error(request, 'E-mail inválido')
-                ctx = {'username': username, 'cadastro': 1}
+                ctx = {'usernameR': username, 'cadastro': 1}
                 return render(request, 'utilitites_app/sign.html', ctx)
             elif register_result == 3:
                 messages.error(request, 'Preencha todos os campos')
-                ctx = {'username': username, 'email': email, 'cadastro': 1}
+                ctx = {'usernameR': username, 'email': email, 'cadastro': 1}
                 return render(request, 'utilitites_app/sign.html', ctx)
