@@ -1,15 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
+from django.db.models import Sum
 
 class Race(models.Model):
     name = models.CharField(max_length=75)
-    strength_buff = models.IntegerField(validators=[MinValueValidator(1)])
-    intelligence_buff = models.IntegerField(validators=[MinValueValidator(1)])
-    wisdom_buff = models.IntegerField(validators=[MinValueValidator(1)])
-    charisma_buff = models.IntegerField(validators=[MinValueValidator(1)])
-    constitution_buff = models.IntegerField(validators=[MinValueValidator(1)])
-    speed_buff = models.IntegerField(validators=[MinValueValidator(1)])
+    strength_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    intelligence_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    wisdom_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
 
 class Sheet(models.Model):
     name = models.CharField(max_length=75)
@@ -36,6 +37,13 @@ class Sheet(models.Model):
     description = models.TextField(default='')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def totalAtkDef(self):
+        total = {
+            'atk': Equipment.objects.filter(sheet=self).aggregate(total_atk=Sum('attack'))['total_atk'] or 0,
+            'def': Equipment.objects.filter(sheet=self).aggregate(total_def=Sum('defense'))['total_def'] or 0
+        }
+        return total
 
 class Equipment(models.Model):
     name = models.CharField(max_length=55)
