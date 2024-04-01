@@ -12,3 +12,12 @@ section {
     overflow: hidden;
     height: fit-content;
   }
+
+.atributos{
+  background-color: rgb(230, 230, 230);
+  padding: 32px;
+}
+.status{
+  background-color: rgb(76, 197, 65);
+  padding: 32px;
+}

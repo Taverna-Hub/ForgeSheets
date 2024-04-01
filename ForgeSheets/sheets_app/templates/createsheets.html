@@ -11,42 +11,52 @@
 
 <section> 
     <section class="sheet">
-    <form action="{% url 'sheets:createsheets' %}" method="post">
-        <label for="name">Nome: </label>
-        <input type="text" name="name">
-        <br>
-        <label for="image">foto do personagem: </label>
-        <input type="url" name="image">
-        <br>
-        <label for="race">Raça do personagem: </label>
-        <input type="text" name="race">
-        <br>
-        <label for="role">classe do personagem: </label>
-        <input type="text" name="role">
-        
-        
-        <div class="atributos">
+        <form action="{% url 'sheets:createsheets' %}" method="post">
+            <label for="name">Nome: </label>
+            <input type="text" name="name">
+            <br>
+            <label for="image">foto do personagem: </label>
+            <input type="url" name="image">
+            <br>
+            <label for="race">Raça do personagem: </label>
+            <input type="text" name="race">
+            <br>
+            <label for="role">classe do personagem: </label>
+            <input type="text" name="role">
 
-            <label for="strength">Força: </label>
-            <input type="text" name="strength">
-            <br>
-            <label for="intelligence">Inteligencia: </label>
-            <input type="text" name="intelligence">
-            <br>
-            <label for="wisdom">Sabedoria: </label>
-            <input type="text" name="wisdom">
-            <br>
-            <label for="charisma">Carisma: </label>
-            <input type="text" name="charisma">
-            <br>
-            <label for="constitution">Contituição: </label>
-            <input type="text" name="constitution">
-            <br>
-            <label for="speed">Velocidade: </label>
-            <input type="text" name="speed">
+            <div class="status">
+                <label for="healthPointMax">vida do personagem: </label>
+                <input type="number" name="healthPointMax">
+                <br>
+                <label for="manaMax">mana do personagem: </label>
+                <input type="number" name="manaMax">
+                <br>
+            </div>
+            
+            
+            <div class="atributos">
 
-        </div>
-    </form>
+                <label for="strength">Força: </label>
+                <input type="number" name="strength">
+                <br>
+                <label for="intelligence">Inteligencia: </label>
+                <input type="number" name="intelligence">
+                <br>
+                <label for="wisdom">Sabedoria: </label>
+                <input type="number" name="wisdom">
+                <br>
+                <label for="charisma">Carisma: </label>
+                <input type="number" name="charisma">
+                <br>
+                <label for="constitution">Contituição: </label>
+                <input type="number" name="constitution">
+                <br>
+                <label for="speed">Velocidade: </label>
+                <input type="number" name="speed">
+            </div>
+            
+            <button>CRIAR</button>
+        </form>
     </section>
 </section>
 
