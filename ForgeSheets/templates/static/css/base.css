@@ -67,4 +67,5 @@ main {
   background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  position: fixed;
 }
