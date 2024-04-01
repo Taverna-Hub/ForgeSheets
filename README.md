@@ -1,7 +1,5 @@
-<p align="center">
-  
-  ![gitbanner](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/bce9fab9-36e2-4201-aa1a-dfdaab6590e8)
-</p>
+![gitbanner](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/bce9fab9-36e2-4201-aa1a-dfdaab6590e8)
+
 Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para jogos de RPG (Role-Playing Game).</b> Utilizando o framework <b>Django</b>, a aplicação será construída com o objetivo de oferecer à comunidade de jogadores uma plataforma intuitiva e funcional para a elaboração e administração de personagens para suas aventuras.
 
 ---
