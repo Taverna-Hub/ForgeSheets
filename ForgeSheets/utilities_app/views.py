@@ -41,3 +41,7 @@ class SignView(View):
                 messages.error(request, 'E-mail inválido')
                 ctx = {'username': username, 'cadastro': 1}
                 return render(request, 'utilitites_app/sign.html', ctx)
+            elif register_result == 3:
+                messages.error(request, 'Preencha todos os campos')
+                ctx = {'username': username, 'email': email, 'cadastro': 1}
+                return render(request, 'utilitites_app/sign.html', ctx)
