@@ -11,6 +11,9 @@ class Race(models.Model):
     charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
     constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
     speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    
+    def __str__(self) -> str:
+        return self.name
 
 class Sheet(models.Model):
     name = models.CharField(max_length=75)
@@ -38,12 +41,12 @@ class Sheet(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # def totalAtkDef(self):
-    #     total = {
-    #         'atk': Equipment.objects.filter(sheet=self).aggregate(total_atk=Sum('attack'))['total_atk'] or 0,
-    #         'def': Equipment.objects.filter(sheet=self).aggregate(total_def=Sum('defense'))['total_def'] or 0
-    #     }
-    #     return total
+    def totalAtkDef(self):
+        total = {
+            'atk': Equipment.objects.filter(sheet=self).aggregate(total_atk=Sum('attack'))['total_atk'] or 0,
+            'def': Equipment.objects.filter(sheet=self).aggregate(total_def=Sum('defense'))['total_def'] or 0
+        }
+        return total
 
 class Equipment(models.Model):
     name = models.CharField(max_length=55)
@@ -51,10 +54,3 @@ class Equipment(models.Model):
     attack = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     defense = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
-    
-    def totalAtkDef(self):
-        total = {
-            'atk': Equipment.objects.filter(sheet=self).aggregate(total_atk=Sum('attack'))['total_atk'] or 0,
-            'def': Equipment.objects.filter(sheet=self).aggregate(total_def=Sum('defense'))['total_def'] or 0
-        }
-        return total

@@ -4,16 +4,19 @@ from django.http import HttpResponse
 from .models import Equipment, Sheet
 from .utils import save_equipment
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+@login_required
 class Sheets(View):
     def get(self, request):
         return render(request, 'sheets.html')
-    
+@login_required
 class CreateSheet(View):
     def get(self, request):
         return render(request, 'createsheets.html')
     
     def post(self, request):
+        
         name = request.POST.get('name')
         image = request.POST.get('image')
 
@@ -37,12 +40,12 @@ class CreateSheet(View):
         notes = request.POST.get('notes')
         description = request.POST.get('description')
  
-        user = request.POST.get('user')
+        user_id = request.user.id
 
-        sheet = Sheets(
+        sheet = Sheet(
             name = name, 
             image = image,
-            race = race,
+            race_id = race,
             role = role,
             strength = strength,
             intelligence = intelligence,
@@ -50,18 +53,21 @@ class CreateSheet(View):
             charisma = charisma,
             constitution = constitution,
             speed = speed,
-            healthPoint = healthPoint,
+            healthPoint = healthPointMax,
             healthPointMax = healthPointMax,
-            mana = mana,
+            mana = manaMax,
             manaMax = manaMax,
-            exp = exp,
+            exp = expMax,
             expMax = expMax,
-            notes = notes,
-            description = description,
-            user = user,
+            notes = '',
+            description = '',
+            user_id = user_id,
         )
         sheet.save()
         return HttpResponse('Ficha salva com sucesso!')
+    
+
+@login_required
 class AddEquipmentView(View):
 
     # TO DO: Tratar se um equipamento já existe
@@ -101,20 +107,21 @@ class AddEquipmentView(View):
         elif addEquipmentResult == 1:
             messages.success(request, 'Equipamento adicionado com sucesso')
             return redirect('sheets:list_equipment')
-
+@login_required
 class DelEquipmentView(View):
     def post(self, request, id):
         equipment = Equipment.objects.get(id=id)
         equipment.delete()
         messages.error(request, 'Equipamento deletado com sucesso')
         return redirect('sheets:list_equipment')
-    
+@login_required  
 class ListEquipmentView(View):
     def get(self, request):
         equipments = Equipment.objects.all()
         ctx = {'equipments': equipments}
         return render(request, 'sheets_app/testEquipment2.html', ctx)
-
+    
+@login_required
 class EditEquipmentView(View):
 
     # TO DO: Tratar se um equipamento já existe

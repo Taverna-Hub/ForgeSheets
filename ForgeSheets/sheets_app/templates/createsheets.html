@@ -22,7 +22,13 @@
             <input type="url" name="image">
             <br>
             <label for="race">Raça do personagem: </label>
-            <input type="text" name="race" id="race" required>
+            <select name="race" id="race" required>
+                <option value=1>Humano</option>
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
             <br>
             <label for="role">classe do personagem: </label>
             <input type="text" name="role" id="role" required>
@@ -33,6 +39,9 @@
                 <br>
                 <label for="manaMax">mana do personagem: </label>
                 <input type="number" name="manaMax" id="manaMax" min="0" required>
+                <br>
+                <label for="expMax">XP: </label>
+                <input type="number" name="expMax" id="expMax">
                 <br>
             </div>
 
