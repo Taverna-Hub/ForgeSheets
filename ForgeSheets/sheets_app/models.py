@@ -35,7 +35,7 @@ class Sheet(models.Model):
     mana = models.IntegerField(validators=[MinValueValidator(0)])
     manaMax = models.IntegerField(validators=[MinValueValidator(1)])
     exp = models.IntegerField(validators=[MinValueValidator(0)])
-    expMax = models.IntegerField(validators=[MinValueValidator(1)])
+    expMax = models.IntegerField(validators=[MinValueValidator(1)], default=100)
 
     notes = models.TextField(default='')
     description = models.TextField(default='')
@@ -51,6 +51,27 @@ class Sheet(models.Model):
             'def': Equipment.objects.filter(sheet=self).aggregate(total_def=Sum('defense'))['total_def'] or 0
         }
         return total
+    
+    def updateXp(self):
+        exp = int(self.exp)
+        expMax = int(self.expMax)
+
+        while exp >= expMax:
+            exp = exp - expMax
+            expMax = expMax*2
+
+        self.exp = int(exp)
+        self.expMax = int(expMax)
+
+    def level(self):
+        exp = self.exp
+        expMax = self.expMax
+        level = 0
+        while exp >= expMax:
+            exp -= expMax
+            level += 1
+            expMax *= 2
+        return level
 
 class Equipment(models.Model):
     name = models.CharField(max_length=55)

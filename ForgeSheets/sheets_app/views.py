@@ -21,19 +21,16 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = request.POST.get('race')
         role = request.POST.get('role')
 
-        strength = request.POST.get('strength')
-        intelligence = request.POST.get('intelligence')
-        wisdom = request.POST.get('wisdom')
-        charisma = request.POST.get('charisma')
-        constitution = request.POST.get('constitution')
-        speed = request.POST.get('speed')
+        strength = int(request.POST.get('strength'))
+        intelligence = int(request.POST.get('intelligence'))
+        wisdom = int(request.POST.get('wisdom'))
+        charisma = int(request.POST.get('charisma'))
+        constitution = int(request.POST.get('constitution'))
+        speed = int(request.POST.get('speed'))
 
-        healthPoint = request.POST.get('healthPoint')
-        healthPointMax = request.POST.get('healthPointMax')
-        mana = request.POST.get('mana')
-        manaMax = request.POST.get('manaMax')
-        exp = request.POST.get('exp')
-        expMax = request.POST.get('expMax')
+        healthPointMax = int(request.POST.get('healthPointMax'))
+        manaMax = int(request.POST.get('manaMax'))
+        exp = int(request.POST.get('exp'))
 
         notes = request.POST.get('notes')
         description = request.POST.get('description')
@@ -55,12 +52,13 @@ class CreateSheetView(LoginRequiredMixin, View):
             healthPointMax = healthPointMax,
             mana = manaMax,
             manaMax = manaMax,
-            exp = expMax,
-            expMax = expMax,
+            exp = exp,
             notes = '',
             description = '',
             user_id = user_id,
         )
+        sheet.save()
+        sheet.updateXp()
         sheet.save()
         return HttpResponse('Ficha salva com sucesso!')
 class AddEquipmentView(LoginRequiredMixin, View):
