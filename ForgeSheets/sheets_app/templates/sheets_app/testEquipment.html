@@ -12,23 +12,23 @@
             <p style="color: red;">{{message}}</p>
 
         {% endfor %}
-        <form action="{% url "sheets:add_equipment" %}" method='POST'>
+        <form action="{% url 'sheets:add_equipment' %}" method='POST'>
             {% csrf_token %}
             <label for="name">Nome do equipamento:</label>
             <input type="text" name="name" value="{{name}}" required>
             <label for="quantity">Quantidade:</label>
 
             {% if quantity %}
-              <input type="number" name="quantity" value={{quantity}} required>
+            <input type="number" name="quantity" value={{quantity}} required>
             {% else %}
-              <input type="number" name="quantity" value=1>
+            <input type="number" name="quantity" value=1>
             {% endif %}
 
             <label for="attack">Pontos de ataque:</label>
-            <input type="number" name="attack" value="{{attack}}" required>
+            <input type="number" name="attack" value={{attack}} required>
             <label for="defense">Pontos de defesa</label>
-            <input type="number" name="defense" value="{{defense}}" required>
-            <input type="hidden" name="sheet" value="1">
+            <input type="number" name="defense" value={{defense}} required>
+            <input type="hidden" name="sheet" value=1>
             <input type="submit" value="Enviar">
         </form>
     </div>

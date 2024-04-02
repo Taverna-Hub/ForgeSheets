@@ -6,6 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    {% for message in messages %}
+        <p style="color: green;">{{message}}</p>
+    {% endfor %}
     {% for equipment in equipments %}
         <div style="display: flex;">
             <p>Nome: {{equipment.name}} Quantidade: {{equipment.quantity}} Pontos de ataque: {{equipment.attack}} Pontos de defesa: {{equipment.defense}}</p>
@@ -20,5 +23,8 @@
             </form>
         </div>
     {% endfor %}
+    <a href="{% url 'sheets:add_equipment'%}">
+        Adicionar equipamento
+    </a>
 </body>
 </html>

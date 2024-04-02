@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet
-from .utils import equipment_check
+from .utils import save_equipment
 from django.contrib import messages
 
 class Sheets(View):
@@ -68,6 +68,7 @@ class AddEquipmentView(View):
 
     def get(self, request):
         return render(request, 'sheets_app/testEquipment.html')
+
     def post(self, request):
         name = request.POST.get('name')
         quantity = request.POST.get('quantity')
@@ -75,7 +76,8 @@ class AddEquipmentView(View):
         defense = request.POST.get('defense')
         sheet = request.POST.get('sheet')
 
-        addEquipmentResult = equipment_check(name, quantity, attack, defense, sheet)
+        addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
+
         if addEquipmentResult == 0:
             messages.error(request, 'Nome inválido')
             ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
@@ -96,23 +98,15 @@ class AddEquipmentView(View):
             messages.error(request, 'Utilize apenas números inteiros')
             ctx = {'name': name}
             return render(request, 'sheets_app/testEquipment.html', ctx)
-        else:
-            equipamento = Equipment(
-                name = name,
-                quantity = quantity,
-                attack = attack,
-                defense = defense,
-                sheet_id = sheet,
-            )
-
-            equipamento.save()
-
+        elif addEquipmentResult == 1:
+            messages.success(request, 'Equipamento adicionado com sucesso')
             return redirect('sheets:list_equipment')
-    
+
 class DelEquipmentView(View):
     def post(self, request, id):
         equipment = Equipment.objects.get(id=id)
         equipment.delete()
+        messages.error(request, 'Equipamento deletado com sucesso')
         return redirect('sheets:list_equipment')
     
 class ListEquipmentView(View):
@@ -120,28 +114,30 @@ class ListEquipmentView(View):
         equipments = Equipment.objects.all()
         ctx = {'equipments': equipments}
         return render(request, 'sheets_app/testEquipment2.html', ctx)
-    
-class EditEquipmentView(View):
-    
-    # TO DO: Tratar se um equipamento já existe
 
+class EditEquipmentView(View):
+
+    # TO DO: Tratar se um equipamento já existe
     def get(self, request, id):
         equipment = Equipment.objects.filter(id=id).first()
         if not equipment:
             return HttpResponse('Esse equipamento não existe')
         ctx = {'equipment': equipment}
         return render(request, 'sheets_app/testEquipment3.html', ctx)
+    
     def post(self, request, id):
         try:
             equipment = Equipment.objects.get(id=id)
         except:
             return HttpResponse('Esse equipamento não existe')
+        
         newName = request.POST.get('name')
         newQuantity = request.POST.get('quantity')
         newAttack = request.POST.get('attack')
         newDefense = request.POST.get('defense')
 
-        editEquipmentResult = equipment_check(newName, newQuantity, newAttack, newDefense, 0)
+        editEquipmentResult = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
+
         if editEquipmentResult == 0:
             messages.error(request, 'Nome inválido')
             ctx = {'quantity': newQuantity, 'attack': newAttack, 'defense': newDefense, 'equipment': equipment}
@@ -162,13 +158,6 @@ class EditEquipmentView(View):
             messages.error(request, 'Utilize apenas números inteiros')
             ctx = {'name': newName, 'equipment': equipment}
             return render(request, 'sheets_app/testEquipment3.html', ctx)
-        else:
-
-            equipment.name = newName
-            equipment.quantity = newQuantity
-            equipment.attack = newAttack
-            equipment.defense = newDefense
-
-            equipment.save()
-
+        elif editEquipmentResult == 1:
+            messages.success(request, 'Equipamento editado com sucesso')
             return redirect('sheets:list_equipment')
