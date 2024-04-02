@@ -8,17 +8,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'sheets.html')
+        return render(request, 'sheets_app/sheets.html')
     
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'createsheets.html')
+        return render(request, 'sheets_app/createsheets.html')
     
     def post(self, request):
         name = request.POST.get('name')
         image = request.POST.get('image')
 
-        race_id = request.POST.get('race')
+        race = request.POST.get('race')
         role = request.POST.get('role')
 
         strength = request.POST.get('strength')
@@ -43,7 +43,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         sheet = Sheet(
             name = name, 
             image = image,
-            race_id = race_id,
+            race = race,
             role = role,
             strength = strength,
             intelligence = intelligence,
@@ -117,7 +117,7 @@ class ListEquipmentView(LoginRequiredMixin, View):
     
 class EditEquipmentView(LoginRequiredMixin, View):
     
-     # TO DO: Tratar se um equipamento já existe
+    # TO DO: Tratar se um equipamento já existe
     def get(self, request, id):
         equipment = Equipment.objects.filter(id=id).first()
         if not equipment:
