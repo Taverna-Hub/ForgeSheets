@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from .models import Equipment, Sheet, Race
 import re
 
@@ -17,3 +16,4 @@ def equipment_check(name, quantity, attack, defense, sheet):
     except:
          return 5
     return 1
+ 
