@@ -2,25 +2,23 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet
-from .utils import save_equipment
+from .utils import equipment_check
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-@login_required
-class Sheets(View):
+class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'sheets.html')
-@login_required
-class CreateSheet(View):
+    
+class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'createsheets.html')
     
     def post(self, request):
-        
         name = request.POST.get('name')
         image = request.POST.get('image')
 
-        race = request.POST.get('race')
+        race_id = request.POST.get('race')
         role = request.POST.get('role')
 
         strength = request.POST.get('strength')
@@ -39,13 +37,13 @@ class CreateSheet(View):
 
         notes = request.POST.get('notes')
         description = request.POST.get('description')
- 
+
         user_id = request.user.id
 
         sheet = Sheet(
             name = name, 
             image = image,
-            race_id = race,
+            race_id = race_id,
             role = role,
             strength = strength,
             intelligence = intelligence,
@@ -65,16 +63,12 @@ class CreateSheet(View):
         )
         sheet.save()
         return HttpResponse('Ficha salva com sucesso!')
-    
-
-@login_required
-class AddEquipmentView(View):
+class AddEquipmentView(LoginRequiredMixin, View):
 
     # TO DO: Tratar se um equipamento já existe
 
     def get(self, request):
         return render(request, 'sheets_app/testEquipment.html')
-
     def post(self, request):
         name = request.POST.get('name')
         quantity = request.POST.get('quantity')
@@ -82,8 +76,7 @@ class AddEquipmentView(View):
         defense = request.POST.get('defense')
         sheet = request.POST.get('sheet')
 
-        addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
-
+        addEquipmentResult = equipment_check(name, quantity, attack, defense, sheet)
         if addEquipmentResult == 0:
             messages.error(request, 'Nome inválido')
             ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
@@ -104,47 +97,52 @@ class AddEquipmentView(View):
             messages.error(request, 'Utilize apenas números inteiros')
             ctx = {'name': name}
             return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 1:
-            messages.success(request, 'Equipamento adicionado com sucesso')
+        else:
+            equipamento = Equipment(
+                name = name,
+                quantity = quantity,
+                attack = attack,
+                defense = defense,
+                sheet_id = sheet,
+            )
+
+            equipamento.save()
+
             return redirect('sheets:list_equipment')
-@login_required
-class DelEquipmentView(View):
+    
+class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):
         equipment = Equipment.objects.get(id=id)
         equipment.delete()
-        messages.error(request, 'Equipamento deletado com sucesso')
         return redirect('sheets:list_equipment')
-@login_required  
-class ListEquipmentView(View):
+    
+class ListEquipmentView(LoginRequiredMixin, View):
     def get(self, request):
         equipments = Equipment.objects.all()
         ctx = {'equipments': equipments}
         return render(request, 'sheets_app/testEquipment2.html', ctx)
     
-@login_required
-class EditEquipmentView(View):
-
+class EditEquipmentView(LoginRequiredMixin, View):
+    
     # TO DO: Tratar se um equipamento já existe
+
     def get(self, request, id):
         equipment = Equipment.objects.filter(id=id).first()
         if not equipment:
             return HttpResponse('Esse equipamento não existe')
         ctx = {'equipment': equipment}
         return render(request, 'sheets_app/testEquipment3.html', ctx)
-    
     def post(self, request, id):
         try:
             equipment = Equipment.objects.get(id=id)
         except:
             return HttpResponse('Esse equipamento não existe')
-        
         newName = request.POST.get('name')
         newQuantity = request.POST.get('quantity')
         newAttack = request.POST.get('attack')
         newDefense = request.POST.get('defense')
 
-        editEquipmentResult = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
-
+        editEquipmentResult = equipment_check(newName, newQuantity, newAttack, newDefense, 0)
         if editEquipmentResult == 0:
             messages.error(request, 'Nome inválido')
             ctx = {'quantity': newQuantity, 'attack': newAttack, 'defense': newDefense, 'equipment': equipment}
@@ -165,6 +163,13 @@ class EditEquipmentView(View):
             messages.error(request, 'Utilize apenas números inteiros')
             ctx = {'name': newName, 'equipment': equipment}
             return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 1:
-            messages.success(request, 'Equipamento editado com sucesso')
+        else:
+
+            equipment.name = newName
+            equipment.quantity = newQuantity
+            equipment.attack = newAttack
+            equipment.defense = newDefense
+
+            equipment.save()
+
             return redirect('sheets:list_equipment')

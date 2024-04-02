@@ -41,6 +41,9 @@ class Sheet(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self) -> str:
+        return self.name
+
     def totalAtkDef(self):
         total = {
             'atk': Equipment.objects.filter(sheet=self).aggregate(total_atk=Sum('attack'))['total_atk'] or 0,
@@ -54,3 +57,6 @@ class Equipment(models.Model):
     attack = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     defense = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.name} {self.attack} | {self.defense}'
