@@ -19,7 +19,8 @@ class Sheet(models.Model):
     name = models.CharField(max_length=75)
     image = models.URLField()
 
-    race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
+    # race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
+    race = models.CharField(max_length=75)
     role = models.CharField(max_length=75)
 
     strength = models.IntegerField(validators=[MinValueValidator(1)])
