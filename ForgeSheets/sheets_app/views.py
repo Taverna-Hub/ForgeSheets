@@ -9,7 +9,6 @@ class Sheets(View):
     def get(self, request):
         return render(request, 'sheets.html')
     
-
 class CreateSheet(View):
     def get(self, request):
         return render(request, 'createsheets.html')
