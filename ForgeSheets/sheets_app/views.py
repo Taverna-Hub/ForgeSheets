@@ -21,7 +21,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = request.POST.get('race')
         role = request.POST.get('role')
 
-        strength = int(request.POST.get('strength'))
+        strength = int(request.POST.get('strength')) 
         intelligence = int(request.POST.get('intelligence'))
         wisdom = int(request.POST.get('wisdom'))
         charisma = int(request.POST.get('charisma'))
