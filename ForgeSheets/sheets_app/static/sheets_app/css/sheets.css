@@ -1,0 +1,23 @@
+section {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    z-index: 999;
+    overflow-y: scroll;
+    height: 100%;
+  }
+.sheet{
+    background-color: bisque;
+    padding: 32px;
+    margin: 15%;
+    overflow: hidden;
+    height: fit-content;
+  }
+
+.atributos{
+  background-color: rgb(230, 230, 230);
+  padding: 32px;
+}
+.status{
+  background-color: rgb(76, 197, 65);
+  padding: 32px;
+}

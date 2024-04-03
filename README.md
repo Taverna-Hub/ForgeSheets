@@ -1,7 +1,8 @@
-<p align="center">
-  <img  height="250" src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/0403c4cd-3cc3-4e22-b1f7-7ec9bdcff10c">
-</p>
-Uma aplicação web voltada para a <b>criação e gerenciamento de fichas para jogos de RPG (Role-Playing Game).</b> Utilizando o framework <b>Django</b>, a aplicação será construída com o objetivo de oferecer à comunidade de jogadores uma plataforma intuitiva e funcional para a elaboração e administração de personagens para suas aventuras.
+![gitbanner](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/bce9fab9-36e2-4201-aa1a-dfdaab6590e8)
+
+<p align="left">A ForgeSheets é uma aplicação web voltada para a <b>criação e gerenciamento de fichas para jogos de RPG (Role-Playing Game).</b></p>
+<p align="left">‎Utilizando o framework <b>Django</b>, a aplicação será construída com o objetivo de oferecer à comunidade de jogadores<br>uma plataforma intuitiva e funcional para a elaboração e administração de personagens para suas aventuras.</p>
+
 
 ---
 

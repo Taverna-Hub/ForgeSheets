@@ -4,14 +4,21 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .utils import register, login
+from django.contrib.auth import logout
 from django.urls import reverse
 from sheets_app.models import Sheet
+from sheets_app.views import SheetsView
 
 class SignView(View):
     def get(self, request):
         return render(request, 'utilities_app/sign.html')
     
     def post(self, request):
+
+        if 'logout' in request.POST:
+            logout(request)
+            return redirect('utilities:sign')
+
         password = request.POST.get('password')
         email = request.POST.get('email')
 
@@ -19,8 +26,7 @@ class SignView(View):
             username = request.POST.get('userL')
             login_result = login(request, username, password)
             if login_result == 1:
-                messages.success(request, 'Logado com sucesso!')
-                return HttpResponse('Logado com sucesso!')
+                return redirect('sheets:homesheets')
             elif login_result == 0:
                 messages.error(request, 'Usuário ou senha inválidos')
                 return redirect('utilities:sign')
