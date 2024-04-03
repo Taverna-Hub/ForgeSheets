@@ -34,7 +34,6 @@ jobs:
       - name: Cleaning testing files
         run: |
           cd ForgeSheets/
-          rm db.sqlite3
           rm .env
           cd ..
 
