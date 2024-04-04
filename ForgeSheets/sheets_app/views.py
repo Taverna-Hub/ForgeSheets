@@ -38,7 +38,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         manaMax = int(request.POST.get('manaMax'))
         exp = int(request.POST.get('exp'))
 
-        notes = request.POST.get('notes')
         description = request.POST.get('description')
 
         user_id = request.user.id
@@ -63,9 +62,20 @@ class CreateSheetView(LoginRequiredMixin, View):
             description = '',
             user_id = user_id,
         )
+
         sheet.save()
         sheet.updateXp()
         sheet.save()
+
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
+
+        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
+            equipment.save()
+
         return HttpResponse('Ficha salva com sucesso!')
 class AddEquipmentView(LoginRequiredMixin, View):
 

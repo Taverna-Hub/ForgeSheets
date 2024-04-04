@@ -3,9 +3,10 @@ from django.views import View
 from campaigns_app.models import Campaign
 from .utils import save_campaign
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class CampaignView(View): 
+class CampaignView(LoginRequiredMixin, View): 
   def get(self, request):
       campaigns = Campaign.objects.filter(user_id=request.user.id)
       ctx = {
@@ -15,7 +16,7 @@ class CampaignView(View):
       return render(request, 'campaigns_app/campaign.html', ctx)
 
 
-class CreateCampaignView(View):
+class CreateCampaignView(LoginRequiredMixin, View):
    def get(self, request):
       ctx = {
          'app_name': 'campaign'
@@ -44,6 +45,6 @@ class CreateCampaignView(View):
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
       return redirect('campaigns:campaign')
-   
-#class UpdateCampaignView(View):
-#class DeleteCampaignView(View):
+
+#class UpdateCampaignView(LoginRequiredMixin, View):
+#class DeleteCampaignView(LoginRequiredMixin, View):
