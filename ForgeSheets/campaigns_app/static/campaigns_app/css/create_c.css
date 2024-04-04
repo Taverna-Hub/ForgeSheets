@@ -1,4 +1,14 @@
-section{
+:root {
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+    --green-500: #22c55e;
+    --white: #f7f7f7;
+    --gray-200: #e5e7eb;
+    --gray-800: #1f2937;
+    --gray-700: #374151;
+  }
+
+section {
     background: rgba(0,0,0,0.8);
 
     position: fixed;
@@ -11,7 +21,69 @@ section{
     align-items: center;
     justify-content: center;
 }
-div{
+
+input, textarea {
+    width: 100%;
+    border: 2px solid var(--gray-200);
+    border-radius: 4px;
+    padding: 8px;
+}
+
+input {
+    height: 35px;
+}
+
+textarea {
+    resize: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--gray-700);
+}
+
+h2 {
+    color: var(--gray-800);
+}
+
+button {
+    cursor: pointer;
+}
+
+.modal {
     background-color: white;
-    padding: 16px;
+    padding: 24px;
+    border-radius: 4px;
+    width: 650px;
+    min-height: 595px;
+    height: fit-content;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+
+    margin-top: 40px;
+}
+
+.modal span {
+    color: var(--red-600);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 8px;
+}
+
+.actions {
+    align-self: flex-end;
+}
+
+.actions button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
 }
