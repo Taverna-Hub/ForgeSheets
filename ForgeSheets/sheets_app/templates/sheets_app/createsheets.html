@@ -34,6 +34,15 @@
                 <div>
                     <label for="race">Raça do personagem: </label>
                     <input type="text" name="race">
+                    {% for error in errors %}
+                    {% if error.field == 'name' %}
+                        <span> 
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }} 
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
                 </div>
 
                 <div>
