@@ -102,10 +102,9 @@ def atribute_verifier(atr):
 def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
     if 1 > len(name) or len(name) >= 50:
-        errors.append({
-            'field':'name',
-            'message': 'Esse campo ter entre 2 e 50 caracteres'
-            })
+        errors.append(
+            {'field':'name',
+            'message': 'Esse campo necessita ter entre 2 e 50 caracteres'})
     if str(name).count(' ') == len(name) or str(race).count(' ') == len(str(race)) or str(role).count(' ') == len(str(role)):
         errors.append({
             'field': 'name',
