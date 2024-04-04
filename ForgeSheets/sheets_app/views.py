@@ -74,47 +74,48 @@ class AddEquipmentView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
+        print('To no post')
         name = request.POST.get('name')
         quantity = request.POST.get('quantity')
         attack = request.POST.get('attack')
         defense = request.POST.get('defense')
         sheet = request.POST.get('sheet')
+        print('Salvei as variaveis')
+        # addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
 
-        addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
-
-        if addEquipmentResult == 0:
-            messages.error(request, 'Nome inválido')
-            ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 2:
-            messages.error(request, 'Preencha todos os campos')
-            ctx = {'name': name, 'quantity': quantity, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 3:
-            messages.error(request, 'A quantidade não pode ser inferior a 1')
-            ctx = {'name': name, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 4:
-            messages.error(request, 'O ataque e a defesa não podem ser inferior a 0')
-            ctx = {'name': name, 'quantity': quantity}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 5:
-            messages.error(request, 'Utilize apenas números inteiros')
-            ctx = {'name': name}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 1:
-            messages.success(request, 'Equipamento adicionado com sucesso')
-            return redirect('sheets:list_equipment')
+        # if addEquipmentResult == 0:
+        #     messages.error(request, 'Nome inválido')
+        #     ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 2:
+        #     messages.error(request, 'Preencha todos os campos')
+        #     ctx = {'name': name, 'quantity': quantity, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 3:
+        #     messages.error(request, 'A quantidade não pode ser inferior a 1')
+        #     ctx = {'name': name, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 4:
+        #     messages.error(request, 'O ataque e a defesa não podem ser inferior a 0')
+        #     ctx = {'name': name, 'quantity': quantity}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 5:
+        #     messages.error(request, 'Utilize apenas números inteiros')
+        #     ctx = {'name': name}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 1:
+        #     messages.success(request, 'Equipamento adicionado com sucesso')
+        #     return redirect('sheets:list_equipment')
 
 #Trtamento de erro da utils na views -> precisa testar
-        # addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
-        
-        # if addEquipmentFields:
-        #     ctx ={
-        #         'errors': addEquipmentFields,
-        #         'app_name': 'sheets'
-        #     }
-        # return render(request, 'sheets_app/create_equip', ctx)
+        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
+        print(addEquipmentFields)
+        if addEquipmentFields:
+            ctx ={
+                'errors': addEquipmentFields,
+                'app_name': 'sheets'
+            }
+        return render(request, 'sheets_app/create_equip', ctx)
 
 class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):
