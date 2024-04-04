@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet
-from .utils import save_equipment
+from .utils import save_equipment, save_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -42,41 +42,12 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         user_id = request.user.id
 
-        sheet = Sheet(
-            name = name, 
-            image = image,
-            race = race,
-            role = role,
-            strength = strength,
-            intelligence = intelligence,
-            wisdom = wisdom,
-            charisma = charisma,
-            constitution = constitution,
-            speed = speed,
-            healthPoint = healthPointMax,
-            healthPointMax = healthPointMax,
-            mana = manaMax,
-            manaMax = manaMax,
-            exp = exp,
-            notes = '',
-            description = '',
-            user_id = user_id,
-        )
-
-        sheet.save()
-        sheet.updateXp()
-        sheet.save()
-
-        eqpsName = request.POST.getlist('equipmentName')
-        eqpsQnt = request.POST.getlist('equipmentQnt')
-        eqpsAtk = request.POST.getlist('equipmentAtk')
-        eqpsDef = request.POST.getlist('equipmentDef')
-
-        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
-            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
-            equipment.save()
-
+        errors = save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp)
+        
+        
         return HttpResponse('Ficha salva com sucesso!')
+    
+
 class AddEquipmentView(LoginRequiredMixin, View):
 
     # TO DO: Tratar se um equipamento já existe
