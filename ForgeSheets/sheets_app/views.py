@@ -38,7 +38,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         manaMax = int(request.POST.get('manaMax'))
         exp = int(request.POST.get('exp'))
 
-        notes = request.POST.get('notes')
         description = request.POST.get('description')
 
         user_id = request.user.id
