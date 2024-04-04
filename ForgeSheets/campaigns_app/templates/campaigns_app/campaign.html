@@ -8,16 +8,36 @@
 {% endblock %}
 
 {% block 'body' %}
-  <section>
-    {% for campaign in campaigns %}
-      <div class="campaignCard">
-        <h2> {{ campaign.title }} </h2>
-
-        <div class="campaignInfo">
-          <span>Descrição: </span>
-          <p> {{ campaign.description }} </p>
+  <section class="listCampaignContainer">
+    <section class="cardList">
+      <a href="{% url 'campaigns:create_campaign' %}" class="createCampaign">
+        <div>
+          <i data-lucide="plus" width="64" height="64" stroke-width="1.5px" ></i>
         </div>
-      </div>
-    {% endfor %}
+      </a>
+
+      {% for campaign in campaigns %}
+        <div 
+          class="campaignCard" 
+          style="{% if campaign.image %}
+                  background-image: url({{ campaign.image }});  
+                {% endif %}"
+        >
+          <div
+            style="{% if campaign.image %}
+                    backdrop-filter: blur(12px); 
+                    background-color: rgba(0,0,0,0.7);
+                  {% endif %}"
+          >
+              <h2> {{ campaign.title }} </h2>
+
+              <div class="campaignInfo">
+                <span>Descrição: </span>
+                <p> {{ campaign.description }} </p>
+              </div>
+          </div>
+        </div>
+      {% endfor %}
+    </section>
   </section>
 {% endblock %}

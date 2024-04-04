@@ -2,82 +2,80 @@ from .models import Equipment, Sheet, Race
 import re
 from django.utils.html import escape
 
-def save_equipment(equipment, name, quantity, attack, defense, sheet):
-    if 1 <= len(name) >= 55:
-        return 0
-    if name.count(' ') == len(name) or str(quantity).count(' ') == len(str(quantity)) or str(attack).count(' ') == len(str(attack)) or str(defense).count(' ') == len(str(defense)):
-        return 2
-    try:
-        if quantity < 1:
-            return 3
-        if attack < 0 or defense < 0:
-            return 4
-        if type(quantity) != int or type(attack) != int or type(defense) != int:
-            return 5
-    except:
-        return 5
+# def save_equipment(equipment, name, quantity, attack, defense, sheet):
+#     if 1 <= len(name) >= 55:
+#         return 0
+#     if name.count(' ') == len(name) or str(quantity).count(' ') == len(str(quantity)) or str(attack).count(' ') == len(str(attack)) or str(defense).count(' ') == len(str(defense)):
+#         return 2
+#     try:
+#         if quantity < 1:
+#             return 3
+#         if attack < 0 or defense < 0:
+#             return 4
+#         if type(quantity) != int or type(attack) != int or type(defense) != int:
+#             return 5
+#     except:
+#         return 5
 
 #Trtamento de erro na utils -> precisa testar
-# def save_equipment(equipment, name, quantity, attack, defense, sheet):
-#     name_treated = name.strip()
-#     quantity_treated = int(quantity)
-#     attack_treated = int(attack)
-#     defense_treated = int(defense)
-#     wrong_fields = []
+def save_equipment(equipment, name, quantity, attack, defense, sheet):
+    name_treated = name.strip()
+    quantity_treated = int(quantity)
+    attack_treated = int(attack)
+    defense_treated = int(defense)
+    wrong_fields = []
+
+    if not name_treated:
+        wrong_fields.append({
+            'field': 'name',
+            'message': 'Este campo não pode ser vazio'
+        })
+    elif len(name) > 55:
+        wrong_fields.append({
+            'field': 'name',
+            'message': 'Este campo deve ter menos de 55 caractéres'
+        })
+    elif len(name) < 2:
+        wrong_fields.append({
+            'field': 'name',
+            'message': 'Este campo deve ter mais de 2 caractéres'
+        })
+    if quantity_treated < 1:
+        wrong_fields.append({
+            'field': 'quantity',
+            'message': 'A quantidade não pode ser inferior a 1'
+        })   
+    if attack_treated < 0:
+        wrong_fields.append({
+            'field': 'attack',
+            'message': 'O valor de ataque não pode ser inferior a 0'
+        })
+    if defense_treated < 0:
+        wrong_fields.append({
+            'field': 'defense',
+            'message': 'O valor de defesa não pode ser inferior a 0'
+        })
+
+    if type(quantity) != int:
+        wrong_fields.append({
+            'field': 'quantity',
+            'message': 'Utilize apenas números inteiros'
+        })
+    if type(attack) != int:
+        wrong_fields.append({
+            'field': 'attack',
+            'message': 'Utilize apenas números inteiros'
+        })
+
+    if type(defense) != int:
+        wrong_fields.append({
+            'field': 'defense',
+            'message': 'Utilize apenas números inteiros'
+        })
 
 
-#     if name.strip():
-#         if not name_treated:
-#             wrong_fields.append({
-#                 'field': 'name',
-#                 'message': 'Este campo não pode ser vazio'
-#             })
-#     elif len(name) > 55:
-#         wrong_fields.append({
-#             'field': 'name',
-#             'message': 'Este campo deve ter menos de 55 caractéres'
-#         })
-#     elif len(name) < 2:
-#         wrong_fields.append({
-#             'field': 'name',
-#             'message': 'Este campo deve ter mais de 2 caractéres'
-#         })
-#     if quantity_treated < 1:
-#         wrong_fields.append({
-#             'field': 'quantity',
-#             'messge': 'A quantidade não pode ser inferior a 1'
-#         })   
-#     if attack_treated < 0:
-#         wrong_fields.append({
-#             'field': 'attack',
-#             'message': 'O valor de ataque não pode ser inferior a 0'
-#         })
-#     if defense_treated < 0:
-#         wrong_fields.append({
-#             'field': 'defense',
-#             'message': 'O valor de defesa não pode ser inferior a 0'
-#         })
-
-#     if type(quantity) != int:
-#         wrong_fields.append({
-#             'field': 'quantity',
-#             'message': 'Utilize apenas números inteiros'
-#         })
-#     if type(attack) != int:
-#         wrong_fields.append({
-#             'field': 'attack',
-#             'message': 'Utilize apenas números inteiros'
-#         })
-
-#     if type(defense) != int:
-#         wrong_fields.append({
-#             'field': 'defense',
-#             'message': 'Utilize apenas números inteiros'
-#         })
-
-
-#     if len(wrong_fields) > 0:
-#         return wrong_fields
+    if len(wrong_fields) > 0:
+        return wrong_fields
     
     if sheet == 0:
             equipment.name = name

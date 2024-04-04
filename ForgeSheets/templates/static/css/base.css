@@ -99,8 +99,12 @@ main {
   grid-template-columns: 280px 1fr;
   width: 100vw;
   height: 100vh;
-  background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
+  background-image: url('https://pbs.twimg.com/media/GKWA-b8WAAAMFBY?format=jpg&name=large');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: fixed;
+}
+
+.mainSheets {
+  background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
 }

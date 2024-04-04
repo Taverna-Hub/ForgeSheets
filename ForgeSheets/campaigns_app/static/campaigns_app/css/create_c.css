@@ -1,12 +1,18 @@
 :root {
     --red-600: #dc2626;
     --red-700: #b91c1c;
+    --red-950: #450a0a;
     --green-500: #22c55e;
     --white: #f7f7f7;
     --gray-200: #e5e7eb;
-    --gray-800: #1f2937;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
     --gray-700: #374151;
+    --gray-800: #1f2937;
   }
+  
 
 a {
     text-decoration: none;
@@ -56,7 +62,7 @@ button {
 }
 
 .modal {
-    background-color: white;
+    background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
     width: 650px;
@@ -95,8 +101,9 @@ button {
 }
 
 .actions button:first-child {
-    background-color: var(--gray-200);
+    background-color: var(--gray-300);
     color: var(--gray-700);
+    margin-right: 16px;
 }
 
 .actions button:first-child a {

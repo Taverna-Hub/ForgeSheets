@@ -7,12 +7,7 @@
 
 
 {% block 'body' %}
-
-<form action="{% url 'sheets:homesheets' %}", method="post">
-    {% csrf_token %}
-    
+<section>
     <a href="{% url 'sheets:createsheets' %}">CRIAR FICHA</a>
-
-</form>
-
+</section>
 {% endblock %}
