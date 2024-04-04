@@ -43,10 +43,8 @@ class CreateSheetView(LoginRequiredMixin, View):
         user_id = request.user.id
 
         errors = save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp)
-        
-        
+
         return HttpResponse('Ficha salva com sucesso!')
-    
 
 class AddEquipmentView(LoginRequiredMixin, View):
 
