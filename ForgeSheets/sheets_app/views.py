@@ -15,7 +15,10 @@ class SheetsView(LoginRequiredMixin, View):
     
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'sheets_app/createsheets.html')
+        ctx = {
+            'app_name': 'sheets'
+        }
+        return render(request, 'sheets_app/createsheets.html', ctx)
     
     def post(self, request):
         name = request.POST.get('name')

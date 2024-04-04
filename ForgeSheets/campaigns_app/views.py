@@ -7,7 +7,9 @@ from django.contrib import messages
 
 class CampaignView(View): 
   def get(self, request):
+      campaigns = Campaign.objects.filter(user_id=request.user.id)
       ctx = {
+         'campaigns': campaigns,
          'app_name': 'campaign'
       }
       return render(request, 'campaigns_app/campaign.html', ctx)
@@ -15,7 +17,10 @@ class CampaignView(View):
 
 class CreateCampaignView(View):
    def get(self, request):
-      return render(request, 'campaigns_app/create_camp.html')
+      ctx = {
+         'app_name': 'campaign'
+      }
+      return render(request, 'campaigns_app/create_camp.html', ctx)
 
    def post(self, request):
       image = request.POST.get('image')

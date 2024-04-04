@@ -9,6 +9,15 @@
 
 {% block 'body' %}
   <section>
-    <h1>oi</h1>
+    {% for campaign in campaigns %}
+      <div class="campaignCard">
+        <h2> {{ campaign.title }} </h2>
+
+        <div class="campaignInfo">
+          <span>Descrição: </span>
+          <p> {{ campaign.description }} </p>
+        </div>
+      </div>
+    {% endfor %}
   </section>
 {% endblock %}

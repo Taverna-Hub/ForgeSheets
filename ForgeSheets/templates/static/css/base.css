@@ -14,6 +14,10 @@
   --gray-800: #1f2937;
 }
 
+button {
+  cursor: pointer;
+}
+
 nav {
   width: 280px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -21,10 +25,16 @@ nav {
   min-height: 100vh;
   height: 100%;
   padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
 }
 
 nav img {
-  width: 100%;
+  width: 70%;
+  align-self: center;
 }
 
 nav ul {
@@ -37,7 +47,6 @@ nav li {
 
   margin-bottom: 22px;
   border-radius: 4px;
-  padding: 16px;
 
   font-weight: 600;
   cursor: pointer;
@@ -51,6 +60,8 @@ nav li a {
   gap: 12px;
   text-decoration: none;
   color: #d7d7d7;
+  height: 100%;
+  padding: 16px;
 }
 
 nav li:hover {
@@ -63,6 +74,23 @@ nav li.active {
 
 nav li.active a {
   color: var(--red-600);
+}
+
+nav form:last-child {
+  position: absolute;
+  bottom: 16px;
+
+  margin-left: auto;
+  margin-right: auto;
+  left: -10%;
+  right: 0;
+  text-align: center;
+}
+
+nav form:last-child button {
+  color: var(--red-600);
+  background: transparent;
+  border: none;
 }
 
 main {

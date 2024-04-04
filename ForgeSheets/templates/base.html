@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   {% block 'head' %}{% endblock %}
 
   <title>{% block 'title' %}{% endblock %}</title>
@@ -27,11 +30,11 @@
          </a>
         </li>
       </ul>
-      <form action="{% url 'utilities:sign' %}" method='POST'>
+      <form  class="logout" action="{% url 'utilities:sign' %}" method='POST'>
         {% csrf_token %}
         <input type="hidden" name="logout">
         <button type="submit"> 
-          <i data-lucide="log-out"></i>
+          <i data-lucide="log-out" width='32' height='32'></i>
         </button>
       </form>
     </nav>
