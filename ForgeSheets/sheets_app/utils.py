@@ -38,17 +38,26 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
 def atribute_verifier(atr):
     return 1 if atr not in "1234567890" else 0
 
-def save_sheet(name, image, race, role, strength, inteligence, wisdow, charisma, constitution, speed, healthpointMax, manaMax, exp):
-    if 2 < len(name) > 50:
-        return 0
+def save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp):
+    errors=[]
+    if 1 < len(name) >= 50:
+        errors.append('nome fora padrão')
     if str(name).count(' ') == len(name) or str(race).count(' ') == len(str(race) or str(role).count(' ') == len(str(role))):
-        return 2
+        errors.append('nome vazio')
     if not re.match(r"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", image):
-        return 3
-    if 20 < strength < 1 or 20 < inteligence < 1 or 20 < wisdow < 1 or 20 < charisma < 1 or 20 < constitution < 1 or 20 < speed < 1:
-        return 4
-    if atribute_verifier(strength) == 1 or  atribute_verifier(inteligence) == 1 or atribute_verifier(wisdow) == 1 or atribute_verifier(charisma) == 1 or atribute_verifier(constitution) == 1 or atribute_verifier(speed) == 1:
-        return 5
+        errors.append('url invalida')
+    if 20 < strength < 1 or 20 < intelligence < 1 or 20 < wisdom < 1 or 20 < charisma < 1 or 20 < constitution < 1 or 20 < speed < 1:
+        errors.append('atr prim invalidos')
+    if atribute_verifier(strength) == 1 or  atribute_verifier(intelligence) == 1 or atribute_verifier(wisdom) == 1 or atribute_verifier(charisma) == 1 or atribute_verifier(constitution) == 1 or atribute_verifier(speed) == 1:
+        errors.append('atr prim não numeros')
     if atribute_verifier(healthpointMax) == 1 or atribute_verifier(manaMax) == 1 or atribute_verifier(exp) == 1:
-        return 6
-    else: return 1
+        errors.append('atr sec não numeros')
+    if healthpointMax < 1 or manaMax < 1:
+        errors.append('atr sec invalidos')
+    if len(errors) > 0:
+        return errors
+    
+    sheet = Sheet(name = name, image = image, race = race, role = role, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthpointMax = healthpointMax, manaMax = manaMax, exp = exp)
+    sheet.save()
+    sheet.updateXp()
+    sheet.save()
