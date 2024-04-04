@@ -41,8 +41,17 @@ class CreateSheetView(LoginRequiredMixin, View):
         description = request.POST.get('description')
 
         user_id = request.user.id
-
-        errors = save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp)
+        
+        #add imagem
+        errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        print(errors)
+        if errors:
+            ctx = {
+                'errors': errors,
+                'app_name': 'sheets'
+            }
+            return render(request, 'sheets_app/createsheets.html', ctx)
+       
         
         eqpsName = request.POST.getlist('equipmentName')
         eqpsQnt = request.POST.getlist('equipmentQnt')
