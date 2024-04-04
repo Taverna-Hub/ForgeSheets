@@ -4,7 +4,8 @@ import re
 
 
 def save_campaign(image, title, description, user_id):
-  image_treated = re.match(r'^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$', image)
+  image_treated = re.match(r'\bhttps?://\S+?.(?:png|jpe?g|)\b', image)
+  
   title_treated = title.strip()
   wrong_fields = []
 

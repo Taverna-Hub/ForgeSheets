@@ -10,7 +10,7 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
     try:
         if quantity < 1:
             return 3
-        if attack <= 0 or defense <= 0:
+        if attack < 0 or defense < 0:
             return 4
         if type(quantity) != int or type(attack) != int or type(defense) != int:
             return 5
@@ -35,6 +35,7 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
 
         equipamento.save()
         return 1
+
 def atribute_verifier(atr):
     return 1 if atr not in "1234567890" else 0
 
