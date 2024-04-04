@@ -43,7 +43,14 @@ class CreateSheetView(LoginRequiredMixin, View):
         user_id = request.user.id
 
         errors = save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp)
-        
+        if errors:
+            ctx = {
+                'errors': errors,
+                'app_name': 'sheets'
+            }
+            return render(request, 'sheets_app/createsheets.html', ctx)
+        sheet = Sheet(description = description, user_id = user_id)
+        sheet.save()
         
         return HttpResponse('Ficha salva com sucesso!')
     
