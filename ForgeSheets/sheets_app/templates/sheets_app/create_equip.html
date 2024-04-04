@@ -28,7 +28,10 @@
 
                 <div>
                     <label for="quantity">Quantidade:</label>
-                    <input type="number" name="quantity" value={{quantity}} required>
+                    {%if quantity %}
+                    <input type="number" name="quantity" value="{{quantity}}" required>
+                    {%else%}
+                    <input type="number" name="quantity" value=1 >
                     {% for error in errors %}
                         {% if error.field == 'quantity'%}
                             <span> 
@@ -42,7 +45,10 @@
                 <div class="sideBySide">
                     <div >
                         <label for="attack">Pontos de ataque:</label>
-                        <input type="number" name="attack" value={{attack}} required>
+                        {% if attack%}
+                        <input type="number" name="attack" value="{{attack}}" required>
+                        {%else%}
+                        <input type="number" name="attack" value=0>
                         {% for error in errors %}
                             {% if error.field == 'attack'%}
                                 <span> 
@@ -55,7 +61,10 @@
     
                     <div >
                         <label for="defense">Pontos de defesa:</label>
-                        <input type="number" name="defense" value={{defense}} required>
+                        {%if defense%}
+                        <input type="number" name="defense" value="{{defense}}" required>
+                        {%else%}
+                        <input type="number" name="defense" value=0>
                         {% for error in errors %}
                             {% if error.field == 'defense'%}
                                 <span> 
