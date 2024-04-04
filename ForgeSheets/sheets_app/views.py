@@ -44,7 +44,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         
         #add imagem
         errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
-        print(errors)
         if errors:
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
                 ctx = {
@@ -74,13 +73,11 @@ class AddEquipmentView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
-        print('To no post')
         name = request.POST.get('name')
         quantity = request.POST.get('quantity')
         attack = request.POST.get('attack')
         defense = request.POST.get('defense')
         sheet = request.POST.get('sheet')
-        print('Salvei as variaveis')
         # addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
 
         # if addEquipmentResult == 0:
@@ -108,14 +105,13 @@ class AddEquipmentView(LoginRequiredMixin, View):
         #     return redirect('sheets:list_equipment')
 
 #Trtamento de erro da utils na views -> precisa testar
-        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
-        print(addEquipmentFields)
-        if addEquipmentFields:
-            ctx ={
+        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), 1)
+        if addEquipmentFields != 1:
+            ctx = {
                 'errors': addEquipmentFields,
                 'app_name': 'sheets'
             }
-        return render(request, 'sheets_app/create_equip', ctx)
+        return render(request, 'sheets_app/create_equip.html', ctx)
 
 class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):

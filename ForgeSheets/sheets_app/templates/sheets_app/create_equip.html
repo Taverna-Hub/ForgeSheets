@@ -32,6 +32,7 @@
                     <input type="number" name="quantity" value="{{quantity}}" required>
                     {%else%}
                     <input type="number" name="quantity" value=1 >
+                    {% endif %}
                     {% for error in errors %}
                         {% if error.field == 'quantity'%}
                             <span> 
@@ -49,6 +50,7 @@
                         <input type="number" name="attack" value="{{attack}}" required>
                         {%else%}
                         <input type="number" name="attack" value=0>
+                        {% endif %}
                         {% for error in errors %}
                             {% if error.field == 'attack'%}
                                 <span> 
@@ -65,6 +67,7 @@
                         <input type="number" name="defense" value="{{defense}}" required>
                         {%else%}
                         <input type="number" name="defense" value=0>
+                        {% endif %}
                         {% for error in errors %}
                             {% if error.field == 'defense'%}
                                 <span> 

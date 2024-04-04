@@ -2,20 +2,20 @@ from .models import Equipment, Sheet, Race
 import re
 from django.utils.html import escape
 
-def save_equipment(equipment, name, quantity, attack, defense, sheet):
-    if 1 <= len(name) >= 55:
-        return 0
-    if name.count(' ') == len(name) or str(quantity).count(' ') == len(str(quantity)) or str(attack).count(' ') == len(str(attack)) or str(defense).count(' ') == len(str(defense)):
-        return 2
-    try:
-        if quantity < 1:
-            return 3
-        if attack < 0 or defense < 0:
-            return 4
-        if type(quantity) != int or type(attack) != int or type(defense) != int:
-            return 5
-    except:
-        return 5
+# def save_equipment(equipment, name, quantity, attack, defense, sheet):
+#     if 1 <= len(name) >= 55:
+#         return 0
+#     if name.count(' ') == len(name) or str(quantity).count(' ') == len(str(quantity)) or str(attack).count(' ') == len(str(attack)) or str(defense).count(' ') == len(str(defense)):
+#         return 2
+#     try:
+#         if quantity < 1:
+#             return 3
+#         if attack < 0 or defense < 0:
+#             return 4
+#         if type(quantity) != int or type(attack) != int or type(defense) != int:
+#             return 5
+#     except:
+#         return 5
 
 #Trtamento de erro na utils -> precisa testar
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
@@ -25,13 +25,11 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
     defense_treated = int(defense)
     wrong_fields = []
 
-
-    if name.strip():
-        if not name_treated:
-            wrong_fields.append({
-                'field': 'name',
-                'message': 'Este campo não pode ser vazio'
-            })
+    if not name_treated:
+        wrong_fields.append({
+            'field': 'name',
+            'message': 'Este campo não pode ser vazio'
+        })
     elif len(name) > 55:
         wrong_fields.append({
             'field': 'name',
@@ -45,7 +43,7 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
     if quantity_treated < 1:
         wrong_fields.append({
             'field': 'quantity',
-            'messge': 'A quantidade não pode ser inferior a 1'
+            'message': 'A quantidade não pode ser inferior a 1'
         })   
     if attack_treated < 0:
         wrong_fields.append({
