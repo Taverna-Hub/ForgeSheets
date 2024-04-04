@@ -17,6 +17,15 @@
                 <div>
                     <label for="name">Nome: </label>
                     <input type="text" name="name" id="" required>
+
+                    {% for error in errors %}
+                        {% if error.field == 'name' %}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 {% comment %} <label for="image">foto do personagem: </label>
@@ -37,27 +46,27 @@
                 <div class="atributosInputs">
                     <div>
                         <label for="strength">Força: </label>
-                        <input type="number" name="strength" id="strength" min="0" required>
+                        <input type="number" name="strength" id="strength" min="1" required>
                     </div>
                     <div>
                         <label for="intelligence">Inteligencia: </label>
-                        <input type="number" name="intelligence" id="intelligence" min="0" required>
+                        <input type="number" name="intelligence" id="intelligence" min="1" required>
                     </div>
                     <div>
                         <label for="wisdom">Sabedoria: </label>
-                        <input type="number" name="wisdom" id="wisdom" min="0" required>
+                        <input type="number" name="wisdom" id="wisdom" min="1" required>
                     </div>
                     <div>
                         <label for="charisma">Carisma: </label>
-                        <input type="number" name="charisma" id="charisma" min="0" required>
+                        <input type="number" name="charisma" id="charisma" min="1" required>
                     </div>
                     <div>
                         <label for="constitution">Contituição: </label>
-                        <input type="number" name="constitution" id="constitution" min="0" required>
+                        <input type="number" name="constitution" id="constitution" min="1" required>
                     </div>
                     <div>
                         <label for="speed">Velocidade: </label>
-                        <input type="number" name="speed" id="speed" min="0" required>
+                        <input type="number" name="speed" id="speed" min="1" required>
                     </div>
                 </div>
             </section>
@@ -67,12 +76,12 @@
                 <div class="statusInputs">
                     <div>
                         <label for="healthPointMax">Vida: </label>
-                        <input type="number" name="healthPointMax" id="healthPointMax" min="0" required>
+                        <input type="number" name="healthPointMax" id="healthPointMax" min="1" required>
                     </div>
     
                     <div>
                         <label for="manaMax">Mana: </label>
-                        <input type="number" name="manaMax" id="manaMax" min="0" required>
+                        <input type="number" name="manaMax" id="manaMax" min="1" required>
                     </div>
     
                     <div>
@@ -89,7 +98,7 @@
                 </div>
             </section>
 
-
+        <input type="hidden" name="description" value=" ">
             <button type="submit">CRIAR</button>
         </form>
     </section>

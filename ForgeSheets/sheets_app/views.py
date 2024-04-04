@@ -41,9 +41,27 @@ class CreateSheetView(LoginRequiredMixin, View):
         description = request.POST.get('description')
 
         user_id = request.user.id
+        
+        #add imagem
+        errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        print(errors)
+        if errors:
+            ctx = {
+                'errors': errors,
+                'app_name': 'sheets'
+            }
+            return render(request, 'sheets_app/createsheets.html', ctx)
 
-        errors = save_sheet(name, image, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp)
+        
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
 
+        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet)
+            equipment.save()       
+        
         return HttpResponse('Ficha salva com sucesso!')
 
 class AddEquipmentView(LoginRequiredMixin, View):
@@ -51,7 +69,8 @@ class AddEquipmentView(LoginRequiredMixin, View):
     # TO DO: Tratar se um equipamento já existe
 
     def get(self, request):
-        return render(request, 'sheets_app/testEquipment.html')
+        # return render(request, 'sheets_app/testEquipment.html')
+        return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
         name = request.POST.get('name')
@@ -85,6 +104,16 @@ class AddEquipmentView(LoginRequiredMixin, View):
         elif addEquipmentResult == 1:
             messages.success(request, 'Equipamento adicionado com sucesso')
             return redirect('sheets:list_equipment')
+
+#Trtamento de erro da utils na views -> precisa testar
+        # addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
+        
+        # if addEquipmentFields:
+        #     ctx ={
+        #         'errors': addEquipmentFields,
+        #         'app_name': 'sheets'
+        #     }
+        # return render(request, 'sheets_app/create_equip', ctx)
 
 class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):
@@ -144,3 +173,12 @@ class EditEquipmentView(LoginRequiredMixin, View):
         elif editEquipmentResult == 1:
             messages.success(request, 'Equipamento editado com sucesso')
             return redirect('sheets:list_equipment')
+
+        # editEquipmentFields = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
+        
+        # if editEquipmentFields:
+        #     ctx ={
+        #         'errors': editEquipmentFields,
+        #         'app_name': 'sheets'
+        #     }
+        # return render(request, 'sheets_app/create_equip', ctx)

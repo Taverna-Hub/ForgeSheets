@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create_equip.css' %}">
+  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+  <title>Adicionar Equipamento | ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+    <section>
+        <div class="modal">
+            <h2>Adcionar Equipamento</h2>
+            <form action="{% url 'sheets:add_equipment'%}">
+                {%csrf_token%}
+                <div>
+                    <label for="name">Nome do equipamento:</label>
+                    <input type="text" name="name" value="{{name}}" required>
+                    {% for error in errors %}
+                        {% if error.field == 'name'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" name="quantity" value={{quantity}} required>
+                    {% for error in errors %}
+                        {% if error.field == 'quantity'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="sideBySide">
+                    <div >
+                        <label for="attack">Pontos de ataque:</label>
+                        <input type="number" name="attack" value={{attack}} required>
+                        {% for error in errors %}
+                            {% if error.field == 'attack'%}
+                                <span> 
+                                    <i data-lucide="octagon-alert"></i>
+                                    {{ error.message }} 
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+    
+                    <div >
+                        <label for="defense">Pontos de defesa:</label>
+                        <input type="number" name="defense" value={{defense}} required>
+                        {% for error in errors %}
+                            {% if error.field == 'defense'%}
+                                <span> 
+                                    <i data-lucide="octagon-alert"></i>
+                                    {{ error.message }} 
+                                </span>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <p>Se o seu item não influenciar nos pontos de Ataque e/ou Defesa do personagem, deixe um 0 nos campos.</p>                
+
+                <div class="actions">
+                    <button type="button">
+                        <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
+                    </button>
+                    <button type="submit">Criar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
