@@ -17,7 +17,7 @@ class Race(models.Model):
 
 class Sheet(models.Model):
     name = models.CharField(max_length=75)
-    image = models.URLField()
+    image = models.URLField(null=True)
 
     # race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
     race = models.CharField(max_length=75)
@@ -38,7 +38,7 @@ class Sheet(models.Model):
     expMax = models.IntegerField(validators=[MinValueValidator(1)], default=100)
 
     notes = models.TextField(default='')
-    description = models.TextField(default='')
+    description = models.TextField(default='NULL')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

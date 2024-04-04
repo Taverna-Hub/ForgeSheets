@@ -37,7 +37,6 @@ class CreateCampaignView(LoginRequiredMixin, View):
             'app_name': 'campaign'
          }
 
-         print(fields)
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
       return redirect('campaigns:campaign')

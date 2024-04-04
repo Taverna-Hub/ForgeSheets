@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet
-from .utils import save_equipment
+from .utils import save_equipment, save_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -41,48 +41,36 @@ class CreateSheetView(LoginRequiredMixin, View):
         description = request.POST.get('description')
 
         user_id = request.user.id
+        
+        #add imagem
+        errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        if errors:
+            if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                ctx = {
+                    'errors': errors,
+                    'app_name': 'sheets'
+                }
+                return render(request, 'sheets_app/createsheets.html', ctx)
 
-        sheet = Sheet(
-            name = name, 
-            image = image,
-            race = race,
-            role = role,
-            strength = strength,
-            intelligence = intelligence,
-            wisdom = wisdom,
-            charisma = charisma,
-            constitution = constitution,
-            speed = speed,
-            healthPoint = healthPointMax,
-            healthPointMax = healthPointMax,
-            mana = manaMax,
-            manaMax = manaMax,
-            exp = exp,
-            notes = '',
-            description = '',
-            user_id = user_id,
-        )
-
-        sheet.save()
-        sheet.updateXp()
-        sheet.save()
-
+        
         eqpsName = request.POST.getlist('equipmentName')
         eqpsQnt = request.POST.getlist('equipmentQnt')
         eqpsAtk = request.POST.getlist('equipmentAtk')
         eqpsDef = request.POST.getlist('equipmentDef')
 
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
-            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
-            equipment.save()
-
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
+            equipment.save()       
+        
         return HttpResponse('Ficha salva com sucesso!')
+
 class AddEquipmentView(LoginRequiredMixin, View):
 
     # TO DO: Tratar se um equipamento já existe
 
     def get(self, request):
-        return render(request, 'sheets_app/testEquipment.html')
+        # return render(request, 'sheets_app/testEquipment.html')
+        return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
         name = request.POST.get('name')
@@ -90,32 +78,40 @@ class AddEquipmentView(LoginRequiredMixin, View):
         attack = request.POST.get('attack')
         defense = request.POST.get('defense')
         sheet = request.POST.get('sheet')
+        # addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
 
-        addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
+        # if addEquipmentResult == 0:
+        #     messages.error(request, 'Nome inválido')
+        #     ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 2:
+        #     messages.error(request, 'Preencha todos os campos')
+        #     ctx = {'name': name, 'quantity': quantity, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 3:
+        #     messages.error(request, 'A quantidade não pode ser inferior a 1')
+        #     ctx = {'name': name, 'attack': attack, 'defense': defense}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 4:
+        #     messages.error(request, 'O ataque e a defesa não podem ser inferior a 0')
+        #     ctx = {'name': name, 'quantity': quantity}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 5:
+        #     messages.error(request, 'Utilize apenas números inteiros')
+        #     ctx = {'name': name}
+        #     return render(request, 'sheets_app/testEquipment.html', ctx)
+        # elif addEquipmentResult == 1:
+        #     messages.success(request, 'Equipamento adicionado com sucesso')
+        #     return redirect('sheets:list_equipment')
 
-        if addEquipmentResult == 0:
-            messages.error(request, 'Nome inválido')
-            ctx = {'quantity': quantity, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 2:
-            messages.error(request, 'Preencha todos os campos')
-            ctx = {'name': name, 'quantity': quantity, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 3:
-            messages.error(request, 'A quantidade não pode ser inferior a 1')
-            ctx = {'name': name, 'attack': attack, 'defense': defense}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 4:
-            messages.error(request, 'O ataque e a defesa não podem ser inferior a 0')
-            ctx = {'name': name, 'quantity': quantity}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 5:
-            messages.error(request, 'Utilize apenas números inteiros')
-            ctx = {'name': name}
-            return render(request, 'sheets_app/testEquipment.html', ctx)
-        elif addEquipmentResult == 1:
-            messages.success(request, 'Equipamento adicionado com sucesso')
-            return redirect('sheets:list_equipment')
+#Trtamento de erro da utils na views -> precisa testar
+        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), 1)
+        if addEquipmentFields != 1:
+            ctx = {
+                'errors': addEquipmentFields,
+                'app_name': 'sheets'
+            }
+        return render(request, 'sheets_app/create_equip.html', ctx)
 
 class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):
@@ -175,3 +171,12 @@ class EditEquipmentView(LoginRequiredMixin, View):
         elif editEquipmentResult == 1:
             messages.success(request, 'Equipamento editado com sucesso')
             return redirect('sheets:list_equipment')
+
+        # editEquipmentFields = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
+        
+        # if editEquipmentFields:
+        #     ctx ={
+        #         'errors': editEquipmentFields,
+        #         'app_name': 'sheets'
+        #     }
+        # return render(request, 'sheets_app/create_equip', ctx)

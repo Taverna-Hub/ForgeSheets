@@ -204,3 +204,58 @@ main {
     backdrop-filter: blur(12px);
   }
 }
+
+@keyframes slideFromRightL {
+  from {
+    transform: translateX(15%);
+    visibility: hidden;
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromLeftL {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRightR {
+  from {
+    transform: translateX(50%); 
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromLeftR {
+  from {
+    transform: translateX(-15%);
+    visibility: hidden;
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+#loginzinho.active{
+  animation: slideFromRightL 0.5s forwards;
+}
+
+#cadastrinho.active{
+  animation: slideFromLeftR 0.5s forwards;
+}
+
+#loginzinho.deactive{
+  animation: slideFromLeftL 0.5s forwards;
+}
+
+#cadastrinho.deactive{
+  animation: slideFromRightR 0.5s forwards;
+}
+
