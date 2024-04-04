@@ -38,7 +38,7 @@ class Sheet(models.Model):
     expMax = models.IntegerField(validators=[MinValueValidator(1)], default=100)
 
     notes = models.TextField(default='')
-    description = models.TextField(default='')
+    description = models.TextField(default='NULL')
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
