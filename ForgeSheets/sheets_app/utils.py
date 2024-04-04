@@ -136,5 +136,6 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     #add imagem
     sheet = Sheet(name = name, race = race, role = role, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
+    return sheet
     # sheet.updateXp()
     # sheet.save()
