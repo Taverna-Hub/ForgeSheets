@@ -46,11 +46,12 @@ class CreateSheetView(LoginRequiredMixin, View):
         errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         print(errors)
         if errors:
-            ctx = {
-                'errors': errors,
-                'app_name': 'sheets'
-            }
-            return render(request, 'sheets_app/createsheets.html', ctx)
+            if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                ctx = {
+                    'errors': errors,
+                    'app_name': 'sheets'
+                }
+                return render(request, 'sheets_app/createsheets.html', ctx)
 
         
         eqpsName = request.POST.getlist('equipmentName')
@@ -59,7 +60,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         eqpsDef = request.POST.getlist('equipmentDef')
 
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
-            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet)
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
         return HttpResponse('Ficha salva com sucesso!')
