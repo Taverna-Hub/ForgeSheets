@@ -14,7 +14,7 @@
             <form action="{% url 'campaigns:create_campaign' %}" method="POST">
                 {% csrf_token %}
                 <div>
-                    <label for="image">Insira uma url para a foto da campanha: </label>
+                    <label for="image">Insira uma URL para a foto da campanha: </label>
                     <input type="text" id="image" name="image">
                     {% for error in errors %}
                         {% if error.field == 'image'%}
@@ -54,7 +54,7 @@
 
                 <div class="actions">
                     <button type="button">
-                        <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
+                        <a href="{% url 'campaigns:campaign' %}"> Cancelar</a>
                     </button>
                     <button type="submit">Criar</button>
                 </div>
