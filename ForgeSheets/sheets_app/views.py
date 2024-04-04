@@ -8,7 +8,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'sheets_app/sheets.html')
+        ctx = {
+            'app_name': 'sheets'
+        }
+        return render(request, 'sheets_app/sheets.html', ctx)
     
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):

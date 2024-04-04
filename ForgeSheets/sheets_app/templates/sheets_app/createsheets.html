@@ -9,62 +9,90 @@
 
 {% block 'body' %}
 
-<section>
-
+<section class="mainSheet">
     <section class="sheet">
-
         <form action="{% url 'sheets:createsheets' %}" method="post">
             {% csrf_token %}
-            <label for="name">Nome: </label>
-            <input type="text" name="name" id="" required>
-            <br>
-            <label for="image">foto do personagem: </label>
-            <input type="url" name="image">
-            <br>
-            <label for="race">Raça do personagem: </label>
-            <input type="text" name="race">
-            <br>
-            <label for="role">classe do personagem: </label>
-            <input type="text" name="role" id="role" required>
+            <section class="sheetHeader">
+                <div>
+                    <label for="name">Nome: </label>
+                    <input type="text" name="name" id="" required>
+                </div>
 
-            <div class="status">
-                <label for="healthPointMax">vida do personagem: </label>
-                <input type="number" name="healthPointMax" id="healthPointMax" min="0" required>
-                <br>
-                <label for="manaMax">mana do personagem: </label>
-                <input type="number" name="manaMax" id="manaMax" min="0" required>
-                <br>
-                <label for="exp">XP: </label>
-                <input type="number" name="exp" id="exp">
-                <br>
-            </div>
+                {% comment %} <label for="image">foto do personagem: </label>
+                <input type="url" name="image"> {% endcomment %}
 
-            <div class="atributos">
+                <div>
+                    <label for="race">Raça do personagem: </label>
+                    <input type="text" name="race">
+                </div>
 
-                <label for="strength">Força: </label>
-                <input type="number" name="strength" id="strength" min="0" required>
-                <br>
-                <label for="intelligence">Inteligencia: </label>
-                <input type="number" name="intelligence" id="intelligence" min="0" required>
-                <br>
-                <label for="wisdom">Sabedoria: </label>
-                <input type="number" name="wisdom" id="wisdom" min="0" required>
-                <br>
-                <label for="charisma">Carisma: </label>
-                <input type="number" name="charisma" id="charisma" min="0" required>
-                <br>
-                <label for="constitution">Contituição: </label>
-                <input type="number" name="constitution" id="constitution" min="0" required>
-                <br>
-                <label for="speed">Velocidade: </label>
-                <input type="number" name="speed" id="speed" min="0" required>
-            </div>
+                <div>
+                    <label for="role">Classe do personagem: </label>
+                    <input type="text" name="role" id="role" required>
+                </div>
+            </section>
+
+            <section class="atributos">     
+                <div class="atributosInputs">
+                    <div>
+                        <label for="strength">Força: </label>
+                        <input type="number" name="strength" id="strength" min="0" required>
+                    </div>
+                    <div>
+                        <label for="intelligence">Inteligencia: </label>
+                        <input type="number" name="intelligence" id="intelligence" min="0" required>
+                    </div>
+                    <div>
+                        <label for="wisdom">Sabedoria: </label>
+                        <input type="number" name="wisdom" id="wisdom" min="0" required>
+                    </div>
+                    <div>
+                        <label for="charisma">Carisma: </label>
+                        <input type="number" name="charisma" id="charisma" min="0" required>
+                    </div>
+                    <div>
+                        <label for="constitution">Contituição: </label>
+                        <input type="number" name="constitution" id="constitution" min="0" required>
+                    </div>
+                    <div>
+                        <label for="speed">Velocidade: </label>
+                        <input type="number" name="speed" id="speed" min="0" required>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="status">
+                <div class="statusInputs">
+                    <div>
+                        <label for="healthPointMax">Vida: </label>
+                        <input type="number" name="healthPointMax" id="healthPointMax" min="0" required>
+                    </div>
+    
+                    <div>
+                        <label for="manaMax">Mana: </label>
+                        <input type="number" name="manaMax" id="manaMax" min="0" required>
+                    </div>
+    
+                    <div>
+                        <label for="exp">XP: </label>
+                        <input type="number" name="exp" id="exp">
+                    </div>
+                </div>
+            </section>
+
+            <section class="equipamentos">
+                
+                <div>
+                    
+                </div>
+            </section>
+
 
             <button type="submit">CRIAR</button>
         </form>
-
     </section>
-
 </section>
 
 {% endblock %}

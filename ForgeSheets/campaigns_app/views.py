@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from campaigns_app.models import Campaign
-#from django.contrib.auth.models import User
+from .utils import save_campaign
+from django.contrib import messages
 
 
 class CampaignView(View): 
@@ -22,8 +23,22 @@ class CreateCampaignView(View):
       description = request.POST.get('description')
       user_id = request.user.id
 
-      campaign = Campaign(image=image, title=title, description=description, user_id=user_id )
-      campaign.save()
+      fields = save_campaign(image, title, description, user_id)
 
+      if fields:
+         ctx = {
+            'error': {
+               'message': {
+                  'title': 'Este campo não pode ser vazio',
+                  'description': 'Este campo não pode ser vazio',
+                  'image': 'Insira uma URL válida',
+               },
+               'fields': fields
+            }
+         }
+         return render(request, 'campaigns_app/create_camp.html', ctx)
+
+      return redirect('campaigns:campaign')
+   
 #class UpdateCampaignView(View):
 #class DeleteCampaignView(View):

@@ -35,18 +35,22 @@ nav li {
   width: 100%;
   height: 56px;
 
-  display: flex;
-  align-items: center;
-  gap: 12px;
   margin-bottom: 22px;
   border-radius: 4px;
   padding: 16px;
 
   font-weight: 600;
-  color: #d7d7d7;
   cursor: pointer;
 
   transition: all 0.3s;
+}
+
+nav li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #d7d7d7;
 }
 
 nav li:hover {
@@ -55,7 +59,9 @@ nav li:hover {
 
 nav li.active {
   background-color: rgba(220, 38, 38, 0.2);
+}
 
+nav li.active a {
   color: var(--red-600);
 }
 
