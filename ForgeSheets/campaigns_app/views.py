@@ -32,15 +32,11 @@ class CreateCampaignView(View):
 
       if fields:
          ctx = {
-            'error': {
-               'message': {
-                  'title': 'Este campo não pode ser vazio',
-                  'description': 'Este campo não pode ser vazio',
-                  'image': 'Insira uma URL válida',
-               },
-               'fields': fields
-            }
+            'errors': fields,
+            'app_name': 'campaign'
          }
+
+         print(fields)
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
       return redirect('campaigns:campaign')

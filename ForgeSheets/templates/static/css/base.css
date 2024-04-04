@@ -39,6 +39,7 @@ nav img {
 
 nav ul {
   list-style-type: none;
+  margin-top: 24px;
 }
 
 nav li {
@@ -82,7 +83,7 @@ nav form:last-child {
 
   margin-left: auto;
   margin-right: auto;
-  left: -10%;
+  left: 0;
   right: 0;
   text-align: center;
 }
