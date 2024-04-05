@@ -16,7 +16,7 @@
   <main class="{% if app_name == 'sheets' %}mainSheets{% endif %}">
     <nav>
       <img src="https://i.imgur.com/cwTGnjY.png" alt="Logo ForgeSheets">
-      <p class="usuario">Olá, {{user}}!</p>
+      <h1 class="usuario">Olá, {{user}}!</h1>
       <ul>
         <li class="sheets {% if app_name == 'sheets' %}active{% endif %}">
           <a href="{% url 'sheets:homesheets' %}">
