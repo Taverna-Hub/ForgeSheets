@@ -5,6 +5,7 @@ from .models import Equipment, Sheet
 from .utils import save_equipment, save_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.html import escape
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -21,13 +22,13 @@ class CreateSheetView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/createsheets.html', ctx)
     
     def post(self, request):
-        name = request.POST.get('name')
-        image = request.POST.get('image')
+        name = escape(request.POST.get('name'))
+        image = escape(request.POST.get('image'))
 
-        race = request.POST.get('race')
-        role = request.POST.get('role')
+        race = escape(request.POST.get('race'))
+        role = escape(request.POST.get('role'))
 
-        strength = int(request.POST.get('strength')) 
+        strength = int(request.POST.get('strength'))
         intelligence = int(request.POST.get('intelligence'))
         wisdom = int(request.POST.get('wisdom'))
         charisma = int(request.POST.get('charisma'))
@@ -38,7 +39,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         manaMax = int(request.POST.get('manaMax'))
         exp = int(request.POST.get('exp'))
 
-        description = request.POST.get('description')
+        description = escape(request.POST.get('description'))
 
         user_id = request.user.id
         
@@ -53,10 +54,10 @@ class CreateSheetView(LoginRequiredMixin, View):
                 return render(request, 'sheets_app/createsheets.html', ctx)
 
         
-        eqpsName = request.POST.getlist('equipmentName')
-        eqpsQnt = request.POST.getlist('equipmentQnt')
-        eqpsAtk = request.POST.getlist('equipmentAtk')
-        eqpsDef = request.POST.getlist('equipmentDef')
+        eqpsName = (request.POST.getlist('equipmentName'))
+        eqpsQnt = (request.POST.getlist('equipmentQnt'))
+        eqpsAtk = (request.POST.getlist('equipmentAtk'))
+        eqpsDef = (request.POST.getlist('equipmentDef'))
 
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
@@ -73,11 +74,11 @@ class AddEquipmentView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
-        name = request.POST.get('name')
-        quantity = request.POST.get('quantity')
-        attack = request.POST.get('attack')
-        defense = request.POST.get('defense')
-        sheet = request.POST.get('sheet')
+        name = (request.POST.get('name'))
+        quantity = int(request.POST.get('quantity'))
+        attack = int(request.POST.get('attack'))
+        defense = int(request.POST.get('defense'))
+        sheet = (request.POST.get('sheet'))
         # addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
 
         # if addEquipmentResult == 0:
@@ -141,10 +142,10 @@ class EditEquipmentView(LoginRequiredMixin, View):
         except:
             return HttpResponse('Esse equipamento não existe')
         
-        newName = request.POST.get('name')
-        newQuantity = request.POST.get('quantity')
-        newAttack = request.POST.get('attack')
-        newDefense = request.POST.get('defense')
+        newName = escape(request.POST.get('name'))
+        newQuantity = (request.POST.get('quantity'))
+        newAttack = (request.POST.get('attack'))
+        newDefense = (request.POST.get('defense'))
 
         editEquipmentResult = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
 

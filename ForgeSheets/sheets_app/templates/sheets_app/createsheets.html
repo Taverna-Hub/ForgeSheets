@@ -17,41 +17,48 @@
                 <div>
                     <label for="name">Nome: </label>
                     <input type="text" name="name" id="" required>
-
                     {% for error in errors %}
-                        {% if error.field == 'name' %}
-                            <span> 
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }} 
-                            </span>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                {% comment %} <label for="image">foto do personagem: </label>
-                <input type="url" name="image"> {% endcomment %}
-
-                <div>
-                    <label for="race">Raça do personagem: </label>
-                    <input type="text" name="race">
-                    {% for error in errors %}
-                    {% if error.field == 'name' %}
+                    {% if error.field == 'name'%}
                         <span> 
                             <i data-lucide="octagon-alert"></i>
                             {{ error.message }} 
                         </span>
                     {% endif %}
                 {% endfor %}
-            </div>
+
+                </div>
+
+                {% comment %} <label for="image">foto do personagem: </label>
+                <input type="url" name="image"> {% endcomment %}
+
+                <div>   
+                    <label for="race">Raça do personagem: </label>
+                    <input type="text" name="race">
+                    {% for error in errors %}
+                    {% if error.field == 'race'%}
+                        <span> 
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }} 
+                        </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
 
                 <div>
                     <label for="role">Classe do personagem: </label>
                     <input type="text" name="role" id="role" required>
+                    {% for error in errors %}
+                    {% if error.field == 'role'%}
+                        <span> 
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }} 
+                        </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
             </section>
 
-            <section class="atributos">     
+            <section class="atributos">
                 <div class="atributosInputs">
                     <div>
                         <label for="strength">Força: </label>
@@ -77,9 +84,17 @@
                         <label for="speed">Velocidade: </label>
                         <input type="number" name="speed" id="speed" min="1" required>
                     </div>
+                    {% for error in errors %}
+                    {% if error.field == 'atributes1'%}
+                    <span> 
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }} 
+                    </span>
+                {% endif %}
+            {% endfor %}     
                 </div>
             </section>
-
+            
 
             <section class="status">
                 <div class="statusInputs">
@@ -87,27 +102,35 @@
                         <label for="healthPointMax">Vida: </label>
                         <input type="number" name="healthPointMax" id="healthPointMax" min="1" required>
                     </div>
-    
+                    
                     <div>
                         <label for="manaMax">Mana: </label>
                         <input type="number" name="manaMax" id="manaMax" min="1" required>
                     </div>
-    
+                    
                     <div>
                         <label for="exp">XP: </label>
                         <input type="number" name="exp" id="exp">
                     </div>
+                    {% for error in errors %}
+                    {% if error.field == 'atributes2'%}
+                    <span> 
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }} 
+                    </span>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </section>
-
+            
             <section class="equipamentos">
                 
                 <div>
                     
                 </div>
             </section>
-
-        <input type="hidden" name="description" value=" ">
+            
+            <input type="hidden" name="description" value=" ">
             <button type="submit">CRIAR</button>
         </form>
     </section>

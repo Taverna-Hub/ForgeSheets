@@ -101,14 +101,24 @@ def atribute_verifier(atr):
 # add imagem
 def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
-    if 1 > len(name) or len(name) >= 50:
+    if 2 > len(name) or len(name) <= 50:
         errors.append({
             'field':'name',
             'message': 'Esse campo necessita ter entre 2 e 50 caracteres'
             })
-    if str(name).count(' ') == len(name) or str(race).count(' ') == len(str(race)) or str(role).count(' ') == len(str(role)):
+    if str(name).count(' ') == len(name):
         errors.append({
             'field': 'name',
+            'message' : 'Este campo não pode ser vazio'
+            })
+    if str(race).count(' ') == len(str(race)):
+        errors.append({
+            'field': 'race',
+            'message' : 'Este campo não pode ser vazio'
+            })
+    if str(role).count(' ') == len(str(role)):
+        errors.append({
+            'field': 'role',
             'message' : 'Este campo não pode ser vazio'
             })
     # if not re.match(r"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", image):
@@ -119,10 +129,9 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     if 20 <=  int(strength) or int(strength) <= 1 or 20 <= int(intelligence) or int(intelligence) <= 1 or 20 <= int(wisdom) or int(wisdom) <= 1 or 20 <= int(charisma) or int(charisma) <= 1 or 20 <= int(constitution) or int(constitution) <= 1 or 20 <= int(speed) or int(speed) <= 1:
         errors.append({
             'field' : 'atributes1',
-            'message' : 'Os atributos devem ser estar entre '
+            'message' : 'Os atributos devem estar entre 1 e 20'
             })
-    if atribute_verifier(str(strength)) == 1 or atribute_verifier(str(intelligence)) == 1 or atribute_verifier(str(wisdom)) == 1 or atribute_verifier(str(charisma)) == 1 or atribute_verifier(str(constitution)) == 1 or atribute_verifier(str(speed)) == 1:
-
+    elif atribute_verifier(str(strength)) == 1 or atribute_verifier(str(intelligence)) == 1 or atribute_verifier(str(wisdom)) == 1 or atribute_verifier(str(charisma)) == 1 or atribute_verifier(str(constitution)) == 1 or atribute_verifier(str(speed)) == 1:
         errors.append({
             'field' : 'atributes1',
             'message' : 'Os atributos primarios devem ser numeros inteiros'
@@ -132,7 +141,7 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
             'field' : 'atributes2',
             'message' : 'Os atributos secundarios devem ser numeros inteiros'
             })
-    if healthpointMax < 1 or manaMax < 1:
+    elif healthpointMax < 1 or manaMax < 1:
         errors.append({
             'field' : 'atributes2',
             'message' : 'Vida e mana não podem ser menores que 1'
@@ -142,6 +151,6 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     #add imagem
     sheet = Sheet(name = name, race = race, role = role, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
-    return sheet
     # sheet.updateXp()
     # sheet.save()
+    return sheet
