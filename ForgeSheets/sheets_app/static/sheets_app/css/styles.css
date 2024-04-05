@@ -79,4 +79,23 @@
     text-align: center;
     color: var(--gray-300);
     word-break: break-all;
+    
+  }
+
+  .sheet_info{
+    width: fit-content;
+  }
+
+  .sheet_info {
+    margin-top: 24px;
+  }
+  
+  .sheet_info span {
+    color: var(--gray-200);
+    font-weight: 600;
+  }
+  
+  .sheet_info p {
+    margin-top: 4px;
+    color: var(--white);
   }

@@ -16,21 +16,32 @@
                 </div>
             </a>
             
-            {% for sheet in sheets%}
-                <div class="sheetCard" 
+            {% for sheet in sheets_view%}
+                <div 
+                class="sheetCard" 
                 style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
-                {% endif %}">
-                    <div style="{% if campaign.image %}
+                {% endif %}"
+                >
+                    <div 
+                    style="{% if campaign.image %}
                         backdrop-filter: blur(12px); 
                         background-color: rgba(0,0,0,0.7);
-                        {% endif %}">
+                        {% endif %}"
+                    >
                         <h2>{{sheet.name}}</h2>
 
-                        <div class="sheet.info">
-                            <span>nothing</span>
-                            <p>nothing yet</p>
+                        <div class="sheet_info">
+                            <span>Raça:</span>
+                            <p>{{sheet.race}}</p>
+                            <span>Classe:</span>
+                            <p>{{sheet.role}}</p>
+                            <span>Vida:</span>
+                            <p>{{sheet.healthPoint}}/{{sheet.healthPointMax}}</p>
+                            <span>Mana:</span>
+                            <p>{{sheet.mana}}/{{sheet.manaMax}}</p>
                         </div>
+                    
                     </div>
                 </div>
             {% endfor %}
