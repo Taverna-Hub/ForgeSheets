@@ -1,13 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block 'head' %}
-<link  rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
+<link  rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+<title>Fichas | ForgeSheets</title>
 {% endblock %}
 
-
-
 {% block 'body' %}
-<section>
-    <a href="{% url 'sheets:createsheets' %}">CRIAR FICHA</a>
-</section>
+    <section class="listSheetsContainer">
+        <section class="cardList">
+            <a href="{% url 'sheets:createsheets' %}" class="createSheet">
+                <div>
+                    <i data-lucide="plus" width="64" height="64" stroke-width="1.5px"></i>
+                </div>
+            </a>
+            
+            {% for sheet in sheets%}
+                <div class="sheetCard" 
+                style="{% if sheet.image %}
+                background-image: url({{ sheet.image }});  
+                {% endif %}">
+                    <div style="{% if campaign.image %}
+                        backdrop-filter: blur(12px); 
+                        background-color: rgba(0,0,0,0.7);
+                        {% endif %}">
+                        <h2>{{sheet.name}}</h2>
+
+                        <div class="sheet.info">
+                            <span>nothing</span>
+                            <p>nothing yet</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </section>
+    </section>
 {% endblock %}
