@@ -27,10 +27,6 @@ a{
 
 label {
   font-weight: 500;
-  /* display: block;
-  margin-bottom: 8px;
-  color: var(--gray-700); */
-
 }
 
 input {
@@ -72,22 +68,21 @@ button {
 .sheetHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
 }
 
-.sheetHeader input {
-  width: 250px;
+.sheetHeader div, .sheetHeader input {
+  width: 100%;
 }
 
 .sheetHeader label {
   display: block;
-  color: var(--gray-800);
+  color: var(--gray-700);
+  margin-bottom: 8px;
 }
 
 .atributos, .status {
-  /* background-color: rgb(230, 230, 230); */
-  padding: 42px 32px 32px 12px; 
-  /* padding-top: 10px; */
+  padding: 42px 0 12px; 
   min-width: 400px;
   width: fit-content;
 }
@@ -114,6 +109,7 @@ button {
 .sideBySide, .equipamentos{
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   gap: 16px;
