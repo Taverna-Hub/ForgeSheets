@@ -4,6 +4,8 @@ const registerAnchor = document.querySelector('.registerAnchor');
 const loginAnchor = document.querySelector('.loginAnchor');
 const login = document.querySelector("#loginzinho");
 const register = document.querySelector("#cadastrinho");
+const backLogin = document.querySelector("#backLogin");
+const backRegister = document.querySelector("#backRegister");
 
 // loginAnchor.addEventListener('click', () => {
 //   loginPage.style.visibility = "visible";
@@ -17,22 +19,24 @@ const register = document.querySelector("#cadastrinho");
 // });
 
 loginAnchor.addEventListener('click', () => {
-  login.classList.remove('deactive');
+  loginPage.classList.add('active');
+  registerPage.classList.remove('active');
   login.classList.add('active');
   register.classList.remove('active');
-  register.classList.add('deactive');
   loginPage.style.visibility = "visible";
   registerPage.style.visibility = "hidden";
+  backLogin.classList.add('active');
+  backRegister.classList.remove('active');
   showToast();
 });
 
 registerAnchor.addEventListener('click', () => {
-  register.classList.remove('deactive');
+  registerPage.classList.add('active');
+  loginPage.classList.remove('active');
   register.classList.add('active');
   login.classList.remove('active');
-  login.classList.add('deactive');
   registerPage.style.visibility = "visible";
   loginPage.style.visibility = "hidden";
+  backRegister.classList.add('active');
+  backLogin.classList.remove('active');
 });
-
-

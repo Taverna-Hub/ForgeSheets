@@ -28,6 +28,10 @@
   }
 }
 
+body {
+  overflow: hidden;
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -52,7 +56,6 @@ main {
   width: 100vw;
 
   position: relative;
-  overflow: hidden;
 }
 
 #login {
@@ -62,9 +65,15 @@ main {
   height: 100%;
   max-width: 100vw;
   width: 100%;
-  background-image: url('https://pbs.twimg.com/media/GKBB7s4WAAAA2FQ?format=jpg&name=large');
+  /* background-image: url('https://pbs.twimg.com/media/GKBB7s4WAAAA2FQ?format=jpg&name=large');
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
+} 
+
+#backLogin, #backRegister {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #register {
@@ -80,14 +89,14 @@ main {
   background-size: cover;
   background-repeat: no-repeat;
   visibility: hidden;
-  background-color: black;
 }
 
 .right {
   background-color: rgba(105, 105, 105, 0.20);
   backdrop-filter: blur(4px);
   color: var(--white);
-
+  position: absolute;
+  right: 0;
   display: flex;
   flex-direction: column;
 
@@ -163,7 +172,7 @@ main {
   position: absolute;
   top: 16px;
   right: 16px;
-
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -205,7 +214,7 @@ main {
   }
 }
 
-@keyframes slideFromRightL {
+@keyframes slideFromRight {
   from {
     transform: translateX(15%);
     visibility: hidden;
@@ -215,25 +224,7 @@ main {
   }
 }
 
-@keyframes slideFromLeftL {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideFromRightR {
-  from {
-    transform: translateX(50%); 
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideFromLeftR {
+@keyframes slideFromLeft {
   from {
     transform: translateX(-15%);
     visibility: hidden;
@@ -243,19 +234,35 @@ main {
   }
 }
 
+@keyframes scale {
+  from {
+    transform: scale(1.1);
+    transition: all;
+  }
+  to {
+    transform: scale(1);
+    transition: all;
+  }
+}
+
+
+#loginzao.active {
+  animation: slideFromRight 0.6s forwards;
+}
+
+
 #loginzinho.active{
-  animation: slideFromRightL 0.5s forwards;
+  animation: slideFromRight 0.5s forwards;
 }
 
 #cadastrinho.active{
-  animation: slideFromLeftR 0.5s forwards;
+  animation: slideFromLeft 0.5s forwards;
 }
 
-#loginzinho.deactive{
-  animation: slideFromLeftL 0.5s forwards;
+#backLogin.active {
+  animation: scale 0.7s;
 }
 
-#cadastrinho.deactive{
-  animation: slideFromRightR 0.5s forwards;
+#backRegister.active {
+  animation: scale 0.7s;
 }
-
