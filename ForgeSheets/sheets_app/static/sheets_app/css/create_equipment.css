@@ -12,7 +12,7 @@ a {
     text-decoration: none;
 }
 
-section {
+.equipmentModal {
     background: rgba(0,0,0,0.8);
 
     position: fixed;
@@ -21,41 +21,43 @@ section {
     right: 0;
     bottom: 0;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
+
+    z-index: 9999;
 }
 
-input, textarea {
+.equipmentModal input, textarea {
     width: 100%;
     border: 2px solid var(--gray-200);
     border-radius: 4px;
     padding: 8px;
 }
 
-input {
+.equipmentModal input {
     height: 35px;
 }
 
-textarea {
+.equipmentModal textarea {
     resize: none;
 }
 
-label {
+.equipmentModal label {
     display: block;
     margin-bottom: 8px;
     color: var(--gray-700);
 }
 
-h2 {
+.equipmentModal h2 {
     color: var(--gray-800);
 }
 
-button {
+.equipmentModal button {
     cursor: pointer;
 }
 
-.modal {
+.equipmentModal .modal {
     background-color: white;
     padding: 24px;
     border-radius: 4px;
@@ -64,7 +66,7 @@ button {
     height: fit-content;
 }
 
-.modal form {
+.equipmentModal .modal form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,7 +75,7 @@ button {
     margin-top: 40px;
 }
 
-.modal span {
+.equipmentModal .modal span {
     color: var(--red-600);
     display: flex;
     align-items: center;
@@ -82,12 +84,11 @@ button {
     margin-top: 8px;
 }
 
-
-.actions {
+.equipmentModal .actions {
     align-self: flex-end;
 }
 
-.actions button {
+.equipmentModal .actions button {
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
@@ -95,27 +96,27 @@ button {
     font-size: 16px;
 }
 
-.actions button:first-child {
+.equipmentModal .actions button:first-child {
     background-color: var(--gray-200);
     color: var(--gray-700);
 }
 
-.actions button:first-child a {
+.equipmentModal .actions button:first-child a {
     color: var(--gray-700);
 }
 
-.actions button:last-child {
+.equipmentModal .actions button:last-child {
     background-color: var(--red-600);
     color: var(--gray-200);
 }
 
-.sideBySide{
+.equipmentModal .sideBySide{
     display: flex;
     align-items: center;
     width: 100%;
     gap: 16px;
 }
 
-.sideBySide div{
+.equipmentModal .sideBySide div{
     width: 100%; 
 } 

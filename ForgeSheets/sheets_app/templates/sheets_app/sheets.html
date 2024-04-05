@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block 'head' %}
-<link  rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
+    <link  rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
+    <title>Fichas | ForgeSheets</title>
 {% endblock %}
 
 
 
 {% block 'body' %}
-<section>
-    <a href="{% url 'sheets:createsheets' %}">CRIAR FICHA</a>
-</section>
+    <section>
+        <a href="{% url 'sheets:createsheets' %}">CRIAR FICHA</a>
+    </section>
 {% endblock %}
