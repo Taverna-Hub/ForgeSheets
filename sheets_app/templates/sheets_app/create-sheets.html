@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create_equipment.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-sheets.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Criar ficha</title>
 {% endblock %}
@@ -105,7 +105,7 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:createsheets' %}" method="post">
+        <form action="{% url 'sheets:create_sheets' %}" method="post">
             {% csrf_token %}
             <section class="sheetHeader">
                 <div>

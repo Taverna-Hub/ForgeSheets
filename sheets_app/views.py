@@ -22,7 +22,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         ctx = {
             'app_name': 'sheets'
         }
-        return render(request, 'sheets_app/createsheets.html', ctx)
+        return render(request, 'sheets_app/create-sheets.html', ctx)
     
     def post(self, request):
         name = escape(request.POST.get('name'))
@@ -54,7 +54,7 @@ class CreateSheetView(LoginRequiredMixin, View):
                     'errors': errors,
                     'app_name': 'sheets'
                 }
-                return render(request, 'sheets_app/createsheets.html', ctx)
+                return render(request, 'sheets_app/create-sheets.html', ctx)
 
         
         eqpsName = (request.POST.getlist('equipmentName'))
