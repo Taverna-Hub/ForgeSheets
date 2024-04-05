@@ -58,80 +58,94 @@
                 </div>
             </section>
 
-            <section class="atributos">
-                <div class="atributosInputs">
-                    <div>
-                        <label for="strength">Força: </label>
-                        <input type="number" name="strength" id="strength" min="1" required>
-                    </div>
-                    <div>
-                        <label for="intelligence">Inteligencia: </label>
-                        <input type="number" name="intelligence" id="intelligence" min="1" required>
-                    </div>
-                    <div>
-                        <label for="wisdom">Sabedoria: </label>
-                        <input type="number" name="wisdom" id="wisdom" min="1" required>
-                    </div>
-                    <div>
-                        <label for="charisma">Carisma: </label>
-                        <input type="number" name="charisma" id="charisma" min="1" required>
-                    </div>
-                    <div>
-                        <label for="constitution">Contituição: </label>
-                        <input type="number" name="constitution" id="constitution" min="1" required>
-                    </div>
-                    <div>
-                        <label for="speed">Velocidade: </label>
-                        <input type="number" name="speed" id="speed" min="1" required>
-                    </div>
-                    {% for error in errors %}
-                    {% if error.field == 'atributes1'%}
-                    <span> 
-                        <i data-lucide="octagon-alert"></i>
-                        {{ error.message }} 
-                    </span>
-                {% endif %}
-            {% endfor %}     
-                </div>
-            </section>
-            
-
-            <section class="status">
-                <div class="statusInputs">
-                    <div>
-                        <label for="healthPointMax">Vida: </label>
-                        <input type="number" name="healthPointMax" id="healthPointMax" min="1" required>
-                    </div>
-                    
-                    <div>
-                        <label for="manaMax">Mana: </label>
-                        <input type="number" name="manaMax" id="manaMax" min="1" required>
-                    </div>
-                    
-                    <div>
-                        <label for="exp">XP: </label>
-                        <input type="number" name="exp" id="exp">
-                    </div>
-                    {% for error in errors %}
-                    {% if error.field == 'atributes2'%}
-                    <span> 
-                        <i data-lucide="octagon-alert"></i>
-                        {{ error.message }} 
-                    </span>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-            </section>
-            
-            <section class="equipamentos">
+            <div class="sideBySide">
                 
-                <div>
-                    
+                <section class="atributos">
+                    <div class="atributosInputs">
+                
+                        <div>
+                            <label for="strength">Força: </label>
+                            <input type="number" name="strength" id="strength" min="1" required>
+                        </div>
+                        <div>
+                            <label for="intelligence">Inteligencia: </label>
+                            <input type="number" name="intelligence" id="intelligence" min="1" required>
+                        </div>
+                        <div>
+                            <label for="wisdom">Sabedoria: </label>
+                            <input type="number" name="wisdom" id="wisdom" min="1" required>
+                        </div>
+                        <div>
+                            <label for="charisma">Carisma: </label>
+                            <input type="number" name="charisma" id="charisma" min="1" required>
+                        </div>
+                        <div>
+                            <label for="constitution">Contituição: </label>
+                            <input type="number" name="constitution" id="constitution" min="1" required>
+                        </div>
+                        <div>
+                            <label for="speed">Velocidade: </label>
+                            <input type="number" name="speed" id="speed" min="1" required>
+                        </div>
+                        {% for error in errors %}
+                        {% if error.field == 'atributes1'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                
+                <section class="status">
+                    <div class="statusInputs">
+                        <div>
+                            <label for="healthPointMax">Vida: </label>
+                            <input type="number" name="healthPointMax" id="healthPointMax" min="1" required>
+                        </div>
+                
+                        <div>
+                            <label for="manaMax">Mana: </label>
+                            <input type="number" name="manaMax" id="manaMax" min="1" required>
+                        </div>
+                
+                        <div>
+                            <label for="exp">XP: </label>
+                            <input type="number" name="exp" id="exp">
+                        </div>
+                        {% for error in errors %}
+                        {% if error.field == 'atributes2'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </section>
+                
+            </div>
+
+            <section class="equipamentos">            
+                <label for="">Equipamentos</label>
+                <div class="add_equip_div">
+                    <button type="button">    
+                        <a href="{% url 'sheets:add_equipment' %}" class="addEquip">
+                            <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                        </a>
+                    </button>
                 </div>
+                
+                
             </section>
             
-            <input type="hidden" name="description" value=" ">
-            <button type="submit">CRIAR</button>
+            <div class="actions">
+                <button type="button">
+                    <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
+                </button>
+                <button type="submit">Criar</button>
+            </div>
         </form>
     </section>
 </section>
