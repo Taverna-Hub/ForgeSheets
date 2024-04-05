@@ -5,7 +5,7 @@ from campaigns_app import views
 from utilities_app import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('tavernadmin/', admin.site.urls),
     path('', include('utilities_app.urls')),
     path('fichas/', include('sheets_app.urls')),
     path('campanhas/', include('campaigns_app.urls')),
