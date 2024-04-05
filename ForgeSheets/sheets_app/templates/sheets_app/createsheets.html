@@ -31,7 +31,7 @@
                 {% comment %} <label for="image">foto do personagem: </label>
                 <input type="url" name="image"> {% endcomment %}
 
-                <div>
+                <div>   
                     <label for="race">Raça do personagem: </label>
                     <input type="text" name="race">
                     {% for error in errors %}
@@ -60,8 +60,6 @@
 
             <section class="atributos">
                 <div class="atributosInputs">
-                    {% for error in errors %}
-                    {% if error.field == 'atributes1'%}
                     <div>
                         <label for="strength">Força: </label>
                         <input type="number" name="strength" id="strength" min="1" required>
@@ -86,6 +84,8 @@
                         <label for="speed">Velocidade: </label>
                         <input type="number" name="speed" id="speed" min="1" required>
                     </div>
+                    {% for error in errors %}
+                    {% if error.field == 'atributes1'%}
                     <span> 
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }} 
@@ -98,8 +98,6 @@
 
             <section class="status">
                 <div class="statusInputs">
-                    {% for error in errors %}
-                    {% if error.field == 'atributes2'%}
                     <div>
                         <label for="healthPointMax">Vida: </label>
                         <input type="number" name="healthPointMax" id="healthPointMax" min="1" required>
@@ -114,12 +112,14 @@
                         <label for="exp">XP: </label>
                         <input type="number" name="exp" id="exp">
                     </div>
+                    {% for error in errors %}
+                    {% if error.field == 'atributes2'%}
                     <span> 
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }} 
                     </span>
-                {% endif %}
-            {% endfor %}
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </section>
             
@@ -129,8 +129,8 @@
                     
                 </div>
             </section>
-
-    <input type="hidden" name="description" value=" ">
+            
+            <input type="hidden" name="description" value=" ">
             <button type="submit">CRIAR</button>
         </form>
     </section>

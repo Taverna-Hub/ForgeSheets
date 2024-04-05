@@ -28,16 +28,16 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = escape(request.POST.get('race'))
         role = escape(request.POST.get('role'))
 
-        strength = escape(int(request.POST.get('strength'))) 
-        intelligence = escape(int(request.POST.get('intelligence')))
-        wisdom = escape(int(request.POST.get('wisdom')))
-        charisma = escape(int(request.POST.get('charisma')))
-        constitution = escape(int(request.POST.get('constitution')))
-        speed = escape(int(request.POST.get('speed')))
+        strength = int(request.POST.get('strength'))
+        intelligence = int(request.POST.get('intelligence'))
+        wisdom = int(request.POST.get('wisdom'))
+        charisma = int(request.POST.get('charisma'))
+        constitution = int(request.POST.get('constitution'))
+        speed = int(request.POST.get('speed'))
 
-        healthPointMax = escape(int(request.POST.get('healthPointMax')))
-        manaMax = escape(int(request.POST.get('manaMax')))
-        exp = escape(int(request.POST.get('exp')))
+        healthPointMax = int(request.POST.get('healthPointMax'))
+        manaMax = int(request.POST.get('manaMax'))
+        exp = int(request.POST.get('exp'))
 
         description = escape(request.POST.get('description'))
 
@@ -54,10 +54,10 @@ class CreateSheetView(LoginRequiredMixin, View):
                 return render(request, 'sheets_app/createsheets.html', ctx)
 
         
-        eqpsName = escape(request.POST.getlist('equipmentName'))
-        eqpsQnt = escape(request.POST.getlist('equipmentQnt'))
-        eqpsAtk = escape(request.POST.getlist('equipmentAtk'))
-        eqpsDef = escape(request.POST.getlist('equipmentDef'))
+        eqpsName = (request.POST.getlist('equipmentName'))
+        eqpsQnt = (request.POST.getlist('equipmentQnt'))
+        eqpsAtk = (request.POST.getlist('equipmentAtk'))
+        eqpsDef = (request.POST.getlist('equipmentDef'))
 
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
@@ -74,11 +74,11 @@ class AddEquipmentView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create_equip.html')
 
     def post(self, request):
-        name = escape(request.POST.get('name'))
-        quantity = escape(request.POST.get('quantity'))
-        attack = escape(request.POST.get('attack'))
-        defense = escape(request.POST.get('defense'))
-        sheet = escape(request.POST.get('sheet'))
+        name = (request.POST.get('name'))
+        quantity = int(request.POST.get('quantity'))
+        attack = int(request.POST.get('attack'))
+        defense = int(request.POST.get('defense'))
+        sheet = (request.POST.get('sheet'))
         # addEquipmentResult = save_equipment(0, name, int(quantity), int(attack), int(defense), sheet)
 
         # if addEquipmentResult == 0:
@@ -143,9 +143,9 @@ class EditEquipmentView(LoginRequiredMixin, View):
             return HttpResponse('Esse equipamento não existe')
         
         newName = escape(request.POST.get('name'))
-        newQuantity = escape(request.POST.get('quantity'))
-        newAttack = escape(request.POST.get('attack'))
-        newDefense = escape(request.POST.get('defense'))
+        newQuantity = (request.POST.get('quantity'))
+        newAttack = (request.POST.get('attack'))
+        newDefense = (request.POST.get('defense'))
 
         editEquipmentResult = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
 
