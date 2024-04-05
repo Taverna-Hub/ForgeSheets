@@ -108,3 +108,12 @@ main {
 .mainSheets {
   background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
 }
+
+ .usuario {
+  text-align: center;
+  padding-right: 12px;
+ }
+
+ p {
+  color: var(--white);
+ }
