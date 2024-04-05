@@ -28,7 +28,7 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r ForgeSheets/requirements.txt
+        run: pip install -r forgesheets/requirements.txt
 
 
         
