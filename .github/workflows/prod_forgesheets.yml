@@ -34,6 +34,8 @@ jobs:
           pip install whitenoise==6.6.0
           pip install gunicorn==21.2.0
           pip install python-dotenv==1.0.1
+          pip list
+
 
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
