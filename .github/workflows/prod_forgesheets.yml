@@ -35,16 +35,14 @@ jobs:
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Cleaning testing files
         run: |
-          cd ForgeSheets/
           rm .env
-          cd ..
+          
 
       - name: Zip artifact for deployment
         run: |
-          cd ForgeSheets/
           zip release.zip ./* -r
-          cd ..
-          mv ForgeSheets/release.zip .
+          
+          
       
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v3
