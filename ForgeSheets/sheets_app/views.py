@@ -63,7 +63,7 @@ class CreateSheetView(LoginRequiredMixin, View):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
-        return HttpResponse('Ficha salva com sucesso!')
+        return redirect('sheets:homesheets')
 
 class AddEquipmentView(LoginRequiredMixin, View):
 
