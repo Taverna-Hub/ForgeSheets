@@ -7,13 +7,13 @@
   --gray-800: #1f2937;
 }
 
-section {
-  background-color: rgba(0, 0, 0, 0.7);
+/* section {
+  background-color: rgba(0, 0, 0, 0);
   backdrop-filter: blur(12px);
   z-index: 999;
 
   padding: 32px 64px;
-}
+} */
 
 label {
   font-weight: 500;
@@ -84,4 +84,3 @@ button {
 .status {
   background-color: rgb(76, 197, 65);
 }
-
