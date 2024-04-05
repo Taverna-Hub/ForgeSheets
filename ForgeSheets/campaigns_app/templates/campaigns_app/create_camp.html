@@ -52,10 +52,8 @@
                     {% endfor %}
                 </div>
 
-                <div class="actions">
-                    <button type="button">
-                        <a href="{% url 'campaigns:campaign' %}"> Cancelar</a>
-                    </button>
+                <div class="actions">  
+                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a>                            
                     <button type="submit">Criar</button>
                 </div>
             </form>
