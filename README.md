@@ -140,3 +140,5 @@
 
 <p align="center"><img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/9287638f-8716-4e62-9989-a40882fbfed6" width="40px"></p>
 <p align="center">Projeto para a disciplina de <strong>Fundamentos de Desenvolvimento de Software</strong> na <strong>CESAR School‎‎</strong></p>
+
+![Diagrama-de-atividade-(1)](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/b3d271e9-0ca4-4380-a334-bdc434a25ad7)

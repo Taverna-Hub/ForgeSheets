@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/create_c.css' %}">
+  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+  <title>Campanha | ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+    <section>
+        <div class="modal">
+            <h2>Criar uma nova campanha</h2>
+            <form action="{% url 'campaigns:create_campaign' %}" method="POST">
+                {% csrf_token %}
+                <div>
+                    <label for="image">Insira uma URL para a foto da campanha: </label>
+                    <input type="text" id="image" name="image">
+                    {% for error in errors %}
+                        {% if error.field == 'image'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="title">Nome da campanha: </label>
+                    <input type="text" id="title" name="title">
+                    {% for error in errors %}
+                        {% if error.field == 'title'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <label for="description">Descrição: </label>
+                    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                    {% for error in errors %}
+                        {% if error.field == 'description'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="actions">  
+                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a>                            
+                    <button type="submit">Criar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
