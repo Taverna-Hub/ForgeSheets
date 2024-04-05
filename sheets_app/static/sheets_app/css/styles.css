@@ -11,91 +11,93 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
 }
+
 .listSheetsContainer{
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
   z-index: 999;
+  height: 100vh;
 
   padding: 32px 64px;
   overflow: auto;
-  }
+}
   
-  .cardList {
-    display: grid;
-    grid-template-columns: repeat(5, 300px);
-  
-    gap: 16px;
-  }
-  
-  .sheetCard {
-    border-radius: 4px;
-  }
-  
-  .sheetCard > div, .createSheet {
-    width: 300px;
-    height: 200px;
-    padding: 24px;
-    background-color: rgba(0,0,0,0.4);
-    position: relative;
-    border-radius: 4px;
-  }
-  
-  .createSheet {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px dashed var(--red-700);
-    cursor: pointer;
-  
-    background-size: cover;
-    background-repeat: no-repeat;
-    
-    transition: all .3s;
-  }
-  
-  .createSheet:hover {
-    transform: translateY(-4px);
-    box-shadow: rgba(185,28,28,0.3) 0px 8px 24px;
-  }
-  
-  .createSheet div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-  
-    border: 3px dashed var(--red-700);
-    color: var(--red-700);
-  }
-  
-  .createSheet:hover {
-    transform: translateY(-4px);
-  }
-  
-  .sheetCard h2 {
-    text-align: center;
-    color: var(--gray-300);
-    word-break: break-all;
-    
-  }
+.cardList {
+  display: grid;
+  grid-template-columns: repeat(5, 300px);
 
-  .sheet_info{
-    width: fit-content;
-  }
+  gap: 16px;
+}
+  
+.sheetCard {
+  border-radius: 4px;
+}
+  
+.sheetCard > div, .createSheet {
+  width: 300px;
+  height: 200px;
+  padding: 24px;
+  background-color: rgba(0,0,0,0.4);
+  position: relative;
+  border-radius: 4px;
+}
+  
+.createSheet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed var(--red-700);
+  cursor: pointer;
 
-  .sheet_info {
-    margin-top: 24px;
-  }
+  background-size: cover;
+  background-repeat: no-repeat;
   
-  .sheet_info span {
-    color: var(--gray-200);
-    font-weight: 600;
-  }
+  transition: all .3s;
+}
   
-  .sheet_info p {
-    margin-top: 4px;
-    color: var(--white);
-  }
+.createSheet:hover {
+  transform: translateY(-4px);
+  box-shadow: rgba(185,28,28,0.3) 0px 8px 24px;
+}
+  
+.createSheet div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+
+  border: 3px dashed var(--red-700);
+  color: var(--red-700);
+}
+  
+.createSheet:hover {
+  transform: translateY(-4px);
+}
+  
+.sheetCard h2 {
+  text-align: center;
+  color: var(--gray-300);
+  word-break: break-all;
+  
+}
+
+.sheet_info{
+  width: fit-content;
+}
+
+.sheet_info {
+  margin-top: 24px;
+}
+
+.sheet_info span {
+  color: var(--gray-200);
+  font-weight: 600;
+}
+
+.sheet_info p {
+  margin-top: 4px;
+  color: var(--white);
+}

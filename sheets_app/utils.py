@@ -98,6 +98,7 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
 
 def atribute_verifier(atr):
     return 1 if not re.match(r'^[-+]?\d*\.?\d+$', atr) else 0
+
 # add imagem
 def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]

@@ -102,18 +102,48 @@ main {
   background-image: url('https://pbs.twimg.com/media/GKWA-b8WAAAMFBY?format=jpg&name=large');
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  position: fixed;
+  position: relative;
+}
+
+#menuHamburguer {
+  display: none;
 }
 
 .mainSheets {
   background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
 }
 
- .usuario {
+.usuario {
   text-align: center;
   padding-right: 12px;
- }
+}
 
- h1 {
+h1 {
   color: var(--white);
- }
+}
+
+@media (max-width: 800px) {
+  nav {
+    display: none;
+  }
+
+  nav.active {
+    display: flex;
+    position: absolute;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  main {
+    display: block;
+  }
+
+  #menuHamburguer {
+    display: block;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    border: 1px solid red;
+    z-index: 99999;
+  }
+}
