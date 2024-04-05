@@ -28,7 +28,15 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install asgiref
+          pip install Django
+          pip install sqlparse
+          pip install tzdata
+          pip install python-dotenv
+          pip install psycopg2-binary
+          pip install whitenoise
+          pip install gunicorn
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Cleaning testing files
