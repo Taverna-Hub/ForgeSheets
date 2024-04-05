@@ -101,7 +101,7 @@ def atribute_verifier(atr):
 # add imagem
 def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
-    if 2 > len(name) or len(name) <= 50:
+    if 2 > len(name) or len(name) >= 50:
         errors.append({
             'field':'name',
             'message': 'Esse campo necessita ter entre 2 e 50 caracteres'
