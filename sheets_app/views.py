@@ -31,16 +31,16 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = escape(request.POST.get('race'))
         role = escape(request.POST.get('role'))
 
-        strength = int(request.POST.get('strength'))
-        intelligence = int(request.POST.get('intelligence'))
-        wisdom = int(request.POST.get('wisdom'))
-        charisma = int(request.POST.get('charisma'))
-        constitution = int(request.POST.get('constitution'))
-        speed = int(request.POST.get('speed'))
+        strength = (request.POST.get('strength'))
+        intelligence = (request.POST.get('intelligence'))
+        wisdom = (request.POST.get('wisdom'))
+        charisma = (request.POST.get('charisma'))
+        constitution = (request.POST.get('constitution'))
+        speed = (request.POST.get('speed'))
 
-        healthPointMax = int(request.POST.get('healthPointMax'))
-        manaMax = int(request.POST.get('manaMax'))
-        exp = int(request.POST.get('exp'))
+        healthPointMax = (request.POST.get('healthPointMax'))
+        manaMax = (request.POST.get('manaMax'))
+        exp = (request.POST.get('exp'))
 
         description = escape(request.POST.get('description'))
 
