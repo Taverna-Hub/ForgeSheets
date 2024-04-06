@@ -27,10 +27,6 @@ a{
 
 label {
   font-weight: 500;
-  /* display: block;
-  margin-bottom: 8px;
-  color: var(--gray-700); */
-
 }
 
 input {
@@ -72,24 +68,23 @@ button {
 .sheetHeader {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
 }
 
-.sheetHeader input {
-  width: 250px;
+.sheetHeader div, .sheetHeader input {
+  width: 100%;
 }
 
 .sheetHeader label {
   display: block;
-  color: var(--gray-800);
+  color: var(--gray-700);
+  margin-bottom: 8px;
 }
 
 .atributos, .status {
-  /* background-color: rgb(230, 230, 230); */
-  padding: 42px 32px 32px 12px; 
-  /* padding-top: 10px; */
-  min-width: 400px;
-  width: fit-content;
+  padding: 42px 0 12px; 
+  max-width: 400px;
+  width: 100%;
 }
 
 .atributosInputs div, .statusInputs div {
@@ -107,28 +102,27 @@ button {
 }
 
 .status {
-  /* background-color: rgb(76, 197, 65); */
   margin-bottom: 201px; 
 }
 
-.sideBySide, .equipamentos{
+.sheetSideBySide, .equipamentos {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   gap: 16px;
 }
 
-.sideBySide, .equipamentos div{
+.equipamentos div{
   width: 100%; 
 } 
 
-.actions {
-  margin-left: 580px;
+.createSheetActions {
   align-self: flex-end;
 }
 
-.actions button {
+.createSheetActions button {
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
@@ -137,16 +131,16 @@ button {
   font-size: 16px;
 }
 
-.actions button:first-child {
+.createSheetActions button:first-child {
   background-color: var(--gray-200);
   color: var(--gray-700);
 }
 
-.actions button:first-child a {
+.createSheetActions button:first-child a {
   color: var(--gray-700);
 }
 
-.actions button:last-child {
+.createSheetActions button:last-child {
   background-color: var(--red-600);
   color: var(--gray-200);
 }
@@ -155,11 +149,48 @@ button {
   all: unset;
 }
 
-.equipamentos{
+.equipamentos {
   margin-left: 12px;
-
 }
 
-.addEquip{
+.addEquip {
   color: var(--gray-600);
+}
+
+@media (max-width: 1540px) {
+  .atributos, .status {
+    width: fit-content;
+  }
+
+  .atributosInputs div {
+    width: 100%;
+  }
+
+  .atributosInputs div input, .statusInputs div input {
+    max-width: 50%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 1230px) {
+  .sheetHeader {
+    flex-direction: column;
+  }
+  
+  .status {
+    padding: 0;
+  }
+}
+
+@media (max-width: 1180px) {
+  .sheetSideBySide {
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: baseline;
+  }
+
+  .atributos, .status {
+    min-width: 100%;
+    width: 100%;
+  }
 }

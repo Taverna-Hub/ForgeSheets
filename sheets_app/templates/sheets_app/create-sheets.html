@@ -2,16 +2,110 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/sheets.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-sheets.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Criar ficha</title>
 {% endblock %}
 
 {% block 'body' %}
+<section class="equipmentModal">
+    <div class="modal">
+        <h2>Adicionar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="name" value="{{name}}" required>
+                {% for error in errors %}
+                    {% if error.field == 'name'%}
+                        <span> 
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }} 
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                {%if quantity %}
+                    <input type="number" name="quantity" value="{{quantity}}" required>
+                {%else%}
+                    <input type="number" name="quantity" value=1 >
+                {% endif %}
+                {% for error in errors %}
+                    {% if error.field == 'quantity'%}
+                        <span> 
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }} 
+                        </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    {% if attack%}
+                        <input type="number" name="attack" value="{{attack}}" required>
+                    {%else%}
+                        <input type="number" name="attack" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'attack'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    {%if defense%}
+                        <input type="number" name="defense" value="{{defense}}" required>
+                    {%else%}
+                        <input type="number" name="defense" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'defense'%}
+                            <span> 
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }} 
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p>
+                Se o seu item não influenciar nos pontos de Ataque e/ou Defesa 
+                do personagem, deixe um 0 nos campos.
+            </p>                
+
+            <div class="actions">
+                <button 
+                    type="button"
+                    id="closeEquipmentBtn" 
+                >
+                    Cancelar
+                </button>
+                <button 
+                    type="button" 
+                    id="addEquipmentBtn" 
+                >
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:createsheets' %}" method="post">
+        <form action="{% url 'sheets:create_sheets' %}" method="post">
             {% csrf_token %}
             <section class="sheetHeader">
                 <div>
@@ -58,11 +152,9 @@
                 </div>
             </section>
 
-            <div class="sideBySide">
-                
+            <div class="sheetSideBySide">         
                 <section class="atributos">
                     <div class="atributosInputs">
-                
                         <div>
                             <label for="strength">Força: </label>
                             <input type="number" name="strength" id="strength" min="1" required>
@@ -124,23 +216,20 @@
                         {% endfor %}
                     </div>
                 </section>
-                
             </div>
 
             <section class="equipamentos">            
                 <p>Equipamentos</p>
                 <div class="add_equip_div">
-                    <button type="button">    
-                        <a href="{% url 'sheets:add_equipment' %}" class="addEquip">
-                            <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
-                        </a>
+                    <button type="button" class="openEquipmentBtn">    
+                        <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
                     </button>
                 </div>
                 
                 
             </section>
             
-            <div class="actions">
+            <div class="createSheetActions">
                 <button type="button">
                     <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
                 </button>
@@ -149,5 +238,5 @@
         </form>
     </section>
 </section>
-
+<script src="{% static 'sheets_app/js/equipment.js' %}" ></script>
 {% endblock %}
