@@ -105,7 +105,7 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:create_sheets' %}" method="post">
+        <form action="{% url 'sheets:create_sheets' %}" method="post" onsubmit="disableButton()">
             {% csrf_token %}
             <section class="sheetHeader">
                 <div>
@@ -233,7 +233,13 @@
                 <button type="button">
                     <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
                 </button>
-                <button type="submit">Criar</button>
+                <script>
+                    function disableButton() {
+                        var button = document.getElementById("submit_button");
+                        button.disabled = true;
+                    }
+                </script>
+                <button type="submit" id="submit_button">Criar</button>
             </div>
         </form>
     </section>
