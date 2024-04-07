@@ -4,6 +4,7 @@
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-sheets.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Criar ficha</title>
 {% endblock %}
@@ -99,6 +100,38 @@
     </div>
 </section>
 
+<section class="imageModal">
+    <div class="modal">
+        <h2>Adicionar Imagem</h2>
+        <form>
+            {%csrf_token%}
+            <div class="imageInput">
+                <label for="image">Foto do personagem: </label>
+                <input type="url" name="image" value="{{image}}">
+                {% for error in errors %}
+                {% if error.field == 'image'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+                {% endfor %}
+            
+            </div>
+            <div class="actions">
+                <button type="button" id="closeImageBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addImageBtn">
+                    Adicionar
+                </button>
+            </div>
+        </form>
+        
+    </div>
+    
+</section>
+
 <section class="mainSheet">
     <section class="sheet">
         <form action="{% url 'sheets:create_sheets' %}" method="post" onsubmit="disableButton()">
@@ -117,10 +150,10 @@
                     {% endfor %}
 
                 </div>
-                <div>
+                {% comment %} <div>
                     <label for="image">Foto do personagem: </label>
                     <input type="url" name="image" value="{{image}}">
-                </div>
+                </div> {% endcomment %}
 
                 <div>
                     <label for="race">Raça do personagem: </label>
@@ -187,6 +220,15 @@
                     </div>
                 </section>
 
+                <section class="add-image">
+                    {% comment %} <p>Imagem</p> {% endcomment %}
+                    <div class="add_image_div">
+                        <button type="button" class="openImagementBtn">
+                            <i data-lucide="image-up" width="32" height="32" stroke-width="1.5px"></i>
+                        </button>
+                    </div>
+                </section>
+
                 <section class="status">
                     <div class="statusInputs">
                         <div>
@@ -231,10 +273,13 @@
                     </div>
                 </section>
 
+                
+                
                 <section class="description">
                     <div class="description-area">
                         <label for="description">Descrição: </label>
-                        <input type="text" name="description" id="description" value=" ">
+                        <textarea name="description" id="description" value=" " id="" cols="30" rows="10"></textarea>
+                        {% comment %} <input type="text" name="description" id="description" value=" "> {% endcomment %}
                     </div>
                     {% for error in errors %}
                     {% if error.field == 'description'%}
@@ -263,4 +308,5 @@
     </section>
 </section>
 <script src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 {% endblock %}

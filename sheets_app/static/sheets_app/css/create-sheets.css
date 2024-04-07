@@ -193,6 +193,19 @@ button {
   color: var(--gray-600);
 }
 
+.add_image_div button{
+  border-radius: 100%;
+  margin: auto;
+  background: none;
+  border: none;
+}
+
+.add_image_div{
+  background-color: var(--green-500);
+  border-radius: 50%;
+  width: auto;
+}
+
 @media (max-width: 1540px) {
   .atributos, .status {
     width: fit-content;
