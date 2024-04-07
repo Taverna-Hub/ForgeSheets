@@ -1,21 +1,5 @@
 from .models import Equipment, Sheet, Race
 import re
-from django.utils.html import escape
-
-# def save_equipment(equipment, name, quantity, attack, defense, sheet):
-#     if 1 <= len(name) >= 55:
-#         return 0
-#     if name.count(' ') == len(name) or str(quantity).count(' ') == len(str(quantity)) or str(attack).count(' ') == len(str(attack)) or str(defense).count(' ') == len(str(defense)):
-#         return 2
-#     try:
-#         if quantity < 1:
-#             return 3
-#         if attack < 0 or defense < 0:
-#             return 4
-#         if type(quantity) != int or type(attack) != int or type(defense) != int:
-#             return 5
-#     except:
-#         return 5
 
 #Trtamento de erro na utils -> precisa testar
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
@@ -106,11 +90,12 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     status=[]
 
     image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
-    if not image_treated:
-        errors.append({
-            'field': 'image',
-            'message': 'Insira uma URL válida!'
-        })
+    if image != '':
+        if not image_treated:
+            errors.append({
+                'field': 'image',
+                'message': 'Insira uma URL válida!'
+            })
 
     if 2 > len(name) or len(name) >= 50:
         errors.append({

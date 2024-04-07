@@ -1,4 +1,3 @@
-from django.utils.html import escape
 from .models import Campaign
 import re
 
@@ -41,7 +40,7 @@ def save_campaign(image, title, description, user_id):
   if len(wrong_fields) > 0:
     return wrong_fields
 
-  campaign = Campaign(image=image, title=escape(title), description=escape(description), user_id=user_id)
+  campaign = Campaign(image=image, title=title, description=description, user_id=user_id)
   campaign.save()
   
 

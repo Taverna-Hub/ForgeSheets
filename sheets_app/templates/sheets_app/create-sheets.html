@@ -120,6 +120,14 @@
                 <div>
                     <label for="image">Foto do personagem: </label>
                     <input type="url" name="image" value="{{image}}">
+                    {% for error in errors %}
+                        {% if error.field == 'image'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div>
