@@ -49,11 +49,28 @@ class CreateSheetView(LoginRequiredMixin, View):
         #add imagem
         errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
                 ctx = {
                     'errors': errors,
                     'app_name': 'sheets'
                 }
+                if 'name' not in errors:
+                    ctx['name'] = name
+                if 'race' not in errors:
+                    ctx['race'] = race
+                if 'role' not in errors:
+                    ctx['role'] = role
+                for atributo in atributos:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+
                 return render(request, 'sheets_app/create-sheets.html', ctx)
 
         

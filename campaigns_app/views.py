@@ -31,12 +31,18 @@ class CreateCampaignView(LoginRequiredMixin, View):
 
       fields = save_campaign(image, title, description, user_id)
 
-      if fields:
-         ctx = {
-            'errors': fields,
-            'app_name': 'campaign'
-         }
+      ctx = {
+      'image': image,
+      'title': title,
+      'description': description,
+   }
 
+      
+      if fields:
+         ctx['errors'] = fields
+         ctx['app_name'] = 'campaign'
+         for field_error in fields:
+               ctx.pop(field_error['field'], None)
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
       return redirect('campaigns:campaign')
