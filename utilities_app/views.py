@@ -54,3 +54,7 @@ class SignView(View):
                 messages.error(request, 'Preencha todos os campos')
                 ctx = {'usernameR': username, 'email': email, 'register': 1}
                 return render(request, 'utilities_app/sign.html', ctx)
+            elif register_result == 4:
+                messages.error(request, 'E-mail já cadastrado')
+                ctx = {'usernameR': username, 'register': 1}
+                return render(request, 'utilities_app/sign.html', ctx)

@@ -26,7 +26,7 @@ def register(username, email, password):
     if user:
         return 0
     if mail:
-        return 2
+        return 4
 
     user = User.objects.create_user(username=username, email=email, password=password)
     user.save()
