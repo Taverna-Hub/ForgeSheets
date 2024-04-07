@@ -8,7 +8,6 @@ from django.contrib.auth import logout
 from django.urls import reverse
 from sheets_app.models import Sheet
 from sheets_app.views import SheetsView
-from django.utils.html import escape
 
 class SignView(View):
     def get(self, request):
@@ -20,11 +19,11 @@ class SignView(View):
             logout(request)
             return redirect('utilities:sign')
 
-        password = escape(request.POST.get('password'))
-        email = escape(request.POST.get('email'))
+        password = request.POST.get('password')
+        email = request.POST.get('email')
 
         if 'login' in request.POST: 
-            username = escape(request.POST.get('userL'))
+            username = request.POST.get('userL')
             login_result = login(request, username, password)
             if login_result == 1:
                 return redirect('sheets:homesheets')
@@ -37,7 +36,7 @@ class SignView(View):
                 return render(request, 'utilities_app/sign.html', ctx)
 
         elif 'register' in request.POST:
-            username = escape(request.POST.get('userR'))
+            username = request.POST.get('userR')
             register_result = register(username, email, password)
             if register_result == 1:
                 messages.success(request, 'Usuário cadastrado com sucesso')
