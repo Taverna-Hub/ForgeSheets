@@ -13,13 +13,17 @@
   --gray-800: #1f2937;
 }
 
-/* section {
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
-  z-index: 999;
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
 
-  padding: 32px 64px;
-} */
 
 a{
   text-decoration: none;
@@ -107,14 +111,14 @@ button {
 
 .sheetSideBySide, .equipamentos {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 
   width: 100%;
   gap: 16px;
 }
 
-.equipamentos div{
+.equipamentos div {
   width: 100%; 
 } 
 
@@ -145,14 +149,44 @@ button {
   color: var(--gray-200);
 }
 
-.add_equip_div button{
-  all: unset;
-  cursor: pointer;
+.equipamentos {
+  background-color: var(--gray-800);
+  padding: 16px;
+  color: var(--white);
+  width: 355px;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.equipamentos {
-  margin-left: 12px;
+.equipamentos .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
+.equipamentos button {
+  background: none;
+  border: none;
+  color: var(--white);
+}
+
+.equipamentos .equipmentsListContainer {
+  height: 250px;
+  background-color: var(--gray-200);
+}
+
+.equipmentsListContainer {
+  overflow-y: scroll;
+}
+
+.equipmentsListContainer ul {
+  color: var(--gray-700);
+  list-style-type: circle;
+  padding: 16px 24px;
+}
+
 
 .addEquip {
   color: var(--gray-600);

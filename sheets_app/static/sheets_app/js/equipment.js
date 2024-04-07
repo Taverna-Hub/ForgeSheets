@@ -8,7 +8,26 @@ const closeEquipmentBtn = document.querySelector('#closeEquipmentBtn')
 const openEquipmentModal = document.querySelector('.openEquipmentBtn')
 const equipmentModal = document.querySelector('.equipmentModal')
 
-let equipmentList = '';
+let context = document.getElementById('context').getAttribute('data-context');
+if (context) {
+  context = JSON.parse(context.replace(/'/g, '"'));
+}
+
+let equipmentString = '';
+let equipmentList = [];
+
+
+const StorageService = {
+  saveData() {
+    localStorage.setItem('equipments', JSON.stringify(equipmentList))
+  },
+  getData() {
+    return  JSON.parse(localStorage.getItem('equipments')) || []
+  },
+  removeData() {
+    localStorage.removeItem('equipments')
+  }
+}
 
 function closeEquipmentModal() {
   equipmentModal.style.display = 'none';
@@ -34,7 +53,6 @@ function addEquipmentToList() {
     defense: Number(defense.value)
   };
 
-  console.log(equipment.name.length)
   if (equipment.name === '') {
     handleError('Esse campo não pode ser vazio', 'equipmentName')
     return
@@ -79,15 +97,17 @@ function addEquipmentToList() {
     return
   }
 
+  equipmentList.push(equipment);
+  StorageService.saveData();
 
-  equipmentList +=
+  equipmentString +=
     `
     <li>
       <div>
-        <input type="hidden" name="name" value="${equipment.name}" />
-        <input type="hidden" name="quantity" value="${equipment.quantity}" />
-        <input type="hidden" name="attack" value="${equipment.attack}" />
-        <input type="hidden" name="defense" value="${equipment.defense}" />
+        <input type="hidden" name="equipmentName" value="${equipment.name}" />
+        <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
+        <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
+        <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
       </div>
         ${equipment.name}
         <i data-lucide="log-out" width="40" height="40"></i>
@@ -95,14 +115,52 @@ function addEquipmentToList() {
     </li>
     `;
 
-  const node = new DOMParser().parseFromString(equipmentList, 'text/html').body.firstElementChild
+  const node = new DOMParser().parseFromString(equipmentString, 'text/html').body.firstElementChild
   document.querySelector('.equipmentList').appendChild(node)
-  closeEquipmentModal(name, quantity, attack, defense);
-  equipmentList = '';
+  closeEquipmentModal();
+  equipmentString = '';
+  name.value = '';
+  equipment.value = 1;
+  attack.value = 0;
+  defense.value = 0;
 }
 
-openEquipmentModal.addEventListener('click', () => {
+function loadEquipmentList() {
+  equipmentList = StorageService.getData();
+
+  equipmentList.forEach((equipment) => {
+    equipmentString +=
+    `
+    <li>
+      <div>
+        <input type="hidden" name="equipmentName" value="${equipment.name}" />
+        <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
+        <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
+        <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
+      </div>
+        ${equipment.name}
+        <i data-lucide="log-out" width="40" height="40"></i>
+
+    </li>
+    `;
+
+    const node = new DOMParser().parseFromString(equipmentString, 'text/html').body.firstElementChild
+    document.querySelector('.equipmentList').appendChild(node)
+  });
+
+  equipmentString = '';
+}
+
+openEquipmentModal?.addEventListener('click', () => {
   equipmentModal.style.display = 'flex';
 });
-addEquipmentBtn.addEventListener('click', () => addEquipmentToList());
-closeEquipmentBtn.addEventListener('click', () => closeEquipmentModal());
+addEquipmentBtn?.addEventListener('click', () => addEquipmentToList());
+closeEquipmentBtn?.addEventListener('click', () => closeEquipmentModal());
+
+window.onload = () => {
+  if (context.length >= 1) {
+    loadEquipmentList();
+  } else {
+    StorageService.removeData();
+  }
+}

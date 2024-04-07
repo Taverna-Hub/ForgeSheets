@@ -80,10 +80,17 @@
   transform: translateY(-4px);
 }
 
+.campaignCard {
+  overflow: hidden;
+}
+
 .campaignCard h2 {
   text-align: center;
   color: var(--gray-300);
   word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .campaignInfo {
@@ -98,6 +105,10 @@
 .campaignInfo p {
   margin-top: 4px;
   color: var(--white);
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .title{
