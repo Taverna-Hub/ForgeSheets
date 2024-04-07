@@ -36,14 +36,19 @@
                         <span>Classe:</span>
                         <p>{{sheet.role}}</p>
                     </div>
-                    <div class="sideBySide">
-                        <span>Vida:</span>
-                        <p>{{sheet.healthPoint}}/{{sheet.healthPointMax}}</p>
+                    
+                    <div class="bar">
+                        <span class="hp-bar">
+                            {% comment %} <p>Vida</p> {% endcomment %}
+                        </span>
                     </div>
-                    <div class="sideBySide">
-                        <span>Mana:</span>
-                        <p>{{sheet.mana}}/{{sheet.manaMax}}</p>
+                    
+                    <div class="bar">
+                        <span class="mana-bar">
+                            {% comment %} <p>Vida</p> {% endcomment %}
+                        </span>
                     </div>
+
                 </div>
 
             </div>
