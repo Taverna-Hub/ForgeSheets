@@ -224,7 +224,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("healthPointMax")
         if int(manaMax) < 1:
             errors.append("manaMax")
-    if int(exp) < 0:
+    elif int(exp) < 0:
         errors.append({
             'field' : 'atributes2',
             'message' : 'A experiência não pode ser menor que 0'
