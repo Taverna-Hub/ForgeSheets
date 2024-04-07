@@ -18,29 +18,29 @@
                 <label for="name">Nome do equipamento:</label>
                 <input type="text" name="name" value="{{equipmentName}}">
                 {% for error in errors %}
-                    {% if error.field == 'name'%}
-                        <span> 
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }} 
-                        </span>
-                    {% endif %}
+                {% if error.field == 'name'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
                 {% endfor %}
             </div>
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
                 {%if quantity %}
-                    <input type="number" name="quantity" value="{{quantity}}">
+                <input type="number" name="quantity" value="{{quantity}}">
                 {%else%}
-                    <input type="number" name="quantity" value=1 >
+                <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                    {% if error.field == 'quantity'%}
-                        <span> 
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }} 
-                        </span>
-                    {% endif %}
+                {% if error.field == 'quantity'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
                 {% endfor %}
             </div>
 
@@ -48,54 +48,48 @@
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
                     {% if attack%}
-                        <input type="number" name="attack" value="{{attack}}">
+                    <input type="number" name="attack" value="{{attack}}">
                     {%else%}
-                        <input type="number" name="attack" value=0>
+                    <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                        {% if error.field == 'attack'%}
-                            <span> 
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }} 
-                            </span>
-                        {% endif %}
+                    {% if error.field == 'attack'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
                     {% endfor %}
                 </div>
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
                     {%if defense%}
-                        <input type="number" name="defense" value="{{defense}}">
+                    <input type="number" name="defense" value="{{defense}}">
                     {%else%}
-                        <input type="number" name="defense" value=0>
+                    <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                        {% if error.field == 'defense'%}
-                            <span> 
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }} 
-                            </span>
-                        {% endif %}
+                    {% if error.field == 'defense'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
 
             <p>
-                Se o seu item não influenciar nos pontos de Ataque e/ou Defesa 
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
                 do personagem, deixe um 0 nos campos.
-            </p>                
+            </p>
 
             <div class="actions">
-                <button 
-                    type="button"
-                    id="closeEquipmentBtn" 
-                >
+                <button type="button" id="closeEquipmentBtn">
                     Cancelar
                 </button>
-                <button 
-                    type="button" 
-                    id="addEquipmentBtn" 
-                >
+                <button type="button" id="addEquipmentBtn">
                     Criar
                 </button>
             </div>
@@ -113,29 +107,30 @@
                     <input type="text" name="name" id="" value="{{name}}">
                     {% for error in errors %}
                     {% if error.field == 'name'%}
-                        <span> 
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }} 
-                        </span>
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
 
                 </div>
+                <div>
+                    <label for="image">Foto do personagem: </label>
+                    <input type="url" name="image" value="{{image}}">
+                </div>
 
-                {% comment %} <label for="image">foto do personagem: </label>
-                <input type="url" name="image"> {% endcomment %}
-
-                <div>   
+                <div>
                     <label for="race">Raça do personagem: </label>
                     <input type="text" name="race" value="{{race}}">
                     {% for error in errors %}
                     {% if error.field == 'race'%}
-                        <span> 
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }} 
-                        </span>
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
                 </div>
 
                 <div>
@@ -143,16 +138,16 @@
                     <input type="text" name="role" id="role" value="{{role}}">
                     {% for error in errors %}
                     {% if error.field == 'role'%}
-                        <span> 
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }} 
-                        </span>
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
                 </div>
             </section>
 
-            <div class="sheetSideBySide">         
+            <div class="sheetSideBySide">
                 <section class="atributos">
                     <div class="atributosInputs">
                         <div>
@@ -189,19 +184,19 @@
                         {% endfor %}
                     </div>
                 </section>
-                
+
                 <section class="status">
                     <div class="statusInputs">
                         <div>
                             <label for="healthPointMax">Vida: </label>
                             <input type="number" name="healthPointMax" id="healthPointMax" value="{{healthPointMax}}">
                         </div>
-                
+
                         <div>
                             <label for="manaMax">Mana: </label>
                             <input type="number" name="manaMax" id="manaMax" value="{{manaMax}}">
                         </div>
-                
+
                         <div>
                             <label for="exp">XP: </label>
                             <input type="number" name="exp" id="exp" value="{{exp}}">
@@ -219,7 +214,7 @@
 
             </div>
             <div class="sheetSideBySide">
-                
+
                 <section class="equipamentos">
                     <p>Equipamentos</p>
                     <div class="add_equip_div">
@@ -228,19 +223,19 @@
                         </button>
                     </div>
                 </section>
-                
+
                 <section class="description">
                     <div class="description-area">
                         <label for="description">Descrição: </label>
-                        <input type="text" name="description" id="description">
+                        <input type="text" name="description" id="description" value=" ">
                     </div>
                     {% for error in errors %}
-                        {% if error.field == 'description'%}
-                            <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                        {% endif %}
+                    {% if error.field == 'description'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
                     {% endfor %}
                 </section>
 
@@ -261,5 +256,5 @@
         </form>
     </section>
 </section>
-<script src="{% static 'sheets_app/js/equipment.js' %}" ></script>
+<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
 {% endblock %}

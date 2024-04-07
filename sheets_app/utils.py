@@ -100,34 +100,43 @@ def atribute_verifier(atr):
     return 1 if not re.match(r'^[-+]?\d*\.?\d+$', atr) else 0
 
 # add imagem
-def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
+def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
     atributes=[]
     status=[]
+
+    image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
+    if not image_treated:
+        errors.append({
+            'field': 'image',
+            'message': 'Insira uma URL válida!'
+        })
+
     if 2 > len(name) or len(name) >= 50:
         errors.append({
             'field':'name',
-            'message': 'Esse campo necessita ter entre 2 e 50 caracteres'
+            'message': 'Esse campo necessita ter entre 2 e 50 caracteres!'
             })
     if str(name).count(' ') == len(name):
         errors.append({
             'field': 'name',
-            'message' : 'Este campo não pode ser vazio'
+            'message' : 'Este campo não pode ser vazio!'
             })
     if str(race).count(' ') == len(str(race)):
         errors.append({
             'field': 'race',
-            'message' : 'Este campo não pode ser vazio'
+            'message' : 'Este campo não pode ser vazio!'
             })
     if str(role).count(' ') == len(str(role)):
         errors.append({
             'field': 'role',
-            'message' : 'Este campo não pode ser vazio'
+            'message' : 'Este campo não pode ser vazio!'
             })
+        
     if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
         errors.append({
             'field': 'atributes1',
-            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)'
+            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
             })
         if str(strength).count(' ') == len(str(strength)):
             errors.append("strength")
@@ -141,11 +150,7 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
             errors.append("wisdom")
         if str(constitution).count(' ') == len(str(constitution)):
             errors.append("constitution")
-    # if not re.match(r"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", image):
-    #     errors.app{
-    # 'field':'url invalida',
-    #                    'message' : 'insira uma url valida'
-    # })
+   
     elif 20 < int(strength) or int(strength) < 1 or 20 < int(intelligence) or int(intelligence) < 1 or 20 < int(wisdom) or int(wisdom) < 1 or 20 < int(charisma) or int(charisma) < 1 or 20 < int(constitution) or int(constitution) < 1 or 20 < int(speed) or int(speed) < 1:
         errors.append({
             'field' : 'atributes1',
@@ -228,7 +233,7 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
     # sheet.updateXp()
     # sheet.save()
