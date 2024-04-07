@@ -222,7 +222,7 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     if int(exp) < 0:
         errors.append({
             'field' : 'atributes2',
-            'message' : 'a experiencia não pode ser menor que 0'
+            'message' : 'A experiência não pode ser menor que 0'
             })
         errors.append("exp")
     if len(errors) > 0:
