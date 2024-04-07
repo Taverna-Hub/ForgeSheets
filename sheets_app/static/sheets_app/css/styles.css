@@ -24,13 +24,15 @@
   
 .cardList {
   display: grid;
-  grid-template-columns: repeat(5, 300px);
+  grid-template-columns: repeat(3, 300px);
 
   gap: 16px;
 }
   
 .sheetCard {
   border-radius: 4px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
   
 .sheetCard > div, .createSheet {
@@ -100,4 +102,17 @@
 .sheet_info p {
   margin-top: 4px;
   color: var(--white);
+}
+
+.title{
+  padding-bottom: 20px;
+}
+
+.sideBySide{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  gap: 16px;
 }

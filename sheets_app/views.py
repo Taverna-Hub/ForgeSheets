@@ -31,29 +31,46 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = escape(request.POST.get('race'))
         role = escape(request.POST.get('role'))
 
-        strength = int(request.POST.get('strength'))
-        intelligence = int(request.POST.get('intelligence'))
-        wisdom = int(request.POST.get('wisdom'))
-        charisma = int(request.POST.get('charisma'))
-        constitution = int(request.POST.get('constitution'))
-        speed = int(request.POST.get('speed'))
+        strength = (request.POST.get('strength'))
+        intelligence = (request.POST.get('intelligence'))
+        wisdom = (request.POST.get('wisdom'))
+        charisma = (request.POST.get('charisma'))
+        constitution = (request.POST.get('constitution'))
+        speed = (request.POST.get('speed'))
 
-        healthPointMax = int(request.POST.get('healthPointMax'))
-        manaMax = int(request.POST.get('manaMax'))
-        exp = int(request.POST.get('exp'))
+        healthPointMax = (request.POST.get('healthPointMax'))
+        manaMax = (request.POST.get('manaMax'))
+        exp = (request.POST.get('exp'))
 
         description = escape(request.POST.get('description'))
 
         user_id = request.user.id
         
         #add imagem
-        errors = save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        errors= save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
                 ctx = {
                     'errors': errors,
                     'app_name': 'sheets'
                 }
+                if 'name' not in errors:
+                    ctx['name'] = name
+                if 'race' not in errors:
+                    ctx['race'] = race
+                if 'role' not in errors:
+                    ctx['role'] = role
+                for atributo in atributos:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+
                 return render(request, 'sheets_app/create-sheets.html', ctx)
 
         

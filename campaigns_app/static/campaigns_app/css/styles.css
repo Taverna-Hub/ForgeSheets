@@ -25,13 +25,15 @@
 
 .cardList {
   display: grid;
-  grid-template-columns: repeat(5, 300px);
+  grid-template-columns: repeat(3, 300px);
 
   gap: 16px;
 }
 
 .campaignCard {
   border-radius: 4px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .campaignCard > div, .createCampaign {
@@ -96,4 +98,8 @@
 .campaignInfo p {
   margin-top: 4px;
   color: var(--white);
+}
+
+.title{
+  padding-bottom: 20px;
 }

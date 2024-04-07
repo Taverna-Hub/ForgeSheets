@@ -48,7 +48,7 @@ button {
 }
 
 .sheet {
-  background-color: white;
+  background-color: var(--white);
   border-radius: 4px;
   padding: 32px;
   margin: 15%;
@@ -147,6 +147,7 @@ button {
 
 .add_equip_div button{
   all: unset;
+  cursor: pointer;
 }
 
 .equipamentos {

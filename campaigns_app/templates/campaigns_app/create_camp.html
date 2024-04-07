@@ -11,11 +11,11 @@
     <section>
         <div class="modal">
             <h2>Criar uma nova campanha</h2>
-            <form action="{% url 'campaigns:create_campaign' %}" method="POST">
+            <form action="{% url 'campaigns:create_campaign' %}" onsubmit="disableButton()" method="POST">
                 {% csrf_token %}
                 <div>
                     <label for="image">Insira uma URL para a foto da campanha: </label>
-                    <input type="text" id="image" name="image">
+                    <input type="text" id="image" name="image" value="{{image}}">
                     {% for error in errors %}
                         {% if error.field == 'image'%}
                             <span> 
@@ -28,7 +28,7 @@
 
                 <div>
                     <label for="title">Nome da campanha: </label>
-                    <input type="text" id="title" name="title">
+                    <input type="text" id="title" name="title" value="{{title}}">
                     {% for error in errors %}
                         {% if error.field == 'title'%}
                             <span> 
@@ -41,7 +41,7 @@
 
                 <div>
                     <label for="description">Descrição: </label>
-                    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                    <textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
                     {% for error in errors %}
                         {% if error.field == 'description'%}
                             <span> 
@@ -53,7 +53,13 @@
                 </div>
 
                 <div class="actions">  
-                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a>                            
+                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a> 
+                        <script>
+                            function disableButton() {
+                                var button = document.getElementById("submit_button");
+                                button.disabled = true;
+                            }
+                        </script>                           
                     <button type="submit">Criar</button>
                 </div>
             </form>
