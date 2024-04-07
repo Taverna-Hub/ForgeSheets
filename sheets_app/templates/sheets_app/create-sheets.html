@@ -216,19 +216,36 @@
                         {% endfor %}
                     </div>
                 </section>
+
+            </div>
+            <div class="sheetSideBySide">
+                
+                <section class="equipamentos">
+                    <p>Equipamentos</p>
+                    <div class="add_equip_div">
+                        <button type="button" class="openEquipmentBtn">
+                            <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                        </button>
+                    </div>
+                </section>
+                
+                <section class="description">
+                    <div class="description-area">
+                        <label for="description">Descrição: </label>
+                        <input type="text" name="description" id="description">
+                    </div>
+                    {% for error in errors %}
+                        {% if error.field == 'description'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </section>
+
             </div>
 
-            <section class="equipamentos">            
-                <p>Equipamentos</p>
-                <div class="add_equip_div">
-                    <button type="button" class="openEquipmentBtn">    
-                        <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
-                    </button>
-                </div>
-                
-                
-            </section>
-            
             <div class="createSheetActions">
                 <button type="button">
                     <a href="{% url 'sheets:homesheets' %}"> Cancelar</a>
