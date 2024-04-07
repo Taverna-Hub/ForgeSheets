@@ -102,6 +102,8 @@ def atribute_verifier(atr):
 # add imagem
 def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
+    atributes=[]
+    status=[]
     if 2 > len(name) or len(name) >= 50:
         errors.append({
             'field':'name',
@@ -125,8 +127,20 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
     if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
         errors.append({
             'field': 'atributes1',
-            'message' : 'Estes campos não podem ser vazios'
+            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)'
             })
+        if str(strength).count(' ') == len(str(strength)):
+            atributes.append("strength")
+        if str(intelligence).count(' ') == len(str(intelligence)):
+            atributes.append("intelligence")
+        if str(charisma).count(' ') == len(str(charisma)):
+            atributes.append("charisma")
+        if str(speed).count(' ') == len(str(speed)):
+            atributes.append("speed")
+        if str(wisdom).count(' ') == len(str(wisdom)):
+            atributes.append("wisdom")
+        if str(constitution).count(' ') == len(str(constitution)):
+            atributes.append("constitution")
     # if not re.match(r"^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$", image):
     #     errors.app{
     # 'field':'url invalida',
@@ -137,29 +151,70 @@ def save_sheet(name, race, role, strength, intelligence, wisdom, charisma, const
             'field' : 'atributes1',
             'message' : 'Os atributos devem estar entre 1 e 20'
             })
+        if 20 <= int(strength) or int(strength) <= 1:
+            atributes.append("strength")
+        if 20 <= int(intelligence) or int(intelligence) <= 1:
+            atributes.append("intelligence")
+        if 20 <= int(wisdom) or int(wisdom) <= 1 :
+            atributes.append("wisdom")
+        if 20 <= int(speed) or int(speed) <= 1:
+            atributes.append("speed")
+        if  20 <= int(charisma) or int(charisma) <= 1 :
+            atributes.append("charisma")
+        if  20 <= int(constitution) or int(constitution) <= 1:
+            atributes.append("constitution")
+
     elif atribute_verifier(str(strength)) == 1 or atribute_verifier(str(intelligence)) == 1 or atribute_verifier(str(wisdom)) == 1 or atribute_verifier(str(charisma)) == 1 or atribute_verifier(str(constitution)) == 1 or atribute_verifier(str(speed)) == 1:
         errors.append({
             'field' : 'atributes1',
             'message' : 'Os atributos primarios devem ser numeros inteiros'
             })
+        if atribute_verifier(str(strength)) == 1:
+            atributes.append("strength")
+        if atribute_verifier(str(intelligence)) == 1:
+            atributes.append("intelligence")
+        if atribute_verifier(str(wisdom)) == 1:
+            atributes.append("wisdom")
+        if atribute_verifier(str(speed)) == 1:
+            atributes.append("speed")
+        if  atribute_verifier(str(charisma)) == 1:
+            atributes.append("charisma")
+        if  atribute_verifier(str(constitution)) == 1:
+            atributes.append("constitution")
     if str(healthpointMax).count(' ') == len(str(healthpointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
         errors.append({
             'field': 'atributes2',
             'message' : 'Estes campos não podem ser vazios'
             })
+        if str(healthpointMax).count(' ') == len(str(healthpointMax)):
+            atributes.append("healthpointMax")
+        if str(manaMax).count(' ') == len(str(manaMax)):
+            atributes.append("manaMax")
+        if str(exp).count(' ') == len(str(exp)):
+            atributes.append("exp")
 
     elif atribute_verifier(str(healthpointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
         errors.append({
             'field' : 'atributes2',
             'message' : 'Os atributos secundarios devem ser numeros inteiros'
             })
+        if atribute_verifier(str(healthpointMax)) == 1:
+            atributes.append("healthpointMax")
+        if atribute_verifier(str(manaMax)) == 1:
+            atributes.append("manaMax")
+        if atribute_verifier(str(exp)) == 1:
+            atributes.append("exp")
     elif int(healthpointMax) < 1 or int(manaMax) < 1:
         errors.append({
             'field' : 'atributes2',
             'message' : 'Vida e mana não podem ser menores que 1'
             })
+        if int(healthpointMax) < 1:
+            atributes.append("healthpointMax")
+        if int(manaMax) < 1:
+            atributes.append("manaMax")
     if len(errors) > 0:
-        return errors
+        return errors, atributes, status
     #add imagem
     sheet = Sheet(name = name, race = race, role = role, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()

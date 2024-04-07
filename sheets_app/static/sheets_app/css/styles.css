@@ -24,7 +24,7 @@
   
 .cardList {
   display: grid;
-  grid-template-columns: repeat(5, 300px);
+  grid-template-columns: repeat(3, 300px);
 
   gap: 16px;
 }
