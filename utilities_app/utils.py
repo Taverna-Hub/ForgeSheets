@@ -20,13 +20,13 @@ def register(username, email, password):
         if not re.match("^[a-zA-Z0-9]+$", username):
             return 0
 
-    user = User.objects.filter(username=username).first()
     mail = User.objects.filter(email=email).first()
-
-    if user:
-        return 0
     if mail:
-        return 2
+        return 4
+
+    user = User.objects.filter(username=username).first()
+    if user:
+        return 5
 
     user = User.objects.create_user(username=username, email=email, password=password)
     user.save()

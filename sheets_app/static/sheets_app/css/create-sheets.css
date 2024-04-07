@@ -56,6 +56,7 @@ button {
   border-radius: 4px;
   padding: 32px;
   margin: 15%;
+  margin-top: 5%;
   overflow: hidden;
   height: fit-content;
 }
