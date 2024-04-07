@@ -58,3 +58,7 @@ class SignView(View):
                 messages.error(request, 'E-mail já cadastrado')
                 ctx = {'usernameR': username, 'register': 1}
                 return render(request, 'utilities_app/sign.html', ctx)
+            elif register_result == 5:
+                messages.error(request, 'Usuário já cadastrado')
+                ctx = {'email': email, 'register': 1}
+                return render(request, 'utilities_app/sign.html', ctx)
