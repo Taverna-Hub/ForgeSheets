@@ -11,7 +11,7 @@
     <section>
         <div class="modal">
             <h2>Criar uma nova campanha</h2>
-            <form action="{% url 'campaigns:create_campaign' %}" method="POST">
+            <form action="{% url 'campaigns:create_campaign' %}" onsubmit="disableButton()" method="POST">
                 {% csrf_token %}
                 <div>
                     <label for="image">Insira uma URL para a foto da campanha: </label>
@@ -53,7 +53,13 @@
                 </div>
 
                 <div class="actions">  
-                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a>                            
+                        <a href="{% url 'campaigns:campaign' %}" id="cancel"> Cancelar</a> 
+                        <script>
+                            function disableButton() {
+                                var button = document.getElementById("submit_button");
+                                button.disabled = true;
+                            }
+                        </script>                           
                     <button type="submit">Criar</button>
                 </div>
             </form>

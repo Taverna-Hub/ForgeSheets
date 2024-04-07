@@ -6,17 +6,12 @@ const login = document.querySelector("#loginzinho");
 const register = document.querySelector("#cadastrinho");
 const backLogin = document.querySelector("#backLogin");
 const backRegister = document.querySelector("#backRegister");
+const register1 = document.querySelector("#register1");
 
-// loginAnchor.addEventListener('click', () => {
-//   loginPage.style.visibility = "visible";
-//   registerPage.style.visibility = "hidden";
-//   showToast();
-// });
-
-// registerAnchor.addEventListener('click', () => {
-//   registerPage.style.visibility = "visible";
-//   loginPage.style.visibility = "hidden";
-// });
+if (register1) {
+  registerPage.style.visibility = "visible";
+  loginPage.style.visibility = "hidden";
+}
 
 loginAnchor.addEventListener('click', () => {
   loginPage.classList.add('active');

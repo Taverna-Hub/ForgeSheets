@@ -2,50 +2,53 @@
 {% load static %}
 
 {% block 'head' %}
-<link  rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Fichas | ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
 <section class="listSheetsContainer">
-        <h1 class="title">Suas Fichas</h1>
-        <section class="cardList">
-            <a href="{% url 'sheets:create_sheets' %}" class="createSheet">
-                <div>
-                    <i data-lucide="plus" width="64" height="64" stroke-width="1.5px"></i>
-                </div>
-            </a>
-            
-            {% for sheet in sheets_view%}
-                <div 
-                class="sheetCard" 
-                style="{% if sheet.image %}
+    <h1 class="title">Suas Fichas</h1>
+    <section class="cardList">
+        <a href="{% url 'sheets:create_sheets' %}" class="createSheet">
+            <div>
+                <i data-lucide="plus" width="64" height="64" stroke-width="1.5px"></i>
+            </div>
+        </a>
+
+        {% for sheet in sheets_view%}
+        <div class="sheetCard" style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
-                {% endif %}"
-                >
-                    <div 
-                    style="{% if campaign.image %}
+                {% endif %}">
+            <div style="{% if campaign.image %}
                         backdrop-filter: blur(12px); 
                         background-color: rgba(0,0,0,0.7);
-                        {% endif %}"
-                    >
-                        <h2>{{sheet.name}}</h2>
+                        {% endif %}">
+                <h2>{{sheet.name}}</h2>
 
-                        <div class="sheet_info">
-                            <span>Raça:</span>
-                            <p>{{sheet.race}}</p>
-                            <span>Classe:</span>
-                            <p>{{sheet.role}}</p>
-                            <span>Vida:</span>
-                            <p>{{sheet.healthPoint}}/{{sheet.healthPointMax}}</p>
-                            <span>Mana:</span>
-                            <p>{{sheet.mana}}/{{sheet.manaMax}}</p>
-                        </div>
-                    
+                <div class="sheet_info">
+                    <div class="sideBySide">
+                        <span>Raça:</span>
+                        <p>{{sheet.race}}</p>
+                    </div>
+                    <div class="sideBySide">
+                        <span>Classe:</span>
+                        <p>{{sheet.role}}</p>
+                    </div>
+                    <div class="sideBySide">
+                        <span>Vida:</span>
+                        <p>{{sheet.healthPoint}}/{{sheet.healthPointMax}}</p>
+                    </div>
+                    <div class="sideBySide">
+                        <span>Mana:</span>
+                        <p>{{sheet.mana}}/{{sheet.manaMax}}</p>
                     </div>
                 </div>
-            {% endfor %}
-        </section>
+
+            </div>
+        </div>
+        {% endfor %}
     </section>
+</section>
 {% endblock %}

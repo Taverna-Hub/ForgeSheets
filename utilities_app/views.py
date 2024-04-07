@@ -44,13 +44,17 @@ class SignView(View):
                 return redirect('utilities:sign')
             elif register_result == 0:
                 messages.error(request, 'Usuário inválido')
-                ctx = {'email': email, 'cadastro': 1}
+                ctx = {'email': email, 'register': 1}
                 return render(request, 'utilities_app/sign.html', ctx)
             elif register_result == 2:
                 messages.error(request, 'E-mail inválido')
-                ctx = {'usernameR': username, 'cadastro': 1}
+                ctx = {'usernameR': username, 'register': 1}
                 return render(request, 'utilities_app/sign.html', ctx)
             elif register_result == 3:
                 messages.error(request, 'Preencha todos os campos')
-                ctx = {'usernameR': username, 'email': email, 'cadastro': 1}
+                ctx = {'usernameR': username, 'email': email, 'register': 1}
+                return render(request, 'utilities_app/sign.html', ctx)
+            elif register_result == 4:
+                messages.error(request, 'E-mail já cadastrado')
+                ctx = {'usernameR': username, 'register': 1}
                 return render(request, 'utilities_app/sign.html', ctx)
