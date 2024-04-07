@@ -150,10 +150,21 @@
                     {% endfor %}
 
                 </div>
-                {% comment %} <div>
+
+                 <div>
                     <label for="image">Foto do personagem: </label>
                     <input type="url" name="image" value="{{image}}">
-                </div> {% endcomment %}
+                    
+                    {% for error in errors %}
+                        {% if error.field == 'image'%}
+                             <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+
+                </div> 
 
                 <div>
                     <label for="race">Raça do personagem: </label>
@@ -220,14 +231,13 @@
                     </div>
                 </section>
 
-                <section class="add-image">
-                    {% comment %} <p>Imagem</p> {% endcomment %}
+                {% comment %} <section class="add-image">
                     <div class="add_image_div">
                         <button type="button" class="openImagementBtn">
                             <i data-lucide="image-up" width="32" height="32" stroke-width="1.5px"></i>
                         </button>
                     </div>
-                </section>
+                </section> {% endcomment %}
 
                 <section class="status">
                     <div class="statusInputs">
