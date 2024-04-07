@@ -47,7 +47,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         user_id = request.user.id
         
         #add imagem
-        errors, atributos, atributos2= save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        errors= save_sheet(name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
