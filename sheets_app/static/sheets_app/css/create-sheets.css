@@ -107,6 +107,10 @@ button {
   gap: 16px;
 }
 
+.under {
+  display: block;
+}
+
 .equipamentos div {
   width: 100%; 
 } 
@@ -183,15 +187,17 @@ button {
 
 .add_image_div button{
   border-radius: 100%;
+  background-color: var(--gray-300);
   margin: auto;
-  background: none;
+  /* background: none; */
   border: none;
+  width: 256px;
+  height: 256px;
 }
 
 .add_image_div{
-  background-color: var(--green-500);
   border-radius: 50%;
-  width: auto;
+  /* width: auto; */
 }
 
 @media (max-width: 1540px) {

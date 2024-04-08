@@ -107,7 +107,7 @@
             {%csrf_token%}
             <div class="imageInput">
                 <label for="image">Foto do personagem: </label>
-                <input type="url" name="image" value="{{image}}">
+                <input type="url" class="image" name="image" value="">
                 {% for error in errors %}
                 {% if error.field == 'image'%}
                     <span>
@@ -193,50 +193,53 @@
             </section>
 
             <div class="sheetSideBySide">
-                <section class="atributos">
-                    <div class="atributosInputs">
-                        <div>
-                            <label for="strength">Força: </label>
-                            <input type="number" name="strength" id="strength" value="{{strength}}">
-                        </div>
-                        <div>
-                            <label for="intelligence">Inteligência: </label>
-                            <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
-                        </div>
-                        <div>
-                            <label for="wisdom">Sabedoria: </label>
-                            <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
-                        </div>
-                        <div>
-                            <label for="charisma">Carisma: </label>
-                            <input type="number" name="charisma" id="charisma" value="{{charisma}}">
-                        </div>
-                        <div>
-                            <label for="constitution">Constituição: </label>
-                            <input type="number" name="constitution" id="constitution" value="{{constitution}}">
-                        </div>
-                        <div>
-                            <label for="speed">Velocidade: </label>
-                            <input type="number" name="speed" id="speed" value="{{speed}}">
-                        </div>
-                        {% for error in errors %}
-                        {% if error.field == 'atributes1'%}
-                        <span>
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }}
-                        </span>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </section>
 
-                {% comment %} <section class="add-image">
-                    <div class="add_image_div">
-                        <button type="button" class="openImagementBtn">
-                            <i data-lucide="image-up" width="32" height="32" stroke-width="1.5px"></i>
-                        </button>
-                    </div>
-                </section> {% endcomment %}
+                <div class="under">
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{speed}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+                    
+                    <section class="add-image">
+                        <div class="add_image_div">
+                            <button type="button" class="openImageBtn">
+                                <i data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+                    </section>
+                </div>
 
                 <section class="status">
                     <div class="statusInputs">

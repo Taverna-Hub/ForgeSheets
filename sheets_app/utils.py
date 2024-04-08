@@ -180,6 +180,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("charisma")
         if  atribute_verifier(str(constitution)) == 1:
             errors.append("constitution")
+
     if str(healthpointMax).count(' ') == len(str(healthpointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
         errors.append({
             'field': 'atributes2',
@@ -203,6 +204,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("manaMax")
         if atribute_verifier(str(exp)) == 1:
             errors.append("exp")
+
     elif int(healthpointMax) < 1 or int(manaMax) < 1:
         errors.append({
             'field' : 'atributes2',
@@ -212,12 +214,14 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("healthPointMax")
         if int(manaMax) < 1:
             errors.append("manaMax")
+
     elif int(exp) < 0:
         errors.append({
             'field' : 'atributes2',
             'message' : 'A experiência não pode ser menor que 0'
             })
         errors.append("exp")
+        
     if len(errors) > 0:
         return errors
     #add imagem
