@@ -13,18 +13,6 @@
   --gray-800: #1f2937;
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--red-700);
-  border-radius: 6px;
-}
-
-
 a{
   text-decoration: none;
 }
