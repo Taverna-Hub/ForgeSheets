@@ -105,21 +105,31 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             'field': 'name',
             'message' : 'Este campo não pode ser vazio!'
             })
-    elif 2 > len(name) or len(name) >= 50:
+    elif 2 > len(name) or len(name) > 50:
         errors.append({
             'field':'name',
-            'message': 'Esse campo necessita ter entre 2 e 50 caracteres!'
+            'message': 'Insira de 2 a 50 caracteres!'
             })
     if str(race).count(' ') == len(str(race)):
         errors.append({
             'field': 'race',
             'message' : 'Este campo não pode ser vazio!'
             })
+    elif 2 > len(race) or len(race) > 22:
+        errors.append({
+            'field': 'race',
+            'message': 'Insira de 2 a 22 caracteres!'
+        })
     if str(role).count(' ') == len(str(role)):
         errors.append({
             'field': 'role',
             'message' : 'Este campo não pode ser vazio!'
             })
+    if 2 > len(race) or len(race) > 22:
+        errors.append({
+            'field': 'role',
+            'message': 'Insira de 2 a 22 caracteres!'
+        })
         
     if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
         errors.append({
