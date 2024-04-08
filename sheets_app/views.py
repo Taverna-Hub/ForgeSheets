@@ -65,7 +65,6 @@ class CreateSheetView(LoginRequiredMixin, View):
                         'defense': equipmentDef
                     }
                     equipment_list.append(equipment)
-                 
                 ctx = {
                     'errors': errors,
                     'equipments': equipment_list,
@@ -79,6 +78,8 @@ class CreateSheetView(LoginRequiredMixin, View):
                     ctx['race'] = race
                 if 'role' not in errors:
                     ctx['role'] = role
+                if 'description' not in errors:
+                    ctx['description'] = description
                 for atributo in atributos:
                     if atributo not in errors:
                         valor = request.POST.get(atributo)
