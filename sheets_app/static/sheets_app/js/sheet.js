@@ -6,6 +6,18 @@ const closeImageBtn = document.querySelector('#closeImageBtn');
 const openImageModal = document.querySelector('.openImageBtn');
 const imageModal = document.querySelector('.imageModal');
 
+const chooseSheetModal = document.querySelector('.chooseSheetModal');
+const createSheetBtn = document.querySelector('.createSheet');
+const closeChooseSheetModalBtn = document.querySelector('#closeChooseSheet');
+
+function openChooseSheetModal() {
+  chooseSheetModal.style.display = "flex";
+}
+
+function closeChooseSheetModal() {
+  chooseSheetModal.style.display = "none";
+}
+
 function closeImageModal() {
   imageModal.style.display = 'none';
 }
@@ -39,10 +51,11 @@ function addImageToSheet(){
   closeImageModal();
 }
 
-openImageModal.addEventListener('click', () => {
-  imageModal.style.display = 'flex';
-});
+closeChooseSheetModalBtn.addEventListener('click', () => closeChooseSheetModal());
+createSheetBtn.addEventListener('click', () => openChooseSheetModal());
+// openImageModal.addEventListener('click', () => {
+//   imageModal.style.display = 'flex';
+// });
 
-addImageBtn.addEventListener('click', () => addImageToSheet());
-closeImageBtn.addEventListener('click', () => closeImageModal());
-
+// addImageBtn.addEventListener('click', () => addImageToSheet());
+// closeImageBtn.addEventListener('click', () => closeImageModal());
