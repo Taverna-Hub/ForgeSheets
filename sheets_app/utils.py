@@ -105,21 +105,31 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             'field': 'name',
             'message' : 'Este campo não pode ser vazio!'
             })
-    elif 2 > len(name) or len(name) >= 50:
+    elif 2 > len(name) or len(name) > 50:
         errors.append({
             'field':'name',
-            'message': 'Esse campo necessita ter entre 2 e 50 caracteres!'
+            'message': 'Insira de 2 a 50 caracteres!'
             })
     if str(race).count(' ') == len(str(race)):
         errors.append({
             'field': 'race',
             'message' : 'Este campo não pode ser vazio!'
             })
+    elif 2 > len(race) or len(race) > 22:
+        errors.append({
+            'field': 'race',
+            'message': 'Insira de 2 a 22 caracteres!'
+        })
     if str(role).count(' ') == len(str(role)):
         errors.append({
             'field': 'role',
             'message' : 'Este campo não pode ser vazio!'
             })
+    if 2 > len(race) or len(race) > 22:
+        errors.append({
+            'field': 'role',
+            'message': 'Insira de 2 a 22 caracteres!'
+        })
         
     if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
         errors.append({
@@ -180,6 +190,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("charisma")
         if  atribute_verifier(str(constitution)) == 1:
             errors.append("constitution")
+
     if str(healthpointMax).count(' ') == len(str(healthpointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
         errors.append({
             'field': 'atributes2',
@@ -203,6 +214,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("manaMax")
         if atribute_verifier(str(exp)) == 1:
             errors.append("exp")
+
     elif int(healthpointMax) < 1 or int(manaMax) < 1:
         errors.append({
             'field' : 'atributes2',
@@ -212,12 +224,14 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("healthPointMax")
         if int(manaMax) < 1:
             errors.append("manaMax")
+
     elif int(exp) < 0:
         errors.append({
             'field' : 'atributes2',
             'message' : 'A experiência não pode ser menor que 0'
             })
         errors.append("exp")
+        
     if len(errors) > 0:
         return errors
     #add imagem

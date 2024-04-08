@@ -13,7 +13,19 @@
   --gray-800: #1f2937;
 }
 
-a{
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
+
+
+a {
   text-decoration: none;
 }
 
@@ -45,7 +57,7 @@ button {
   padding: 32px;
   margin: 15%;
   margin-top: 5%;
-  overflow: hidden;
+  overflow: scroll;
   height: fit-content;
 }
 
@@ -75,7 +87,7 @@ button {
 }
 
 .atributos, .status {
-  padding: 42px 0 12px; 
+  margin-top: 40px;
   max-width: 400px;
   width: 100%;
 }
@@ -93,26 +105,115 @@ button {
   
   border-radius: 2px;
 }
-
-.status {
-  margin-bottom: 201px; 
+.sheetSideBySide{
+  margin-top: -40px;
+  margin-bottom: 40px;
 }
-
+.image_svg{
+  color: var(--gray-800);
+}
 .sheetSideBySide, .equipamentos {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
-
+  justify-content: space-around; 
   width: 100%;
-  gap: 16px;
+  gap: 10%;
+}
+
+.under {
+  display: block;
+  margin-top: 40px;
 }
 
 .equipamentos div {
   width: 100%; 
 } 
 
+.equipamentos {
+  margin-top: 15%;
+  background-color: var(--gray-800);
+  padding: 16px;
+  padding-top: 0px;
+  color: var(--white);
+  max-width: 400px;
+  width: 100%;
+  border-radius: 4px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.equipamentos .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.equipamentos button {
+  background: none;
+  border: none;
+  color: var(--white);
+}
+
+.equipamentos .equipmentsListContainer {
+  height: 250px;
+  background-color: var(--gray-200);
+}
+
+.equipmentsListContainer {
+  overflow-y: scroll;
+}
+
+.equipmentList {
+  color: var(--gray-700);
+  list-style-type: circle;
+  padding: 0 24px 16px;
+  position: relative;
+}
+
+.equipmentList li {
+  margin-top: 16px;
+  position: relative;
+}
+
+
+.equipmentList button {
+  position: absolute;
+  right: 40px;
+  color: var(--gray-800);
+}
+
+.equipmentList button:nth-child(2) {
+  position: absolute;
+  right: 0;
+  color: var(--red-600);
+}
+
+
+.addEquip {
+  color: var(--gray-600);
+}
+
+.add_image_div button {
+  border-radius: 100%;
+  background-color: var(--gray-300);
+  margin: auto;
+  /* background: none; */
+  border: none;
+  width: 230px;
+  height: 230px;
+}
+
+.add_image_div {
+  border-radius: 50%;
+}
+
+
 .createSheetActions {
-  align-self: flex-end;
+  margin-top: 16px;
+  float: right;
 }
 
 .createSheetActions button {
@@ -138,62 +239,6 @@ button {
   color: var(--gray-200);
 }
 
-.equipamentos {
-  background-color: var(--gray-800);
-  padding: 16px;
-  color: var(--white);
-  width: 355px;
-  border-radius: 4px;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.equipamentos .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.equipamentos button {
-  background: none;
-  border: none;
-  color: var(--white);
-}
-
-.equipamentos .equipmentsListContainer {
-  height: 250px;
-  background-color: var(--gray-200);
-}
-
-.equipmentsListContainer {
-  overflow-y: scroll;
-}
-
-.equipmentsListContainer ul {
-  color: var(--gray-700);
-  list-style-type: circle;
-  padding: 16px 24px;
-}
-
-
-.addEquip {
-  color: var(--gray-600);
-}
-
-.add_image_div button{
-  border-radius: 100%;
-  margin: auto;
-  background: none;
-  border: none;
-}
-
-.add_image_div{
-  background-color: var(--green-500);
-  border-radius: 50%;
-  width: auto;
-}
-
 @media (max-width: 1540px) {
   .atributos, .status {
     width: fit-content;
@@ -213,10 +258,6 @@ button {
   .sheetHeader {
     flex-direction: column;
   }
-  
-  .status {
-    padding: 0;
-  }
 }
 
 @media (max-width: 1180px) {
@@ -224,10 +265,33 @@ button {
     flex-direction: column;
     align-items: baseline;
     justify-content: baseline;
+    height: fit-content;
   }
 
-  .atributos, .status {
+  .atributos {
+    margin-top: 24px;
+  }
+
+  .status {
+    margin: 0;
+  }
+
+  .atributos, .status, .equipamentos, .description {
     min-width: 100%;
     width: 100%;
   }
 }
+.description{
+  margin-top: 10%;
+}
+#description{
+  margin-top: 3.7%;
+}
+
+@media (max-width: 800px) {
+  .sheet {
+    margin: 8%;
+    height: 100%;
+  }
+}
+

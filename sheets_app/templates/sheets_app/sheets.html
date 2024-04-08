@@ -3,23 +3,49 @@
 
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Fichas | ForgeSheets</title>
+<title>Suas Fichas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
+<section class="chooseSheetModal">
+    <div class="modal">
+        <button type="button" id="closeChooseSheet">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="container">
+            <div>
+                <h2>Criar ficha em uma campanha</h2>
+                <div>
+                    <label for="code">Código da campanha</label>
+                    <input type="text" name="code" placeholder="Insira o código">
+                </div>
+                <a href="#" type="button">
+                    Criar ficha
+                </a>
+            </div>
+            <div>
+                <h2>Criar ficha independente</h2>
+                <a href="{% url 'sheets:create_sheets' %}" type="button">
+                    Criar ficha
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
     <section class="cardList">
-        <a href="{% url 'sheets:create_sheets' %}" class="createSheet">
+        <button class="createSheet">
             <div>
                 <i data-lucide="plus" width="64" height="64" stroke-width="1.5px"></i>
             </div>
-        </a>
+        </button>
 
         {% for sheet in sheets_view%}
-        <div class="sheetCard" 
-                style="{% if sheet.image %}
+        <div class="sheetCard" style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
                 background-position: center;
                 {% endif %}">
@@ -27,12 +53,12 @@
                         background-color: rgba(0,0,0,0.5);
                         backdrop-filter: blur(2px); 
                         {% endif %}">
-                <h2>{{sheet.name}}</h2>
+                    <h2>{{sheet.name}}</h2>
 
                 <div class="sheet_info">
                     <div class="sideBySide">
                         <p><b>Nível:</b></p>
-                        <p>{{sheet.level}}  ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
                     </div>
                     <div class="sideBySide">
                         <p><b>Raça:</b></p>
@@ -42,7 +68,7 @@
                         <p><b>Classe:</b></p>
                         <p>{{sheet.role}}</p>
                     </div>
-                    
+
                     <div class="bar">
                         <span class="hp-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
@@ -51,12 +77,11 @@
                             {% comment %} <p>Vida</p> {% endcomment %}
                         </span>
                     </div>
-
                 </div>
-
             </div>
         </div>
         {% endfor %}
     </section>
 </section>
+<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 {% endblock %}

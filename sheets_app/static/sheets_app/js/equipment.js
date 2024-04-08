@@ -3,10 +3,23 @@ const quantity = document.querySelector('input[name="quantity"]');
 const attack = document.querySelector('input[name="attack"]');
 const defense = document.querySelector('input[name="defense"]');
 
+const editName = document.querySelector('input[name="editName"]');
+const editQuantity = document.querySelector('input[name="editQuantity"]');
+const editAttack = document.querySelector('input[name="editAttack"]');
+const editDefense = document.querySelector('input[name="editDefense"]');
+
 const addEquipmentBtn = document.querySelector('#addEquipmentBtn');
 const closeEquipmentBtn = document.querySelector('#closeEquipmentBtn')
+
+const editEquipmentBtn = document.querySelector('#editEquipmentBtn');
+const closeEditEquipmentBtn = document.querySelector('#closeEditEquipmentBtn')
+
 const openEquipmentModal = document.querySelector('.openEquipmentBtn')
+const openEditEquipmentBtn = document.querySelector('.editEquipment');
+const removeEquipmentBtn = document.querySelector('.removeEquipment')
+
 const equipmentModal = document.querySelector('.equipmentModal')
+const editEquipmentModal = document.querySelector('.editEquipmentModal')
 
 let context = document.getElementById('context').getAttribute('data-context');
 if (context) {
@@ -15,6 +28,8 @@ if (context) {
 
 let equipmentString = '';
 let equipmentList = [];
+let selectedEquipmentToEdit;
+let equipmentNode;
 
 
 const StorageService = {
@@ -29,8 +44,24 @@ const StorageService = {
   }
 }
 
-function closeEquipmentModal() {
+function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
+}
+
+function handleOpenEquipmentModal() {
+  equipmentModal.style.display = 'flex';
+}
+
+function handleCloseEditEquipmentModal() {
+  editEquipmentModal.style.display = 'none';
+}
+
+function handleOpenEditEquipmentModal(selectedEquipment) {
+  editEquipmentModal.style.display = 'flex';
+  editName.value = selectedEquipment.name;
+  editQuantity.value = selectedEquipment.quantity;
+  editAttack.value = selectedEquipment.attack;
+  editDefense.value = selectedEquipment.defense;
 }
 
 function handleError(message, className) {
@@ -45,16 +76,46 @@ function handleError(message, className) {
   document.querySelector(`.${className}`).appendChild(node)
 }
 
-function addEquipmentToList() {
+function handleLoadHtmlList(equipment) {
+  return (
+    `
+      <li data-id="${equipment.local_id}">
+      <div>
+        <input type="hidden" name="equipmentName" value="${equipment.name}" />
+        <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
+        <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
+        <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
+      </div>
+      ${equipment.quantity}x ${equipment.name}- Atk: ${equipment.attack} | Def: ${equipment.defense}
+      <button type="button" class="removeEquipment" onclick="handleDeleteEquipment(this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+      </button>
+      <button type="button" class="editEquipment" onclick="handleGetEditEquipmentInfo(this)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+      </button>
+    </li>
+    `
+  )
+}
+
+function handleAddEquipmentToList() {
   const equipment = {
+    local_id: Math.random(),
     name: name.value,
     quantity: Number(quantity.value), 
     attack: Number(attack.value),
     defense: Number(defense.value)
   };
 
+  const nameExists = equipmentList.some(
+    (equipmentItem) => equipmentItem.name.toLowerCase() === equipment.name.toLowerCase());
+
   if (equipment.name === '') {
     handleError('Esse campo não pode ser vazio', 'equipmentName')
+    return
+  }
+  if (nameExists) {
+    handleError('Esse equipamento já existe', 'equipmentName')
     return
   }
   if (equipment.name.length > 55) {
@@ -62,7 +123,6 @@ function addEquipmentToList() {
     return
   }
   if (equipment.name.length < 2) {
-    console.log(equipment.name.length)
     handleError('Este campo deve ter mais de 2 caracteres', 'equipmentName')
     return
   }
@@ -100,67 +160,69 @@ function addEquipmentToList() {
   equipmentList.push(equipment);
   StorageService.saveData();
 
-  equipmentString +=
-    `
-    <li>
-      <div>
-        <input type="hidden" name="equipmentName" value="${equipment.name}" />
-        <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
-        <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
-        <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
-      </div>
-      ${equipment.quantity}x ${equipment.name} - Atk: ${equipment.attack} | Def: ${equipment.defense}
-        <i data-lucide="log-out" width="40" height="40"></i>
-
-    </li>
-    `;
+  equipmentString += handleLoadHtmlList(equipment);
 
   const node = new DOMParser().parseFromString(equipmentString, 'text/html').body.firstElementChild
   document.querySelector('.equipmentList').appendChild(node)
-  closeEquipmentModal();
-  equipmentString = '';
+  handleCloseEquipmentModal();
+  equipmentString = ''; 
   name.value = '';
-  equipment.value = 1;
+  quantity.value = 1;
   attack.value = 0;
   defense.value = 0;
 }
 
-function loadEquipmentList() {
-  equipmentList = StorageService.getData();
+function handleGetEditEquipmentInfo(equipment) {
+  const selectedEquipmentId = equipment.parentNode.getAttribute('data-id');
+  equipmentNode = equipment.parentNode;
 
-  equipmentList.forEach((equipment) => {
-    equipmentString +=
-    `
-    <li>
-      <div>
-        <input type="hidden" name="equipmentName" value="${equipment.name}" />
-        <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
-        <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
-        <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
-      </div>
-      ${equipment.quantity}x ${equipment.name} - Atk: ${equipment.attack} | Def: ${equipment.defense}
-        <i data-lucide="log-out" width="40" height="40"></i>
+  const selectedEquipment = equipmentList.filter((equipmentItem) => equipmentItem.local_id == selectedEquipmentId)[0];
+  selectedEquipmentToEdit = selectedEquipment;
 
-    </li>
-    `;
+  handleOpenEditEquipmentModal(selectedEquipment)
+}
 
-    const node = new DOMParser().parseFromString(equipmentString, 'text/html').body.firstElementChild
-    document.querySelector('.equipmentList').appendChild(node)
-  });
+function handleEditEquipment() {
+  selectedEquipmentToEdit.name = editName.value; 
+  selectedEquipmentToEdit.quantity = Number(editQuantity.value); 
+  selectedEquipmentToEdit.attack = Number(editAttack.value); 
+  selectedEquipmentToEdit.defense = Number(editDefense.value); 
 
+  const equipmentListFiltered = equipmentList.filter((item, index, self) =>
+    index === self.findIndex((t) => (
+      t.local_id === item.local_id
+    ))
+  );
+
+  StorageService.removeData();
+  StorageService.saveData();
+
+  document.querySelector('.equipmentList').innerHTML = '';
+
+  equipmentListFiltered.forEach((equipmentItem) => {
+    equipmentString += handleLoadHtmlList(equipmentItem);
+  })
+
+  document.querySelector('.equipmentList').innerHTML = equipmentString;
+  equipmentString = '';
+  handleCloseEditEquipmentModal();
+}
+
+function handleDeleteEquipment(equipment) {
+  const selectedEquipmentId = equipment.parentNode.getAttribute('data-id');
+  const actualIndex = equipmentList.findIndex(equipmentItem => equipmentItem.id == selectedEquipmentId);
+  equipmentList.splice(actualIndex, 1)
+
+  equipmentList.forEach((equipmentItem) => {
+    equipmentString += handleLoadHtmlList(equipmentItem);
+  })
+
+  document.querySelector('.equipmentList').innerHTML = equipmentString;
   equipmentString = '';
 }
 
-openEquipmentModal?.addEventListener('click', () => {
-  equipmentModal.style.display = 'flex';
-});
-addEquipmentBtn?.addEventListener('click', () => addEquipmentToList());
-closeEquipmentBtn?.addEventListener('click', () => closeEquipmentModal());
-
-window.onload = () => {
-  if (context.length >= 1) {
-    loadEquipmentList();
-  } else {
-    StorageService.removeData();
-  }
-}
+openEquipmentModal?.addEventListener('click', () => handleOpenEquipmentModal());
+addEquipmentBtn?.addEventListener('click', () => handleAddEquipmentToList());
+editEquipmentBtn?.addEventListener('click', () => handleEditEquipment());
+closeEquipmentBtn?.addEventListener('click', () => handleCloseEquipmentModal());
+closeEditEquipmentBtn?.addEventListener('click', () => handleCloseEditEquipmentModal());
