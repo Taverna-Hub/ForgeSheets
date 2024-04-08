@@ -13,7 +13,19 @@
   --gray-800: #1f2937;
 }
 
-a{
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
+
+
+a {
   text-decoration: none;
 }
 
@@ -45,7 +57,7 @@ button {
   padding: 32px;
   margin: 15%;
   margin-top: 5%;
-  overflow: hidden;
+  overflow: scroll;
   height: fit-content;
 }
 
@@ -75,7 +87,7 @@ button {
 }
 
 .atributos, .status {
-  padding: 42px 0 12px; 
+  margin-top: 40px;
   max-width: 400px;
   width: 100%;
 }
@@ -92,10 +104,6 @@ button {
   margin-bottom: 16px; 
   
   border-radius: 2px;
-}
-
-.status {
-  margin-bottom: 201px; 
 }
 
 .sheetSideBySide, .equipamentos {
@@ -115,38 +123,12 @@ button {
   width: 100%; 
 } 
 
-.createSheetActions {
-  align-self: flex-end;
-}
-
-.createSheetActions button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.createSheetActions button:first-child {
-  background-color: var(--gray-200);
-  color: var(--gray-700);
-}
-
-.createSheetActions button:first-child a {
-  color: var(--gray-700);
-}
-
-.createSheetActions button:last-child {
-  background-color: var(--red-600);
-  color: var(--gray-200);
-}
-
 .equipamentos {
   background-color: var(--gray-800);
   padding: 16px;
   color: var(--white);
-  width: 355px;
+  max-width: 400px;
+  width: 100%;
   border-radius: 4px;
 
   display: flex;
@@ -174,10 +156,29 @@ button {
   overflow-y: scroll;
 }
 
-.equipmentsListContainer ul {
+.equipmentList {
   color: var(--gray-700);
   list-style-type: circle;
-  padding: 16px 24px;
+  padding: 0 24px 16px;
+  position: relative;
+}
+
+.equipmentList li {
+  margin-top: 16px;
+  position: relative;
+}
+
+
+.equipmentList button {
+  position: absolute;
+  right: 40px;
+  color: var(--gray-800);
+}
+
+.equipmentList button:nth-child(2) {
+  position: absolute;
+  right: 0;
+  color: var(--red-600);
 }
 
 
@@ -185,7 +186,7 @@ button {
   color: var(--gray-600);
 }
 
-.add_image_div button{
+.add_image_div button {
   border-radius: 100%;
   background-color: var(--gray-300);
   margin: auto;
@@ -195,9 +196,38 @@ button {
   height: 256px;
 }
 
-.add_image_div{
+.add_image_div {
+  background-color: var(--green-500);
   border-radius: 50%;
   /* width: auto; */
+}
+
+
+.createSheetActions {
+  margin-top: 16px;
+}
+
+.createSheetActions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.createSheetActions button:first-child {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.createSheetActions button:first-child a {
+  color: var(--gray-700);
+}
+
+.createSheetActions button:last-child {
+  background-color: var(--red-600);
+  color: var(--gray-200);
 }
 
 @media (max-width: 1540px) {
@@ -219,10 +249,6 @@ button {
   .sheetHeader {
     flex-direction: column;
   }
-  
-  .status {
-    padding: 0;
-  }
 }
 
 @media (max-width: 1180px) {
@@ -230,10 +256,27 @@ button {
     flex-direction: column;
     align-items: baseline;
     justify-content: baseline;
+    height: fit-content;
   }
 
-  .atributos, .status {
+  .atributos {
+    margin-top: 24px;
+  }
+
+  .status {
+    margin: 0;
+  }
+
+  .atributos, .status, .equipamentos, .description {
     min-width: 100%;
     width: 100%;
   }
 }
+
+@media (max-width: 800px) {
+  .sheet {
+    margin: 8%;
+    height: 100%;
+  }
+}
+

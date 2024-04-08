@@ -8,11 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
-        sheets_view = Sheet.objects.filter(user_id=request.user.id) 
+        sheets_view = Sheet.objects.filter(user_id=request.user.id)
         ctx = {
             'sheets_view': sheets_view,
             'app_name': 'sheets',
-            'user': request.user
+            'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
     
@@ -42,7 +42,14 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         description = request.POST.get('description')
 
+        eqpsName = (request.POST.getlist('equipmentName'))  
+        eqpsQnt = (request.POST.getlist('equipmentQnt'))
+        eqpsAtk = (request.POST.getlist('equipmentAtk'))
+        eqpsDef = (request.POST.getlist('equipmentDef'))
+
         user_id = request.user.id
+
+        equipment_list = []
         
         #add imagem
         errors= save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
@@ -50,8 +57,17 @@ class CreateSheetView(LoginRequiredMixin, View):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
                 ctx = {
                     'errors': errors,
+                    'equipments': equipment_list,
                     'app_name': 'sheets'
                 }
                 if 'name' not in errors:
@@ -62,6 +78,8 @@ class CreateSheetView(LoginRequiredMixin, View):
                     ctx['race'] = race
                 if 'role' not in errors:
                     ctx['role'] = role
+                if 'description' not in errors:
+                    ctx['description'] = description
                 for atributo in atributos:
                     if atributo not in errors:
                         valor = request.POST.get(atributo)
@@ -72,12 +90,6 @@ class CreateSheetView(LoginRequiredMixin, View):
                         ctx[atributo] = valor
 
                 return render(request, 'sheets_app/create-sheets.html', ctx)
-
-        
-        eqpsName = (request.POST.getlist('equipmentName'))
-        eqpsQnt = (request.POST.getlist('equipmentQnt'))
-        eqpsAtk = (request.POST.getlist('equipmentAtk'))
-        eqpsDef = (request.POST.getlist('equipmentDef'))
 
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)

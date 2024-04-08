@@ -12,6 +12,17 @@
   --gray-800: #1f2937;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
+
 .listSheetsContainer{
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
@@ -21,32 +32,40 @@
   padding: 32px 64px;
   overflow: auto;
 }
-  
+
 .cardList {
   display: grid;
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(4, 300px);
+  justify-content: space-between;
 
   gap: 16px;
 }
-  
+
 .sheetCard {
   border-radius: 4px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  backdrop-filter: blur(3px); 
-  background-color: rgba(0,0,0,0.7);
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  width: 100%;
 }
-  
-.sheetCard > div, .createSheet {
+
+.sheetCard>div, .createSheet {
   width: 300px;
   height: 200px;
   padding: 24px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   position: relative;
   border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-  
+
 .createSheet {
   display: flex;
   align-items: center;
@@ -56,15 +75,15 @@
 
   background-size: cover;
   background-repeat: no-repeat;
-  
+
   transition: all .3s;
 }
-  
+
 .createSheet:hover {
   transform: translateY(-4px);
-  box-shadow: rgba(185,28,28,0.3) 0px 8px 24px;
+  box-shadow: rgba(185, 28, 28, 0.3) 0px 8px 24px;
 }
-  
+
 .createSheet div {
   display: flex;
   align-items: center;
@@ -77,25 +96,19 @@
   border: 3px dashed var(--red-700);
   color: var(--red-700);
 }
-  
+
 .createSheet:hover {
   transform: translateY(-4px);
 }
-  
+
 .sheetCard h2 {
   text-align: center;
   color: var(--gray-300);
-  word-break: break-all;
-  
-}
-
-
-.sheet_info{
-  width: fit-content;
-}
+} 
 
 .sheet_info {
   margin-top: 24px;
+  width: 100%;
 }
 
 .sheet_info span {
@@ -106,36 +119,62 @@
 .sheet_info p {
   margin-top: 4px;
   color: var(--white);
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.title{
+.title {
   padding-bottom: 20px;
 }
 
-.sideBySide{
+.sideBySide {
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
-
+  
   width: 100%;
   gap: 16px;
 }
 
 .bar {
   display: flex;
-  width: 280px;
   flex-direction: column;
+  width: 100%;
   margin-top: 10px;
-  padding: 5px 20px 5px 0px;
+  padding: 5px 0;
 }
 
 .hp-bar {
   background-color: rgba(238, 67, 67, 0.8);
-  margin-bottom: 5px;
   height: 5px;
+  margin-bottom: 15px;
 }
 
 .mana-bar {
   background-color: rgba(86, 86, 227, 0.8);
   height: 5px;
+}
+
+@media (max-width: 1653px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sheetCard > div, .createSheet {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1333px) {
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1080px) {
+  .cardList {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

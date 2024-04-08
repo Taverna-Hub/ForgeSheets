@@ -13,6 +13,17 @@
   --gray-800: #1f2937;
 }
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
+
 .listCampaignContainer {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
@@ -25,7 +36,8 @@
 
 .cardList {
   display: grid;
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(4, 300px);
+  justify-content: space-between;
 
   gap: 16px;
 }
@@ -111,6 +123,29 @@
   white-space: normal;
 }
 
-.title{
+.title {
   padding-bottom: 20px;
 }
+
+@media (max-width: 1653px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .campaignCard > div, .createCampaign {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1333px) {
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1080px) {
+  .cardList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
