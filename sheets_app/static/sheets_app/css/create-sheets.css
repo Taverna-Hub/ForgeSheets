@@ -106,6 +106,7 @@ button {
   border-radius: 2px;
 }
 .sheetSideBySide{
+  margin-top: -40px;
   margin-bottom: 40px;
 }
 .image_svg{
@@ -132,6 +133,7 @@ button {
   margin-top: 15%;
   background-color: var(--gray-800);
   padding: 16px;
+  padding-top: 0px;
   color: var(--white);
   max-width: 400px;
   width: 100%;
@@ -145,6 +147,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .equipamentos button {
@@ -278,7 +282,7 @@ button {
   }
 }
 .description{
-  margin-top: 15%;
+  margin-top: 10%;
 }
 #description{
   margin-top: 3.7%;
