@@ -35,8 +35,8 @@ class Sheet(models.Model):
     mana = models.IntegerField(validators=[MinValueValidator(0)])
     manaMax = models.IntegerField(validators=[MinValueValidator(1)])
     exp = models.IntegerField(validators=[MinValueValidator(0)])
+    expTotal = models.IntegerField(validators=[MinValueValidator(0)], null=True)
     expMax = models.IntegerField(validators=[MinValueValidator(1)], default=100)
-
     notes = models.TextField(default='')
     description = models.TextField(default='NULL')
 
@@ -55,17 +55,17 @@ class Sheet(models.Model):
     def updateXp(self):
         exp = int(self.exp)
         expMax = int(self.expMax)
-
         while exp >= expMax:
             exp = exp - expMax
             expMax = expMax*2
-
         self.exp = int(exp)
         self.expMax = int(expMax)
 
     def level(self):
-        exp = self.exp
-        expMax = self.expMax
+        if self.expTotal == None:
+            self.expTotal = int(self.exp)
+        exp = int(self.expTotal)
+        expMax = 100
         level = 0
         while exp >= expMax:
             exp -= expMax

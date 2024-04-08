@@ -4,7 +4,7 @@
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Fichas | ForgeSheets</title>
+<title>Suas Fichas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
@@ -31,11 +31,15 @@
 
                 <div class="sheet_info">
                     <div class="sideBySide">
-                        <span>Raça:</span>
+                        <p><b>Nível:</b></p>
+                        <p>{{sheet.level}}  ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                    </div>
+                    <div class="sideBySide">
+                        <p><b>Raça:</b></p>
                         <p>{{sheet.race}}</p>
                     </div>
                     <div class="sideBySide">
-                        <span>Classe:</span>
+                        <p><b>Classe:</b></p>
                         <p>{{sheet.role}}</p>
                     </div>
                     
@@ -43,16 +47,11 @@
                         <span class="hp-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
                         </span>
-                    </div>
-                    
-                    <div class="bar">
                         <span class="mana-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
                         </span>
                     </div>
-
                 </div>
-
             </div>
         </div>
         {% endfor %}

@@ -12,7 +12,18 @@
   --gray-800: #1f2937;
 }
 
-.listSheetsContainer {
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
+
+.listSheetsContainer{
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
   z-index: 999;
@@ -24,7 +35,8 @@
 
 .cardList {
   display: grid;
-  grid-template-columns: repeat(3, 300px);
+  grid-template-columns: repeat(4, 300px);
+  justify-content: space-between;
 
   gap: 16px;
 }
@@ -40,14 +52,18 @@
   width: 100%;
 }
 
-.sheetCard>div,
-.createSheet {
+.sheetCard>div, .createSheet {
   width: 300px;
   height: 200px;
   padding: 24px;
   background-color: rgba(0, 0, 0, 0.4);
   position: relative;
   border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .createSheet {
@@ -89,15 +105,11 @@
   text-align: center;
   color: var(--gray-300);
   word-break: break-all;
-
-}
-
-.sheet_info {
-  width: fit-content;
 }
 
 .sheet_info {
   margin-top: 24px;
+  width: 100%;
 }
 
 .sheet_info span {
@@ -123,26 +135,47 @@
   align-items: center;
   /* justify-content: space-between; */
   
-
   width: 100%;
   gap: 16px;
 }
 
 .bar {
   display: flex;
-  width: 280px;
   flex-direction: column;
+  width: 100%;
   margin-top: 10px;
-  padding: 5px 20px 5px 0px;
+  padding: 5px 0;
 }
 
 .hp-bar {
   background-color: rgba(238, 67, 67, 0.8);
-  margin-bottom: 5px;
   height: 5px;
+  margin-bottom: 15px;
 }
 
 .mana-bar {
   background-color: rgba(86, 86, 227, 0.8);
   height: 5px;
+}
+
+@media (max-width: 1653px) {
+  .cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sheetCard > div, .createSheet {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1333px) {
+  .cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1080px) {
+  .cardList {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
