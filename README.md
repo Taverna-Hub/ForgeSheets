@@ -38,13 +38,13 @@
 <br/>
 <p align="center" style="">
 <a href="https://www.youtube.com/watch?v=oNvP1qluKYE"">
-  <img src="https://img.shields.io/badge/link do screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
 </a>
 <a href="https://www.figma.com/file/GevyRkqG9ICW9ZyhrXDtl1/Forge-Sheets-(Lo-Fi)?type=design&node-id=0%3A1&mode=design&t=1tBcAI8RKL5A3Zd2-1">
-  <img src="https://img.shields.io/badge/link do figma-000?style=for-the-badge&logo=figma&logoColor=white"  height="35px"/>
+  <img src="https://img.shields.io/badge/figma-000?style=for-the-badge&logo=figma&logoColor=white"  height="35px"/>
 </a>
   <a href="https://forgesheets.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMDJkY2ZjNTMyNDg5NGRkODlmZWQwZDc5ZTZkY2U5ZTYiLCJwIjoiaiJ9">
-    <img src="https://img.shields.io/badge/link do jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"  height="35px"/>
+    <img src="https://img.shields.io/badge/jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"  height="35px"/>
   </a>
 </p>
 <br/>
@@ -59,6 +59,43 @@
 
 ![Board](https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/19a74ee6-9026-4e66-9f26-bf19cfb8b945)
 
+---
+
+# Entrega 02
+<br/>
+<p align="center" style="">
+<a href="ADICIONAR"">
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
+</a>
+<a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
+  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="ADICIONAR"">
+  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/>
+</a>
+</p>
+<br/>
+
+- <strong> Backlog </strong>
+
+![image](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/3f705ba8-ee03-47b1-af71-d34b158f4dd3)
+
+<br/>
+  
+- <strong> Board </strong>
+
+![Board](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/2cf7dbe5-4317-441e-80d3-8922cb17221a)
+
+- <strong> Issues </strong>
+
+![image](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/df32dd8e-3a8a-4ca1-a61d-3f7e0d7d631b)
+![print2](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/d2671693-dbcb-449c-8c9e-383cdbd02c66)
+
+- <strong> Diagrama de Atividades </strong>
+
+![Diagrama-de-atividade-(1)](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/b3d271e9-0ca4-4380-a334-bdc434a25ad7)
+
+---
 
 ## 👥 Equipe
 <table>
@@ -140,5 +177,3 @@
 
 <p align="center"><img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/9287638f-8716-4e62-9989-a40882fbfed6" width="40px"></p>
 <p align="center">Projeto para a disciplina de <strong>Fundamentos de Desenvolvimento de Software</strong> na <strong>CESAR School‎‎</strong></p>
-
-![Diagrama-de-atividade-(1)](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/b3d271e9-0ca4-4380-a334-bdc434a25ad7)
