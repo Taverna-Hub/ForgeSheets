@@ -44,12 +44,6 @@ const StorageService = {
   }
 }
 
-function areEqual(num1, num2) {
-  const epsilon = 0.0000001; // Define uma margem de erro para a comparação
-  return Math.abs(num1 - num2) < epsilon;
-}
-
-
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
 }
@@ -93,10 +87,10 @@ function handleLoadHtmlList(equipment) {
         <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
       </div>
       ${equipment.quantity}x ${equipment.name}- Atk: ${equipment.attack} | Def: ${equipment.defense}
-      <button type="button" class="editEquipment">
+      <button type="button" class="removeEquipment" onclick="handleDeleteEquipment(this)">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
       </button>
-      <button type="button" class="removeEquipment" onclick="handleGetEditEquipmentInfo(this)">
+      <button type="button" class="editEquipment" onclick="handleGetEditEquipmentInfo(this)">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
       </button>
     </li>
@@ -196,7 +190,7 @@ function handleEditEquipment() {
 
   const equipmentListFiltered = equipmentList.filter((item, index, self) =>
     index === self.findIndex((t) => (
-      areEqual(t.local_id, item.local_id)
+      t.local_id === item.local_id
     ))
   );
 
@@ -216,14 +210,19 @@ function handleEditEquipment() {
 
 function handleDeleteEquipment(equipment) {
   const selectedEquipmentId = equipment.parentNode.getAttribute('data-id');
-  equipmentList.filter((equipmentItem) => selectedEquipmentId !== equipmentItem.local_id)
-  console.log(selectedEquipmentId)
+  const actualIndex = equipmentList.findIndex(equipmentItem => equipmentItem.id == selectedEquipmentId);
+  equipmentList.splice(actualIndex, 1)
+
+  equipmentList.forEach((equipmentItem) => {
+    equipmentString += handleLoadHtmlList(equipmentItem);
+  })
+
+  document.querySelector('.equipmentList').innerHTML = equipmentString;
+  equipmentString = '';
 }
 
 openEquipmentModal?.addEventListener('click', () => handleOpenEquipmentModal());
 addEquipmentBtn?.addEventListener('click', () => handleAddEquipmentToList());
-removeEquipmentBtn?.addEventListener('click', () => handleDeleteEquipment(this));
 editEquipmentBtn?.addEventListener('click', () => handleEditEquipment());
-openEditEquipmentBtn?.addEventListener('click', () => handleEditEquipment(this));
 closeEquipmentBtn?.addEventListener('click', () => handleCloseEquipmentModal());
 closeEditEquipmentBtn?.addEventListener('click', () => handleCloseEditEquipmentModal());

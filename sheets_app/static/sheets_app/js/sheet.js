@@ -55,8 +55,8 @@ function addImageToSheet(){
   closeImageModal();
 }
 
-closeChooseSheetModalBtn.addEventListener('click', () => closeChooseSheetModal());
-createSheetBtn.addEventListener('click', () => openChooseSheetModal());
+closeChooseSheetModalBtn?.addEventListener('click', () => closeChooseSheetModal());
+createSheetBtn?.addEventListener('click', () => openChooseSheetModal());
 // openImageModal.addEventListener('click', () => {
 //   imageModal.style.display = 'flex';
 // });
