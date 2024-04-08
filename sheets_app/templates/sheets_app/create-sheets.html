@@ -236,45 +236,62 @@
                 </div>
             </section>
 
-            <div class="sheetSideBySide">            
-                <section class="atributos">
-                    <div class="atributosInputs">
-                        <div>
-                            <label for="strength">Força: </label>
-                            <input type="number" name="strength" id="strength" value="{{strength}}">
+            <div class="sheetSideBySide"> 
+                <div class="under">
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{speed}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
                         </div>
-                        <div>
-                            <label for="intelligence">Inteligência: </label>
-                            <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
-                        </div>
-                        <div>
-                            <label for="wisdom">Sabedoria: </label>
-                            <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
-                        </div>
-                        <div>
-                            <label for="charisma">Carisma: </label>
-                            <input type="number" name="charisma" id="charisma" value="{{charisma}}">
-                        </div>
-                        <div>
-                            <label for="constitution">Constituição: </label>
-                            <input type="number" name="constitution" id="constitution" value="{{constitution}}">
-                        </div>
-                        <div>
-                            <label for="speed">Velocidade: </label>
-                            <input type="number" name="speed" id="speed" value="{{speed}}">
-                        </div>
-                        {% for error in errors %}
-                        {% if error.field == 'atributes1'%}
-                        <span>
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }}
-                        </span>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </section>
+                    </section>
 
-                {% comment %} <div class="under"> {% endcomment %}
+                    <section class="description">
+                        <label for="description">Descrição: </label>
+                        <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
+                        {% for error in errors %}
+                            {% if error.field == 'description'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    </section> 
+
+                </div>
+
+                <div class="under">
+                    
                     {% comment %} <section class="add-image"> {% endcomment %}
                         {% comment %} <div class="add_image_div"> {% endcomment %}
                             {% comment %} <button type="button" class="openImageBtn"> {% endcomment %}
@@ -313,10 +330,58 @@
                             {% endfor %}
                         </div>
                     </section>
-                {% comment %} </div> {% endcomment %}
+
+                    
+                <section class="equipamentos">
+                    <div class="header">
+                         <p>Equipamentos</p>
+                         <button type="button" class="openEquipmentBtn">
+                             <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                         </button>
+                    </div>
+ 
+                     <div class="equipmentsListContainer">
+                         <ul class="equipmentList">
+                             {% for equipment in equipments %}
+                                 <li>
+                                     <div>
+                                     <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                     <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                     <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                     <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                     </div>
+                                     {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                     <button type="button" class="editEquipment">
+                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                     </button>
+                                     <button type="button" class="removeEquipment">
+                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                     </button>
+                                 </li>
+                             {% endfor %}
+                         </ul>
+                     </div>
+                 </section>
+
+                </div>
 
             </div>
-            <div class="sheetSideBySide">
+            
+            {% comment %} <div class="sheetSideBySide"> {% endcomment %}
+                
+                {% comment %} <section class="description">
+                    <label for="description">Descrição: </label>
+                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
+                    {% for error in errors %}
+                        {% if error.field == 'description'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
+                </section> {% endcomment %}
+{% comment %} 
                 <section class="equipamentos">
                    <div class="header">
                         <p>Equipamentos</p>
@@ -346,23 +411,10 @@
                             {% endfor %}
                         </ul>
                     </div>
-                </section>
+                </section> {% endcomment %}
 
                 
-                
-                <section class="description">
-                    <label for="description">Descrição: </label>
-                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
-                    {% for error in errors %}
-                        {% if error.field == 'description'%}
-                        <span>
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }}
-                        </span>
-                        {% endif %}
-                    {% endfor %}
-                </section>
-            </div>
+            {% comment %} </div> {% endcomment %}
 
             <div class="createSheetActions">
                 <button type="button">
