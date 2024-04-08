@@ -86,8 +86,6 @@ def atribute_verifier(atr):
 # add imagem
 def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
     errors=[]
-    atributes=[]
-    status=[]
 
     image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
     if image != '':
@@ -96,16 +94,21 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
                 'field': 'image',
                 'message': 'Insira uma URL válida!'
             })
+        elif len(str(image)) > 200:
+            errors.append({
+                    'field': 'image',
+                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                })
 
-    if 2 > len(name) or len(name) >= 50:
-        errors.append({
-            'field':'name',
-            'message': 'Esse campo necessita ter entre 2 e 50 caracteres!'
-            })
     if str(name).count(' ') == len(name):
         errors.append({
             'field': 'name',
             'message' : 'Este campo não pode ser vazio!'
+            })
+    elif 2 > len(name) or len(name) >= 50:
+        errors.append({
+            'field':'name',
+            'message': 'Esse campo necessita ter entre 2 e 50 caracteres!'
             })
     if str(race).count(' ') == len(str(race)):
         errors.append({
@@ -218,8 +221,8 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
-    # sheet.updateXp()
-    # sheet.save()
+    sheet.updateXp()
+    sheet.save()
     return sheet

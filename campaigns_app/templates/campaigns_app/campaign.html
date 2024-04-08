@@ -4,7 +4,7 @@
 {% block 'head' %}
   <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/styles.css' %}">
   <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-  <title>Campanha | ForgeSheets</title>
+  <title>Suas campanhas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
@@ -27,8 +27,8 @@
         >
           <div
             style="{% if campaign.image %}
-                    backdrop-filter: blur(12px); 
-                    background-color: rgba(0,0,0,0.7);
+                    backdrop-filter: blur(2px); 
+                    background-color: rgba(0,0,0,0.5);
                   {% endif %}"
           >
               <h2> {{ campaign.title }} </h2>

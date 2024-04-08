@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Criar ficha</title>
+<title>Criar ficha - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
@@ -196,9 +196,8 @@
                 </div>
 
                  <div>
-                    <label for="image">Foto do personagem: </label>
-                    <input type="url" name="image" value="{{image}}">
-                    
+                    <label for="image">URL da foto: </label>
+                    <input type="text" name="image" value="{{image}}">  
                     {% for error in errors %}
                         {% if error.field == 'image'%}
                              <span>
@@ -211,7 +210,7 @@
                 </div> 
 
                 <div>
-                    <label for="race">Raça do personagem: </label>
+                    <label for="race">Raça: </label>
                     <input type="text" name="race" value="{{race}}">
                     {% for error in errors %}
                     {% if error.field == 'race'%}
@@ -224,7 +223,7 @@
                 </div>
 
                 <div>
-                    <label for="role">Classe do personagem: </label>
+                    <label for="role">Classe: </label>
                     <input type="text" name="role" id="role" value="{{role}}">
                     {% for error in errors %}
                     {% if error.field == 'role'%}
@@ -245,7 +244,7 @@
                             <input type="number" name="strength" id="strength" value="{{strength}}">
                         </div>
                         <div>
-                            <label for="intelligence">Inteligencia: </label>
+                            <label for="intelligence">Inteligência: </label>
                             <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
                         </div>
                         <div>
@@ -257,7 +256,7 @@
                             <input type="number" name="charisma" id="charisma" value="{{charisma}}">
                         </div>
                         <div>
-                            <label for="constitution">Contituição: </label>
+                            <label for="constitution">Constituição: </label>
                             <input type="number" name="constitution" id="constitution" value="{{constitution}}">
                         </div>
                         <div>
