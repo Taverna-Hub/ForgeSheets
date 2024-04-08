@@ -100,6 +100,50 @@
     </div>
 </section>
 
+<section class="editEquipmentModal">
+    <div class="modal">
+        <h2>Editar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="editName">
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" name="editQuantity">
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    <input type="number" name="editAttack">
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    <input type="number" name="editDefense">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEditEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="editEquipmentBtn">
+                    Editar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
 <section class="imageModal">
     <div class="modal">
         <h2>Adicionar Imagem</h2>
@@ -278,7 +322,23 @@
 
                     <div class="equipmentsListContainer">
                         <ul class="equipmentList">
-
+                            {% for equipment in equipments %}
+                                <li>
+                                    <div>
+                                    <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                    <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                    <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                    <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                    </div>
+                                    {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                    <button type="button" class="editEquipment">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                    </button>
+                                    <button type="button" class="removeEquipment">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                    </button>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </section>
@@ -286,18 +346,15 @@
                 
                 
                 <section class="description">
-                    <div class="description-area">
-                        <label for="description">Descrição: </label>
-                        <textarea name="description" id="description" value=" " id="" cols="30" rows="10"></textarea>
-                        {% comment %} <input type="text" name="description" id="description" value=" "> {% endcomment %}
-                    </div>
+                    <label for="description">Descrição: </label>
+                    <textarea name="description" id="description" value=" " id="" cols="30" rows="10"></textarea>
                     {% for error in errors %}
-                    {% if error.field == 'description'%}
-                    <span>
-                        <i data-lucide="octagon-alert"></i>
-                        {{ error.message }}
-                    </span>
-                    {% endif %}
+                        {% if error.field == 'description'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
                     {% endfor %}
                 </section>
             </div>

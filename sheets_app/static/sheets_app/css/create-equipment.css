@@ -12,7 +12,11 @@ a {
     text-decoration: none;
 }
 
-.equipmentModal {
+textarea {
+    resize: none;
+}
+
+.equipmentModal, .editEquipmentModal {
     background: rgba(0,0,0,0.8);
 
     position: fixed;
@@ -28,45 +32,44 @@ a {
     z-index: 9999;
 }
 
-.equipmentModal input, textarea {
+.equipmentModal input, textarea, .editEquipmentModal input, textarea {
     width: 100%;
     border: 2px solid var(--gray-200);
     border-radius: 4px;
     padding: 8px;
 }
 
-.equipmentModal input {
+.equipmentModal input, .editEquipmentModal input {
     height: 35px;
 }
 
-.equipmentModal textarea {
+.equipmentModal textarea, .editEquipmentModal textarea {
     resize: none;
 }
 
-.equipmentModal label {
+.equipmentModal label, .editEquipmentModal label {
     display: block;
     margin-bottom: 8px;
     color: var(--gray-700);
 }
 
-.equipmentModal h2 {
+.equipmentModal h2, .editEquipmentModal h2 {
     color: var(--gray-800);
 }
 
-.equipmentModal button {
+.equipmentModal button, .editEquipmentModal button {
     cursor: pointer;
 }
 
-.equipmentModal .modal {
+.equipmentModal .modal, .editEquipmentModal .modal {
     background-color: white;
     padding: 24px;
     border-radius: 4px;
     width: 650px;
-    min-height: 595px;
     height: fit-content;
 }
 
-.equipmentModal .modal form {
+.equipmentModal .modal form, .editEquipmentModal .modal form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -75,7 +78,7 @@ a {
     margin-top: 40px;
 }
 
-.equipmentModal .modal span {
+.equipmentModal .modal span, .editEquipmentModal .modal span {
     color: var(--red-600);
     display: flex;
     align-items: center;
@@ -84,11 +87,11 @@ a {
     margin-top: 8px;
 }
 
-.equipmentModal .actions {
+.equipmentModal .actions, .editEquipmentModal .actions {
     align-self: flex-end;
 }
 
-.equipmentModal .actions button {
+.equipmentModal .actions button, .editEquipmentModal .actions button {
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
@@ -96,27 +99,27 @@ a {
     font-size: 16px;
 }
 
-.equipmentModal .actions button:first-child {
+.equipmentModal .actions button:first-child, .editEquipmentModal .actions button:first-child {
     background-color: var(--gray-200);
     color: var(--gray-700);
 }
 
-.equipmentModal .actions button:first-child a {
+.equipmentModal .actions button:first-child a, .editEquipmentModal .actions button:first-child a {
     color: var(--gray-700);
 }
 
-.equipmentModal .actions button:last-child {
+.equipmentModal .actions button:last-child, .editEquipmentModal .actions button:last-child  {
     background-color: var(--red-600);
     color: var(--gray-200);
 }
 
-.equipmentModal .sideBySide{
+.equipmentModal .sideBySide, .editEquipmentModal .sideBySide {
     display: flex;
     align-items: center;
     width: 100%;
     gap: 16px;
 }
 
-.equipmentModal .sideBySide div{
+.equipmentModal .sideBySide div, .editEquipmentModal .sideBySide div {
     width: 100%; 
 } 
