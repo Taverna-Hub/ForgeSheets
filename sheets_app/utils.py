@@ -221,8 +221,8 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
-    # sheet.updateXp()
-    # sheet.save()
+    sheet.updateXp()
+    sheet.save()
     return sheet
