@@ -11,7 +11,6 @@ function closeImageModal() {
 }
 
 function handleError_image(message, className) {
-  console.log('entrei cu')
   const error =       
   `
     <span> 
@@ -20,25 +19,22 @@ function handleError_image(message, className) {
       </span>
       `
       const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
-      const cu = document.querySelector(`.${className}`).appendChild(node);
-      console.log(cu)
+      document.querySelector(`.${className}`).appendChild(node);
 }
 
 function addImageToSheet(){
-  console.log('oi')
   image_test = imageLink.value
   
   if (image_test === ''){
-    console.log('cu em branco')
-
-    handleError_image('Esse campo não pode ser vazio', 'image')
+    handleError_image('Esse campo não pode ser vazio', 'imageInput')
     return
   }
-  if (!regex.image_test){
-    console.log('cu nao url')
-    handleError_image('Insira uma URL válida', 'image')
+  
+  if (!regex.image_test ){
+    handleError_image('Insira uma URL válida', 'imageInput')
     return
   }
+  
 
   closeImageModal();
 }

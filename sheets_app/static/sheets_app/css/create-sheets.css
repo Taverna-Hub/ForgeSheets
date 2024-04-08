@@ -105,7 +105,12 @@ button {
   
   border-radius: 2px;
 }
-
+.sheetSideBySide{
+  margin-bottom: 40px;
+}
+.image_svg{
+  color: var(--gray-800);
+}
 .sheetSideBySide, .equipamentos {
   display: flex;
   align-items: flex-start;
@@ -117,6 +122,7 @@ button {
 
 .under {
   display: block;
+  margin-top: 40px;
 }
 
 .equipamentos div {
@@ -192,14 +198,12 @@ button {
   margin: auto;
   /* background: none; */
   border: none;
-  width: 256px;
-  height: 256px;
+  width: 230px;
+  height: 230px;
 }
 
 .add_image_div {
-  background-color: var(--green-500);
   border-radius: 50%;
-  /* width: auto; */
 }
 
 

@@ -236,73 +236,35 @@
                 </div>
             </section>
 
-            <div class="sheetSideBySide">
-
-                <div class="under">
-                    <section class="atributos">
-                        <div class="atributosInputs">
-                            <div>
-                                <label for="strength">Força: </label>
-                                <input type="number" name="strength" id="strength" value="{{strength}}">
-                            </div>
-                            <div>
-                                <label for="intelligence">Inteligência: </label>
-                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
-                            </div>
-                            <div>
-                                <label for="wisdom">Sabedoria: </label>
-                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
-                            </div>
-                            <div>
-                                <label for="charisma">Carisma: </label>
-                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
-                            </div>
-                            <div>
-                                <label for="constitution">Constituição: </label>
-                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
-                            </div>
-                            <div>
-                                <label for="speed">Velocidade: </label>
-                                <input type="number" name="speed" id="speed" value="{{speed}}">
-                            </div>
-                            {% for error in errors %}
-                            {% if error.field == 'atributes1'%}
-                            <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </section>
-                    
-                    <section class="add-image">
-                        <div class="add_image_div">
-                            <button type="button" class="openImageBtn">
-                                <i data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i>
-                            </button>
-                        </div>
-                    </section>
-                </div>
-
-                <section class="status">
-                    <div class="statusInputs">
+            <div class="sheetSideBySide">            
+                <section class="atributos">
+                    <div class="atributosInputs">
                         <div>
-                            <label for="healthPointMax">Vida: </label>
-                            <input type="number" name="healthPointMax" id="healthPointMax" value="{{healthPointMax}}">
+                            <label for="strength">Força: </label>
+                            <input type="number" name="strength" id="strength" value="{{strength}}">
                         </div>
-
                         <div>
-                            <label for="manaMax">Mana: </label>
-                            <input type="number" name="manaMax" id="manaMax" value="{{manaMax}}">
+                            <label for="intelligence">Inteligência: </label>
+                            <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
                         </div>
-
                         <div>
-                            <label for="exp">XP: </label>
-                            <input type="number" name="exp" id="exp" value="{{exp}}">
+                            <label for="wisdom">Sabedoria: </label>
+                            <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                        </div>
+                        <div>
+                            <label for="charisma">Carisma: </label>
+                            <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                        </div>
+                        <div>
+                            <label for="constitution">Constituição: </label>
+                            <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                        </div>
+                        <div>
+                            <label for="speed">Velocidade: </label>
+                            <input type="number" name="speed" id="speed" value="{{speed}}">
                         </div>
                         {% for error in errors %}
-                        {% if error.field == 'atributes2'%}
+                        {% if error.field == 'atributes1'%}
                         <span>
                             <i data-lucide="octagon-alert"></i>
                             {{ error.message }}
@@ -311,6 +273,47 @@
                         {% endfor %}
                     </div>
                 </section>
+
+                {% comment %} <div class="under"> {% endcomment %}
+                    {% comment %} <section class="add-image"> {% endcomment %}
+                        {% comment %} <div class="add_image_div"> {% endcomment %}
+                            {% comment %} <button type="button" class="openImageBtn"> {% endcomment %}
+                                {% comment %} {% if sheet.image %} {% endcomment %}
+                                {% comment %} <img class="img_image"src="{%sheet.image%}" alt=""> {% endcomment %}
+                                {% comment %} {%else%} {% endcomment %}
+                                {% comment %} <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} {%endif%} {% endcomment %}
+                            {% comment %} </button> {% endcomment %}
+                        {% comment %} </div> {% endcomment %}
+                    {% comment %} </section> {% endcomment %}
+                
+                    <section class="status">
+                        <div class="statusInputs">
+                            <div>
+                                <label for="healthPointMax">Vida: </label>
+                                <input type="number" name="healthPointMax" id="healthPointMax" value="{{healthPointMax}}">
+                            </div>
+
+                            <div>
+                                <label for="manaMax">Mana: </label>
+                                <input type="number" name="manaMax" id="manaMax" value="{{manaMax}}">
+                            </div>
+
+                            <div>
+                                <label for="exp">XP: </label>
+                                <input type="number" name="exp" id="exp" value="{{exp}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes2'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% comment %} </div> {% endcomment %}
 
             </div>
             <div class="sheetSideBySide">
