@@ -5,7 +5,6 @@ from .models import Equipment, Sheet
 from .utils import save_equipment, save_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.utils.html import escape
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -25,11 +24,10 @@ class CreateSheetView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create-sheets.html', ctx)
     
     def post(self, request):
-        name = escape(request.POST.get('name'))
-        image = escape(request.POST.get('image'))
-
-        race = escape(request.POST.get('race'))
-        role = escape(request.POST.get('role'))
+        name = request.POST.get('name')
+        image = request.POST.get('image')
+        race = request.POST.get('race')
+        role = request.POST.get('role')
 
         strength = (request.POST.get('strength'))
         intelligence = (request.POST.get('intelligence'))
@@ -42,7 +40,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         manaMax = (request.POST.get('manaMax'))
         exp = (request.POST.get('exp'))
 
-        description = escape(request.POST.get('description'))
+        description = request.POST.get('description')
 
         user_id = request.user.id
         
@@ -137,7 +135,7 @@ class EditEquipmentView(LoginRequiredMixin, View):
         except:
             return HttpResponse('Esse equipamento não existe')
         
-        newName = escape(request.POST.get('name'))
+        newName = request.POST.get('name')
         newQuantity = (request.POST.get('quantity'))
         newAttack = (request.POST.get('attack'))
         newDefense = (request.POST.get('defense'))
