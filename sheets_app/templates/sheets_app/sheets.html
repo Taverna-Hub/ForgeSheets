@@ -18,22 +18,28 @@
         </a>
 
         {% for sheet in sheets_view%}
-        <div class="sheetCard" style="{% if sheet.image %}
+        <div class="sheetCard" 
+                style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
+                background-position: center;
                 {% endif %}">
-            <div style="{% if campaign.image %}
-                        backdrop-filter: blur(12px); 
-                        background-color: rgba(0,0,0,0.7);
+            <div style="{% if sheet.image %}
+                        background-color: rgba(0,0,0,0.5);
+                        backdrop-filter: blur(2px); 
                         {% endif %}">
                 <h2>{{sheet.name}}</h2>
 
                 <div class="sheet_info">
                     <div class="sideBySide">
-                        <span>Raça:</span>
+                        <p><b>Nível:</b></p>
+                        <p>{{sheet.level}}  ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                    </div>
+                    <div class="sideBySide">
+                        <p><b>Raça:</b></p>
                         <p>{{sheet.race}}</p>
                     </div>
                     <div class="sideBySide">
-                        <span>Classe:</span>
+                        <p><b>Classe:</b></p>
                         <p>{{sheet.role}}</p>
                     </div>
                     
@@ -41,9 +47,6 @@
                         <span class="hp-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
                         </span>
-                    </div>
-                    
-                    <div class="bar">
                         <span class="mana-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
                         </span>

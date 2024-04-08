@@ -13,6 +13,11 @@ def save_campaign(image, title, description, user_id):
           'field': 'image',
           'message': 'Insira uma URL válida'
         })
+    elif len(str(image)) > 200:
+            wrong_fields.append({
+                    'field': 'image',
+                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                })
   
   if not title_treated:
     wrong_fields.append({

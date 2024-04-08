@@ -8,11 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
-        sheets_view = Sheet.objects.filter(user_id=request.user.id) 
+        sheets_view = Sheet.objects.filter(user_id=request.user.id)
         ctx = {
             'sheets_view': sheets_view,
             'app_name': 'sheets',
-            'user': request.user
+            'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
     
@@ -29,16 +29,16 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = request.POST.get('race')
         role = request.POST.get('role')
 
-        strength = (request.POST.get('strength'))
-        intelligence = (request.POST.get('intelligence'))
-        wisdom = (request.POST.get('wisdom'))
-        charisma = (request.POST.get('charisma'))
-        constitution = (request.POST.get('constitution'))
-        speed = (request.POST.get('speed'))
+        strength = request.POST.get('strength')
+        intelligence = request.POST.get('intelligence')
+        wisdom = request.POST.get('wisdom')
+        charisma = request.POST.get('charisma')
+        constitution = request.POST.get('constitution')
+        speed = request.POST.get('speed')
 
-        healthPointMax = (request.POST.get('healthPointMax'))
-        manaMax = (request.POST.get('manaMax'))
-        exp = (request.POST.get('exp'))
+        healthPointMax = request.POST.get('healthPointMax')
+        manaMax = request.POST.get('manaMax')
+        exp = request.POST.get('exp')
 
         description = request.POST.get('description')
 
@@ -56,6 +56,8 @@ class CreateSheetView(LoginRequiredMixin, View):
                 }
                 if 'name' not in errors:
                     ctx['name'] = name
+                if 'image' not in errors:
+                    ctx['image'] = image
                 if 'race' not in errors:
                     ctx['race'] = race
                 if 'role' not in errors:
