@@ -56,6 +56,8 @@ class CreateSheetView(LoginRequiredMixin, View):
                 }
                 if 'name' not in errors:
                     ctx['name'] = name
+                if 'image' not in errors:
+                    ctx['image'] = image
                 if 'race' not in errors:
                     ctx['race'] = race
                 if 'role' not in errors:
