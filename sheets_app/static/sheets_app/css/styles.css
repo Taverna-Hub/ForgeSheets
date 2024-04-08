@@ -104,8 +104,7 @@
 .sheetCard h2 {
   text-align: center;
   color: var(--gray-300);
-  word-break: break-all;
-}
+} 
 
 .sheet_info {
   margin-top: 24px;

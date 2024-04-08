@@ -346,7 +346,7 @@
                 
                 <section class="description">
                     <label for="description">Descrição: </label>
-                    <textarea name="description" id="description" value=" " id="" cols="30" rows="10"></textarea>
+                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
                     {% for error in errors %}
                         {% if error.field == 'description'%}
                         <span>
