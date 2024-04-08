@@ -18,12 +18,14 @@
         </a>
 
         {% for sheet in sheets_view%}
-        <div class="sheetCard" style="{% if sheet.image %}
+        <div class="sheetCard" 
+                style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
+                background-position: center;
                 {% endif %}">
-            <div style="{% if campaign.image %}
-                        backdrop-filter: blur(12px); 
+            <div style="{% if sheet.image %}
                         background-color: rgba(0,0,0,0.7);
+                        backdrop-filter: blur(3px); 
                         {% endif %}">
                 <h2>{{sheet.name}}</h2>
 
