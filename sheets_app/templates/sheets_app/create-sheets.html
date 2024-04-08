@@ -152,9 +152,8 @@
                 </div>
 
                  <div>
-                    <label for="image">Foto do personagem: </label>
-                    <input type="url" name="image" value="{{image}}">
-                    
+                    <label for="image">Url da foto: </label>
+                    <input type="text" name="image" value="{{image}}">  
                     {% for error in errors %}
                         {% if error.field == 'image'%}
                              <span>
@@ -167,7 +166,7 @@
                 </div> 
 
                 <div>
-                    <label for="race">Raça do personagem: </label>
+                    <label for="race">Raça: </label>
                     <input type="text" name="race" value="{{race}}">
                     {% for error in errors %}
                     {% if error.field == 'race'%}
@@ -180,7 +179,7 @@
                 </div>
 
                 <div>
-                    <label for="role">Classe do personagem: </label>
+                    <label for="role">Classe: </label>
                     <input type="text" name="role" id="role" value="{{role}}">
                     {% for error in errors %}
                     {% if error.field == 'role'%}
