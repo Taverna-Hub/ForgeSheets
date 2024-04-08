@@ -32,7 +32,10 @@
 .sheetCard {
   border-radius: 4px;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  backdrop-filter: blur(3px); 
+  background-color: rgba(0,0,0,0.7);
 }
   
 .sheetCard > div, .createSheet {
