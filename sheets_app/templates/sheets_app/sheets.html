@@ -18,8 +18,7 @@
         </a>
 
         {% for sheet in sheets_view%}
-        <div class="sheetCard" 
-                style="{% if sheet.image %}
+        <div class="sheetCard" style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
                 background-position: center;
                 {% endif %}">
@@ -32,7 +31,7 @@
                 <div class="sheet_info">
                     <div class="sideBySide">
                         <p><b>Nível:</b></p>
-                        <p>{{sheet.level}}  ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
                     </div>
                     <div class="sideBySide">
                         <p><b>Raça:</b></p>
@@ -42,7 +41,7 @@
                         <p><b>Classe:</b></p>
                         <p>{{sheet.role}}</p>
                     </div>
-                    
+
                     <div class="bar">
                         <span class="hp-bar">
                             {% comment %} <p>Vida</p> {% endcomment %}
