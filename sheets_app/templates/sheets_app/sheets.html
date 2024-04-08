@@ -3,19 +3,46 @@
 
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Suas Fichas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
+<section class="chooseSheetModal">
+    <div class="modal">
+        <button type="button" id="closeChooseSheet">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="container">
+            <div>
+                <h2>Criar ficha em uma campanha</h2>
+                <div>
+                    <label for="code">Código da campanha</label>
+                    <input type="text" name="code" placeholder="Insira o código">
+                </div>
+                <a href="#" type="button">
+                    Criar ficha
+                </a>
+            </div>
+            <div>
+                <h2>Criar ficha independente</h2>
+                <a href="{% url 'sheets:create_sheets' %}" type="button">
+                    Criar ficha
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
     <section class="cardList">
-        <a href="{% url 'sheets:create_sheets' %}" class="createSheet">
+        <button class="createSheet">
             <div>
                 <i data-lucide="plus" width="64" height="64" stroke-width="1.5px"></i>
             </div>
-        </a>
+        </button>
 
         {% for sheet in sheets_view%}
         <div class="sheetCard" style="{% if sheet.image %}
@@ -56,4 +83,5 @@
         {% endfor %}
     </section>
 </section>
+<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 {% endblock %}
