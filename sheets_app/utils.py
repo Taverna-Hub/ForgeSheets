@@ -94,10 +94,10 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
                 'field': 'image',
                 'message': 'Insira uma URL válida!'
             })
-        elif len(str(image)) > 250:
+        elif len(str(image)) > 200:
             errors.append({
                     'field': 'image',
-                    'message': 'A URL deve ter no maximo 250 caracteres!'
+                    'message': 'A URL deve ter no maximo 200 caracteres!'
                 })
 
     if str(name).count(' ') == len(name):

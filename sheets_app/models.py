@@ -17,7 +17,7 @@ class Race(models.Model):
 
 class Sheet(models.Model):
     name = models.CharField(max_length=75)
-    image = models.URLField(max_length=250 ,null=True)
+    image = models.URLField(null=True)
 
     # race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
     race = models.CharField(max_length=75)
