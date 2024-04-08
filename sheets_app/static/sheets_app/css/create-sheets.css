@@ -114,10 +114,9 @@ button {
 .sheetSideBySide, .equipamentos {
   display: flex;
   align-items: flex-start;
-  justify-content: space-around;
-
+  justify-content: space-around; 
   width: 100%;
-  gap: 16px;
+  gap: 10%;
 }
 
 .under {
@@ -130,6 +129,7 @@ button {
 } 
 
 .equipamentos {
+  margin-top: 15%;
   background-color: var(--gray-800);
   padding: 16px;
   color: var(--white);
@@ -276,6 +276,12 @@ button {
     min-width: 100%;
     width: 100%;
   }
+}
+.description{
+  margin-top: 15%;
+}
+#description{
+  margin-top: 3.7%;
 }
 
 @media (max-width: 800px) {
