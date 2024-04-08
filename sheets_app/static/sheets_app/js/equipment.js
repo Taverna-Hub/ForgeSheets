@@ -138,7 +138,7 @@ function loadEquipmentList() {
         <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
         <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
       </div>
-        ${equipment.name}
+      ${equipment.quantity}x ${equipment.name} - Atk: ${equipment.attack} | Def: ${equipment.defense}
         <i data-lucide="log-out" width="40" height="40"></i>
 
     </li>
