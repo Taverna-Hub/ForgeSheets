@@ -97,6 +97,11 @@ class CreateSheetView(LoginRequiredMixin, View):
         
         return redirect('sheets:homesheets')
 
+
+class CreateSheetInCampaingView(LoginRequiredMixin, View):
+    def get(self, request, id):
+        return render(request, 'sheets_app/create-sheets.html')
+
 class AddEquipmentView(LoginRequiredMixin, View):
 
     # TO DO: Tratar se um equipamento já existe
