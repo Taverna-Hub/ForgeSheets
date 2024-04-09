@@ -64,7 +64,7 @@
 # Entrega 02
 <br/>
 <p align="center" style="">
-<a href="ADICIONAR"">
+<a href="https://youtu.be/ICCpQ_v98Ag?si=JbpMcWvCwF-y9nmI"">
   <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
 </a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
@@ -72,6 +72,24 @@
 </a>
 <a href="https://forgesheets.azurewebsites.net/"">
   <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/>
+</a>
+</p>
+<br/>
+
+- <strong> Instruções de acesso </strong>
+
+<p align="center" style="">
+<a href="https://scribehow.com/shared/Cadastro_e_Login_no_ForgeSheets___UA3MjHAQj6dw8Te9NOScw?referrer=documents"">
+  <img src="https://img.shields.io/badge/Cadastro / Login-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://scribehow.com/shared/Como_criar_sua_ficha_corretamente_no_ForgeSheets__AP6rEuLqThmEmttf2IWEHA?referrer=documents"">
+  <img src="https://img.shields.io/badge/Criação de Ficha-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://scribehow.com/shared/Criando_uma_campanha_no_Forgesheets__Zvl76TYgTZOOdZd_tJr-tg?referrer=documents"">
+  <img src="https://img.shields.io/badge/Criação de Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://scribehow.com/shared/Como_gerenciar_seus_equipamentos_no_ForgeSheets__EiE0ewe9S0eX6An4SjFzdA?referrer=documents"">
+  <img src="https://img.shields.io/badge/Gerenciamento de Equipamentos-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
 </a>
 </p>
 <br/>
