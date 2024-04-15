@@ -24,7 +24,6 @@
   border-radius: 6px;
 }
 
-
 a {
   text-decoration: none;
 }
@@ -72,7 +71,7 @@ button {
 
 .sheetHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 16px;
 }
 
@@ -90,6 +89,10 @@ button {
   width: 100%;
 }
 
+.status {
+  margin-top: 40px;
+}
+
 .atributosInputs div, .statusInputs div {
   padding: 8px 16px;
   display: flex;
@@ -104,13 +107,9 @@ button {
   border-radius: 2px;
 }
 
-.sheetSideBySide {
-  border: 1px solid green;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
 
-.image_svg{
+
+.image_svg {
   color: var(--gray-800);
 }
 
@@ -122,33 +121,33 @@ button {
   gap: 10%;
 }
 
+.sheetSideBySide {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  align-items: flex-end;
+}
+
 
 .under {
-  border: 1px solid red;
-  /* margin-top: 40px; */
+  width: 100%;
+}
+
+.openImageBtn {
+  color: var(--gray-500);
 }
 
 .equipamentos div {
   width: 100%; 
 } 
 
-.equipamentos{
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around; 
-  width: 100%;
-  gap: 10%;
-}
 .equipamentos {
-  margin-top: 15%;
   background-color: var(--gray-800);
   padding: 16px;
   padding-top: 0px;
   color: var(--white);
-  max-width: 400px;
-  min-width: 400px;
   width: 100%;
   border-radius: 4px;
+  margin-top: 1rem;
 
   display: flex;
   flex-direction: column;
@@ -166,6 +165,19 @@ button {
   background: none;
   border: none;
   color: var(--white);
+}
+
+.description {
+  width: 100%;
+}
+
+.description textarea {
+  height: 280px;
+  width: 100%;
+}
+
+#description {
+  margin-top: 8px;
 }
 
 .equipamentos .equipmentsListContainer {
@@ -202,10 +214,6 @@ button {
   color: var(--red-600);
 }
 
-.atributos {
-  border: 1px solid gold;
-}
-
 .addEquip {
   color: var(--gray-600);
 }
@@ -214,7 +222,6 @@ button {
   border-radius: 100%;
   background-color: var(--gray-300);
   margin: auto;
-  /* background: none; */
   border: none;
   width: 230px;
   height: 230px;
@@ -230,7 +237,7 @@ button {
   height: 230px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid var(--gray-800);
+  border: 5px solid var(--red-600);
 }
 
 
@@ -264,7 +271,7 @@ button {
 
 @media (max-width: 1540px) {
   .atributos, .status {
-    width: fit-content;
+    width: 100%;
   }
 
   .atributosInputs div {
@@ -303,12 +310,6 @@ button {
     min-width: 100%;
     width: 100%;
   }
-}
-.description{
-  margin-top: 10%;
-}
-#description{
-  margin-top: 3.7%;
 }
 
 @media (max-width: 800px) {

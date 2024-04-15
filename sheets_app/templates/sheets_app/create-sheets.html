@@ -150,7 +150,7 @@
         <form>
             {%csrf_token%}
             <div class="imageInput">
-                <label for="image">Foto: </label>
+                <label for="image">URL da foto: </label>
                 <input type="url" class="image" name="image">
                 {% for error in errors %}
                 {% if error.field == 'image'%}
@@ -261,29 +261,13 @@
                         </div>
                     </section>
 
-                    {% comment %} <section class="description">
-                        <label for="description">Descrição: </label>
-                        <textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
-                        {% for error in errors %}
-                            {% if error.field == 'description'%}
-                            <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                            {% endif %}
-                        {% endfor %}
-                    </section>  {% endcomment %}
-
-                {% comment %} </div> {% endcomment %}
-
                 <div class="under">
-                    
                     <section class="add-image">
                         <div class="add_image_div">
                             <input type="hidden" name="image" class="imageInputCircle">  
 
                             <button type="button" class="openImageBtn">
-                                <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i>
+                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                             </button>
                         </div>
                     </section>
@@ -324,7 +308,9 @@
                 
                <section class="description">
                     <label for="description">Descrição: </label>
-                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
+                    <textarea name="description" id="description">
+                        {{description}}
+                    </textarea>
                     {% for error in errors %}
                         {% if error.field == 'description'%}
                         <span>
