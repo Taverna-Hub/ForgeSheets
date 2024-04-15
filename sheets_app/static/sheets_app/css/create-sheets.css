@@ -87,8 +87,6 @@ button {
 }
 
 .atributos, .status {
-  margin-top: 40px;
-  max-width: 400px;
   width: 100%;
 }
 
@@ -105,24 +103,29 @@ button {
   
   border-radius: 2px;
 }
-.sheetSideBySide{
+
+.sheetSideBySide {
+  border: 1px solid green;
+  margin-top: 40px;
   margin-bottom: 40px;
 }
+
 .image_svg{
   color: var(--gray-800);
 }
+
 .sheetSideBySide, .equipamentos {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
+  justify-content: space-between;
 
   width: 100%;
   gap: 16px;
 }
 
+
 .under {
-  display: block;
-  margin-top: 40px;
+  border: 1px solid red;
+  /* margin-top: 40px; */
 }
 
 .equipamentos div {
@@ -187,6 +190,9 @@ button {
   color: var(--red-600);
 }
 
+.atributos {
+  border: 1px solid gold;
+}
 
 .addEquip {
   color: var(--gray-600);
@@ -204,6 +210,15 @@ button {
 
 .add_image_div {
   border-radius: 50%;
+  text-align: center;
+}
+
+.add_image_div img {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gray-800);
 }
 
 

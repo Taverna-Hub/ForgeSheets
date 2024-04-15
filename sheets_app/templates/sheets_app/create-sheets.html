@@ -150,8 +150,8 @@
         <form>
             {%csrf_token%}
             <div class="imageInput">
-                <label for="image">Foto do personagem: </label>
-                <input type="url" class="image" name="image" value="">
+                <label for="image">Foto: </label>
+                <input type="url" class="image" name="image">
                 {% for error in errors %}
                 {% if error.field == 'image'%}
                     <span>
@@ -195,20 +195,6 @@
 
                 </div>
 
-                 <div>
-                    <label for="image">URL da foto: </label>
-                    <input type="text" name="image" value="{{image}}">  
-                    {% for error in errors %}
-                        {% if error.field == 'image'%}
-                             <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                        {% endif %}
-                    {% endfor %}
-
-                </div> 
-
                 <div>
                     <label for="race">Raça: </label>
                     <input type="text" name="race" value="{{race}}">
@@ -237,7 +223,7 @@
             </section>
 
             <div class="sheetSideBySide"> 
-                <div class="under">
+                {% comment %} <div class="under"> {% endcomment %}
                     <section class="atributos">
                         <div class="atributosInputs">
                             <div>
@@ -275,7 +261,7 @@
                         </div>
                     </section>
 
-                    <section class="description">
+                    {% comment %} <section class="description">
                         <label for="description">Descrição: </label>
                         <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
                         {% for error in errors %}
@@ -286,23 +272,21 @@
                             </span>
                             {% endif %}
                         {% endfor %}
-                    </section> 
+                    </section>  {% endcomment %}
 
-                </div>
+                {% comment %} </div> {% endcomment %}
 
                 <div class="under">
                     
-                    {% comment %} <section class="add-image"> {% endcomment %}
-                        {% comment %} <div class="add_image_div"> {% endcomment %}
-                            {% comment %} <button type="button" class="openImageBtn"> {% endcomment %}
-                                {% comment %} {% if sheet.image %} {% endcomment %}
-                                {% comment %} <img class="img_image"src="{%sheet.image%}" alt=""> {% endcomment %}
-                                {% comment %} {%else%} {% endcomment %}
-                                {% comment %} <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} {%endif%} {% endcomment %}
-                            {% comment %} </button> {% endcomment %}
-                        {% comment %} </div> {% endcomment %}
-                    {% comment %} </section> {% endcomment %}
+                    <section class="add-image">
+                        <div class="add_image_div">
+                            <input type="hidden" name="image" class="imageInputCircle">  
+
+                            <button type="button" class="openImageBtn">
+                                <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+                    </section>
                 
                     <section class="status">
                         <div class="statusInputs">
@@ -331,45 +315,14 @@
                         </div>
                     </section>
 
-                    
-                <section class="equipamentos">
-                    <div class="header">
-                         <p>Equipamentos</p>
-                         <button type="button" class="openEquipmentBtn">
-                             <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
-                         </button>
-                    </div>
- 
-                     <div class="equipmentsListContainer">
-                         <ul class="equipmentList">
-                             {% for equipment in equipments %}
-                                 <li>
-                                     <div>
-                                     <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
-                                     <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
-                                     <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
-                                     <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
-                                     </div>
-                                     {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
-                                     <button type="button" class="editEquipment">
-                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                                     </button>
-                                     <button type="button" class="removeEquipment">
-                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                     </button>
-                                 </li>
-                             {% endfor %}
-                         </ul>
-                     </div>
-                 </section>
 
                 </div>
 
             </div>
             
-            {% comment %} <div class="sheetSideBySide"> {% endcomment %}
+            <div class="sheetSideBySide">
                 
-                {% comment %} <section class="description">
+               <section class="description">
                     <label for="description">Descrição: </label>
                     <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
                     {% for error in errors %}
@@ -380,8 +333,8 @@
                         </span>
                         {% endif %}
                     {% endfor %}
-                </section> {% endcomment %}
-{% comment %} 
+                </section> 
+ 
                 <section class="equipamentos">
                    <div class="header">
                         <p>Equipamentos</p>
@@ -411,10 +364,10 @@
                             {% endfor %}
                         </ul>
                     </div>
-                </section> {% endcomment %}
+                </section> 
 
                 
-            {% comment %} </div> {% endcomment %}
+             </div>
 
             <div class="createSheetActions">
                 <button type="button">
@@ -432,5 +385,5 @@
     </section>
 </section>
 <script src="{% static 'sheets_app/js/equipment.js' %}"></script>
-<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/image.js' %}"></script>
 {% endblock %}
