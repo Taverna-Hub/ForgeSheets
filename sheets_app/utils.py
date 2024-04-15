@@ -125,7 +125,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             'field': 'role',
             'message' : 'Este campo não pode ser vazio!'
             })
-    if 2 > len(race) or len(race) > 22:
+    if 2 > len(role) or len(role) > 22:
         errors.append({
             'field': 'role',
             'message': 'Insira de 2 a 22 caracteres!'
@@ -156,22 +156,16 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             })
         if 20 < int(strength) or int(strength) < 1:
             errors.append("strength")
-            print("foca")
         if 20 < int(intelligence) or int(intelligence) < 1:
             errors.append("intelligence")
-            print("luan")
         if 20 < int(wisdom) or int(wisdom) < 1 :
             errors.append("wisdom")
-            print("nao luan")
         if 20 < int(speed) or int(speed) < 1:
             errors.append("speed")
-            print("lohan")
         if  20 < int(charisma) or int(charisma) < 1 :
             errors.append("charisma")
-            print("ive")
         if  20 < int(constitution) or int(constitution) < 1:
             errors.append("constitution")
-            print("gustabo")
 
     elif atribute_verifier(str(strength)) == 1 or atribute_verifier(str(intelligence)) == 1 or atribute_verifier(str(wisdom)) == 1 or atribute_verifier(str(charisma)) == 1 or atribute_verifier(str(constitution)) == 1 or atribute_verifier(str(speed)) == 1:
         errors.append({
