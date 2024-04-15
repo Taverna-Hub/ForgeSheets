@@ -87,8 +87,6 @@ button {
 }
 
 .atributos, .status {
-  margin-top: 40px;
-  max-width: 400px;
   width: 100%;
 }
 
@@ -105,35 +103,50 @@ button {
   
   border-radius: 2px;
 }
-.sheetSideBySide{
+
+.sheetSideBySide {
+  border: 1px solid green;
+  margin-top: 40px;
   margin-bottom: 40px;
 }
+
 .image_svg{
   color: var(--gray-800);
 }
+
 .sheetSideBySide, .equipamentos {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
 
   width: 100%;
-  gap: 16px;
+  gap: 10%;
 }
 
+
 .under {
-  display: block;
-  margin-top: 40px;
+  border: 1px solid red;
+  /* margin-top: 40px; */
 }
 
 .equipamentos div {
   width: 100%; 
 } 
 
+.equipamentos{
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around; 
+  width: 100%;
+  gap: 10%;
+}
 .equipamentos {
+  margin-top: 15%;
   background-color: var(--gray-800);
   padding: 16px;
+  padding-top: 0px;
   color: var(--white);
   max-width: 400px;
+  min-width: 400px;
   width: 100%;
   border-radius: 4px;
 
@@ -145,6 +158,8 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 3px;
+  padding-bottom: 3px;
 }
 
 .equipamentos button {
@@ -187,6 +202,9 @@ button {
   color: var(--red-600);
 }
 
+.atributos {
+  border: 1px solid gold;
+}
 
 .addEquip {
   color: var(--gray-600);
@@ -204,11 +222,21 @@ button {
 
 .add_image_div {
   border-radius: 50%;
+  text-align: center;
+}
+
+.add_image_div img {
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--gray-800);
 }
 
 
 .createSheetActions {
   margin-top: 16px;
+  float: right;
 }
 
 .createSheetActions button {
@@ -275,6 +303,12 @@ button {
     min-width: 100%;
     width: 100%;
   }
+}
+.description{
+  margin-top: 10%;
+}
+#description{
+  margin-top: 3.7%;
 }
 
 @media (max-width: 800px) {

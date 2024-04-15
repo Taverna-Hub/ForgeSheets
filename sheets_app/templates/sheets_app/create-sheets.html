@@ -150,8 +150,8 @@
         <form>
             {%csrf_token%}
             <div class="imageInput">
-                <label for="image">Foto do personagem: </label>
-                <input type="url" class="image" name="image" value="">
+                <label for="image">Foto: </label>
+                <input type="url" class="image" name="image">
                 {% for error in errors %}
                 {% if error.field == 'image'%}
                     <span>
@@ -195,20 +195,6 @@
 
                 </div>
 
-                 <div>
-                    <label for="image">URL da foto: </label>
-                    <input type="text" name="image" value="{{image}}">  
-                    {% for error in errors %}
-                        {% if error.field == 'image'%}
-                             <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                        {% endif %}
-                    {% endfor %}
-
-                </div> 
-
                 <div>
                     <label for="race">Raça: </label>
                     <input type="text" name="race" value="{{race}}">
@@ -236,56 +222,71 @@
                 </div>
             </section>
 
-            <div class="sheetSideBySide">            
-                <section class="atributos">
-                    <div class="atributosInputs">
-                        <div>
-                            <label for="strength">Força: </label>
-                            <input type="number" name="strength" id="strength" value="{{strength}}">
-                        </div>
-                        <div>
-                            <label for="intelligence">Inteligência: </label>
-                            <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
-                        </div>
-                        <div>
-                            <label for="wisdom">Sabedoria: </label>
-                            <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
-                        </div>
-                        <div>
-                            <label for="charisma">Carisma: </label>
-                            <input type="number" name="charisma" id="charisma" value="{{charisma}}">
-                        </div>
-                        <div>
-                            <label for="constitution">Constituição: </label>
-                            <input type="number" name="constitution" id="constitution" value="{{constitution}}">
-                        </div>
-                        <div>
-                            <label for="speed">Velocidade: </label>
-                            <input type="number" name="speed" id="speed" value="{{speed}}">
-                        </div>
-                        {% for error in errors %}
-                        {% if error.field == 'atributes1'%}
-                        <span>
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }}
-                        </span>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </section>
-
+            <div class="sheetSideBySide"> 
                 {% comment %} <div class="under"> {% endcomment %}
-                    {% comment %} <section class="add-image"> {% endcomment %}
-                        {% comment %} <div class="add_image_div"> {% endcomment %}
-                            {% comment %} <button type="button" class="openImageBtn"> {% endcomment %}
-                                {% comment %} {% if sheet.image %} {% endcomment %}
-                                {% comment %} <img class="img_image"src="{%sheet.image%}" alt=""> {% endcomment %}
-                                {% comment %} {%else%} {% endcomment %}
-                                {% comment %} <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} {%endif%} {% endcomment %}
-                            {% comment %} </button> {% endcomment %}
-                        {% comment %} </div> {% endcomment %}
-                    {% comment %} </section> {% endcomment %}
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{speed}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                    {% comment %} <section class="description">
+                        <label for="description">Descrição: </label>
+                        <textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
+                        {% for error in errors %}
+                            {% if error.field == 'description'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
+                    </section>  {% endcomment %}
+
+                {% comment %} </div> {% endcomment %}
+
+                <div class="under">
+                    
+                    <section class="add-image">
+                        <div class="add_image_div">
+                            <input type="hidden" name="image" class="imageInputCircle">  
+
+                            <button type="button" class="openImageBtn">
+                                <i class="image_svg" data-lucide="image-up" width="180" height="180" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+                    </section>
                 
                     <section class="status">
                         <div class="statusInputs">
@@ -313,10 +314,27 @@
                             {% endfor %}
                         </div>
                     </section>
-                {% comment %} </div> {% endcomment %}
+
+
+                </div>
 
             </div>
+            
             <div class="sheetSideBySide">
+                
+               <section class="description">
+                    <label for="description">Descrição: </label>
+                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
+                    {% for error in errors %}
+                        {% if error.field == 'description'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
+                </section> 
+ 
                 <section class="equipamentos">
                    <div class="header">
                         <p>Equipamentos</p>
@@ -346,23 +364,10 @@
                             {% endfor %}
                         </ul>
                     </div>
-                </section>
+                </section> 
 
                 
-                
-                <section class="description">
-                    <label for="description">Descrição: </label>
-                    <textarea name="description" id="description" id="" cols="30" rows="10">{{description}}</textarea>
-                    {% for error in errors %}
-                        {% if error.field == 'description'%}
-                        <span>
-                            <i data-lucide="octagon-alert"></i>
-                            {{ error.message }}
-                        </span>
-                        {% endif %}
-                    {% endfor %}
-                </section>
-            </div>
+             </div>
 
             <div class="createSheetActions">
                 <button type="button">
@@ -380,5 +385,5 @@
     </section>
 </section>
 <script src="{% static 'sheets_app/js/equipment.js' %}"></script>
-<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/image.js' %}"></script>
 {% endblock %}
