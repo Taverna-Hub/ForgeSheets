@@ -97,6 +97,12 @@ class CreateSheetView(LoginRequiredMixin, View):
         
         return redirect('sheets:homesheets')
 
+class VisualizeSheetView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'sheets_app/view-sheet.html')
+    
+    def post(self, request):
+        pass
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
     def get(self, request, id):

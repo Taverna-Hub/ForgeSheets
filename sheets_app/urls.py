@@ -9,5 +9,6 @@ urlpatterns = [
     path('editar_equipamento/<int:id>', views.EditEquipmentView.as_view(), name='edit_equipment'),
     path('', views.SheetsView.as_view(), name="homesheets"),
     path('criar/', views.CreateSheetView.as_view(), name="create_sheets"),
-    path('criar/<slug:id>', views.CreateSheetInCampaingView.as_view(), name="create_sheetsInCampaign")
+    path('criar/<slug:id>', views.CreateSheetInCampaingView.as_view(), name="create_sheetsInCampaign"),
+    path('visualizar/', views.VisualizeSheetView.as_view(), name="view_Sheet")
 ]
