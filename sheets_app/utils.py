@@ -1,4 +1,4 @@
-from .models import Equipment, Sheet, Race, ViewSheetView
+from .models import Equipment, Sheet, Race
 import re
 
 def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, constitution, speed, hpMax, manaMax, description):
@@ -204,7 +204,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("wisdom")
         if str(constitution).count(' ') == len(str(constitution)):
             errors.append("constitution")
-   
+
     elif 20 < int(strength) or int(strength) < 1 or 20 < int(intelligence) or int(intelligence) < 1 or 20 < int(wisdom) or int(wisdom) < 1 or 20 < int(charisma) or int(charisma) < 1 or 20 < int(constitution) or int(constitution) < 1 or 20 < int(speed) or int(speed) < 1:
         errors.append({
             'field' : 'atributes1',
