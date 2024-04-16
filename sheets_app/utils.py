@@ -1,6 +1,128 @@
 from .models import Equipment, Sheet, Race
 import re
 
+def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, constitution, speed, hpMax, manaMax, description):
+    errors = []
+
+    newName = name.strip()
+    newImage = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
+    newStrength = strength
+    newIntelligence = intelligence
+    newWisdom = wisdom
+    newCharisma = charisma 
+    newConstitution = constitution
+    newSpeed = speed 
+    newHPMax = hpMax
+    newManaMax = manaMax 
+    newDescription = description
+
+    if image != '':
+        if not newImage:
+            errors.append({
+                'field': 'image',
+                'message': 'Insira uma URL válida!'
+            })
+        elif len(str(image)) > 200:
+            errors.append({
+                    'field': 'image',
+                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                })
+    if str(name).count(' ') == len(name):
+        errors.append({
+            'field': 'name',
+            'message' : 'Este campo não pode ser vazio!'
+            })
+    elif 2 > len(name) or len(name) > 50:
+        errors.append({
+            'field':'name',
+            'message': 'Insira de 2 a 50 caracteres!'
+            })
+    if str(newStrength).count(' ') == len(str(newStrength)) or str(newIntelligence).count(' ') == len(str(newIntelligence)) or str(newWisdom).count(' ') == len(str(newWisdom)) or str(newCharisma).count(' ') == len(str(newCharisma)) or str(newConstitution).count(' ') == len(str(newConstitution)) or str(newSpeed).count(' ') == len(str(newSpeed)):
+        errors.append({
+            'field': 'atributes1',
+            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
+            })
+        if str(newStrength).count(' ') == len(str(newStrength)):
+            errors.append("newStrength")
+        if str(newIntelligence).count(' ') == len(str(newIntelligence)):
+            errors.append("newIntelligence")
+        if str(newCharisma).count(' ') == len(str(newCharisma)):
+            errors.append("newCharisma")
+        if str(newSpeed).count(' ') == len(str(newSpeed)):
+            errors.append("newSpeed")
+        if str(newWisdom).count(' ') == len(str(newWisdom)):
+            errors.append("newWisdom")
+        if str(newConstitution).count(' ') == len(str(newConstitution)):
+            errors.append("newConstitution")
+
+    elif newStrength < int(strength) or int(newStrength) < 1 or newIntelligence < int(intelligence) or int(newIntelligence) < 1 or newWisdom < int(wisdom) or int(newWisdom) < 1 or newCharisma < int(charisma) or int(newCharisma) < 1 or newConstitution < int(constitution) or int(newConstitution) < 1 or newSpeed < int(speed) or int(newSpeed) < 1:
+        errors.append({
+            'field' : 'atributes1',
+            'message' : 'Os atributos devem ser maiores ou iguais aos atributos anteriores!'
+            })
+        if newStrength < int(strength) or int(newStrength) < 1:
+            errors.append("newStrength")
+        if newIntelligence < int(intelligence) or int(newIntelligence) < 1:
+            errors.append("newIntelligence")
+        if newWisdom < int(wisdom) or int(newWisdom) < 1 :
+            errors.append("newWisdom")
+        if newSpeed < int(speed) or int(newSpeed) < 1:
+            errors.append("newSpeed")
+        if  newCharisma < int(charisma) or int(newCharisma) < 1 :
+            errors.append("newCharisma")
+        if  newConstitution < int(constitution) or int(newConstitution) < 1:
+            errors.append("newConstitution")
+
+    elif atribute_verifier(str(newStrength)) == 1 or atribute_verifier(str(newIntelligence)) == 1 or atribute_verifier(str(newWisdom)) == 1 or atribute_verifier(str(newCharisma)) == 1 or atribute_verifier(str(newConstitution)) == 1 or atribute_verifier(str(newSpeed)) == 1:
+        errors.append({
+            'field' : 'atributes1',
+            'message' : 'Os atributos primários devem ser numeros inteiros'
+            })
+        if atribute_verifier(str(newStrength)) == 1:
+            errors.append("newStrength")
+        if atribute_verifier(str(newIntelligence)) == 1:
+            errors.append("newIntelligence")
+        if atribute_verifier(str(newWisdom)) == 1:
+            errors.append("newWisdom")
+        if atribute_verifier(str(newSpeed)) == 1:
+            errors.append("newSpeed")
+        if  atribute_verifier(str(newCharisma)) == 1:
+            errors.append("newCharisma")
+        if  atribute_verifier(str(newConstitution)) == 1:
+            errors.append("newConstitution")
+
+    if str(newHPMax).count(' ') == len(str(newHPMax)) or str(newManaMax).count(' ') == len(str(newManaMax)):
+        errors.append({
+            'field': 'atributes2',
+            'message' : 'Estes campos não podem ser vazios'
+            })
+        if str(newHPMax).count(' ') == len(str(newHPMax)):
+            errors.append("newHPMax")
+        if str(newManaMax).count(' ') == len(str(newManaMax)):
+            errors.append("newManaMax")
+
+    elif atribute_verifier(str(newHPMax)) == 1 or atribute_verifier(str(newHPMax)) == 1:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Os atributos secundários devem ser numeros inteiros'
+            })
+        if atribute_verifier(str(newHPMax)) == 1:
+            errors.append("newHPMax")
+        if atribute_verifier(str(newManaMax)) == 1:
+            errors.append("newManaMax")
+
+    elif int(newHPMax) < 1 or int(newManaMax) < 1:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Vida e mana não podem ser menores que 1'
+            })
+        if int(newHPMax) < 1:
+            errors.append("newHPMax")
+        if int(newManaMax) < 1:
+            errors.append("newManaMax")
+
+
+
 #Trtamento de erro na utils -> precisa testar
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
     name_treated = name.strip()
@@ -148,7 +270,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             errors.append("wisdom")
         if str(constitution).count(' ') == len(str(constitution)):
             errors.append("constitution")
-   
+
     elif 20 < int(strength) or int(strength) < 1 or 20 < int(intelligence) or int(intelligence) < 1 or 20 < int(wisdom) or int(wisdom) < 1 or 20 < int(charisma) or int(charisma) < 1 or 20 < int(constitution) or int(constitution) < 1 or 20 < int(speed) or int(speed) < 1:
         errors.append({
             'field' : 'atributes1',

@@ -46,6 +46,14 @@
   border-radius: 4px;
   background-size: cover;
   background-repeat: no-repeat;
+  transition: all .3s;
+}
+
+.campaignCard:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  filter: saturate(120%);
+  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
 }
 
 .campaignCard > div, .createCampaign {

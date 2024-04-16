@@ -1,0 +1,34 @@
+{% extends "./base-utilities.html" %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'utilities_app/css/sign.css' %}">
+  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+{% endblock %}
+
+{% block 'title' %}
+  ForgeSheets - Explore um mundo de aventuras
+{% endblock %}
+
+{% block 'body' %}
+  <main>
+      <section id="login">
+        <img src="https://pbs.twimg.com/media/GKBB7s4WAAAA2FQ?format=jpg&name=large" id="backLogin" alt="">
+        <section class="left">
+        </section>
+        <section class="right active" id="loginzao">
+          <img src="https://i.imgur.com/8vp9bCa_d.webp?maxwidth=760&fidelity=grand" alt="Logo ForgeSheets">
+          <div id="loginzinho" class="active">
+            <h1>Você já está logado(a)</h1>
+            <button id="enter"><a href="{% url 'sheets:homesheets' %}" id="enter">Entrar</a></button>
+            <form action="{% url 'utilities:sign' %}" method="POST">
+              {% csrf_token %}
+              <input type="hidden" name="logout">
+              <input type="submit" value="Sair" id="logout">
+            </form>
+          </div>
+        </section>
+      </section>
+  </main> 
+  <script src="{% static 'utilities_app/js/script.js' %}"></script>   
+{% endblock %}
