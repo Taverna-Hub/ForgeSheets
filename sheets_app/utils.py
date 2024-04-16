@@ -1,8 +1,60 @@
 from .models import Equipment, Sheet, Race, ViewSheetView
 import re
 
-def update_sheet(sheet, newName, newImg, newStrenght, newInt, newWisdom, newCharisma, newConstitution, newSpeed, newHPMax, newManaMax, newDescription, newEqpsName, newEqpsQnt, newEqpsAtk, newEqpsDef):
-    pass
+def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, constitution, speed, hpMax, manaMax, description):
+    errors = []
+
+    newName = name.strip()
+    newImage = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
+    newStrength = strength
+    newIntelligence = intelligence
+    newWisdom = wisdom
+    newCharisma = charisma 
+    newConstitution = constitution
+    newSpeed = speed 
+    newHPMax = hpMax
+    newManaMax = manaMax 
+    newDescription = description
+
+    if image != '':
+        if not newImage:
+            errors.append({
+                'field': 'image',
+                'message': 'Insira uma URL válida!'
+            })
+        elif len(str(image)) > 200:
+            errors.append({
+                    'field': 'image',
+                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                })
+    if str(name).count(' ') == len(name):
+        errors.append({
+            'field': 'name',
+            'message' : 'Este campo não pode ser vazio!'
+            })
+    elif 2 > len(name) or len(name) > 50:
+        errors.append({
+            'field':'name',
+            'message': 'Insira de 2 a 50 caracteres!'
+            })
+    if str(newStrength).count(' ') == len(str(newStrength)) or str(newIntelligence).count(' ') == len(str(newIntelligence)) or str(newWisdom).count(' ') == len(str(newWisdom)) or str(newCharisma).count(' ') == len(str(newCharisma)) or str(newConstitution).count(' ') == len(str(newConstitution)) or str(newSpeed).count(' ') == len(str(newSpeed)):
+        errors.append({
+            'field': 'atributes1',
+            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
+            })
+        if str(newStrength).count(' ') == len(str(newStrength)):
+            errors.append("newStrength")
+        if str(newIntelligence).count(' ') == len(str(newIntelligence)):
+            errors.append("newIntelligence")
+        if str(newCharisma).count(' ') == len(str(newCharisma)):
+            errors.append("newCharisma")
+        if str(newSpeed).count(' ') == len(str(newSpeed)):
+            errors.append("newSpeed")
+        if str(newWisdom).count(' ') == len(str(newWisdom)):
+            errors.append("newWisdom")
+        if str(newConstitution).count(' ') == len(str(newConstitution)):
+            errors.append("newConstitution")
+    
 
 
 #Trtamento de erro na utils -> precisa testar
