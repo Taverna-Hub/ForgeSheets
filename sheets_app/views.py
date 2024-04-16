@@ -97,12 +97,39 @@ class CreateSheetView(LoginRequiredMixin, View):
         
         return redirect('sheets:homesheets')
 
-class VisualizeSheetView(LoginRequiredMixin, View):
+class ViewSheetView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'sheets_app/view-sheet.html')
     
-    def post(self, request):
-        pass
+    def post(self, request, id):
+        try:
+            sheet = Sheet.objects.get(id=id)
+        except:
+            return HttpResponse('Essa ficha não existe')
+        
+        newName = request.POST.get('name')
+        newImage = request.POST.get('image')
+        # race = request.POST.get('race')
+        # role = request.POST.get('role')
+
+        newStrenght = request.POST.get('strenght')
+        newIntelligence = request.POST.get('intelligence')
+        newWisdom = request.POST.get('wisdom')
+        newCharisma = request.POST.get('charisma')
+        newConstitution = request.POST.get('constitution')
+        newSpeed = request.POST.get('speed')
+        
+        newHealthPointMax = request.POST.get('healthPointMax')
+        newManaMax = request.POST.get('manaMax')
+
+        newDescription = request.POST.get('description')
+
+        newEqpsName = request.POST.getlist('equipmentName')
+        newEqpsQnt = request.POST.getlist('equipmentQnt')
+        newEqpsAtk = request.POST.getlist('equipmentAtk')
+        newEqpsDef = request.POST.getlist('equipmentDef')
+        
+        
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
     def get(self, request, id):
