@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css\dice.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/dice.css' %}">
 <div class="dice">
     <button class="diceButton">Dado</button>
 </div>
@@ -9,31 +9,26 @@
             <i data-lucide="x"></i>
         </button>
         <div class="container">
-            <div>
-                <h2>Quantidade de dados</h2>
+            <form id="formDice" action="" method="POST">
+                {% csrf_token %}
                 <div>
-                    <label for="quantityDice"></label>
-                    <input type="text" name="quantityDice" placeholder="Insira a quantidade de dados">
+                    <h2>Quantidade de dados</h2>
+                    <input type="number" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
                 </div>
-            </div>
-            <div>
-                <h2>Tipo de dado</h2>
                 <div>
-                    <label for="typeDice"></label>
-                    <input type="text" name="typeDice" placeholder="Insira o tipo do dado">
+                    <h2>Tipo de dado</h2>
+                    <input type="number" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
                 </div>
-            </div>
-            <div>
-                <h2>Modificador</h2>
                 <div>
-                    <label for="modDice"></label>
-                    <input type="text" name="modDice" placeholder="Insira o modificador do dado">
+                    <h2>Modificador</h2>
+                    <input type="number" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
                 </div>
+                <button type="submit">Rolar dados</button>
+            </form>
+            <div>
+                <div id="resultDisplay"><h1></h1></div>
             </div>
-            <a href="" class="rollButton" type="button">
-                Rolar dados
-            </a>
         </div>
     </div>
 </section>
-<script src="{% static 'js/dice.js' %}"></script>  
+<script src="{% static 'js/dice.js' %}"></script>
