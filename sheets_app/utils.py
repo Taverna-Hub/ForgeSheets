@@ -1,4 +1,4 @@
-from .models import Equipment, Sheet, Race, ViewSheetView
+from .models import Equipment, Sheet, Race
 import re
 
 def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, constitution, speed, hpMax, manaMax, description):
