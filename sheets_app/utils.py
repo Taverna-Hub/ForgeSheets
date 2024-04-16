@@ -54,7 +54,73 @@ def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, c
             errors.append("newWisdom")
         if str(newConstitution).count(' ') == len(str(newConstitution)):
             errors.append("newConstitution")
-    
+
+    elif newStrength < int(strength) or int(newStrength) < 1 or newIntelligence < int(intelligence) or int(newIntelligence) < 1 or newWisdom < int(wisdom) or int(newWisdom) < 1 or newCharisma < int(charisma) or int(newCharisma) < 1 or newConstitution < int(constitution) or int(newConstitution) < 1 or newSpeed < int(speed) or int(newSpeed) < 1:
+        errors.append({
+            'field' : 'atributes1',
+            'message' : 'Os atributos devem ser maiores ou iguais aos atributos anteriores!'
+            })
+        if newStrength < int(strength) or int(newStrength) < 1:
+            errors.append("newStrength")
+        if newIntelligence < int(intelligence) or int(newIntelligence) < 1:
+            errors.append("newIntelligence")
+        if newWisdom < int(wisdom) or int(newWisdom) < 1 :
+            errors.append("newWisdom")
+        if newSpeed < int(speed) or int(newSpeed) < 1:
+            errors.append("newSpeed")
+        if  newCharisma < int(charisma) or int(newCharisma) < 1 :
+            errors.append("newCharisma")
+        if  newConstitution < int(constitution) or int(newConstitution) < 1:
+            errors.append("newConstitution")
+
+    elif atribute_verifier(str(newStrength)) == 1 or atribute_verifier(str(newIntelligence)) == 1 or atribute_verifier(str(newWisdom)) == 1 or atribute_verifier(str(newCharisma)) == 1 or atribute_verifier(str(newConstitution)) == 1 or atribute_verifier(str(newSpeed)) == 1:
+        errors.append({
+            'field' : 'atributes1',
+            'message' : 'Os atributos primários devem ser numeros inteiros'
+            })
+        if atribute_verifier(str(newStrength)) == 1:
+            errors.append("newStrength")
+        if atribute_verifier(str(newIntelligence)) == 1:
+            errors.append("newIntelligence")
+        if atribute_verifier(str(newWisdom)) == 1:
+            errors.append("newWisdom")
+        if atribute_verifier(str(newSpeed)) == 1:
+            errors.append("newSpeed")
+        if  atribute_verifier(str(newCharisma)) == 1:
+            errors.append("newCharisma")
+        if  atribute_verifier(str(newConstitution)) == 1:
+            errors.append("newConstitution")
+
+    if str(newHPMax).count(' ') == len(str(newHPMax)) or str(newManaMax).count(' ') == len(str(newManaMax)):
+        errors.append({
+            'field': 'atributes2',
+            'message' : 'Estes campos não podem ser vazios'
+            })
+        if str(newHPMax).count(' ') == len(str(newHPMax)):
+            errors.append("newHPMax")
+        if str(newManaMax).count(' ') == len(str(newManaMax)):
+            errors.append("newManaMax")
+
+    elif atribute_verifier(str(newHPMax)) == 1 or atribute_verifier(str(newHPMax)) == 1:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Os atributos secundários devem ser numeros inteiros'
+            })
+        if atribute_verifier(str(newHPMax)) == 1:
+            errors.append("newHPMax")
+        if atribute_verifier(str(newManaMax)) == 1:
+            errors.append("newManaMax")
+
+    elif int(newHPMax) < 1 or int(newManaMax) < 1:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Vida e mana não podem ser menores que 1'
+            })
+        if int(newHPMax) < 1:
+            errors.append("newHPMax")
+        if int(newManaMax) < 1:
+            errors.append("newManaMax")
+
 
 
 #Trtamento de erro na utils -> precisa testar
