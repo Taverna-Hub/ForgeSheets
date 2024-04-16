@@ -272,3 +272,25 @@ main {
 #backRegister.active {
   animation: scale 0.7s;
 }
+
+#enter {
+  width: 100%;
+  height: 36px;
+  border-radius: 4px;
+  color: var(--white);
+  border: none;
+  padding: 8px;
+  margin-top: 25px;
+  margin-bottom: 15px;
+}
+
+#logout {
+  font-weight: 500;
+  color: var(--red-950);
+}
+
+#logout:hover {
+  cursor: pointer;
+  background-color: var(--gray-200);
+  transition: all .3s;
+}
