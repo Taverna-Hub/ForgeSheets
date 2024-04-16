@@ -1,5 +1,9 @@
-from .models import Equipment, Sheet, Race
+from .models import Equipment, Sheet, Race, ViewSheetView
 import re
+
+def update_sheet(sheet, newName, newImg, newStrenght, newInt, newWisdom, newCharisma, newConstitution, newSpeed, newHPMax, newManaMax, newDescription, newEqpsName, newEqpsQnt, newEqpsAtk, newEqpsDef):
+    pass
+
 
 #Trtamento de erro na utils -> precisa testar
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
