@@ -1,0 +1,39 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css\dice.css' %}">
+<div class="dice">
+    <button class="diceButton">Dado</button>
+</div>
+<section class="diceModal">
+    <div class="modal">
+        <button type="button" id="closeDice">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="container">
+            <div>
+                <h2>Quantidade de dados</h2>
+                <div>
+                    <label for="quantityDice"></label>
+                    <input type="text" name="quantityDice" placeholder="Insira a quantidade de dados">
+                </div>
+            </div>
+            <div>
+                <h2>Tipo de dado</h2>
+                <div>
+                    <label for="typeDice"></label>
+                    <input type="text" name="typeDice" placeholder="Insira o tipo do dado">
+                </div>
+            </div>
+            <div>
+                <h2>Modificador</h2>
+                <div>
+                    <label for="modDice"></label>
+                    <input type="text" name="modDice" placeholder="Insira o modificador do dado">
+                </div>
+            </div>
+            <a href="" class="rollButton" type="button">
+                Rolar dados
+            </a>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/dice.js' %}"></script>  

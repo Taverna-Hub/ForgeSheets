@@ -163,3 +163,7 @@ h1 {
     z-index: 99999;
   }
 }
+
+.dice {
+  margin-left: 500px;
+}
