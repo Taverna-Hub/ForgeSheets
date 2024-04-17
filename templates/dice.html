@@ -1,5 +1,9 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/dice.css' %}">
+
+{% block 'head' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dice.css' %}">
+{% endblock %}
+
 <div class="dice">
     <button class="diceButton">Dado</button>
 </div>
