@@ -1,7 +1,7 @@
 from .models import Equipment, Sheet, Race
 import re
 
-def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, constitution, speed, hpMax, manaMax, description):
+def update_sheet(sheet, name,race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, user_id, description):
     errors = []
 
     newName = name.strip()
@@ -12,7 +12,7 @@ def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, c
     newCharisma = charisma 
     newConstitution = constitution
     newSpeed = speed 
-    newHPMax = hpMax
+    newHPMax = healthPointMax
     newManaMax = manaMax 
     newDescription = description
 
@@ -53,24 +53,6 @@ def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, c
         if str(newWisdom).count(' ') == len(str(newWisdom)):
             errors.append("newWisdom")
         if str(newConstitution).count(' ') == len(str(newConstitution)):
-            errors.append("newConstitution")
-
-    elif newStrength < int(strength) or int(newStrength) < 1 or newIntelligence < int(intelligence) or int(newIntelligence) < 1 or newWisdom < int(wisdom) or int(newWisdom) < 1 or newCharisma < int(charisma) or int(newCharisma) < 1 or newConstitution < int(constitution) or int(newConstitution) < 1 or newSpeed < int(speed) or int(newSpeed) < 1:
-        errors.append({
-            'field' : 'atributes1',
-            'message' : 'Os atributos devem ser maiores ou iguais aos atributos anteriores!'
-            })
-        if newStrength < int(strength) or int(newStrength) < 1:
-            errors.append("newStrength")
-        if newIntelligence < int(intelligence) or int(newIntelligence) < 1:
-            errors.append("newIntelligence")
-        if newWisdom < int(wisdom) or int(newWisdom) < 1 :
-            errors.append("newWisdom")
-        if newSpeed < int(speed) or int(newSpeed) < 1:
-            errors.append("newSpeed")
-        if  newCharisma < int(charisma) or int(newCharisma) < 1 :
-            errors.append("newCharisma")
-        if  newConstitution < int(constitution) or int(newConstitution) < 1:
             errors.append("newConstitution")
 
     elif atribute_verifier(str(newStrength)) == 1 or atribute_verifier(str(newIntelligence)) == 1 or atribute_verifier(str(newWisdom)) == 1 or atribute_verifier(str(newCharisma)) == 1 or atribute_verifier(str(newConstitution)) == 1 or atribute_verifier(str(newSpeed)) == 1:
@@ -120,6 +102,15 @@ def update_sheet(sheet, name, image, strength, intelligence, wisdom, charisma, c
             errors.append("newHPMax")
         if int(newManaMax) < 1:
             errors.append("newManaMax")
+    if len(errors) > 0:
+        return errors
+    updt_sheet = Sheet(name = newName, race = race, role = role, image = newImage, strength = newStrength, intelligence = newIntelligence, wisdom = newWisdom, charisma = newCharisma, constitution = newConstitution, speed = newSpeed, hpMax = newHPMax, manaMax = newManaMax, user_id = user_id, description = newDescription)
+    updt_sheet.save()
+    updt_sheet.updateXp()
+    updt_sheet.save()
+    
+    return updt_sheet
+
 
 
 
