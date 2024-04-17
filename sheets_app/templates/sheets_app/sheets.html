@@ -58,7 +58,11 @@
                 <div class="sheet_info">
                     <div class="sideBySide">
                         <p><b>Nível:</b></p>
-                        <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        {% if sheet.level == 20 %}
+                            <p>{{sheet.level}} (Nível Max.)</p>
+                        {% else %}
+                            <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        {% endif %}
                     </div>
                     <div class="sideBySide">
                         <p><b>Raça:</b></p>

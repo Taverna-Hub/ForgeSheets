@@ -50,6 +50,7 @@
   background-color: rgba(0, 0, 0, 0.7);
   overflow: hidden;
   width: 100%;
+  transition: all .3s;
 }
 
 .sheetCard>div, .createSheet {
@@ -177,4 +178,11 @@
   .cardList {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.sheetCard:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  filter: saturate(120%);
+  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
 }

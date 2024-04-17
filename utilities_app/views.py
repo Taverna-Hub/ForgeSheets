@@ -12,11 +12,11 @@ from sheets_app.views import SheetsView
 class SignView(View):
     def get(self, request):
         user = request.user
-        if not user.is_authenticated:
-            return render(request, 'utilities_app/sign.html')
-        else:
+        if user.is_authenticated:
             return render(request, 'utilities_app/signed.html')
-    
+        else:
+            return render(request, 'utilities_app/sign.html')
+
     def post(self, request):
 
         if 'logout' in request.POST:
