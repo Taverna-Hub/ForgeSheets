@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
-from .models import Equipment, Sheet
+from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,10 +47,17 @@ class CreateSheetView(LoginRequiredMixin, View):
         eqpsAtk = (request.POST.getlist('equipmentAtk'))
         eqpsDef = (request.POST.getlist('equipmentDef'))
 
+        magicName = (request.POST.getlist('mgcName'))
+        magicDescription = (request.POST.getlist('mgcDesc'))
+        diceType = (request.POST.getlist('mcgDiceType'))
+        diceQuantity = int(request.POST.getlist('mgcDiceQuant'))
+        atributeModifier = (request.POST.getlist('mgcAtribute'))
+        element = request.POST.getlist('mgcElement')
+
         user_id = request.user.id
 
         equipment_list = []
-        
+        magic_list = []
         #add imagem
         errors= save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
@@ -65,6 +72,16 @@ class CreateSheetView(LoginRequiredMixin, View):
                         'defense': equipmentDef
                     }
                     equipment_list.append(equipment)
+                for mgcName,mgcDesc, mcgDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'diceType': mcgDiceType,
+                        'diceQuant': mgcDiceQuant,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
                 ctx = {
                     'errors': errors,
                     'equipments': equipment_list,
@@ -88,13 +105,16 @@ class CreateSheetView(LoginRequiredMixin, View):
                     if atributo not in errors:
                         valor = request.POST.get(atributo)
                         ctx[atributo] = valor
-
+                
                 return render(request, 'sheets_app/create-sheets.html', ctx)
-
+                
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
+        for mgcName,mgcDesc, mcgDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, dice_type = mcgDiceType, dice_quantity = mgcDiceQuant, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+            magic.save()
         return redirect('sheets:homesheets')
 
 class ViewSheetView(LoginRequiredMixin, View):
@@ -213,15 +233,6 @@ class EditEquipmentView(LoginRequiredMixin, View):
             messages.error(request, 'Utilize apenas números inteiros')
             ctx = {'name': newName, 'equipment': equipment}
             return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 1:
+        if editEquipmentResult == 1:
             messages.success(request, 'Equipamento editado com sucesso')
             return redirect('sheets:list_equipment')
-
-        # editEquipmentFields = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
-        
-        # if editEquipmentFields:
-        #     ctx ={
-        #         'errors': editEquipmentFields,
-        #         'app_name': 'sheets'
-        #     }
-        # return render(request, 'sheets_app/create_equip', ctx)

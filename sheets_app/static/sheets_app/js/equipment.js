@@ -32,18 +32,6 @@ let selectedEquipmentToEdit;
 let equipmentNode;
 
 
-const StorageService = {
-  saveData() {
-    localStorage.setItem('equipments', JSON.stringify(equipmentList))
-  },
-  getData() {
-    return  JSON.parse(localStorage.getItem('equipments')) || []
-  },
-  removeData() {
-    localStorage.removeItem('equipments')
-  }
-}
-
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
 }
@@ -158,7 +146,6 @@ function handleAddEquipmentToList() {
   }
 
   equipmentList.push(equipment);
-  StorageService.saveData();
 
   equipmentString += handleLoadHtmlList(equipment);
 
@@ -193,9 +180,6 @@ function handleEditEquipment() {
       t.local_id === item.local_id
     ))
   );
-
-  StorageService.removeData();
-  StorageService.saveData();
 
   document.querySelector('.equipmentList').innerHTML = '';
 
