@@ -12,6 +12,8 @@ const closeChooseSheetModalBtn = document.querySelector('#closeChooseSheet');
 
 const addImageDiv = document.querySelector('.add_image_div');
 
+let imageCount = 0;
+
 const ImgStorageService = {
     imgSaveData() {
       localStorage.setItem('image', JSON.stringify(imageLink))
@@ -61,14 +63,21 @@ function addImageToSheet() {
   ` 
 
   const node = new DOMParser().parseFromString(image, 'text/html').body.firstElementChild
-  addImageDiv.removeChild(openImageModal);
+
+  if (imageCount === 0) {
+    addImageDiv.removeChild(openImageModal);
+  }
+
+  if (imageCount !== 0) {
+    addImageDiv.removeChild(addImageDiv.lastElementChild);
+  }
+
   addImageDiv.appendChild(node);
   document.querySelector('.imageInputCircle').value = image_test;
+  imageCount += 1;
   closeImageModal();
 }
 
 openImageModal.addEventListener('click', () => handleOpenImageModal());
-
 addImageBtn?.addEventListener('click', () => addImageToSheet());
-
 closeImageBtn?.addEventListener('click', () => closeImageModal());
