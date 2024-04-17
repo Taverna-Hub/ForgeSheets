@@ -82,3 +82,15 @@ class Equipment(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} {self.attack} | {self.defense}'
+
+class Magic(models.Model):
+    name = models.CharField(max_length=70)
+    description = models.CharField(max_length=200)
+    dice_type = models.CharField(max_length=15)
+    dice_quantity = models.IntegerField(default=1, validators=[MinValueValidator(0)])
+    atribute_modifier = models.CharField(max_length=15)
+    element = models.CharField(max_length=15)
+    sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.name} {self.description} | {self.element}'
