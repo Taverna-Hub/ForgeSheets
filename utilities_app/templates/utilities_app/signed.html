@@ -20,7 +20,7 @@
           <img src="https://i.imgur.com/8vp9bCa_d.webp?maxwidth=760&fidelity=grand" alt="Logo ForgeSheets">
           <div id="loginzinho" class="active">
             <h1>Você já está logado(a)</h1>
-            <button id="enter"><a href="{% url 'sheets:homesheets' %}" id="enter">Entrar</a></button>
+            <a href="{% url 'sheets:homesheets' %}"><button id="enter">Entrar</button></a>
             <form action="{% url 'utilities:sign' %}" method="POST">
               {% csrf_token %}
               <input type="hidden" name="logout">
