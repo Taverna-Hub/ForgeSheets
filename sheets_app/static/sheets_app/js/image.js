@@ -23,13 +23,18 @@ const ImgStorageService = {
   
 
 function closeImageModal() {
+  const error = document.querySelector('.imageInput').lastElementChild;
+  if (error.tagName === 'SPAN') {
+    document.querySelector('.imageInput').removeChild(error);
+  }
   imageModal.style.display = 'none';
 }
 
+function handleOpenImageModal() {
+  imageModal.style.display = 'flex';
+}
 
-
-
-function handleErrorImage(message, className) {
+function handleErrorImage(message) {
   const error =       
   `
       <span> 
@@ -38,21 +43,19 @@ function handleErrorImage(message, className) {
       </span>
     `
     const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
-    document.querySelector(`.${className}`).appendChild(node);
+    document.querySelector('.imageInput').appendChild(node);
 }
 
 
 function addImageToSheet() {
   image_test = imageLink.value
 
-  console.log(image_test)
-
   if (!regex.image_test){
     handleErrorImage('Insira uma URL válida', 'imageInput')
   }
 
   const image = `
-    <button type="button" class="openImageBtn">
+    <button type="button" onclick="handleOpenImageModal()">
       <img src="${imageLink.value}" alt="Imagem" class="selectedImage">
     </button>
   ` 
@@ -64,9 +67,7 @@ function addImageToSheet() {
   closeImageModal();
 }
 
-openImageModal.addEventListener('click', () => {
-  imageModal.style.display = 'flex';
-});
+openImageModal.addEventListener('click', () => handleOpenImageModal());
 
 addImageBtn?.addEventListener('click', () => addImageToSheet());
 
