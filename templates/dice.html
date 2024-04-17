@@ -1,0 +1,38 @@
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dice.css' %}">
+{% endblock %}
+
+<div class="dice">
+    <button class="diceButton">Dado</button>
+</div>
+<section class="diceModal">
+    <div class="modal">
+        <button type="button" id="closeDice">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="container">
+            <form id="formDice" action="" method="POST">
+                {% csrf_token %}
+                <div>
+                    <h2>Quantidade de dados</h2>
+                    <input type="number" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
+                </div>
+                <div>
+                    <h2>Tipo de dado</h2>
+                    <input type="number" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
+                </div>
+                <div>
+                    <h2>Modificador</h2>
+                    <input type="number" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
+                </div>
+                <button type="submit">Rolar dados</button>
+            </form>
+            <div>
+                <div id="resultDisplay"><h1></h1></div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/dice.js' %}"></script>

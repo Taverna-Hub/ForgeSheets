@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
-<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Suas Fichas - ForgeSheets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Suas Fichas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
@@ -58,7 +58,11 @@
                 <div class="sheet_info">
                     <div class="sideBySide">
                         <p><b>Nível:</b></p>
-                        <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        {% if sheet.level == 20 %}
+                            <p>{{sheet.level}} (Nível Max.)</p>
+                        {% else %}
+                            <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                        {% endif %}
                     </div>
                     <div class="sideBySide">
                         <p><b>Raça:</b></p>
@@ -78,6 +82,7 @@
         </div>
         {% endfor %}
     </section>
+    {% include "dice.html" %}
 </section>
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 {% endblock %}
