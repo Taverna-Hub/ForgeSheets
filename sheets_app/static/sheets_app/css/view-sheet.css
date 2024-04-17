@@ -1,0 +1,256 @@
+:root {
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+    --red-950: #450a0a;
+    --green-500: #22c55e;
+    --white: #f7f7f7;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+}
+  
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--red-700);
+    border-radius: 6px;
+}
+  
+a {
+    text-decoration: none;
+}
+  
+label {
+    font-weight: 500;
+}
+  
+input {
+    /* background-color: transparent; */
+    /* border: none; */
+    height: 35px;
+    padding: 8px;
+
+}
+
+.nameInput{
+    font-size: xx-large;
+}
+  
+button {
+    cursor: pointer;
+}
+
+.mainSheet {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    z-index: 999;
+    overflow-y: scroll;
+    height: 100%;
+}
+  
+.sheet {
+    background-color: var(--white);
+    border-radius: 4px;
+    padding: 32px;
+    margin: 15%;
+    margin-top: 5%;
+    overflow: scroll;
+    height: fit-content;
+}
+  
+.sheet span {
+    color: var(--red-600);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  
+    margin-top: 8px;
+}
+  
+.sheetHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 20px;
+}
+  
+.sheetHeader div, .sheetHeader input {
+    width: 100%;
+}
+  
+.sheetHeader label {
+    display: block;
+    color: var(--gray-700);
+    margin-bottom: 8px;
+}
+
+.add_image_div button {
+    border-radius: 100%;
+    background-color: var(--gray-300);
+    margin: auto;
+    border: none;
+    width: 230px;
+    height: 230px;
+}
+  
+.add_image_div {
+    border-radius: 50%;
+    text-align: center;
+}
+  
+.add_image_div img {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--red-600);
+}
+
+.image_svg {
+    color: var(--gray-800);
+}
+
+.under {
+    width: 100%;
+}
+
+
+.equipamentos div {
+    width: 100%; 
+  } 
+
+.equipamentos{
+    display: flex;
+  justify-content: space-between;
+
+  width: 100%;
+  gap: 10%;
+}
+  
+  .equipamentos {
+    background-color: var(--gray-800);
+    padding: 16px;
+    padding-top: 0px;
+    color: var(--white);
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 1rem;
+  
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .equipamentos .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
+  
+  .equipamentos button {
+    background: none;
+    border: none;
+    color: var(--white);
+  }
+
+  .equipamentos .equipmentsListContainer {
+    height: 250px;
+    background-color: var(--gray-200);
+  }
+  
+  .equipmentsListContainer {
+    overflow-y: scroll;
+  }
+  
+  .equipmentList {
+    color: var(--gray-700);
+    list-style-type: circle;
+    padding: 0 24px 16px;
+    position: relative;
+  }
+  
+  .equipmentList li {
+    margin-top: 16px;
+    position: relative;
+  }
+  
+  
+  .equipmentList button {
+    position: absolute;
+    right: 40px;
+    color: var(--gray-800);
+  }
+  
+  .equipmentList button:nth-child(2) {
+    position: absolute;
+    right: 0;
+    color: var(--red-600);
+  }
+  
+  .addEquip {
+    color: var(--gray-600);
+  }
+
+.status{
+    /* background-color: #22c55e; */
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    padding: 5px 0;
+}
+
+/* 
+.hpRight{
+    text-align: left;
+    margin-left: -10px;
+}
+
+.hpLeft{
+    text-align: right;
+    margin-right: -20px;
+} */
+
+
+  
+.hpFill {
+    background-color: rgba(238, 67, 67, 0.8);
+    height: 5px;
+    margin-bottom: 15px;
+}
+  
+.manaFill {
+    background-color: rgba(86, 86, 227, 0.8);
+    height: 5px;
+}
+
+.xpStatus input{
+    /* background-color: #4b5563; */
+    padding: auto;
+}
+.atributos{
+    width: 100%;
+}
+.atributosInputs div, .statusInputs div {
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    
+    background-color: var(--gray-800);
+    color: var(--white);
+    margin-bottom: 16px; 
+    
+    border-radius: 2px;
+  }
