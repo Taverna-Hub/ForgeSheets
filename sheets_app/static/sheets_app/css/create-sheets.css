@@ -107,26 +107,20 @@ button {
   border-radius: 2px;
 }
 
-
-
 .image_svg {
   color: var(--gray-800);
 }
 
-.sheetSideBySide, .equipamentos {
+.sheetSideBySide {
   display: flex;
   justify-content: space-between;
-
   width: 100%;
   gap: 10%;
-}
 
-.sheetSideBySide {
   margin-top: 40px;
   margin-bottom: 40px;
   align-items: flex-end;
 }
-
 
 .under {
   width: 100%;
@@ -134,37 +128,6 @@ button {
 
 .openImageBtn {
   color: var(--gray-500);
-}
-
-.equipamentos div {
-  width: 100%; 
-} 
-
-.equipamentos {
-  background-color: var(--gray-800);
-  padding: 16px;
-  padding-top: 0px;
-  color: var(--white);
-  width: 100%;
-  border-radius: 4px;
-  margin-top: 1rem;
-
-  display: flex;
-  flex-direction: column;
-}
-
-.equipamentos .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 3px;
-  padding-bottom: 3px;
-}
-
-.equipamentos button {
-  background: none;
-  border: none;
-  color: var(--white);
 }
 
 .description {
@@ -178,6 +141,38 @@ button {
 
 #description {
   margin-top: 8px;
+}
+
+.equipamentos {
+  background-color: var(--gray-800);
+  padding: 16px;
+  padding-top: 0px;
+  color: var(--white);
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 1rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+}
+
+.equipamentos div {
+  width: 100%; 
+} 
+
+.equipamentos .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.equipamentos button {
+  background: none;
+  border: none;
+  color: var(--white);
 }
 
 .equipamentos .equipmentsListContainer {
@@ -214,6 +209,72 @@ button {
   color: var(--red-600);
 }
 
+/* css de magia */
+.magics {
+  background-color: var(--gray-800);
+  padding: 16px;
+  padding-top: 0px;
+  color: var(--white);
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 1rem;
+  
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+}
+
+.magics div {
+  width: 100%; 
+} 
+
+.magics .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.magics button {
+  background: none;
+  border: none;
+  color: var(--white);
+}
+
+.magics .magicListContainer {
+  height: 250px;
+  background-color: var(--gray-200);
+}
+
+.magicListContainer {
+  overflow-y: scroll;
+}
+
+.magicList {
+  color: var(--gray-700);
+  list-style-type: circle;
+  padding: 0 24px 16px;
+  position: relative;
+}
+
+.magicList li {
+  margin-top: 16px;
+  position: relative;
+}
+
+.magicList button {
+  position: absolute;
+  right: 40px;
+  color: var(--gray-800);
+}
+
+.magicList button:nth-child(2) {
+  position: absolute;
+  right: 0;
+  color: var(--red-600);
+}
+
 .addEquip {
   color: var(--gray-600);
 }
@@ -239,7 +300,6 @@ button {
   object-fit: cover;
   border: 5px solid var(--red-600);
 }
-
 
 .createSheetActions {
   margin-top: 16px;

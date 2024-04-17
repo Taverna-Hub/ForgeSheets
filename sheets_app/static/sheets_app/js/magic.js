@@ -1,34 +1,36 @@
-const name = document.querySelector('input[name="mgcName"]');
-const description = document.querySelector('input[name="mgcDesc"]')
-const element = document.querySelector('input[name="mgcElement"]');
-const diceType = document.querySelector('input[name="mcgDiceType"]');
-const diceQuant = document.querySelector('input[name="mgcDiceQuant"]');
-const atribute = document.querySelector('input[name="mgcAtribute"]');
+// const name = document.querySelector('input[name="mgcName"]');
+// const description = document.querySelector('input[name="mgcDesc"]')
+// const element = document.querySelector('input[name="mgcElement"]');
+// const diceType = document.querySelector('input[name="mcgDiceType"]');
+// const diceQuant = document.querySelector('input[name="mgcDiceQuant"]');
+// const attribute = document.querySelector('input[name="mgcAttribute"]');
+
+const nameMagic = document.querySelector('input[name="name"]');
+const description = document.querySelector('input[name="description"]')
+const element = document.querySelector('input[name="element"]');
+const diceType = document.querySelector('input[name="diceType"]');
+const diceQuant = document.querySelector('input[name="diceQuant"]');
+const attribute = document.querySelector('input[name="attribute"]');
 
 const addMagicBtn = document.querySelector('#addMagicBtn');
-const closeMagicModalBtn = document.querySelector('#closeMagicBtn')
-const openMagicModalBtn = document.querySelector('.openMagicBtn')
+const closeMagicModalBtn = document.querySelector('#closeMagicModalBtn')
+const openMagicModalBtn = document.querySelector('.openMagicModalBtn')
 
 const magicModal = document.querySelector('.magicModal')
-let context = document.getElementById('context').getAttribute('data-context');
-if (context) {
-  context = JSON.parse(context.replace(/'/g, '"'));
-}
-
 
 let magicString = '';
 let magicList = [];
 
 function handleCloseMagicModal() {
-    magicModal.style.display = 'none';
-  }
+  magicModal.style.display = 'none';
+}
 
 function handleOpenMagicModal() {
-    magicModal.style.display = 'flex';
-  }
+  magicModal.style.display = 'flex';
+}
 
 function handleError(message, className) {
-const error =       
+  const error =       
     `
         <span> 
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-octagon-alert"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
@@ -64,12 +66,12 @@ function handleLoadHtmlList(magic) {
 function handleAddMagicToList() {
   const magic = {
     local_id: Math.random(),
-    name: name.value,
+    name: nameMagic.value,
     description: (description.value), 
     element: (element.value),
     diceType: (diceType.value),
     diceQuant: Number(diceQuant.value),
-    atribute: (atribute.value)
+    attribute: (attribute.value)
   };
 
   const nameExists = magicList.some(
@@ -124,12 +126,12 @@ function handleAddMagicToList() {
   document.querySelector('.magicList').appendChild(node)
   handleCloseMagicModal();
   magicString = ''; 
-  name.value = '';
+  nameMagic.value = '';
   description.value = '';  
   element.value = '' ;
   diceType.value = '' ; // #TODO D4, D6, D8, D10, D12, D20
   diceQuant.value = 1;
-  atribute.value = '' ;
+  attribute.value = '' ;
 }
 
 openMagicModalBtn?.addEventListener('click', () => handleOpenMagicModal());
