@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/view-sheet.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+<title>Visualizar Ficha - ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+
+<section class="equipmentModal">
+    <div class="modal">
+        <h2>Adicionar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="name" value="{{equipmentName}}">
+                {% for error in errors %}
+                {% if error.field == 'name'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                {%if quantity %}
+                <input type="number" name="quantity" value="{{quantity}}">
+                {%else%}
+                <input type="number" name="quantity" value=1>
+                {% endif %}
+                {% for error in errors %}
+                {% if error.field == 'quantity'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    {% if attack%}
+                    <input type="number" name="attack" value="{{attack}}">
+                    {%else%}
+                    <input type="number" name="attack" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'attack'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    {%if defense%}
+                    <input type="number" name="defense" value="{{defense}}">
+                    {%else%}
+                    <input type="number" name="defense" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'defense'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addEquipmentBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="editEquipmentModal">
+    <div class="modal">
+        <h2>Editar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="editName">
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" name="editQuantity">
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    <input type="number" name="editAttack">
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    <input type="number" name="editDefense">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEditEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="editEquipmentBtn">
+                    Editar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="mainSheet">
+    <section class="sheet">
+        {% comment %} <form action="{}"> {% endcomment %}
+            {% comment %} {%csrf_token%} {% endcomment %}
+            <input class="nameInput" type="text" name="name" id="" value="NomeMuitoLongoTemporario">
+            
+            <section class="sheetHeader">
+                
+                <div class="under">
+                    
+                    <section class="add-image">
+                        <div class="add_image_div">
+                            <input type="hidden" name="image" class="imageInputCircle">
+                            {% comment %} <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
+                            <button type="button" class="openImageBtn">
+                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+                    </section>
+                    
+                    
+                    <div class="status">
+                        <div class="bar">
+                            <p>HP</p>
+                    
+                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            <input class="hpLeft" type="number" name="hp" id="" value="50">/ <input class="hpRight" type="number" name="hpMax" id="" value="100">
+                            <div class="hpFill"></div>
+                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            <p>MANA</p>
+                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            <input class="manaLeft" type="number" name="hp" id="" value="50">/ <input class="manaRight" type="number" name="hpMax" id="" value="100">
+                            <div class="manaFill"></div>
+                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="under">
+                    
+                    <div class="xpStatus">
+                        <p>XP</p>
+                        <div class="xpFill">
+                        <input type="number">
+                        <button>Adicionar</button>
+                        </div>
+                    </div>
+                    
+                    <section>
+                        <div>
+                            <label for="race">Raça: </label>
+                            <input type="text" name="race" value="{{race}}">
+                        </div>
+                        <div>
+                            <label for="role">Classe: </label>
+                            <input type="text" name="role" id="role" value="{{role}}">
+                        </div>
+                    </section>
+                    
+                </div>
+
+            </section>
+
+            <section class="atributos">
+                <div class="atributosInputs">
+                    <div>
+                        <label for="strength">Força: </label>
+                        <input type="number" name="strength" id="strength" value="{{strength}}">
+                    </div>
+                    <div>
+                        <label for="intelligence">Inteligência: </label>
+                        <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                    </div>
+                    <div>
+                        <label for="wisdom">Sabedoria: </label>
+                        <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                    </div>
+                    <div>
+                        <label for="charisma">Carisma: </label>
+                        <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                    </div>
+                    <div>
+                        <label for="constitution">Constituição: </label>
+                        <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                    </div>
+                    <div>
+                        <label for="speed">Velocidade: </label>
+                        <input type="number" name="speed" id="speed" value="{{speed}}">
+                    </div>
+                </div>
+            </section>
+
+            <section class="equipamentos">
+                <div class="header">
+                     <p>Equipamentos</p>
+                     <button type="button" class="openEquipmentBtn">
+                         <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                     </button>
+                </div>
+
+                 <div class="equipmentsListContainer">
+                     <ul class="equipmentList">
+                         {% for equipment in equipments %}
+                             <li>
+                                 <div>
+                                 <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                 <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                 <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                 <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                 </div>
+                                 {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                 <button type="button" class="editEquipment">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                 </button>
+                                 <button type="button" class="removeEquipment">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                 </button>
+                             </li>
+                         {% endfor %}
+                     </ul>
+                 </div>
+             </section> 
+
+             <section class="description">
+                <label for="description">Descrição: </label>
+                <textarea name="description" id="description">
+                </textarea>
+            </section> 
+           
+        {% comment %} </form> {% endcomment %}
+    </section>
+</section>
+<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
+{% endblock %}
