@@ -1,9 +1,3 @@
-// const name = document.querySelector('input[name="mgcName"]');
-// const description = document.querySelector('input[name="mgcDesc"]')
-// const element = document.querySelector('input[name="mgcElement"]');
-// const diceType = document.querySelector('input[name="mcgDiceType"]');
-// const diceQuant = document.querySelector('input[name="mgcDiceQuant"]');
-// const attribute = document.querySelector('input[name="mgcAttribute"]');
 const nameMagic = document.querySelector('input[name="nameMagic"]');
 const description = document.querySelector('textarea[name="descriptionMagic"]')
 const element = document.querySelector('input[name="elementMagic"]');
