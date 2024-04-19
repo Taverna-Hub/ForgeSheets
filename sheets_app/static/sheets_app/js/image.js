@@ -1,4 +1,4 @@
-const imageLink = document.querySelector('input[name="image"]');
+const imageLink = document.querySelector('.image');
 let regex = '^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$';
 
 const addImageBtn = document.querySelector('#addImageBtn');
@@ -13,16 +13,6 @@ const closeChooseSheetModalBtn = document.querySelector('#closeChooseSheet');
 const addImageDiv = document.querySelector('.add_image_div');
 
 let imageCount = 0;
-
-const ImgStorageService = {
-    imgSaveData() {
-      localStorage.setItem('image', JSON.stringify(imageLink))
-    },
-    imgGetData() {
-      return  JSON.parse(localStorage.getItem('image')) || []
-    }
-  }
-  
 
 function closeImageModal() {
   const error = document.querySelector('.imageInput').lastElementChild;
@@ -50,15 +40,18 @@ function handleErrorImage(message) {
 
 
 function addImageToSheet() {
-  image_test = imageLink.value
+  const contextImage = document.querySelector('.imageInputCircle');
 
-  if (!regex.image_test){
+  let image_test = imageLink.value;
+  const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
+
+  if (!regex.image_test) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
   }
 
   const image = `
     <button type="button" onclick="handleOpenImageModal()">
-      <img src="${imageLink.value}" alt="Imagem" class="selectedImage">
+      <img src="${imageSrc}" alt="Imagem" class="selectedImage">
     </button>
   ` 
 
