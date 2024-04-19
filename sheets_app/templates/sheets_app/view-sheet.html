@@ -202,19 +202,25 @@
                         <div class="bar">
                             <p>HP</p>
                     
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <input class="hpLeft" type="number" name="hp" id="" value="50">/ <input class="hpRight" type="number" name="hpMax" id="" value="100">
+                            <section class="hpBar">
+                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                <input class="hpLeft" type="number" name="hp" id="" value="50"> <p>/</p> <input class="hpRight" type="number" name="hpMax" id="" value="100">
+                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            </section>
                             <div class="hpFill"></div>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+
                             <p>MANA</p>
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <input class="manaLeft" type="number" name="hp" id="" value="50">/ <input class="manaRight" type="number" name="hpMax" id="" value="100">
+                            
+                            <section class="manaBar">
+                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                <input class="manaLeft" type="number" name="hp" id="" value="50"> <p>/</p> <input class="manaRight" type="number" name="hpMax" id="" value="100">
+                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            </section>
                             <div class="manaFill"></div>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i>
                         </div>
                     </div>
                     
@@ -222,23 +228,24 @@
 
                 <div class="under">
                     
-                    <div class="xpStatus">
-                        <p>XP</p>
-                        <div class="xpFill">
-                        <input type="number">
-                        <button>Adicionar</button>
+                    <section class="infos">
+
+                        <div class="xpStatus">
+                            <p>XP</p>
+                            <div class="xpFill"> <input type="number"> </div>
+                            <button>Adicionar</button>
                         </div>
-                    </div>
                     
-                    <section>
                         <div>
                             <label for="race">Raça: </label>
                             <input type="text" name="race" value="{{race}}">
                         </div>
+                        
                         <div>
                             <label for="role">Classe: </label>
                             <input type="text" name="role" id="role" value="{{role}}">
                         </div>
+                    
                     </section>
                     
                 </div>

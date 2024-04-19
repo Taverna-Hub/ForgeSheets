@@ -42,6 +42,8 @@ input {
 
 .nameInput{
     font-size: xx-large;
+    border: none;
+    background-color: transparent;
 }
   
 button {
@@ -135,7 +137,7 @@ button {
   gap: 10%;
 }
   
-  .equipamentos {
+.equipamentos {
     background-color: var(--gray-800);
     padding: 16px;
     padding-top: 0px;
@@ -146,59 +148,59 @@ button {
   
     display: flex;
     flex-direction: column;
-  }
+}
   
-  .equipamentos .header {
+.equipamentos .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-top: 3px;
     padding-bottom: 3px;
-  }
+}
   
-  .equipamentos button {
+.equipamentos button {
     background: none;
     border: none;
     color: var(--white);
-  }
+}
 
-  .equipamentos .equipmentsListContainer {
+.equipamentos .equipmentsListContainer {
     height: 250px;
     background-color: var(--gray-200);
-  }
+}
   
-  .equipmentsListContainer {
+.equipmentsListContainer {
     overflow-y: scroll;
-  }
+}
   
-  .equipmentList {
+.equipmentList {
     color: var(--gray-700);
     list-style-type: circle;
     padding: 0 24px 16px;
     position: relative;
-  }
+}
   
-  .equipmentList li {
+.equipmentList li {
     margin-top: 16px;
     position: relative;
-  }
+}
   
   
-  .equipmentList button {
+.equipmentList button {
     position: absolute;
     right: 40px;
     color: var(--gray-800);
-  }
+}
   
-  .equipmentList button:nth-child(2) {
+.equipmentList button:nth-child(2) {
     position: absolute;
     right: 0;
     color: var(--red-600);
-  }
+}
   
-  .addEquip {
+.addEquip {
     color: var(--gray-600);
-  }
+}
 
 .status{
     /* background-color: #22c55e; */
@@ -210,37 +212,60 @@ button {
     padding: 5px 0;
 }
 
-/* 
-.hpRight{
+.hpRight, .manaRight{
+    border: none;
+    background-color: transparent;
+
     text-align: left;
-    margin-left: -10px;
+    /* margin-left: -10px; */
 }
 
-.hpLeft{
+.hpLeft, .manaLeft{
+    border: none;
+    background-color: transparent;
+
     text-align: right;
-    margin-right: -20px;
-} */
+    /* margin-right: -20px; */
+}
 
+.bar{
+    text-align: center;
+}
 
+.hpBar, .manaBar{
+    position: absolute;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 10%;
+}
   
 .hpFill {
     background-color: rgba(238, 67, 67, 0.8);
-    height: 5px;
+    height: 30px;
     margin-bottom: 15px;
 }
-  
+
 .manaFill {
     background-color: rgba(86, 86, 227, 0.8);
-    height: 5px;
+    height: 30px;
+    margin-bottom: 15px;
 }
 
-.xpStatus input{
-    /* background-color: #4b5563; */
+.infos {
+    justify-content: space-between;
+
+}
+
+.infos input {
+    border: 2px solid var(--gray-200);
     padding: auto;
 }
-.atributos{
+
+.atributos {
     width: 100%;
 }
+
 .atributosInputs div, .statusInputs div {
     padding: 8px 16px;
     display: flex;
@@ -253,4 +278,4 @@ button {
     margin-bottom: 16px; 
     
     border-radius: 2px;
-  }
+}
