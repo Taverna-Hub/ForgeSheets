@@ -4,11 +4,13 @@
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/view-sheet.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Visualizar Ficha - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
+<input type="hidden" id="context" data-context="{{ errors }}">
 
 <section class="equipmentModal">
     <div class="modal">
@@ -142,6 +144,38 @@
     </div>
 </section>
 
+<section class="imageModal">
+    <div class="modal">
+        <h2>Adicionar Imagem</h2>
+        <form>
+            {%csrf_token%}
+            <div class="imageInput">
+                <label for="image">URL da foto: </label>
+                <input type="url" class="image" name="image">
+                {% for error in errors %}
+                {% if error.field == 'image'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+                {% endfor %}
+            
+            </div>
+            <div class="actions">
+                <button type="button" id="closeImageBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addImageBtn">
+                    Adicionar
+                </button>
+            </div>
+        </form>
+        
+    </div>
+    
+</section>
+
 <section class="mainSheet">
     <section class="sheet">
         {% comment %} <form action="{}"> {% endcomment %}
@@ -180,7 +214,7 @@
                             <input class="manaLeft" type="number" name="hp" id="" value="50">/ <input class="manaRight" type="number" name="hpMax" id="" value="100">
                             <div class="manaFill"></div>
                             {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i>
                         </div>
                     </div>
                     
@@ -281,4 +315,5 @@
     </section>
 </section>
 <script src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script src="{% static 'sheets_app/js/image.js' %}"></script>
 {% endblock %}
