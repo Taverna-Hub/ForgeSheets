@@ -89,7 +89,9 @@ select option:hover {
   padding: 24px;
   border-radius: 4px;
   width: 650px;
+  max-height: 90vh;
   height: fit-content;
+  overflow-y: auto;
 }
 
 .magicModal .modal form, .editEquipmentModal .modal form {
