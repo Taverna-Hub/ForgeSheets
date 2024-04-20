@@ -49,21 +49,31 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         magicName = (request.POST.getlist('mgcName'))
         magicDescription = (request.POST.getlist('mgcDesc'))
-        diceType = (request.POST.getlist('mcgDiceType'))
-        diceQuantity = int(request.POST.getlist('mgcDiceQuant'))
-        atributeModifier = (request.POST.getlist('mgcAtribute'))
+        diceType = (request.POST.getlist('mgcDiceType'))
+        diceQuantity = (request.POST.getlist('mgcDiceQuant'))
+        atributeModifier = (request.POST.getlist('mgcAttribute'))
         element = request.POST.getlist('mgcElement')
 
         user_id = request.user.id
 
         equipment_list = []
         magic_list = []
-        #add imagem
-        errors= save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'dice_type': mgcDiceType,
+                        'dice_quantity': mgcDiceQuant,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
                 for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
                     equipment = {
                         'name': equipmentName,
@@ -72,19 +82,10 @@ class CreateSheetView(LoginRequiredMixin, View):
                         'defense': equipmentDef
                     }
                     equipment_list.append(equipment)
-                for mgcName,mgcDesc, mcgDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
-                    magic = {
-                        'name': mgcName,
-                        'description': mgcDesc,
-                        'diceType': mcgDiceType,
-                        'diceQuant': mgcDiceQuant,
-                        'atribute': mgcAtribute,
-                        'element': mgcElement,
-                    }
-                    magic_list.append(magic)
                 ctx = {
                     'errors': errors,
                     'equipments': equipment_list,
+                    'magics': magic_list,
                     'app_name': 'sheets'
                 }
                 if 'name' not in errors:
@@ -112,8 +113,8 @@ class CreateSheetView(LoginRequiredMixin, View):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
-        for mgcName,mgcDesc, mcgDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
-            magic =  Magic(name=mgcName,description=mgcDesc, dice_type = mcgDiceType, dice_quantity = mgcDiceQuant, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+        for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, dice_type = mgcDiceType, dice_quantity = mgcDiceQuant, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
             magic.save()
         return redirect('sheets:homesheets')
 

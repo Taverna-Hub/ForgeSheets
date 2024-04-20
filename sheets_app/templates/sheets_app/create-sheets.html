@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block 'body' %}
-<input type="hidden" id="context" data-context="{{ errors }}">
+<input type="hidden" id="context" data-errors="{{ errors }}" data-magics="{{ magics }}">
 
 <section class="magicModal">
     <div class="modal">
@@ -19,19 +19,19 @@
         <form>
             {%csrf_token%}
             <div class="magicName">
-                <label for="name">Nome da magia:</label>
-                <input type="text" name="name">
+                <label for="nameMagic">Nome da magia:</label>
+                <input type="text" name="nameMagic">
             </div>
 
             <div class="magicDescription">
-                <label for="quantity">Descrição:</label>
-                <textarea name="description" id="" cols="30" rows="10"></textarea>
+                <label for="descriptionMagic">Descrição:</label>
+                <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
             </div>
 
             <div class="sideBySide">
                 <div class="magicDiceType">
-                    <label for="diceType">Tipo de dados:</label>
-                    <select name="diceType" id="diceType">
+                    <label for="diceTypeMagic">Tipo de dados:</label>
+                    <select name="diceTypeMagic" id="diceType">
                         <option value="">Selecione</option>
                         <option value="D4">D4</option>
                         <option value="D6">D6</option>
@@ -43,15 +43,15 @@
                 </div>
 
                 <div class="magicDiceQuant">
-                    <label for="diceQuant">Quantidade de dados:</label>
-                    <input type="number" name="diceQuant">
+                    <label for="diceQuantMagic">Quantidade de dados:</label>
+                    <input type="number" name="diceQuantMagic">
                 </div>
             </div>
 
             <div class="sideBySide">
                 <div class="magicAttribute">
-                    <label for="attribute">Atributo modificador:</label>
-                    <select name="attribute">
+                    <label for="attributeMagic">Atributo modificador:</label>
+                    <select name="attributeMagic">
                         <option value="">Selecione</option>
                         <option value="Força">Força</option>
                         <option value="Inteligência">Inteligência</option>
@@ -63,8 +63,8 @@
                 </div>
 
                 <div class="magicElement">
-                    <label for="element">Elemento da magia: </label>
-                    <input type="text" name="element">
+                    <label for="elementMagic">Elemento da magia: </label>
+                    <input type="text" name="elementMagic">
                 </div>
             </div>
 
@@ -91,8 +91,8 @@
         <form>
             {%csrf_token%}
             <div class="equipmentName">
-                <label for="name">Nome do equipamento:</label>
-                <input type="text" name="name" value="{{equipmentName}}">
+                <label for="equipmentName">Nome do equipamento:</label>
+                <input type="text" name="equipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
@@ -296,7 +296,6 @@
             </section>
 
             <div class="sheetSideBySide"> 
-                {% comment %} <div class="under"> {% endcomment %}
                     <section class="atributos">
                         <div class="atributosInputs">
                             <div>
@@ -337,7 +336,7 @@
                 <div class="under">
                     <section class="add-image">
                         <div class="add_image_div">
-                            <input type="hidden" name="image" class="imageInputCircle">  
+                            <input type="hidden" name="image" class="imageInputCircle" value={{image}}>  
 
                             <button type="button" class="openImageBtn">
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
@@ -436,21 +435,23 @@
                  <div class="magicListContainer">
                      <ul class="magicList">
                          {% for magic in magics %}
-                             <li>
-                                 <div>
-                                 <input type="hidden" name="equipmentName" value="{{magic.name}}" />
-                                 <input type="hidden" name="equipmentQnt" value="{{magic.quantity}}" />
-                                 <input type="hidden" name="equipmentAtk" value="{{magic.attack}}" />
-                                 <input type="hidden" name="equipmentDef" value="{{magic.defense}}" />
-                                 </div>
-                                 {{magic.quantity}}x {{magic.name}}- Atk: {{magic.attack}} | Def: {{magic.defense}}
-                                 <button type="button" class="editMagic">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                                 </button>
-                                 <button type="button" class="removeMagic">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                 </button>
-                             </li>
+                            <li>
+                                <div>
+                                    <input type="hidden" name="mgcName" value="{{magic.name}}" />
+                                    <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
+                                    <input type="hidden" name="mgcElement" value="{{magic.element}}" />
+                                    <input type="hidden" name="mgcDiceType" value="{{magic.dice_type}}" />
+                                    <input type="hidden" name="mgcDiceQuant" value="{{magic.dice_quantity}}" />
+                                    <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
+                                </div>
+                                {{magic.name}} | {{magic.element}} 
+                                <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                </button>
+                                <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" style="margin-right: -10px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                </button>
+                            </li>
                          {% endfor %}
                      </ul>
                  </div>
@@ -471,7 +472,8 @@
         </form>
     </section>
 </section>
-<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
-<script src="{% static 'sheets_app/js/image.js' %}"></script>
-<script src="{% static 'sheets_app/js/magic.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/manage_magic.js' %}"></script>
 {% endblock %}
