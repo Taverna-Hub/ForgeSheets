@@ -2,8 +2,48 @@ document.addEventListener('DOMContentLoaded', function () {
     const diceButton = document.querySelector('.diceButton');
     const diceModal = document.querySelector('.diceModal');
     const closeDice = document.getElementById('closeDice');
-    const formDice = document.getElementById('formDice'); // Corrected from class to id
+    const formDice = document.getElementById('formDice'); 
     const resultDisplay = document.getElementById('resultDisplay');
+
+
+    const modalHeader = document.querySelector('.modal-header');
+
+   
+    function dragElement(element, header) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        if (header) {
+            
+            header.onmousedown = dragMouseDown;
+        } else {
+           
+            element.onmousedown = dragMouseDown;
+        }
+
+        function dragMouseDown(e) {
+            e.preventDefault();
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            element.style.top = (element.offsetTop - pos2) + "px";
+            element.style.left = (element.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+
+    dragElement(diceModal, modalHeader);
 
     diceButton.addEventListener('click', function() {
         diceModal.style.display = "block";
@@ -15,18 +55,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     formDice.onsubmit = function(event) {
         event.preventDefault();
-
-        const quantity = parseInt(document.getElementById('quantityDice').value);
-        const diceType = parseInt(document.getElementById('typeDice').value);
-        const modifier = parseInt(document.getElementById('modDice').value);
+        const quantity = parseInt(document.getElementById('quantityDice').value) || 1;
+        const diceType = parseInt(document.getElementById('typeDice').value) || 6;
+        const modifier = parseInt(document.getElementById('modDice').value) || 0;
+        let rolls = [];
         let total = 0;
 
         for (let i = 0; i < quantity; i++) {
-            total += Math.floor(Math.random() * diceType) + 1;
-            console.log({total})
+            const roll = Math.floor(Math.random() * diceType) + 1;
+            rolls.push(roll);
+            total += roll;
         }
 
         total += modifier;
-        resultDisplay.innerHTML = `<strong>Resultado: </strong> ${total}`;
+        resultDisplay.innerHTML = `<strong>Resultado: </strong> ${total} <br> <strong>Roladas:</strong> ${rolls.join(', ')}`;
     };
 });
