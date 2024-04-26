@@ -251,9 +251,9 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        {% comment %} <form action="{}"> {% endcomment %}
-            {% comment %} {%csrf_token%} {% endcomment %}
-            <input class="nameInput" type="text" name="name" id="" value="NomeMuitoLongoMemsoViuTipoOlhaTemporario">
+        <form action="{% url 'sheets:view_Sheet' sheet.id %}" method="POST">
+            {%csrf_token%}
+            <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
             
             <section class="sheetHeader">
                 
@@ -262,11 +262,11 @@
                     <section class="add-image">
                         <div class="add_image_div">
                             <input type="hidden" name="image" class="imageInputCircle">
-                            {% comment %} <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
+                            <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
                             <button type="button" class="openImageBtn">
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                             </button>
+                            <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
                         </div>
                     </section>
                     
@@ -278,7 +278,9 @@
                             <section class="hpBar">
                                 {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="hpLeft" type="number" name="hp" id="" value="50"> / <input class="hpRight" type="number" name="hpMax" id="" value="100">
+                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
+                                <p class="barraBarra">/</p>
+                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
                                 {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             </section>
@@ -289,7 +291,9 @@
                             <section class="manaBar">
                                 {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="manaLeft" type="number" name="hp" id="" value="50"> / <input class="manaRight" type="number" name="hpMax" id="" value="100">
+                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
                                 {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             </section>
@@ -304,19 +308,23 @@
                     <section class="infos">
 
                         <div class="xpStatus">
-                            <p>XP</p>
-                            <div class="xpFill"> <input type="number"> </div>
+                            <p>Level: {{sheet.level}}</p>
+                            <p>{{sheet.exp}}/{{sheet.expMax}}</p>
+                            <div class="xpFill"></div>
+                            <input type="number" name="xpInput" id="xpInput">
                             <button>Adicionar</button>
                         </div>
                     
                         <div>
                             <label for="race">Raça: </label>
-                            <input type="text" name="race" value="{{race}}">
+                            <p>{{sheet.race}}</p>
+                            {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
                         
                         <div>
                             <label for="role">Classe: </label>
-                            <input type="text" name="role" id="role" value="{{role}}">
+                            <p>{{sheet.role}}</p>
+                            {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
                         </div>
                     
                     </section>
@@ -400,34 +408,35 @@
                         <div class="atributosInputs">
                             <div>
                                 <label for="strength">Força: </label>
-                                <input type="number" name="strength" id="strength" value="{{strength}}">
+                                <input type="number" name="strength" id="strength" value="{{sheet.strength}}">
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
-                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                                <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}">
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
-                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                                <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}">
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
-                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                                <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}">
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
-                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                                <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}">
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
-                                <input type="number" name="speed" id="speed" value="{{speed}}">
+                                <input type="number" name="speed" id="speed" value="{{sheet.speed}}">
                             </div>
                         </div>
                     </section>
 
                     <section class="description">
                         <label for="description">Descrição: </label>
-                        <textarea name="description" id="description">
+                        <textarea name="description" id="description" >
+                            {{sheet.description}}
                         </textarea>
                     </section> 
 
@@ -446,10 +455,10 @@
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button">Criar</button>
+                <button type="submit" id="submit_button">Salvar</button>
             </div>
            
-        {% comment %} </form> {% endcomment %}
+        </form>
     </section>
 </section>
 

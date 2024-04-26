@@ -114,7 +114,7 @@ def update_sheet(sheet, name,race, role, image, strength, intelligence, wisdom, 
 
 
 
-#Trtamento de erro na utils -> precisa testar
+#Trtamento de erro na utils
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
     name_treated = name.strip()
     quantity_treated = int(quantity)

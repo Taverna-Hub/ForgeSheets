@@ -45,6 +45,7 @@
         </button>
 
         {% for sheet in sheets_view%}
+        <a href="{% url 'sheets:view_Sheet' sheet.id %}" class="detailLink">
         <div class="sheetCard" style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
                 background-position: center;
@@ -55,31 +56,31 @@
                         {% endif %}">
                     <h2>{{sheet.name}}</h2>
 
-                <div class="sheet_info">
-                    <div class="sideBySide">
-                        <p><b>Nível:</b></p>
-                        {% if sheet.level == 20 %}
-                            <p>{{sheet.level}} (Nível Max.)</p>
-                        {% else %}
-                            <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
-                        {% endif %}
+                    <div class="sheet_info">
+                        <div class="sideBySide">
+                            <p><b>Nível:</b></p>
+                            {% if sheet.level == 20 %}
+                                <p>{{sheet.level}} (Nível Max.)</p>
+                            {% else %}
+                                <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                            {% endif %}
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Raça:</b></p>
+                            <p>{{sheet.race}}</p>
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Classe:</b></p>
+                            <p>{{sheet.role}}</p>
+                        </div>
+                        <div class="bar">
+                            <span class="hp-bar"></span>
+                            <span class="mana-bar"></span>
+                        </div>
                     </div>
-                    <div class="sideBySide">
-                        <p><b>Raça:</b></p>
-                        <p>{{sheet.race}}</p>
-                    </div>
-                    <div class="sideBySide">
-                        <p><b>Classe:</b></p>
-                        <p>{{sheet.role}}</p>
-                    </div>
-
-                    <div class="bar">
-                        <span class="hp-bar"></span>
-                        <span class="mana-bar"></span>
-                    </div>
-                </div>
             </div>
         </div>
+        </a>
         {% endfor %}
     </section>
     {% include "dice.html" %}
