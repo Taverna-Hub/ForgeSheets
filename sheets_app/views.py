@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
@@ -119,14 +119,15 @@ class CreateSheetView(LoginRequiredMixin, View):
         return redirect('sheets:homesheets')
 
 class ViewSheetView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'sheets_app/view-sheet.html')
+    def get(self, request, id):
+        sheet = get_object_or_404(Sheet, id=id)
+        return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
     
     def post(self, request, id):
-        try:
-            sheet = Sheet.objects.get(id=id)
-        except:
-            return HttpResponse('Essa ficha não existe')
+        # try:
+        #     sheet = Sheet.objects.get(id=id)
+        # except:
+        #     return HttpResponse('Essa ficha não existe')
         
         newName = request.POST.get('name')
         newImage = request.POST.get('image')
@@ -149,6 +150,10 @@ class ViewSheetView(LoginRequiredMixin, View):
         newEqpsQnt = request.POST.getlist('equipmentQnt')
         newEqpsAtk = request.POST.getlist('equipmentAtk')
         newEqpsDef = request.POST.getlist('equipmentDef')
+
+        # Sheet.save()
+
+        return redirect('sheets:homesheets')
         
         
 
