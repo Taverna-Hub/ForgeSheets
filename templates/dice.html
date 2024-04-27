@@ -2,33 +2,37 @@
 <link rel="stylesheet" href="{% static 'css/dice.css' %}">
 
 <div class="dice">
-    <button class="diceButton">Dado</button>
+    <button class="diceButton">
+        <i data-lucide="dices"></i>
+    </button>
 </div>
 
 <section class="diceModal">
     <div class="modal">
-        <div class="modal-header">
-            <span id="closeDice" class="close">&times;</span>
-        </div>
+        <button type="button" id="closeDice">
+            <i data-lucide="x"></i>
+        </button>
         <div class="container">
             <form id="formDice">
                 {% csrf_token %}
                 <div>
-                    <h2>Quantidade de dados</h2>
+                    <h2>Quantidade de dados:</h2>
                     <input type="number" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
                 </div>
                 <div>
-                    <h2>Tipo de dado</h2>
+                    <h2>Tipo de dado:</h2>
                     <input type="number" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
                 </div>
                 <div>
-                    <h2>Modificador</h2>
+                    <h2>Modificador:</h2>
                     <input type="number" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
                 </div>
-                <button type="submit" class="rollButton">Rolar dados</button>
+                <div>
+                    <button type="submit" class="rollButton">Rolar dados</button>
+                </div>
             </form>
             <div>
-                <h2>Resultado</h2>
+                <h2>Resultado:</h2>
                 <div id="resultDisplay"><h1></h1></div>
             </div>
         </div>
