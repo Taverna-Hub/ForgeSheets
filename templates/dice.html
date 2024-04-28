@@ -16,23 +16,30 @@
         <div class="container">
             <form id="formDice">
                 {% csrf_token %}
+                
                 <div>
                     <h2>Quantidade de dados:</h2>
                     <input type="text" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
                     <span class="error-message" id="quantityError"></span>
                 </div>
+                
                 <div>
                     <h2>Tipo de dado:</h2>
                     <input type="text" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
                     <span class="error-message" id="typeError"></span>
                 </div>
+                
                 <div>
                     <h2>Modificador:</h2>
                     <input type="text" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
                     <span class="error-message" id="modifierError"></span>
                 </div>
+                
                 <div>
                     <button type="submit" class="rollButton">Rolar dados</button>
+                </div>
+                
+                <div id="diceContainer" class="dice-container">
                 </div>
             </form>
             <div>

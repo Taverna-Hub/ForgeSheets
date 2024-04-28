@@ -4,12 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDice = document.getElementById('closeDice');
     const formDice = document.getElementById('formDice'); 
     const resultDisplay = document.getElementById('resultDisplay');
-
-
-
    
-    
-
     diceButton.addEventListener('click', function() {
         diceModal.style.display = "block";
     });
@@ -62,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     
         let results = [];
+        let diceResults = [];
         let overallTotal = 0;
     
         quantityInputs.forEach((quantity, index) => {
@@ -79,11 +75,37 @@ document.addEventListener('DOMContentLoaded', function () {
     
             subtotal += modifier; 
             overallTotal += subtotal;
+            diceResults.push({
+                rolls: quantityRolls,
+                subtotal: subtotal,
+                type: diceType,
+                modifier: modifier
+            });
             const modifierDisplay = modifier !== 0 ? `${modifier >= 0 ? '+' : ''}${modifier}` : ''; 
             results.push(`(${quantity}d${diceType}${modifierDisplay}): ${subtotal} [${quantityRolls.join(', ')}]`);
         });
     
         resultDisplay.innerHTML = `<strong>Total: </strong> ${overallTotal} <br> <strong>Detalhes:</strong> ${results.join('<br>')}`;
+        rollDice(diceResults);
+    };
+    function rollDice(diceResults) {
+        const diceContainer = document.getElementById('diceContainer');
+        diceContainer.innerHTML = '';  
+    
+        diceResults.forEach(result => {
+            result.rolls.forEach((roll, i) => {
+                const dice = document.createElement('div');
+                dice.className = 'dice-face';
+                dice.textContent = '...';
+                diceContainer.appendChild(dice);
+                
+                
+                setTimeout(() => {
+                    dice.textContent = roll;
+                    dice.style.animation = 'none';
+                }, 500 * (i + 1));
+            });
+        });
     };
 
     function dragElement(element) {
