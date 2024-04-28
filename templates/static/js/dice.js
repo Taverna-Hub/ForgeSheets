@@ -20,23 +20,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
     formDice.onsubmit = function(event) {
         event.preventDefault();
-        const quantity = parseInt(document.getElementById('quantityDice').value) || 1;
-        
-        const diceType = parseInt(document.getElementById('typeDice').value) || 6 ;
-        
-        const modifier = parseInt(document.getElementById('modDice').value) || 0;
-        
-        let rolls = [];
-        let total = 0;
+        const quantityInputs = document.getElementById('quantityDice').value.split(' ').filter(val => val.trim() !== '').map(Number);
+        const diceTypeInputs = document.getElementById('typeDice').value.split(' ').filter(val => val.trim() !== '').map(Number);
+        const modifierInputs = document.getElementById('modDice').value.split(' ').filter(val => val.trim() !== '').map(Number);
+        const quantityError = document.getElementById('quantityError');
+        const typeError = document.getElementById('typeError');
+        const modifierError = document.getElementById('modifierError');
+        quantityError.innerHTML = '';
+        typeError.innerHTML = '';
+        modifierError.innerHTML = '';
+        let hasError = false;
 
-        for (let i = 0; i < quantity; i++) {
-            const roll = Math.floor(Math.random() * diceType) + 1;
-            rolls.push(roll);
-            total += roll;
+
+    
+        function validateIntegerInputs(inputs) {
+            return inputs.every(Number.isInteger);
         }
-
-        total += modifier;
-        resultDisplay.innerHTML = `<strong>Total: </strong> ${total} <br> <strong>Rolagens:</strong> ${rolls.join(', ')}`;
+    
+        
+        if (!validateIntegerInputs(quantityInputs)) {
+            quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados deve ser composta apenas por números inteiros.</span>`;
+            hasError = true;
+            
+        }
+        
+        if (!validateIntegerInputs(diceTypeInputs)) {
+            typeError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Os tipos dos dados devem ser composto apenas por números inteiros.</span>`;
+            hasError = true;
+           
+        }
+        
+        if (!validateIntegerInputs(modifierInputs)) {
+            hasError = true;
+            modifierError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Os modificadores devem ser compostos apenas por números inteiros.</span>`;
+            
+        }
+        
+        if (hasError) {
+            lucide.createIcons(); 
+            return; 
+        }
+    
+        let results = [];
+        let overallTotal = 0;
+    
+        quantityInputs.forEach((quantity, index) => {
+            const diceType = parseInt(diceTypeInputs[Math.min(index, diceTypeInputs.length - 1)] || '6');
+            const modifier = parseInt(modifierInputs[Math.min(index, modifierInputs.length - 1)] || '0');
+            
+            let quantityRolls = [];
+            let subtotal = 0;
+    
+            for (let i = 0; i < quantity; i++) {
+                const roll = Math.floor(Math.random() * diceType) + 1;
+                quantityRolls.push(roll);
+                subtotal += roll;
+            }
+    
+            subtotal += modifier; 
+            overallTotal += subtotal;
+            const modifierDisplay = modifier !== 0 ? `${modifier >= 0 ? '+' : ''}${modifier}` : ''; 
+            results.push(`(${quantity}d${diceType}${modifierDisplay}): ${subtotal} [${quantityRolls.join(', ')}]`);
+        });
+    
+        resultDisplay.innerHTML = `<strong>Total: </strong> ${overallTotal} <br> <strong>Detalhes:</strong> ${results.join('<br>')}`;
     };
 
     function dragElement(element) {

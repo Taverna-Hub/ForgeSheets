@@ -92,3 +92,30 @@
 #formDice h2{
   margin: 0px 0px 10px;
 }
+
+input {
+  height: 35px;
+  border: 2px solid var(--gray-200);
+  padding: 8px;
+  width: 100%;
+}
+
+
+#formDice{
+  margin-bottom: 10px;
+
+}
+
+.modal span {
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: x-small;
+}
+
+.modal .error-message .lucide{
+  width: 28px;
+  height: 24px;
+}
