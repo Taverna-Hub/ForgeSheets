@@ -20,8 +20,7 @@ const removeEquipmentBtn = document.querySelector('.removeEquipment')
 
 const equipmentModal = document.querySelector('.equipmentModal')
 const editEquipmentModal = document.querySelector('.editEquipmentModal')
-
-export let ctxErrors = document.getElementById('context').getAttribute('data-errors');
+let ctxErrors = document.getElementById('context').getAttribute('data-errors');
 if (ctxErrors) {
   ctxErrors = JSON.parse(ctxErrors.replace(/'/g, '"'));
 }
