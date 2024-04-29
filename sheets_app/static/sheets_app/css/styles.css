@@ -186,3 +186,9 @@
   filter: saturate(120%);
   box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
 }
+
+.detailLink{
+  text-decoration: none;
+  color: var(--white);
+  cursor: pointer;
+}

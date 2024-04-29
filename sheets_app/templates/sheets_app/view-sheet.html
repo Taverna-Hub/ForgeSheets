@@ -4,6 +4,7 @@
 {% block 'head' %}
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/view-sheet.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-magic.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
 <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
 <title>Visualizar Ficha - ForgeSheets</title>
@@ -11,6 +12,78 @@
 
 {% block 'body' %}
 <input type="hidden" id="context" data-context="{{ errors }}">
+
+<section class="magicModal">
+    <div class="modal">
+        <h2>Adicionar Magia/Habilidades</h2>
+        <form>
+            {%csrf_token%}
+            <div class="magicName">
+                <label for="nameMagic">Nome da magia:</label>
+                <input type="text" name="nameMagic">
+            </div>
+
+            <div class="magicDescription">
+                <label for="descriptionMagic">Descrição:</label>
+                <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicDiceType">
+                    <label for="diceTypeMagic">Tipo de dados:</label>
+                    <select name="diceTypeMagic" id="diceType">
+                        <option value="">Selecione</option>
+                        <option value="D4">D4</option>
+                        <option value="D6">D6</option>
+                        <option value="D8">D8</option>
+                        <option value="D10">D10</option>
+                        <option value="D12">D12</option>
+                        <option value="D20">D20</option>
+                    </select>
+                </div>
+
+                <div class="magicDiceQuant">
+                    <label for="diceQuantMagic">Quantidade de dados:</label>
+                    <input type="number" name="diceQuantMagic">
+                </div>
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicAttribute">
+                    <label for="attributeMagic">Atributo modificador:</label>
+                    <select name="attributeMagic">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="magicElement">
+                    <label for="elementMagic">Elemento da magia: </label>
+                    <input type="text" name="elementMagic">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addMagicBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
 
 <section class="equipmentModal">
     <div class="modal">
@@ -178,9 +251,9 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        {% comment %} <form action="{}"> {% endcomment %}
-            {% comment %} {%csrf_token%} {% endcomment %}
-            <input class="nameInput" type="text" name="name" id="" value="NomeMuitoLongoTemporario">
+        <form action="{% url 'sheets:view_Sheet' sheet.id %}" method="POST">
+            {%csrf_token%}
+            <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
             
             <section class="sheetHeader">
                 
@@ -189,11 +262,11 @@
                     <section class="add-image">
                         <div class="add_image_div">
                             <input type="hidden" name="image" class="imageInputCircle">
-                            {% comment %} <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i> {% endcomment %}
+                            <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
                             <button type="button" class="openImageBtn">
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                             </button>
+                            <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
                         </div>
                     </section>
                     
@@ -202,19 +275,29 @@
                         <div class="bar">
                             <p>HP</p>
                     
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <input class="hpLeft" type="number" name="hp" id="" value="50">/ <input class="hpRight" type="number" name="hpMax" id="" value="100">
+                            <section class="hpBar">
+                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
+                                <p class="barraBarra">/</p>
+                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
+                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            </section>
                             <div class="hpFill"></div>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+
                             <p>MANA</p>
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <input class="manaLeft" type="number" name="hp" id="" value="50">/ <input class="manaRight" type="number" name="hpMax" id="" value="100">
+                            
+                            <section class="manaBar">
+                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
+                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            </section>
                             <div class="manaFill"></div>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i>
                         </div>
                     </div>
                     
@@ -222,98 +305,165 @@
 
                 <div class="under">
                     
-                    <div class="xpStatus">
-                        <p>XP</p>
-                        <div class="xpFill">
-                        <input type="number">
-                        <button>Adicionar</button>
+                    <section class="infos">
+
+                        <div class="xpStatus">
+                            <p>Level: {{sheet.level}}</p>
+                            <p>{{sheet.exp}}/{{sheet.expMax}}</p>
+                            <div class="xpFill"></div>
+                            <input type="number" name="xpInput" id="xpInput">
+                            <button>Adicionar</button>
                         </div>
-                    </div>
                     
-                    <section>
                         <div>
                             <label for="race">Raça: </label>
-                            <input type="text" name="race" value="{{race}}">
+                            <p>{{sheet.race}}</p>
+                            {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
+                        
                         <div>
                             <label for="role">Classe: </label>
-                            <input type="text" name="role" id="role" value="{{role}}">
+                            <p>{{sheet.role}}</p>
+                            {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
                         </div>
+                    
                     </section>
                     
                 </div>
 
             </section>
 
-            <section class="atributos">
-                <div class="atributosInputs">
-                    <div>
-                        <label for="strength">Força: </label>
-                        <input type="number" name="strength" id="strength" value="{{strength}}">
-                    </div>
-                    <div>
-                        <label for="intelligence">Inteligência: </label>
-                        <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
-                    </div>
-                    <div>
-                        <label for="wisdom">Sabedoria: </label>
-                        <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
-                    </div>
-                    <div>
-                        <label for="charisma">Carisma: </label>
-                        <input type="number" name="charisma" id="charisma" value="{{charisma}}">
-                    </div>
-                    <div>
-                        <label for="constitution">Constituição: </label>
-                        <input type="number" name="constitution" id="constitution" value="{{constitution}}">
-                    </div>
-                    <div>
-                        <label for="speed">Velocidade: </label>
-                        <input type="number" name="speed" id="speed" value="{{speed}}">
-                    </div>
+            
+            <div class="sideBySide">
+
+                <div class="under">
+
+                    <section class="equipamentos">
+                        <div class="header">
+                             <p>Equipamentos</p>
+                             <button type="button" class="openEquipmentBtn">
+                                 <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                             </button>
+                        </div>
+                         <div class="equipmentsListContainer">
+                             <ul class="equipmentList">
+                                 {% for equipment in equipments %}
+                                     <li>
+                                         <div>
+                                         <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                         <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                         <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                         <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                         </div>
+                                         {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                         <button type="button" class="editEquipment">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                         </button>
+                                         <button type="button" class="removeEquipment">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                         </button>
+                                     </li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                     </section>
+
+                     <section class="magics">
+                        <div class="header">
+                            <p>Magias</p>
+                            <button type="button" class="openMagicModalBtn">
+                                <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+        
+                         <div class="magicListContainer">
+                             <ul class="magicList">
+                                 {% for magic in magics %}
+                                    <li>
+                                        <div>
+                                            <input type="hidden" name="mgcName" value="{{magic.name}}" />
+                                            <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
+                                            <input type="hidden" name="mgcElement" value="{{magic.element}}" />
+                                            <input type="hidden" name="mgcDiceType" value="{{magic.dice_type}}" />
+                                            <input type="hidden" name="mgcDiceQuant" value="{{magic.dice_quantity}}" />
+                                            <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
+                                        </div>
+                                        {{magic.name}} | {{magic.element}} 
+                                        <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                        </button>
+                                        <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" style="margin-right: -10px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </button>
+                                    </li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                     </section> 
                 </div>
-            </section>
+                
 
-            <section class="equipamentos">
-                <div class="header">
-                     <p>Equipamentos</p>
-                     <button type="button" class="openEquipmentBtn">
-                         <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
-                     </button>
+                <div class="under">
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{sheet.strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{sheet.speed}}">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="description">
+                        <label for="description">Descrição: </label>
+                        <textarea name="description" id="description" >
+                            {{sheet.description}}
+                        </textarea>
+                    </section> 
+
                 </div>
 
-                 <div class="equipmentsListContainer">
-                     <ul class="equipmentList">
-                         {% for equipment in equipments %}
-                             <li>
-                                 <div>
-                                 <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
-                                 <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
-                                 <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
-                                 <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
-                                 </div>
-                                 {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
-                                 <button type="button" class="editEquipment">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
-                                 </button>
-                                 <button type="button" class="removeEquipment">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
-                                 </button>
-                             </li>
-                         {% endfor %}
-                     </ul>
-                 </div>
-             </section> 
 
-             <section class="description">
-                <label for="description">Descrição: </label>
-                <textarea name="description" id="description">
-                </textarea>
-            </section> 
+            </div>
+
+            <div class="createSheetActions">
+                <button type="button">
+                    <a href="{% url 'sheets:homesheets' %}">Cancelar</a>
+                </button>
+                <script>
+                    function disableButton() {
+                        const button = document.getElementById("submit_button");
+                        button.disabled = true;
+                    }
+                </script>
+                <button type="submit" id="submit_button">Salvar</button>
+            </div>
            
-        {% comment %} </form> {% endcomment %}
+        </form>
     </section>
 </section>
-<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
-<script src="{% static 'sheets_app/js/image.js' %}"></script>
+
+<script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/manage_magic.js' %}"></script>
 {% endblock %}
