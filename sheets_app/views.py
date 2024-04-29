@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet
+from .utils import save_equipment, save_sheet, update_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -123,11 +123,6 @@ class ViewSheetView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/view-sheet.html')
     
     def post(self, request, id):
-        try:
-            sheet = Sheet.objects.get(id=id)
-        except:
-            return HttpResponse('Essa ficha não existe')
-        
         newName = request.POST.get('name')
         newImage = request.POST.get('image')
         # race = request.POST.get('race')
@@ -150,11 +145,17 @@ class ViewSheetView(LoginRequiredMixin, View):
         newEqpsAtk = request.POST.getlist('equipmentAtk')
         newEqpsDef = request.POST.getlist('equipmentDef')
         
-        
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
     def get(self, request, id):
         return render(request, 'sheets_app/create-sheets.html')
+
+class DeleteSheetView(LoginRequiredMixin, View):
+    def post(self, request, pk):
+        sheet = get_object_or_404(Sheet, pk=pk, user=request.user)
+        sheet.delete()
+        return redirect('')
+
 
 class AddEquipmentView(LoginRequiredMixin, View):
 
