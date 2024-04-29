@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet, update_sheet
 from django.contrib import messages
-import requests
+# import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
@@ -30,14 +30,14 @@ class CreateSheetView(LoginRequiredMixin, View):
         race = request.POST.get('race')
         role = request.POST.get('role')
 
-        response = requests.head(image)
+        # response = requests.head(image)
 
-        content_type = response.headers.get('content-type')
+        # content_type = response.headers.get('content-type')
 
-        if content_type.startswith('image'):
-            print('O link enviado é um link válido para imagem.')
-        else:
-            print('O link enviado não é válido para uma imagem.')
+        # if content_type.startswith('image'):
+        #     print('O link enviado é um link válido para imagem.')
+        # else:
+        #     print('O link enviado não é válido para uma imagem.')
 
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
