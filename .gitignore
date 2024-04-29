@@ -4,6 +4,9 @@
 *.pyc
 __pycache__
 
+# NPM
+node_modules/
+
 # Backup files # 
 *.bak 
 

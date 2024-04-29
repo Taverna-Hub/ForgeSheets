@@ -1,28 +1,44 @@
+button {
+  border: none;
+}
+
 .diceButton {
-  color: red;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   position: fixed;
-  bottom: 0;
-  right: 0;
+  bottom: 32px;
+  right: 32px;
+  background-color: var(--red-600);
+  color: var(--gray-200);
+  border: none;
+  font-weight: 600;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  transition: all 0.3s; 
+}
+
+.diceButton:hover {
+  background-color: #e53935; 
+  transform: scale(1.1); 
 }
 
 .modal {
-  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .diceModal {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: 105px;
+  right: 64px;
 
   display: none;
-  align-items: center;
-  justify-content: center;
 
   z-index: 9999;
 }
@@ -31,9 +47,9 @@
   background-color: var(--white);
   padding: 6px;
   border-radius: 4px;
-  width: fit-content;
-  max-height: 300px;
-  height: 100%;
+  border-bottom-right-radius: 0;
+  width: 350px;
+  height: fit-content;
   position: relative;
 }
 
@@ -43,8 +59,86 @@
   align-items: left;
   justify-content: flex-start;
   width: 100%;
+  padding: 10px;
 }
 
 .rollButton {
-  padding-top: 10px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  font-family: 'Montserrat';
+  background-color: var(--red-600);
+  color: var(--gray-200);
+  width: 100%;
+  margin-top: 24px;
+}
+
+#closeDice {
+  background-color: var(--red-600);
+  cursor: pointer;
+  color: var(--gray-200);
+  border-radius: 4px;
+  height: 24px;
+  width: 24px;
+}
+
+#formDice h2{
+  margin: 0px 0px 10px;
+}
+
+input {
+  height: 35px;
+  border: 2px solid var(--gray-200);
+  padding: 8px;
+  width: 100%;
+}
+
+#formDice{
+  margin-bottom: 10px;
+
+}
+
+.modal span {
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: x-small;
+}
+
+.modal .error-message .lucide{
+  width: 28px;
+  height: 24px;
+}
+
+.dice-container {
+  display: flex;           
+  flex-wrap: wrap;        
+  justify-content: center; 
+  align-items: center;    
+  padding: 10px;           
+  gap: 10px;
+}
+              
+.dice-face {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--red-600);
+  border-radius: 12px;
+  margin: 5px;
+  background-color: rgba(0,0,0,0.8);
+  position: relative;
+  font-size: 20px;
+  animation: rollDice 0.5s infinite;
+  color:var(--red-600)
+}
+
+@keyframes rollDice {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1.1); }
 }

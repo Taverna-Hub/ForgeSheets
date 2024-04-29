@@ -1,0 +1,22 @@
+{
+  "name": "forgesheets",
+  "version": "1.0.0",
+  "description": "A web application to manage RPG sheets and campaigns",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Taverna-Hub/ForgeSheets.git"
+  },
+  "author": "Taverna",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Taverna-Hub/ForgeSheets/issues"
+  },
+  "homepage": "https://github.com/Taverna-Hub/ForgeSheets#readme",
+  "dependencies": {
+    "cypress": "^13.8.1"
+  }
+}

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet, update_sheet
 from django.contrib import messages
+import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
@@ -28,6 +29,15 @@ class CreateSheetView(LoginRequiredMixin, View):
         image = request.POST.get('image')
         race = request.POST.get('race')
         role = request.POST.get('role')
+
+        response = requests.head(image)
+
+        content_type = response.headers.get('content-type')
+
+        if content_type.startswith('image'):
+            print('O link enviado é um link válido para imagem.')
+        else:
+            print('O link enviado não é válido para uma imagem.')
 
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
@@ -119,8 +129,9 @@ class CreateSheetView(LoginRequiredMixin, View):
         return redirect('sheets:homesheets')
 
 class ViewSheetView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'sheets_app/view-sheet.html')
+    def get(self, request, id):
+        sheet = get_object_or_404(Sheet, id=id)
+        return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
     
     def post(self, request, id):
         newName = request.POST.get('name')
@@ -144,6 +155,10 @@ class ViewSheetView(LoginRequiredMixin, View):
         newEqpsQnt = request.POST.getlist('equipmentQnt')
         newEqpsAtk = request.POST.getlist('equipmentAtk')
         newEqpsDef = request.POST.getlist('equipmentDef')
+
+        # Sheet.save()
+
+        return redirect('sheets:homesheets')
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):

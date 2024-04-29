@@ -85,6 +85,78 @@
     </div>
 </section>
 
+<section class="editMagicModal">
+    <div class="modal">
+        <h2>Editar Magia/Habilidades</h2>
+        <form>
+            {%csrf_token%}
+            <div class="magicName">
+                <label for="nameMagicEdit">Nome da magia:</label>
+                <input type="text" name="nameMagicEdit">
+            </div>
+
+            <div class="magicDescription">
+                <label for="descriptionMagicEdit">Descrição:</label>
+                <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicDiceType">
+                    <label for="diceTypeMagicEdit">Tipo de dados:</label>
+                    <select name="diceTypeMagicEdit" id="diceType">
+                        <option value="">Selecione</option>
+                        <option value="D4">D4</option>
+                        <option value="D6">D6</option>
+                        <option value="D8">D8</option>
+                        <option value="D10">D10</option>
+                        <option value="D12">D12</option>
+                        <option value="D20">D20</option>
+                    </select>
+                </div>
+
+                <div class="magicDiceQuant">
+                    <label for="diceQuantMagicEdit">Quantidade de dados:</label>
+                    <input type="number" name="diceQuantMagicEdit">
+                </div>
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicAttribute">
+                    <label for="attributeMagicEdit">Atributo modificador:</label>
+                    <select name="attributeMagicEdit">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="magicElement">
+                    <label for="elementMagicEdit">Elemento da magia: </label>
+                    <input type="text" name="elementMagicEdit">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEditMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="saveMagicBtn">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
 <section class="equipmentModal">
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
@@ -472,8 +544,7 @@
         </form>
     </section>
 </section>
-<script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
-<script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
-<script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
-<script type="module" src="{% static 'sheets_app/js/manage_magic.js' %}"></script>
+<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script src="{% static 'sheets_app/js/image.js' %}"></script>
+<script src="{% static 'sheets_app/js/magic.js' %}"></script>
 {% endblock %}

@@ -28,15 +28,28 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          npm ci
+          cd ..
 
-
+      - name: Run local server
+        run: |
+          python manage.py migrate
+          python manage.py runserver &
+          sleep 5
+          npx cypress run
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: Cleaning testing files
         run: |
           cd ForgeSheets/
           rm .env
+          rm cypress.config.js
+          rm package-lock.json
+          rm package.json
+          rm -rf cypress
+          rm -rf node_modules
           cd ..
 
       - name: Zip artifact for deployment

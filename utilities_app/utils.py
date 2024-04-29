@@ -4,7 +4,6 @@ from django.contrib.auth import login as login_django
 import re
 
 def register(username, email, password):
-
     if len(username) < 1 or len(password) < 1 or len(email) < 1:
         return 3
 
