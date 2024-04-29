@@ -1,47 +1,44 @@
-.diceButton {
-  margin: 0;
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  background-color: var(--red-600);
-  color: var(--gray-200);
-  padding: 8px 16px;
+button {
   border: none;
-  font-weight: 600;
-  font-size: 16px;
-  font-family: 'Montserrat';
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
+}
+
+.diceButton {
   display: flex;
   align-items: center;
-  transition: all 0.3s;
-  
+  justify-content: center;
+
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background-color: var(--red-600);
+  color: var(--gray-200);
+  border: none;
+  font-weight: 600;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  transition: all 0.3s; 
 }
+
 .diceButton:hover {
   background-color: #e53935; 
   transform: scale(1.1); 
 }
 
 .modal {
-  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 100%;
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 .diceModal {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
   right: 0;
-  bottom: 0;
-  height: 2px;
-  width: 1px;
+  bottom: 105px;
+  right: 64px;
 
   display: none;
-  align-items: center;
-  justify-content: center;
 
   z-index: 9999;
 }
@@ -50,6 +47,7 @@
   background-color: var(--white);
   padding: 6px;
   border-radius: 4px;
+  border-bottom-right-radius: 0;
   width: 350px;
   height: fit-content;
   position: relative;
@@ -67,28 +65,24 @@
 .rollButton {
   padding: 8px 16px;
   border-radius: 4px;
-  border: none;
   font-weight: 600;
   font-size: 16px;
   font-family: 'Montserrat';
   background-color: var(--red-600);
   color: var(--gray-200);
-
+  width: 100%;
+  margin-top: 24px;
 }
-#closeDice{
+
+#closeDice {
   background-color: var(--red-600);
   cursor: pointer;
   color: var(--gray-200);
   border-radius: 4px;
-  border-style: none;
   height: 24px;
   width: 24px;
 }
 
-#formDice div {
-  padding:10px;
-  
-}
 #formDice h2{
   margin: 0px 0px 10px;
 }
@@ -99,7 +93,6 @@ input {
   padding: 8px;
   width: 100%;
 }
-
 
 #formDice{
   margin-bottom: 10px;
