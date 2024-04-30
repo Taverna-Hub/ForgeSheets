@@ -278,55 +278,47 @@
                     
                     
                     <div class="status">
+
                         <div class="bar">
                             <p>HP</p>
-                    
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <section class="hpBar">
-                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
-                                
+                            <span class="hpFill" style="widht: {{sheet.hp}}%">
+                                <input class="hpLeft" type="number" name="hp" id="healthPoint" value="{{sheet.healthPoint}}">
                                 <p class="barraBarra">/</p>
-
-                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
-                            </section>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <div class="hpFill"></div>
-
-                            <p>MANA</p>
-                            
-                            <section class="manaBar">
-                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
-                                
-                                <p class="barraBarra">/</p>
-                                
-                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
-                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            </section>
-                            <div class="manaFill"></div>
+                                <input class="hpRight" type="number" name="hpMax" id="healthPointMax" value="{{sheet.healthPointMax}}">
+                            </span>
                         </div>
+
+                        <div class="bar">
+                            <p>MANA</p>
+                            <span class="manaFill" style="widht: {{sheet.mana}}%">
+                                <input class="manaLeft" type="number" name="mana" id="mana" value="{{sheet.mana}}">
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}">
+                            </span>
+                        </div>
+                        
                     </div>
                     
                 </div>
-
+                
                 <div class="under">
                     
                     <section class="infos">
-
+                        
                         <div class="xpStatus">
                             <p>Level:  {{sheet.level}}</p>
-                            <p>{{sheet.exp}}/{{sheet.expMax}}</p>
-                            <div class="xpFill"></div>
-                            <input type="number" name="xpInput" id="xpInput">
-                            <button>Adicionar</button>
-                        </div>
+                            
+                            <div class="bar">
+                                <span class="xpFill" style="widht: {{sheet.exp}}%">
+                                    <input class="expLeft" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <p class="barraBarra">/</p>
+                                    <input class="expRight" type="number" name="expMax" id="expMax" value="{{sheet.expMax}}">
 
-                        <br>
-                        <br>
+                                </span>
+
+                            </div>
+
+                        </div>
                     
                         <div class="sideBySide">
                             <label for="race">Raça: </label>
