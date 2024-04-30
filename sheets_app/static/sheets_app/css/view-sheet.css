@@ -126,9 +126,27 @@ button {
     color: var(--gray-800);
 }
 
+.swords{
+    margin-top: 155px;
+    position: absolute;
+    color: black;
+}
+
+.shield{
+    margin-top: 155px;
+    margin-left: 160px;
+    position: absolute;
+}
+
+.add-image{
+    position: relative;
+}
+
 .under {
     width: 100%;
 }
+
+/*css de equipamentos*/
 
 .equipamentos div {
     width: 100%; 
@@ -387,4 +405,54 @@ button {
 .createSheetActions button:last-child {
     background-color: var(--red-600);
     color: var(--gray-200);
-} 
+}
+
+@media (max-width: 1540px) {
+    .atributos, .status {
+      width: 100%;
+    }
+  
+    .atributosInputs div {
+      width: 100%;
+    }
+  
+    .atributosInputs div input, .statusInputs div input {
+      max-width: 50%;
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 1230px) {
+    .sheetHeader {
+      flex-direction: column;
+    }
+  }
+  
+@media (max-width: 1180px) {
+    .sheetSideBySide {
+      flex-direction: column;
+      align-items: baseline;
+      justify-content: baseline;
+      height: fit-content;
+    }
+  
+    .atributos {
+      margin-top: 24px;
+    }
+  
+    .status {
+      margin: 0;
+    }
+  
+    .atributos, .status, .equipamentos, .description {
+      min-width: 100%;
+      width: 100%;
+    }
+}
+  
+@media (max-width: 800px) {
+    .sheet {
+      margin: 8%;
+      height: 100%;
+    }
+}

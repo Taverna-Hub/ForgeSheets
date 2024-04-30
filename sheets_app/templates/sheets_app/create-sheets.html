@@ -451,9 +451,7 @@
             <div class="sheetSideBySide"> 
                <section class="description">
                     <label for="description">Descrição: </label>
-                    <textarea name="description" id="description">
-                        {{description}}
-                    </textarea>
+                    <textarea name="description" id="description">{{description}}</textarea>
                     {% for error in errors %}
                         {% if error.field == 'description'%}
                         <span>

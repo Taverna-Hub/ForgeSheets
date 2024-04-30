@@ -260,14 +260,20 @@
                 <div class="under">
                     
                     <section class="add-image">
+                        
                         <div class="add_image_div">
+                                
+                            <i class="swords" data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
+                            <i class="shield" data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
+                            
                             <input type="hidden" name="image" class="imageInputCircle">
-                            <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
+                            
                             <button type="button" class="openImageBtn">
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                             </button>
-                            <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
+
                         </div>
+
                     </section>
                     
                     
@@ -275,15 +281,17 @@
                         <div class="bar">
                             <p>HP</p>
                     
+                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             <section class="hpBar">
-                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
+                                
                                 <p class="barraBarra">/</p>
+
                                 <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
-                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             </section>
+                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
+                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             <div class="hpFill"></div>
 
                             <p>MANA</p>
@@ -292,7 +300,9 @@
                                 {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
+                                
                                 <p class="barraBarra">/</p>
+                                
                                 <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
                                 {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
@@ -308,20 +318,23 @@
                     <section class="infos">
 
                         <div class="xpStatus">
-                            <p>Level: {{sheet.level}}</p>
+                            <p>Level:  {{sheet.level}}</p>
                             <p>{{sheet.exp}}/{{sheet.expMax}}</p>
                             <div class="xpFill"></div>
                             <input type="number" name="xpInput" id="xpInput">
                             <button>Adicionar</button>
                         </div>
+
+                        <br>
+                        <br>
                     
-                        <div>
+                        <div class="sideBySide">
                             <label for="race">Raça: </label>
                             <p>{{sheet.race}}</p>
                             {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
                         
-                        <div>
+                        <div class="sideBySide">
                             <label for="role">Classe: </label>
                             <p>{{sheet.role}}</p>
                             {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
@@ -435,9 +448,7 @@
 
                     <section class="description">
                         <label for="description">Descrição: </label>
-                        <textarea name="description" id="description" >
-                            {{sheet.description}}
-                        </textarea>
+                        <textarea name="description" id="description" >{{sheet.description}}</textarea>
                     </section> 
 
                 </div>
