@@ -16,7 +16,36 @@ class SheetsView(LoginRequiredMixin, View):
             'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
-    
+
+class UpdateSheetView(LoginRequiredMixin, View):
+    def post(self, request, sheet_id):
+        sheet = get_object_or_404(Sheet, pk=sheet_id)
+
+        new_data = {
+            'name': request.POST.get('name'),
+            'image': request.POST.get('image'),
+            'race': request.POST.get('race'),
+            'role': request.POST.get('role'),
+            'strength': request.POST.get('strength'),
+            'intelligence': request.POST.get('intelligence'),
+            'wisdom': request.POST.get('wisdom'),
+            'charisma': request.POST.get('charisma'),
+            'constitution': request.POST.get('constitution'),
+            'speed': request.POST.get('speed'),
+            'healthPointMax': request.POST.get('healthPointMax'),
+            'manaMax': request.POST.get('manaMax'),
+            'exp': request.POST.get('exp'),
+            'description': request.POST.get('description'),
+            'user_id': request.user.id,
+        }
+
+        for field, value in new_data.items():
+            setattr(sheet, field, value)
+
+        sheet.save()
+
+        return redirect('sheets: homesheets')        
+        
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {
