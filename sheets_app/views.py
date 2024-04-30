@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet, update_sheet
 from django.contrib import messages
+from django.core import serializers
 # import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -16,35 +17,15 @@ class SheetsView(LoginRequiredMixin, View):
             'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
+    
+class UpdateSheetV(LoginRequiredMixin, View):
+    def post(self, request):
+        sheet_id = request.POST.get('sheet_id')
+        sheet = Sheet.objects.filter(id=sheet_id)
 
-class UpdateSheetView(LoginRequiredMixin, View):
-    def post(self, request, sheet_id):
-        sheet = get_object_or_404(Sheet, pk=sheet_id)
-
-        new_data = {
-            'name': request.POST.get('name'),
-            'image': request.POST.get('image'),
-            'race': request.POST.get('race'),
-            'role': request.POST.get('role'),
-            'strength': request.POST.get('strength'),
-            'intelligence': request.POST.get('intelligence'),
-            'wisdom': request.POST.get('wisdom'),
-            'charisma': request.POST.get('charisma'),
-            'constitution': request.POST.get('constitution'),
-            'speed': request.POST.get('speed'),
-            'healthPointMax': request.POST.get('healthPointMax'),
-            'manaMax': request.POST.get('manaMax'),
-            'exp': request.POST.get('exp'),
-            'description': request.POST.get('description'),
-            'user_id': request.user.id,
-        }
-
-        for field, value in new_data.items():
-            setattr(sheet, field, value)
-
-        sheet.save()
-
-        return redirect('sheets: homesheets')        
+        sheet_json = serializers.serialize('json', sheet)
+        print(sheet_json)
+  
         
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
@@ -163,31 +144,44 @@ class ViewSheetView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
     
     def post(self, request, id):
-        newName = request.POST.get('name')
-        newImage = request.POST.get('image')
-        # race = request.POST.get('race')
-        # role = request.POST.get('role')
+        sheet = get_object_or_404(Sheet, id=id)
 
-        newStrenght = request.POST.get('strenght')
-        newIntelligence = request.POST.get('intelligence')
-        newWisdom = request.POST.get('wisdom')
-        newCharisma = request.POST.get('charisma')
-        newConstitution = request.POST.get('constitution')
-        newSpeed = request.POST.get('speed')
-        
-        newHealthPointMax = request.POST.get('healthPointMax')
-        newManaMax = request.POST.get('manaMax')
+        name = request.POST.get('name')
+        image = request.POST.get('image')
+        strength = request.POST.get('strength')
+        intelligence = request.POST.get('intelligence')
+        wisdom = request.POST.get('wisdom')
+        charisma = request.POST.get('charisma')
+        constitution = request.POST.get('constitution')
+        speed = request.POST.get('speed')
+        healthPoint = request.POST.get('healthPoint')
+        healthPointMax = request.POST.get('healthPointMax')
+        manaActual = request.POST.get('manaActual')
+        manaMax = request.POST.get('manaMax')
+        description = request.POST.get('description')
 
-        newDescription = request.POST.get('description')
+        sheet.name = name
+        sheet.image = image if image else None
+        sheet.strength = strength
+        sheet.intelligence = intelligence
+        sheet.wisdom = wisdom
+        sheet.charisma = charisma
+        sheet.constitution = constitution
+        sheet.speed = speed
+        sheet.healthPoint = healthPoint
+        sheet.healthPointMax = healthPointMax
+        sheet.mana = manaActual
+        sheet.manaMax = manaMax
+        sheet.description = description
+    
+        sheet.save()
 
-        newEqpsName = request.POST.getlist('equipmentName')
-        newEqpsQnt = request.POST.getlist('equipmentQnt')
-        newEqpsAtk = request.POST.getlist('equipmentAtk')
-        newEqpsDef = request.POST.getlist('equipmentDef')
-
-        # Sheet.save()
-
-        return redirect('sheets:homesheets')
+        if isinstance(sheet, Sheet):
+            messages.success(request, 'Ficha atualizada com sucesso!')
+            return redirect('sheets: homesheets')
+        else:
+            messages.error(request, 'Erro ao atualizar ficha.')
+            return redirect('sheet: view_sheet')        
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
