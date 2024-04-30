@@ -1,7 +1,7 @@
 from .models import Equipment, Sheet, Race
 import re
 
-def update_sheet(sheet, name,race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, user_id, description):
+def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, user_id, description):
     errors = []
 
     newName = name.strip()
@@ -12,7 +12,9 @@ def update_sheet(sheet, name,race, role, image, strength, intelligence, wisdom, 
     newCharisma = charisma 
     newConstitution = constitution
     newSpeed = speed 
+    newCurrentHP = healthPoint
     newHPMax = healthPointMax
+    newCurrentMana = manaActual
     newManaMax = manaMax 
     newDescription = description
 
@@ -114,7 +116,7 @@ def update_sheet(sheet, name,race, role, image, strength, intelligence, wisdom, 
 
 
 
-#Trtamento de erro na utils
+#Tratamento de erro na utils
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
     name_treated = name.strip()
     quantity_treated = int(quantity)
