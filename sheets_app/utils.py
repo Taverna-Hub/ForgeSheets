@@ -27,7 +27,7 @@ def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom,
         elif len(str(image)) > 200:
             errors.append({
                     'field': 'image',
-                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                    'message': 'A URL deve ter no máximo 200 caracteres!'
                 })
     if str(name).count(' ') == len(name):
         errors.append({
@@ -60,7 +60,7 @@ def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom,
     elif atribute_verifier(str(newStrength)) == 1 or atribute_verifier(str(newIntelligence)) == 1 or atribute_verifier(str(newWisdom)) == 1 or atribute_verifier(str(newCharisma)) == 1 or atribute_verifier(str(newConstitution)) == 1 or atribute_verifier(str(newSpeed)) == 1:
         errors.append({
             'field' : 'atributes1',
-            'message' : 'Os atributos primários devem ser numeros inteiros'
+            'message' : 'Os atributos primários devem ser números inteiros'
             })
         if atribute_verifier(str(newStrength)) == 1:
             errors.append("newStrength")
@@ -88,7 +88,7 @@ def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom,
     elif atribute_verifier(str(newHPMax)) == 1 or atribute_verifier(str(newHPMax)) == 1:
         errors.append({
             'field' : 'atributes2',
-            'message' : 'Os atributos secundários devem ser numeros inteiros'
+            'message' : 'Os atributos secundários devem ser números inteiros'
             })
         if atribute_verifier(str(newHPMax)) == 1:
             errors.append("newHPMax")
@@ -106,14 +106,6 @@ def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom,
             errors.append("newManaMax")
     if len(errors) > 0:
         return errors
-    updt_sheet = Sheet(name = newName, race = race, role = role, image = newImage, strength = newStrength, intelligence = newIntelligence, wisdom = newWisdom, charisma = newCharisma, constitution = newConstitution, speed = newSpeed, hpMax = newHPMax, manaMax = newManaMax, user_id = user_id, description = newDescription)
-    updt_sheet.save()
-    updt_sheet.updateXp()
-    updt_sheet.save()
-    
-    return updt_sheet
-
-
 
 
 #Tratamento de erro na utils

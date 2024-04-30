@@ -89,7 +89,7 @@
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="equipmentName">
                 <label for="name">Nome do equipamento:</label>
                 <input type="text" name="name" value="{{equipmentName}}">
@@ -105,13 +105,13 @@
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
-                {%if quantity %}
+                {% if quantity %}
                 <input type="number" name="quantity" value="{{quantity}}">
-                {%else%}
+                {% else %}
                 <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                {% if error.field == 'quantity'%}
+                {% if error.field == 'quantity' %}
                 <span>
                     <i data-lucide="octagon-alert"></i>
                     {{ error.message }}
@@ -123,13 +123,13 @@
             <div class="sideBySide">
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
-                    {% if attack%}
+                    {% if attack %}
                     <input type="number" name="attack" value="{{attack}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'attack'%}
+                    {% if error.field == 'attack' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -140,13 +140,13 @@
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
-                    {%if defense%}
+                    {% if defense%}
                     <input type="number" name="defense" value="{{defense}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense'%}
+                    {% if error.field == 'defense' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -221,7 +221,7 @@
     <div class="modal">
         <h2>Adicionar Imagem</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="imageInput">
                 <label for="image">URL da foto: </label>
                 <input type="url" class="image" name="image">
@@ -450,7 +450,9 @@
 
             <div class="createSheetActions">
                 <button type="button">
-                    <a href="{% url 'sheets:homesheets' %}">Cancelar</a>
+                    <a href="{% url 'sheets:homesheets' %}">
+                        Cancelar
+                    </a>
                 </button>
                 <script>
                     function disableButton() {
@@ -458,7 +460,9 @@
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button">Salvar</button>
+                <button type="submit" id="submit_button" method="POST">
+                    Salvar
+                </button>
             </div>
            
         </form>
