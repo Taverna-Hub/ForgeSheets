@@ -86,8 +86,7 @@ class Equipment(models.Model):
 class Magic(models.Model):
     name = models.CharField(max_length=70)
     description = models.CharField(max_length=200)
-    dice_type = models.CharField(max_length=15)
-    dice_quantity = models.IntegerField(default=1, validators=[MinValueValidator(0)])
+    damage = models.CharField(max_length=50, default='')
     atribute_modifier = models.CharField(max_length=15)
     element = models.CharField(max_length=15)
     sheet = models.ForeignKey(Sheet, on_delete=models.CASCADE)
