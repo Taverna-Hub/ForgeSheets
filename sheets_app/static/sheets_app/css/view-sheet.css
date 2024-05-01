@@ -149,6 +149,12 @@ button {
     width: 100%;
 }
 
+.underTwo {
+    width: 100%;
+    position: relative;
+    top: -230px;
+}
+
 /*css de equipamentos*/
 
 .equipamentos div {
@@ -294,9 +300,9 @@ button {
     color: var(--red-600);
 }
 
-.status{
-    /* background-color: #22c55e; */
+/*Css das barras de vida, mana e xp*/
 
+.status{
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -304,19 +310,46 @@ button {
     padding: 5px 0;
 }
 
-/* .bar{
+.bar{
     text-align: center;
-} */
+    margin-bottom: -35px;
+    padding-top: 3px;
+}
 
 .bar span{
     color: white;
     font-weight: bold;
 }
 
-.full {
-    background-color: lightgrey;
+.bar-fill{
+    background-color: lightgray;
     height: 35px;
-    text-align: center;
+    width: 300px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    /* position: relative; */
+}
+
+.hpFill {
+    background-color: var(--red-life);
+    height: 35px;
+    border-radius: 5px;
+    /* margin-bottom: 15px; */
+}
+
+.manaFill {
+    background-color: var(--blue-mana);
+    height: 35px;
+    border-radius: 5px;
+    /* margin-bottom: 15px; */
+}
+
+.xpFill {
+    background-color: var(--green-xp);
+    height: 35px;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 .hpRight, .manaRight{
@@ -353,27 +386,18 @@ button {
     padding-right: 40%;
 }
 
-.hpFill {
-    background-color: var(--red-life);
-    height: 35px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    overflow-x: visible;
+
+.inputs{
+    position: relative;
+    top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    
 }
 
-.manaFill {
-    background-color: var(--blue-mana);
-    height: 35px;
-    margin-bottom: 15px;
-}
 
-.xpFill {
-    background-color: var(--green-xp);
-    height: 35px;
-    margin-bottom: 15px;
-}
-
+/*css dos atributos*/
 .infos {
     justify-content: space-between;
     

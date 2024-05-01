@@ -126,11 +126,15 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         mana = (sheet.mana/sheet.manaMax)*100
         hp = (sheet.healthPoint/sheet.healthPointMax)*100
         exp = (sheet.exp/sheet.expMax)*100
+        atk = sheet.totalAtkDef()['atk'] 
+        defe = sheet.totalAtkDef()['def'] 
         ctx = { 
             'sheet': sheet,
             'mana': int(mana),
             'hp': int(hp),
-            'exp': int(exp)
+            'exp': int(exp),
+            'atk': atk,
+            'def': defe
         }
         if not magics:
             ctx['magics'] = None
