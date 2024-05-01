@@ -310,9 +310,9 @@
                             
                             <div class="bar">
                                 <span class="xpFill" style="widht: {{sheet.exp}}%">
-                                    <input class="expLeft" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
                                     <p class="barraBarra">/</p>
-                                    <input class="expRight" type="number" name="expMax" id="expMax" value="{{sheet.expMax}}">
+                                    <p class="expP">{{sheet.expMax}}</p>
 
                                 </span>
 
@@ -323,13 +323,11 @@
                         <div class="sideBySide">
                             <label for="race">Raça: </label>
                             <p>{{sheet.race}}</p>
-                            {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
                         
                         <div class="sideBySide">
                             <label for="role">Classe: </label>
                             <p>{{sheet.role}}</p>
-                            {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
                         </div>
                     
                     </section>

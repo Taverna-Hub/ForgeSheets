@@ -304,8 +304,17 @@ button {
     padding: 5px 0;
 }
 
-.hpRight, .manaRight, .expRight{
-    outline: 0;
+.bar{
+    text-align: center;
+}
+
+.bar span{
+    color: white;
+    font-weight: bold;
+}
+
+.hpRight, .manaRight{
+    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -314,8 +323,8 @@ button {
     font-weight: bold;
 }
 
-.hpLeft, .manaLeft, .expLeft{
-    outline: 0;
+.hpLeft, .manaLeft{
+    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -324,13 +333,18 @@ button {
     font-weight: bold;
 }
 
-.bar{
-    text-align: center;
-}
+.expInput{
+    border: none;
+    background-color: transparent;
 
-.bar span{
+    text-align: right;
     color: white;
     font-weight: bold;
+    font-size: 16px;
+}
+
+.expP{
+    padding-right: 40%;
 }
 
 .hpFill {
@@ -357,7 +371,6 @@ button {
 }
 
 .infos input {
-    /* border: 2px solid var(--gray-200); */
     padding: auto;
 }
 
