@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet, update_sheet
+from .utils import save_equipment, save_sheet#, update_sheet
 from django.contrib import messages
-# import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
@@ -16,7 +15,8 @@ class SheetsView(LoginRequiredMixin, View):
             'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
-    
+
+
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {
@@ -29,15 +29,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         image = request.POST.get('image')
         race = request.POST.get('race')
         role = request.POST.get('role')
-
-        # response = requests.head(image)
-
-        # content_type = response.headers.get('content-type')
-
-        # if content_type.startswith('image'):
-        #     print('O link enviado é um link válido para imagem.')
-        # else:
-        #     print('O link enviado não é válido para uma imagem.')
 
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
@@ -128,37 +119,51 @@ class CreateSheetView(LoginRequiredMixin, View):
             magic.save()
         return redirect('sheets:homesheets')
 
-class ViewSheetView(LoginRequiredMixin, View):
+class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
         return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
     
     def post(self, request, id):
-        newName = request.POST.get('name')
-        newImage = request.POST.get('image')
-        # race = request.POST.get('race')
-        # role = request.POST.get('role')
+        sheet = get_object_or_404(Sheet, id=id)
 
-        newStrenght = request.POST.get('strenght')
-        newIntelligence = request.POST.get('intelligence')
-        newWisdom = request.POST.get('wisdom')
-        newCharisma = request.POST.get('charisma')
-        newConstitution = request.POST.get('constitution')
-        newSpeed = request.POST.get('speed')
-        
-        newHealthPointMax = request.POST.get('healthPointMax')
-        newManaMax = request.POST.get('manaMax')
+        name = request.POST.get('name')
+        image = request.POST.get('image')
+        strength = request.POST.get('strength')
+        intelligence = request.POST.get('intelligence')
+        wisdom = request.POST.get('wisdom')
+        charisma = request.POST.get('charisma')
+        constitution = request.POST.get('constitution')
+        speed = request.POST.get('speed')
+        healthPoint = request.POST.get('healthPoint')
+        healthPointMax = request.POST.get('healthPointMax')
+        manaActual = request.POST.get('manaActual')
+        manaMax = request.POST.get('manaMax')
+        exp = request.POST.get('exp')
+        description = request.POST.get('description')
 
-        newDescription = request.POST.get('description')
-
-        newEqpsName = request.POST.getlist('equipmentName')
-        newEqpsQnt = request.POST.getlist('equipmentQnt')
-        newEqpsAtk = request.POST.getlist('equipmentAtk')
-        newEqpsDef = request.POST.getlist('equipmentDef')
-
-        # Sheet.save()
-
-        return redirect('sheets:homesheets')
+        sheet.name = name
+        sheet.image = image if image else None
+        sheet.strength = strength
+        sheet.intelligence = intelligence
+        sheet.wisdom = wisdom
+        sheet.charisma = charisma
+        sheet.constitution = constitution
+        sheet.speed = speed
+        sheet.healthPoint = healthPoint
+        sheet.healthPointMax = healthPointMax
+        sheet.mana = manaActual
+        sheet.manaMax = manaMax
+        sheet.exp = exp
+        sheet.description = description
+    
+        if isinstance(sheet, Sheet):
+            sheet.save()
+            messages.success(request, 'Ficha atualizada com sucesso!')
+            return redirect('sheets:homesheets')
+        else:
+            messages.error(request, 'Erro ao atualizar ficha.')
+            return redirect('sheets:view_sheet')        
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):

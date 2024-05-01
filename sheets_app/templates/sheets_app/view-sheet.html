@@ -28,24 +28,9 @@
                 <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
             </div>
 
-            <div class="sideBySide">
-                <div class="magicDiceType">
-                    <label for="diceTypeMagic">Tipo de dados:</label>
-                    <select name="diceTypeMagic" id="diceType">
-                        <option value="">Selecione</option>
-                        <option value="D4">D4</option>
-                        <option value="D6">D6</option>
-                        <option value="D8">D8</option>
-                        <option value="D10">D10</option>
-                        <option value="D12">D12</option>
-                        <option value="D20">D20</option>
-                    </select>
-                </div>
-
-                <div class="magicDiceQuant">
-                    <label for="diceQuantMagic">Quantidade de dados:</label>
-                    <input type="number" name="diceQuantMagic">
-                </div>
+            <div class="magicDamage">
+                <label for="damageMagic">Dano:</label>
+                <input type="text" name="damageMagic">
             </div>
 
             <div class="sideBySide">
@@ -68,11 +53,6 @@
                 </div>
             </div>
 
-            <p>
-                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
-                do personagem, deixe um 0 nos campos.
-            </p>
-
             <div class="actions">
                 <button type="button" id="closeMagicModalBtn">
                     Cancelar
@@ -89,7 +69,7 @@
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="equipmentName">
                 <label for="name">Nome do equipamento:</label>
                 <input type="text" name="name" value="{{equipmentName}}">
@@ -105,13 +85,13 @@
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
-                {%if quantity %}
+                {% if quantity %}
                 <input type="number" name="quantity" value="{{quantity}}">
-                {%else%}
+                {% else %}
                 <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                {% if error.field == 'quantity'%}
+                {% if error.field == 'quantity' %}
                 <span>
                     <i data-lucide="octagon-alert"></i>
                     {{ error.message }}
@@ -123,13 +103,13 @@
             <div class="sideBySide">
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
-                    {% if attack%}
+                    {% if attack %}
                     <input type="number" name="attack" value="{{attack}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'attack'%}
+                    {% if error.field == 'attack' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -140,13 +120,13 @@
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
-                    {%if defense%}
+                    {% if defense%}
                     <input type="number" name="defense" value="{{defense}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense'%}
+                    {% if error.field == 'defense' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -221,7 +201,7 @@
     <div class="modal">
         <h2>Adicionar Imagem</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="imageInput">
                 <label for="image">URL da foto: </label>
                 <input type="url" class="image" name="image">
@@ -260,71 +240,74 @@
                 <div class="under">
                     
                     <section class="add-image">
+                        
                         <div class="add_image_div">
+                                
+                            <i class="swords" data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
+                            <i class="shield" data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
+                            
                             <input type="hidden" name="image" class="imageInputCircle">
-                            <i data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
+                            
                             <button type="button" class="openImageBtn">
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                             </button>
-                            <i data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
+
                         </div>
+
                     </section>
                     
                     
                     <div class="status">
+
                         <div class="bar">
                             <p>HP</p>
-                    
-                            <section class="hpBar">
-                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
+                            <span class="hpFill" style="widht: {{sheet.hp}}%">
+                                <input class="hpLeft" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
                                 <p class="barraBarra">/</p>
-                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
-                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            </section>
-                            <div class="hpFill"></div>
-
-                            <p>MANA</p>
-                            
-                            <section class="manaBar">
-                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
-                                <p class="barraBarra">/</p>
-                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
-                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            </section>
-                            <div class="manaFill"></div>
+                                <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
+                            </span>
                         </div>
+
+                        <div class="bar">
+                            <p>MANA</p>
+                            <span class="manaFill" style="widht: {{sheet.mana}}%">
+                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}">
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}">
+                            </span>
+                        </div>
+                        
                     </div>
                     
                 </div>
-
+                
                 <div class="under">
                     
                     <section class="infos">
-
+                        
                         <div class="xpStatus">
-                            <p>Level: {{sheet.level}}</p>
-                            <p>{{sheet.exp}}/{{sheet.expMax}}</p>
-                            <div class="xpFill"></div>
-                            <input type="number" name="xpInput" id="xpInput">
-                            <button>Adicionar</button>
+                            <p>Level:  {{sheet.level}}</p>
+                            
+                            <div class="bar">
+                                <span class="xpFill" style="widht: {{sheet.exp}}%">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <p class="barraBarra">/</p>
+                                    <p class="expP">{{sheet.expMax}}</p>
+
+                                </span>
+
+                            </div>
+
                         </div>
                     
-                        <div>
+                        <div class="sideBySide">
                             <label for="race">Raça: </label>
                             <p>{{sheet.race}}</p>
-                            {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
                         
-                        <div>
+                        <div class="sideBySide">
                             <label for="role">Classe: </label>
                             <p>{{sheet.role}}</p>
-                            {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
                         </div>
                     
                     </section>
@@ -384,11 +367,19 @@
                                             <input type="hidden" name="mgcName" value="{{magic.name}}" />
                                             <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
                                             <input type="hidden" name="mgcElement" value="{{magic.element}}" />
-                                            <input type="hidden" name="mgcDiceType" value="{{magic.dice_type}}" />
-                                            <input type="hidden" name="mgcDiceQuant" value="{{magic.dice_quantity}}" />
+                                            <input type="hidden" name="mgcDamage" value="{{magic.damage}}" />
                                             <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
                                         </div>
-                                        {{magic.name}} | {{magic.element}} 
+                                        {{ magic.name }}
+                                        {% if magic.damage %}
+                                            | {{ magic.damage }}
+                                        {% endif %}
+                                        {% if magic.element %}
+                                            | {{ magic.element }}
+                                        {% endif %}
+                                        {% if magic.description %}
+                                            | {{ magic.description }}
+                                        {% endif %}
                                         <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                         </button>
@@ -435,9 +426,7 @@
 
                     <section class="description">
                         <label for="description">Descrição: </label>
-                        <textarea name="description" id="description" >
-                            {{sheet.description}}
-                        </textarea>
+                        <textarea name="description" id="description" >{{sheet.description}}</textarea>
                     </section> 
 
                 </div>
@@ -447,7 +436,9 @@
 
             <div class="createSheetActions">
                 <button type="button">
-                    <a href="{% url 'sheets:homesheets' %}">Cancelar</a>
+                    <a href="{% url 'sheets:homesheets' %}">
+                        Cancelar
+                    </a>
                 </button>
                 <script>
                     function disableButton() {
@@ -455,12 +446,15 @@
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button">Salvar</button>
+                <button type="submit" id="submit_button" method="POST">
+                    Salvar
+                </button>
             </div>
            
         </form>
     </section>
 </section>
+{% include "dice.html" %}
 
 <script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
