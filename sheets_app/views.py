@@ -179,9 +179,6 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         sheet.save()
         sheet.updateXp()
-        sheet.save()
-
-        sheet.save()
     
         if isinstance(sheet, Sheet):
             sheet.save()
