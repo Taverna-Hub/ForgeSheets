@@ -169,17 +169,16 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.healthPointMax = int(healthPointMax)
         sheet.mana = int(manaActual)
         sheet.manaMax = int(manaMax)
+        expAtual = sheet.exp
         sheet.exp = int(exp)
         sheet.description = description
 
-        print(sheet.level())
+        sheet.expTotal += int(exp) - expAtual
+
         sheet.save()
-        print(sheet.exp)
         sheet.updateXp()
         sheet.save()
 
-        print(sheet.exp)
-        print(sheet.level())
         sheet.save()
     
         if isinstance(sheet, Sheet):

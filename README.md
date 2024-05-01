@@ -115,6 +115,14 @@
 
 ---
 
+# Entrega 03
+
+- <strong> Diagrama de Atividades Atualizado </strong>
+
+![Diagrama-de-Atividades-ATUALIZADO](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
+
+---
+
 ## 👥 Equipe
 <table>
 <tr>
