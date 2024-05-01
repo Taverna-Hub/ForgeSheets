@@ -45,7 +45,7 @@
         </button>
 
         {% for sheet in sheets_view%}
-        <a href="{% url 'sheets:view_Sheet' sheet.id %}" class="detailLink">
+        <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
         <div class="sheetCard" style="{% if sheet.image %}
                 background-image: url({{ sheet.image }});  
                 background-position: center;
