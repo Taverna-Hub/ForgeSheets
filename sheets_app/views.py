@@ -60,7 +60,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         equipment_list = []
         magic_list = []
 
-        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoinViewStMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
@@ -122,7 +122,24 @@ class CreateSheetView(LoginRequiredMixin, View):
 class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
-        return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
+        magics = Magic.objects.filter(sheet_id=id)
+        equipments = Equipment.objects.filter(sheet_id=id)
+
+        ctx = { 
+            'sheet': sheet,
+        }
+
+        if not magics:
+            ctx['magics'] = None
+        else:
+            ctx['magics'] = magics
+
+        if not equipments:
+            ctx['equipments'] = None
+        else:
+            ctx['equipments'] = equipments
+            
+        return render(request, 'sheets_app/view-sheet.html', ctx)
     
     def post(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
