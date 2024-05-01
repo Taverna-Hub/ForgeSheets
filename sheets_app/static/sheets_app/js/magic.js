@@ -44,10 +44,10 @@ function handleMagicError(message, className) {
         ${message}
         </span>
     `
-  nameElement = document.querySelector(`.nameError`)
+  let nameElement = document.querySelector(`.nameError`)
 
-  if (nameElement) {
-    //pass
+  if (nameElement){
+    pass
   } else {
     const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
     document.querySelector(`.${className}`).appendChild(node)
