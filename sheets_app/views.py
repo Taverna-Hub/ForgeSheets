@@ -5,6 +5,7 @@ from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet#, update_sheet
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -119,7 +120,7 @@ class CreateSheetView(LoginRequiredMixin, View):
             magic.save()
         return redirect('sheets:homesheets')
 
-class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
+class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
         magics = Magic.objects.filter(sheet_id=id)
@@ -182,14 +183,14 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.save()
 
         sheet.save()
-    
+
         if isinstance(sheet, Sheet):
             sheet.save()
             messages.success(request, 'Ficha atualizada com sucesso!')
-            return redirect('sheets:homesheets')
+            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
             messages.error(request, 'Erro ao atualizar ficha.')
-            return redirect('sheets:view_sheet')        
+            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))       
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
