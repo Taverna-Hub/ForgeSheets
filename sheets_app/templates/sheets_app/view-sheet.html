@@ -447,18 +447,16 @@
             </div>
 
             <div class="createSheetActions">
-                <button type="button">
-                    <a href="{% url 'sheets:homesheets' %}">
+                    <a href="{% url 'sheets:homesheets' %}" class="cancelSheetView">
                         Cancelar
                     </a>
-                </button>
                 <script>
                     function disableButton() {
                         const button = document.getElementById("submit_button");
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button" method="POST">
+                <button type="submit" id="submit_button" method="POST" class="saveSheetView">
                     Salvar
                 </button>
             </div>
