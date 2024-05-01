@@ -1,111 +1,175 @@
 from .models import Equipment, Sheet, Race
 import re
 
-def update_sheet(sheet, name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, user_id, description):
+def sheet_update(sheet, name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expTotal, expMax, description):
     errors = []
 
-    newName = name.strip()
-    newImage = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
-    newStrength = strength
-    newIntelligence = intelligence
-    newWisdom = wisdom
-    newCharisma = charisma 
-    newConstitution = constitution
-    newSpeed = speed 
-    newCurrentHP = healthPoint
-    newHPMax = healthPointMax
-    newCurrentMana = manaActual
-    newManaMax = manaMax 
-    newDescription = description
-
-    if image != '':
-        if not newImage:
+    patterns = r'^[a-zA-Z\s]+$'
+    atribute_pattern = r'^[1-9]\d*$'
+    # image_patterns = re.compile(r'^https?:\/\/.*\.(?:png|jpg|jpeg|gif)$')
+    
+    # Tratando nomes, raças e classes aqui!
+    if len(name) == 0 or name == '' or len(race) == 0 or race == '' or len(role) == 0 or role == '':
+        if len(name) == 0 or name == '':
             errors.append({
-                'field': 'image',
-                'message': 'Insira uma URL válida!'
+                'field':'name',
+                'message':'Insira o nome corretamente.'
             })
-        elif len(str(image)) > 200:
+        if len(race) == 0 or race == '':
             errors.append({
-                    'field': 'image',
-                    'message': 'A URL deve ter no máximo 200 caracteres!'
-                })
-    if str(name).count(' ') == len(name):
-        errors.append({
-            'field': 'name',
-            'message' : 'Este campo não pode ser vazio!'
+                'field':'race',
+                'message':'Insira a raça corretamente.'
             })
-    elif 2 > len(name) or len(name) > 50:
-        errors.append({
-            'field':'name',
-            'message': 'Insira de 2 a 50 caracteres!'
+        if len(role) == 0 or role == '':
+            errors.append({
+                'field':'role',
+                'message':'Insira a classe corretamente.'
             })
-    if str(newStrength).count(' ') == len(str(newStrength)) or str(newIntelligence).count(' ') == len(str(newIntelligence)) or str(newWisdom).count(' ') == len(str(newWisdom)) or str(newCharisma).count(' ') == len(str(newCharisma)) or str(newConstitution).count(' ') == len(str(newConstitution)) or str(newSpeed).count(' ') == len(str(newSpeed)):
-        errors.append({
-            'field': 'atributes1',
-            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
+    if len(name) > 0 or len(race) > 0 or len(role) > 0:
+        if not re.match(patterns, name):
+            errors.append({
+                'field':'name',
+                'message':'Insira apenas letras e espaços.'
             })
-        if str(newStrength).count(' ') == len(str(newStrength)):
-            errors.append("newStrength")
-        if str(newIntelligence).count(' ') == len(str(newIntelligence)):
-            errors.append("newIntelligence")
-        if str(newCharisma).count(' ') == len(str(newCharisma)):
-            errors.append("newCharisma")
-        if str(newSpeed).count(' ') == len(str(newSpeed)):
-            errors.append("newSpeed")
-        if str(newWisdom).count(' ') == len(str(newWisdom)):
-            errors.append("newWisdom")
-        if str(newConstitution).count(' ') == len(str(newConstitution)):
-            errors.append("newConstitution")
+        if not re.match(patterns, race):
+            errors.append({
+                'field':'race',
+                'message':'Insira apenas letras e espaços.'
+            })
+        if not re.match(patterns, role):
+            errors.append({
+                'field':'role',
+                'message':'Insira apenas letras e espaços.'
+            })
+    if (len(name) or len(race) or len(role)) > 50:
+        if len(name) > 50:
+            errors.append({
+                'field':'name',
+                'message':'Nome não pode ser maior que 50'
+            })
+        if len(race) > 50:
+            errors.name({
+                'field':'race',
+                'message':'Nome de Raça não pode ser maior que 50'
+            })
+    # Tratando atributos
+    if not all([strength, intelligence, wisdom, charisma, constitution, speed]):
+        errors.append({
+            'field':'strength, intelligence, wisdom, charisma, constitution, speed',
+            'message':'Preencha todos os campos.'
+        })
+        if not strength:
+            errors.append({
+                'field':'strength',
+                'message':'Preencha o campo de Força.'
+            })
+        if not intelligence:
+            errors.append({
+                'field':'intelligence',
+                'message':'Preencha o campo de Inteligência.'
+            })
+        if not wisdom:
+            errors.append({
+                'field':'wisdom',
+                'message':'Preencha o campo de Sabedoria.'
+            })
+        if not charisma:
+            errors.append({
+                'field':'charisma',
+                'message':'Preencha o campo de Carisma.'
+            })
+        if not constitution:
+            errors.append({
+                'field': 'constitution',
+                'message':'Preencha o campo de Constituição.'
+            })
+        if not speed:
+            errors.append({
+                'field':'constitution',
+                'message':'Preencha o campo de Velocidade'
+            })
+    if not re.match(atribute_pattern, strength) or not re.match(atribute_pattern, intelligence) or not re.match(atribute_pattern, wisdom) or not re.match(atribute_pattern, charisma) or not re.match(atribute_pattern, constitution) or not re.match(atribute_pattern,speed):
+        if not re.match(atribute_pattern, strength):
+            errors.append({
+                'field':'strength',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        if not re.match(atribute_pattern, strength):
+            errors.append({
+                'field':'strength',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        if not re.match(atribute_pattern, wisdom):
+            errors.append({
+                'field':'wisdom',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        if not re.match(atribute_pattern, charisma):
+            errors.append({
+                'field':'charisma',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        if not re.match(atribute_pattern, constitution):
+            errors.append({
+                'field':'constitution',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        if not re.match(atribute_pattern, speed):
+            errors.append({
+                'field':'speed',
+                'message':'Insira apenas inteiros positivos!'
+            })
+        
+            
 
-    elif atribute_verifier(str(newStrength)) == 1 or atribute_verifier(str(newIntelligence)) == 1 or atribute_verifier(str(newWisdom)) == 1 or atribute_verifier(str(newCharisma)) == 1 or atribute_verifier(str(newConstitution)) == 1 or atribute_verifier(str(newSpeed)) == 1:
-        errors.append({
-            'field' : 'atributes1',
-            'message' : 'Os atributos primários devem ser números inteiros'
-            })
-        if atribute_verifier(str(newStrength)) == 1:
-            errors.append("newStrength")
-        if atribute_verifier(str(newIntelligence)) == 1:
-            errors.append("newIntelligence")
-        if atribute_verifier(str(newWisdom)) == 1:
-            errors.append("newWisdom")
-        if atribute_verifier(str(newSpeed)) == 1:
-            errors.append("newSpeed")
-        if  atribute_verifier(str(newCharisma)) == 1:
-            errors.append("newCharisma")
-        if  atribute_verifier(str(newConstitution)) == 1:
-            errors.append("newConstitution")
+        
 
-    if str(newHPMax).count(' ') == len(str(newHPMax)) or str(newManaMax).count(' ') == len(str(newManaMax)):
-        errors.append({
-            'field': 'atributes2',
-            'message' : 'Estes campos não podem ser vazios'
-            })
-        if str(newHPMax).count(' ') == len(str(newHPMax)):
-            errors.append("newHPMax")
-        if str(newManaMax).count(' ') == len(str(newManaMax)):
-            errors.append("newManaMax")
 
-    elif atribute_verifier(str(newHPMax)) == 1 or atribute_verifier(str(newHPMax)) == 1:
-        errors.append({
-            'field' : 'atributes2',
-            'message' : 'Os atributos secundários devem ser números inteiros'
-            })
-        if atribute_verifier(str(newHPMax)) == 1:
-            errors.append("newHPMax")
-        if atribute_verifier(str(newManaMax)) == 1:
-            errors.append("newManaMax")
+    dict_attributes = {
+        'strength': strength,
+        'intelligence':intelligence, 
+        'wisdom':wisdom, 
+        'charisma':charisma, 
+        'constitution':constitution, 
+        'speed':speed
+    }
 
-    elif int(newHPMax) < 1 or int(newManaMax) < 1:
-        errors.append({
-            'field' : 'atributes2',
-            'message' : 'Vida e mana não podem ser menores que 1'
-            })
-        if int(newHPMax) < 1:
-            errors.append("newHPMax")
-        if int(newManaMax) < 1:
-            errors.append("newManaMax")
-    if len(errors) > 0:
-        return errors
+
+
+
+
+#     if str(newHPMax).count(' ') == len(str(newHPMax)) or str(newManaMax).count(' ') == len(str(newManaMax)):
+#         errors.append({
+#             'field': 'atributes2',
+#             'message' : 'Estes campos não podem ser vazios'
+#             })
+#         if str(newHPMax).count(' ') == len(str(newHPMax)):
+#             errors.append("newHPMax")
+#         if str(newManaMax).count(' ') == len(str(newManaMax)):
+#             errors.append("newManaMax")
+
+#     elif atribute_verifier(str(newHPMax)) == 1 or atribute_verifier(str(newHPMax)) == 1:
+#         errors.append({
+#             'field' : 'atributes2',
+#             'message' : 'Os atributos secundários devem ser números inteiros'
+#             })
+#         if atribute_verifier(str(newHPMax)) == 1:
+#             errors.append("newHPMax")
+#         if atribute_verifier(str(newManaMax)) == 1:
+#             errors.append("newManaMax")
+
+#     elif int(newHPMax) < 1 or int(newManaMax) < 1:
+#         errors.append({
+#             'field' : 'atributes2',
+#             'message' : 'Vida e mana não podem ser menores que 1'
+#             })
+#         if int(newHPMax) < 1:
+#             errors.append("newHPMax")
+#         if int(newManaMax) < 1:
+#             errors.append("newManaMax")
+#     if len(errors) > 0:
+#         return errors
+    
 
 
 #Tratamento de erro na utils
