@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet, update_sheet
+from .utils import save_equipment, save_sheet#, update_sheet#
 from django.contrib import messages
 # import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
