@@ -178,10 +178,10 @@ class ViewSheetView(LoginRequiredMixin, View):
 
         if isinstance(sheet, Sheet):
             messages.success(request, 'Ficha atualizada com sucesso!')
-            return redirect('sheets: homesheets')
+            return redirect('sheets:homesheets')
         else:
             messages.error(request, 'Erro ao atualizar ficha.')
-            return redirect('sheet: view_sheet')        
+            return redirect('sheets:view_sheet')        
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):

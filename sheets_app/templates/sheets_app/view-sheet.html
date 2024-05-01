@@ -284,11 +284,11 @@
                             {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             <section class="hpBar">
-                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
+                                <input class="hpLeft" type="number" name="healthPoint" id="" value="{{sheet.healthPoint}}" required>
                                 
                                 <p class="barraBarra">/</p>
 
-                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
+                                <input class="hpRight" type="number" name="healthPointMax" id="" value="{{sheet.healthPointMax}}" required>
                             </section>
                             {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
@@ -299,11 +299,11 @@
                             <section class="manaBar">
                                 {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
+                                <input class="manaLeft" type="number" name="manaActual" id="" value="{{sheet.mana}}" required>
                                 
                                 <p class="barraBarra">/</p>
                                 
-                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
+                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}" required>
                                 {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                                 {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
                             </section>
