@@ -69,10 +69,10 @@
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
         <form>
-            {% csrf_token %}
+            {%csrf_token%}
             <div class="equipmentName">
-                <label for="name">Nome do equipamento:</label>
-                <input type="text" name="name" value="{{equipmentName}}">
+                <label for="equipmentName">Nome do equipamento:</label>
+                <input type="text" name="equipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
@@ -85,13 +85,13 @@
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
-                {% if quantity %}
+                {%if quantity %}
                 <input type="number" name="quantity" value="{{quantity}}">
-                {% else %}
+                {%else%}
                 <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                {% if error.field == 'quantity' %}
+                {% if error.field == 'quantity'%}
                 <span>
                     <i data-lucide="octagon-alert"></i>
                     {{ error.message }}
@@ -103,13 +103,13 @@
             <div class="sideBySide">
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
-                    {% if attack %}
+                    {% if attack%}
                     <input type="number" name="attack" value="{{attack}}">
-                    {% else %}
+                    {%else%}
                     <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'attack' %}
+                    {% if error.field == 'attack'%}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -120,13 +120,13 @@
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
-                    {% if defense%}
+                    {%if defense%}
                     <input type="number" name="defense" value="{{defense}}">
-                    {% else %}
+                    {%else%}
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense' %}
+                    {% if error.field == 'defense'%}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -327,7 +327,7 @@
                              <button type="button" class="openEquipmentBtn">
                                  <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
                              </button>
-                        </div>
+                        </div>    
                          <div class="equipmentsListContainer">
                              <ul class="equipmentList">
                                  {% for equipment in equipments %}
@@ -360,7 +360,7 @@
                                  {% endfor %}
                              </ul>
                          </div>
-                     </section>
+                     </section> 
 
                      <section class="magics">
                         <div class="header">

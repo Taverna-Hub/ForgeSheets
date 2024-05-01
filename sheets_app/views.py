@@ -178,10 +178,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         sheet.save()
         sheet.updateXp()
-        sheet.save()
-
-        sheet.save()
-
+    
         if isinstance(sheet, Sheet):
             sheet.save()
             messages.success(request, 'Ficha atualizada com sucesso!')

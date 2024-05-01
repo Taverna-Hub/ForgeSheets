@@ -467,11 +467,23 @@ button {
       margin: 0;
     }
   
-    .atributos, .status, .equipamentos, .description {
+    .atributos, .status, .equipamentos {
       min-width: 100%;
       width: 100%;
     }
 }
+.description {
+    width: 100%;
+  }
+  
+  .description textarea {
+    height: 280px;
+    width: 100%;
+  }
+  
+  #description {
+    margin-top: 8px;
+  }
   
 @media (max-width: 800px) {
     .sheet {
