@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDice = document.getElementById('closeDice');
     const formDice = document.getElementById('formDice'); 
     const resultDisplay = document.getElementById('resultDisplay');
+    const maxDiceCount = 20;
    
     diceButton.addEventListener('click', function() {
         diceModal.style.display = "block";
@@ -26,7 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
         modifierError.innerHTML = '';
         let hasError = false;
 
-
+        const totalDice = quantityInputs.reduce((acc, val) => acc + val, 0);
+        if (totalDice > maxDiceCount) {
+            quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Não é possível rolar mais de ${maxDiceCount} dados de uma vez.</span>`;
+            hasError=true;
+        }
     
         function validateIntegerInputs(inputs) {
             return inputs.every(Number.isInteger);
