@@ -50,11 +50,10 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         magicName = (request.POST.getlist('mgcName'))
         magicDescription = (request.POST.getlist('mgcDesc'))
-        diceType = (request.POST.getlist('mgcDiceType'))
-        diceQuantity = (request.POST.getlist('mgcDiceQuant'))
+        magicDamage = request.POST.getlist('mgcDamage')
         atributeModifier = (request.POST.getlist('mgcAttribute'))
         element = request.POST.getlist('mgcElement')
-
+        print(magicName, magicDescription, magicDamage, atributeModifier, element)
         user_id = request.user.id
 
         equipment_list = []
@@ -65,12 +64,11 @@ class CreateSheetView(LoginRequiredMixin, View):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
-                for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
                     magic = {
                         'name': mgcName,
                         'description': mgcDesc,
-                        'dice_type': mgcDiceType,
-                        'dice_quantity': mgcDiceQuant,
+                        'damage': magicDamage,
                         'atribute': mgcAtribute,
                         'element': mgcElement,
                     }
@@ -109,13 +107,13 @@ class CreateSheetView(LoginRequiredMixin, View):
                         ctx[atributo] = valor
                 
                 return render(request, 'sheets_app/create-sheets.html', ctx)
-                
+            
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
-        for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
-            magic =  Magic(name=mgcName,description=mgcDesc, dice_type = mgcDiceType, dice_quantity = mgcDiceQuant, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+        for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
             magic.save()
         return redirect('sheets:homesheets')
 
