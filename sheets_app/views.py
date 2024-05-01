@@ -60,7 +60,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         equipment_list = []
         magic_list = []
 
-        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoinViewStMax, manaMax, exp, user_id, description)
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
@@ -171,17 +171,16 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.healthPointMax = int(healthPointMax)
         sheet.mana = int(manaActual)
         sheet.manaMax = int(manaMax)
+        expAtual = sheet.exp
         sheet.exp = int(exp)
         sheet.description = description
 
-        print(sheet.level())
+        sheet.expTotal += int(exp) - expAtual
+
         sheet.save()
-        print(sheet.exp)
         sheet.updateXp()
         sheet.save()
 
-        print(sheet.exp)
-        print(sheet.level())
         sheet.save()
     
         if isinstance(sheet, Sheet):
