@@ -1,5 +1,5 @@
 const imageLink = document.querySelector('.image');
-let regex = '^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$';
+let regex = /^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$/;
 
 const addImageBtn = document.querySelector('#addImageBtn');
 const closeImageBtn = document.querySelector('#closeImageBtn');
@@ -42,12 +42,14 @@ function handleErrorImage(message) {
 function addImageToSheet() {
   const contextImage = document.querySelector('.imageInputCircle');
 
-  let image_test = imageLink.value;
+  let modalImageValue = imageLink.value;
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
 
-  if (!regex.image_test) {
+  if (!regex.test(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
+    return
   }
+
 
   const image = `
     <button type="button" onclick="handleOpenImageModal()">
@@ -66,7 +68,7 @@ function addImageToSheet() {
   }
 
   addImageDiv.appendChild(node);
-  document.querySelector('.imageInputCircle').value = image_test;
+  document.querySelector('.imageInputCircle').value = modalImageValue;
   imageCount += 1;
   closeImageModal();
 }
