@@ -4,8 +4,6 @@ from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
 from .utils import save_equipment, save_sheet#, update_sheet#
 from django.contrib import messages
-from django.core import serializers
-# import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SheetsView(LoginRequiredMixin, View):
@@ -17,16 +15,8 @@ class SheetsView(LoginRequiredMixin, View):
             'user': request.user,
         }
         return render(request, 'sheets_app/sheets.html', ctx)
-    
-class UpdateSheetV(LoginRequiredMixin, View):
-    def post(self, request):
-        sheet_id = request.POST.get('sheet_id')
-        sheet = Sheet.objects.filter(id=sheet_id)
 
-        sheet_json = serializers.serialize('json', sheet)
-        print(sheet_json)
-  
-        
+
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {
@@ -39,15 +29,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         image = request.POST.get('image')
         race = request.POST.get('race')
         role = request.POST.get('role')
-
-        # response = requests.head(image)
-
-        # content_type = response.headers.get('content-type')
-
-        # if content_type.startswith('image'):
-        #     print('O link enviado é um link válido para imagem.')
-        # else:
-        #     print('O link enviado não é válido para uma imagem.')
 
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
@@ -138,7 +119,7 @@ class CreateSheetView(LoginRequiredMixin, View):
             magic.save()
         return redirect('sheets:homesheets')
 
-class ViewSheetView(LoginRequiredMixin, View):
+class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
         return render(request, 'sheets_app/view-sheet.html', {'sheet':sheet} )
@@ -158,6 +139,7 @@ class ViewSheetView(LoginRequiredMixin, View):
         healthPointMax = request.POST.get('healthPointMax')
         manaActual = request.POST.get('manaActual')
         manaMax = request.POST.get('manaMax')
+        exp = request.POST.get('exp')
         description = request.POST.get('description')
 
         sheet.name = name
@@ -172,11 +154,11 @@ class ViewSheetView(LoginRequiredMixin, View):
         sheet.healthPointMax = healthPointMax
         sheet.mana = manaActual
         sheet.manaMax = manaMax
+        sheet.exp = exp
         sheet.description = description
     
-        sheet.save()
-
         if isinstance(sheet, Sheet):
+            sheet.save()
             messages.success(request, 'Ficha atualizada com sucesso!')
             return redirect('sheets:homesheets')
         else:
