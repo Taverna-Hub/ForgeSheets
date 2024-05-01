@@ -60,7 +60,7 @@ class CreateSheetView(LoginRequiredMixin, View):
         equipment_list = []
         magic_list = []
 
-        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoinViewStMax, manaMax, exp, user_id, description)
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
