@@ -1,8 +1,11 @@
 :root {
+    --blue-mana: #5252fa;
+    --red-life: #ee4343;
     --red-600: #dc2626;
     --red-700: #b91c1c;
     --red-950: #450a0a;
     --green-500: #22c55e;
+    --green-xp: #44c144;
     --white: #f7f7f7;
     --gray-200: #e5e7eb;
     --gray-300: #d1d5db;
@@ -301,53 +304,60 @@ button {
     padding: 5px 0;
 }
 
-.hpRight, .manaRight{
+.hpRight, .manaRight, .expRight{
+    outline: 0;
     border: none;
     background-color: transparent;
-
+    
     text-align: left;
-    /* margin-left: -10px; */
+    color: white;
+    font-weight: bold;
 }
 
-.hpLeft, .manaLeft{
+.hpLeft, .manaLeft, .expLeft{
+    outline: 0;
     border: none;
     background-color: transparent;
-
+    
     text-align: right;
-    /* margin-right: -20px; */
+    color: white;
+    font-weight: bold;
 }
 
 .bar{
     text-align: center;
 }
 
-.hpBar, .manaBar{
-    position: absolute;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 10%;
+.bar span{
+    color: white;
+    font-weight: bold;
 }
-  
+
 .hpFill {
-    background-color: rgba(238, 67, 67, 0.8);
+    background-color: var(--red-life);
     height: 35px;
     margin-bottom: 15px;
 }
 
 .manaFill {
-    background-color: rgba(86, 86, 227, 0.8);
+    background-color: var(--blue-mana);
+    height: 35px;
+    margin-bottom: 15px;
+}
+
+.xpFill {
+    background-color: var(--green-xp);
     height: 35px;
     margin-bottom: 15px;
 }
 
 .infos {
     justify-content: space-between;
-
+    
 }
 
 .infos input {
-    border: 2px solid var(--gray-200);
+    /* border: 2px solid var(--gray-200); */
     padding: auto;
 }
 

@@ -89,7 +89,7 @@
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="equipmentName">
                 <label for="name">Nome do equipamento:</label>
                 <input type="text" name="name" value="{{equipmentName}}">
@@ -105,13 +105,13 @@
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
-                {%if quantity %}
+                {% if quantity %}
                 <input type="number" name="quantity" value="{{quantity}}">
-                {%else%}
+                {% else %}
                 <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                {% if error.field == 'quantity'%}
+                {% if error.field == 'quantity' %}
                 <span>
                     <i data-lucide="octagon-alert"></i>
                     {{ error.message }}
@@ -123,13 +123,13 @@
             <div class="sideBySide">
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
-                    {% if attack%}
+                    {% if attack %}
                     <input type="number" name="attack" value="{{attack}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'attack'%}
+                    {% if error.field == 'attack' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -140,13 +140,13 @@
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
-                    {%if defense%}
+                    {% if defense%}
                     <input type="number" name="defense" value="{{defense}}">
-                    {%else%}
+                    {% else %}
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense'%}
+                    {% if error.field == 'defense' %}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -221,7 +221,7 @@
     <div class="modal">
         <h2>Adicionar Imagem</h2>
         <form>
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="imageInput">
                 <label for="image">URL da foto: </label>
                 <input type="url" class="image" name="image">
@@ -278,55 +278,47 @@
                     
                     
                     <div class="status">
+
                         <div class="bar">
                             <p>HP</p>
-                    
-                            {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <section class="hpBar">
-                                <input class="hpLeft" type="number" name="hp" id="" value="{{sheet.healthPoint}}">
-                                
+                            <span class="hpFill" style="widht: {{sheet.hp}}%">
+                                <input class="hpLeft" type="number" name="hp" id="healthPoint" value="{{sheet.healthPoint}}">
                                 <p class="barraBarra">/</p>
-
-                                <input class="hpRight" type="number" name="hpMax" id="" value="{{sheet.healthPointMax}}">
-                            </section>
-                            {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            <div class="hpFill"></div>
-
-                            <p>MANA</p>
-                            
-                            <section class="manaBar">
-                                {% comment %} <i data-lucide="chevrons-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevron-left" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                <input class="manaLeft" type="number" name="mana" id="" value="{{sheet.mana}}">
-                                
-                                <p class="barraBarra">/</p>
-                                
-                                <input class="manaRight" type="number" name="manaMax" id="" value="{{sheet.manaMax}}">
-                                {% comment %} <i data-lucide="chevron-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                                {% comment %} <i data-lucide="chevrons-right" width="32" height="32" stroke-width="1.5px"></i> {% endcomment %}
-                            </section>
-                            <div class="manaFill"></div>
+                                <input class="hpRight" type="number" name="hpMax" id="healthPointMax" value="{{sheet.healthPointMax}}">
+                            </span>
                         </div>
+
+                        <div class="bar">
+                            <p>MANA</p>
+                            <span class="manaFill" style="widht: {{sheet.mana}}%">
+                                <input class="manaLeft" type="number" name="mana" id="mana" value="{{sheet.mana}}">
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}">
+                            </span>
+                        </div>
+                        
                     </div>
                     
                 </div>
-
+                
                 <div class="under">
                     
                     <section class="infos">
-
+                        
                         <div class="xpStatus">
                             <p>Level:  {{sheet.level}}</p>
-                            <p>{{sheet.exp}}/{{sheet.expMax}}</p>
-                            <div class="xpFill"></div>
-                            <input type="number" name="xpInput" id="xpInput">
-                            <button>Adicionar</button>
-                        </div>
+                            
+                            <div class="bar">
+                                <span class="xpFill" style="widht: {{sheet.exp}}%">
+                                    <input class="expLeft" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <p class="barraBarra">/</p>
+                                    <input class="expRight" type="number" name="expMax" id="expMax" value="{{sheet.expMax}}">
 
-                        <br>
-                        <br>
+                                </span>
+
+                            </div>
+
+                        </div>
                     
                         <div class="sideBySide">
                             <label for="race">Raça: </label>
@@ -458,7 +450,9 @@
 
             <div class="createSheetActions">
                 <button type="button">
-                    <a href="{% url 'sheets:homesheets' %}">Cancelar</a>
+                    <a href="{% url 'sheets:homesheets' %}">
+                        Cancelar
+                    </a>
                 </button>
                 <script>
                     function disableButton() {
@@ -466,7 +460,9 @@
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button">Salvar</button>
+                <button type="submit" id="submit_button" method="POST">
+                    Salvar
+                </button>
             </div>
            
         </form>
