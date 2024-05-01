@@ -231,7 +231,7 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:view_Sheet' sheet.id %}" method="POST">
+        <form action="{% url 'sheets:edit_sheet' sheet.id %}" method="POST">
             {%csrf_token%}
             <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
             
