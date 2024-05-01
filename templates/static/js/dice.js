@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     dice.textContent = roll;
                     dice.style.animation = 'none';
-                }, 500 * (i + 1));
+                }, 250 * (i + 1));
             });
         });
 
