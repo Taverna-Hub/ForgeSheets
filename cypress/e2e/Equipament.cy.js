@@ -1,11 +1,11 @@
 describe('test suite Sheet', () => {
     it('adicionar equipamentos - completo', () => {
         cy.visit('/');
-        // cy.get('.registerAnchor').click()
-        // cy.get('#cadastrinho > form > #user').type('Demetrius')
-        // cy.get('#email').type('Demetrius@gmail.com')
-        // cy.get('#cadastrinho > form > #password').type('123')
-        // cy.get('#cadastrinho > form > button').click()
+        cy.get('.registerAnchor').click()
+        cy.get('#cadastrinho > form > #user').type('Demetrius')
+        cy.get('#email').type('Demetrius@gmail.com')
+        cy.get('#cadastrinho > form > #password').type('123')
+        cy.get('#cadastrinho > form > button').click()
         cy.get('#loginzinho > form > #user').type('Demetrius')
         cy.get('#loginzinho > form > #password').type('123')
         cy.get('#loginzinho > form > button').click()
