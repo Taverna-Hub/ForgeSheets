@@ -242,7 +242,8 @@
                     <section class="add-image">
                         
                         <div class="add_image_div">
-                                
+                            <p>{{atk}}</p>    
+                            <p>{{def}}</p>    
                             <i class="swords" data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
                             <i class="shield" data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
                             
@@ -260,26 +261,30 @@
                     <div class="status">
 
                         <p>HP</p>
-                        <div class="bar">
-                            <div class="full">
-                                <span class="hpFill" style="width: {{hp}}%">
-                                    <input class="hpLeft statInput" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
-                                    <p class="barraBarra">/</p>
-                                    <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
-                                </span>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="hpFill" style="width: {{hp}}%"></div>
                             </div>
-                        </div>
+                            
+                            <span class="inputs">
+                                <input class="hpLeft" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
+                                <p class="barraBarra">/</p>
+                                <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
+                            </span>
+                        </section>
 
                         <p>MANA</p>
-                        <div class="bar">
-                            <div class="full">
-                                <span class="manaFill" style="width: {{mana}}%">
-                                    <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}">
-                                    <p class="barraBarra">/</p>
-                                    <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}">
-                                </span>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="manaFill" style="width: {{mana}}%"></div>
                             </div>
-                        </div>
+                            
+                            <span class="inputs">
+                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}" >
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
+                            </span>
+                        </section>
                         
                     </div>
                     
@@ -291,16 +296,18 @@
                         
                         <div class="xpStatus">
                             <p>Level:  {{sheet.level}}</p>
-                            
-                            <div class="bar">
-                                <div class="full">
-                                    <span class="xpFill" style="width: {{exp}}%">
-                                        <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
-                                        <p class="barraBarra">/</p>
-                                        <p class="expP">{{sheet.expMax}}</p>
-                                    </span>
+
+                            <section class="bar">
+                                <div class="bar-fill">
+                                    <div class="xpFill" style="width: {{exp}}%"></div>
                                 </div>
-                            </div>
+                                
+                                <span class="inputs">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <p class="barraBarra">/</p>
+                                    <p class="expP">{{sheet.expMax}}xp</p>
+                                </span>
+                            </section>
 
                         </div>
                     
@@ -364,9 +371,9 @@
                                  {% endfor %}
                              </ul>
                          </div>
-                     </section> 
+                    </section> 
 
-                     <section class="magics">
+                    <section class="magics">
                         <div class="header">
                             <p>Magias</p>
                             <button type="button" class="openMagicModalBtn">
@@ -402,11 +409,11 @@
                                  {% endfor %}
                              </ul>
                          </div>
-                     </section> 
+                    </section> 
                 </div>
                 
 
-                <div class="under">
+                <div class="underTwo">
                     <section class="atributos">
                         <div class="atributosInputs">
                             <div>
@@ -470,23 +477,18 @@
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
 <script>
-    // Adicione um manipulador de evento blur para cada campo de entrada
     document.querySelector('.nameInput').addEventListener('blur', function() {
-        // Chame uma função JavaScript para enviar o formulário
         submitForm();
     });
 
     document.querySelector('#healthPoint').addEventListener('blur', function() {
-        // Chame uma função JavaScript para enviar o formulário
         submitForm();
     });
 
     document.getElementById('mana').addEventListener('blur', function() {
-        // Chame uma função JavaScript para enviar o formulário
         submitForm();
     });
 
-    // Função para enviar o formulário
     function submitForm() {
         document.querySelector('#form').submit();
     }
