@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const formDice = document.getElementById('formDice'); 
     const resultDisplay = document.getElementById('resultDisplay');
     const maxDiceCount = 20;
+    const allowedDiceTypes = [4, 6, 8, 10, 12, 20, 100];
    
     diceButton.addEventListener('click', function() {
         diceModal.style.display = "block";
@@ -32,6 +33,14 @@ document.addEventListener('DOMContentLoaded', function () {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Não é possível rolar mais de ${maxDiceCount} dados de uma vez.</span>`;
             hasError=true;
         }
+        if (!diceTypeInputs.every(val => allowedDiceTypes.includes(val))) {
+            typeError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Somente D4, D6, D8, D10, D12, D20, e D100 são permitidos.</span>`;
+            hasError = true;
+        }
+        if (quantityInputs.some(val => val === 0)) {
+            quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados não pode ser zero.</span>`;
+            hasError = true;
+        }
     
         function validateIntegerInputs(inputs) {
             return inputs.every(Number.isInteger);
@@ -41,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!validateIntegerInputs(quantityInputs)) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados deve ser composta apenas por números inteiros.</span>`;
             hasError = true;
-            
         }
         
         if (!validateIntegerInputs(diceTypeInputs)) {
@@ -95,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     function rollDice(diceResults) {
         const diceContainer = document.getElementById('diceContainer');
-        diceContainer.innerHTML = '';  
+        diceContainer.innerHTML = '';
     
         diceResults.forEach(result => {
             result.rolls.forEach((roll, i) => {
@@ -108,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     dice.textContent = roll;
                     dice.style.animation = 'none';
-                }, 250 * (i + 1));
+                }, 350 * (i + 1));
             });
         });
 
