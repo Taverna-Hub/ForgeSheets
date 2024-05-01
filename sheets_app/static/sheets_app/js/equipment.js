@@ -74,8 +74,9 @@ function handleLoadEquipmentList(equipment) {
         <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
       </div>
       ${equipment.quantity}x ${equipment.name}
-      ${equipment.attack > 0 ? `- Atk: ${equipment.attack}` : ''}
-      ${equipment.defense > 0 ? `| Def: ${equipment.defense}` : ''}
+      ${equipment.attack > 0 ? `- Atk: ${equipment.attack} ` : ''}
+      ${equipment.defense > 0 & equipment.attack > 0 ? `| Def: ${equipment.defense}` : ''}
+      ${equipment.defense > 0 & equipment.attack <= 0 ? `- Def: ${equipment.defense}` : ''}
       <button type="button" class="removeEquipment" onclick="handleDeleteEquipment(this)">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
       </button>
