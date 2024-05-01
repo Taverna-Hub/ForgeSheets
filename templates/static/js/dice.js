@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
             results.push(`(${quantity}d${diceType}${modifierDisplay}): ${subtotal} [${quantityRolls.join(', ')}]`);
         });
     
-        resultDisplay.innerHTML = `<strong>Total: </strong> ${overallTotal} <br> <strong>Detalhes:</strong> ${results.join('<br>')}`;
+        resultDisplay.innerHTML = `<strong>Total: </strong> <p>${overallTotal}</p>  <strong>Detalhes:</strong> <p>${results.join('<br>')}</p>`;
         rollDice(diceResults);
     };
     function rollDice(diceResults) {

@@ -316,20 +316,20 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
         if atribute_verifier(str(exp)) == 1:
             errors.append("exp")
 
-    elif int(healthpointMax) < 1 or int(manaMax) < 1:
+    elif int(healthpointMax) < 1 or int(manaMax) < 1 or int(healthpointMax) > 100000 or int(manaMax) > 100000:
         errors.append({
             'field' : 'atributes2',
-            'message' : 'Vida e mana não podem ser menores que 1'
+            'message' : 'Vida e mana não podem ser menores que 1 ou maiores que 100 mil'
             })
-        if int(healthpointMax) < 1:
+        if int(healthpointMax) < 1 or int(healthpointMax) > 100000:
             errors.append("healthPointMax")
-        if int(manaMax) < 1:
+        if int(manaMax) < 1 or int(manaMax) > 100000:
             errors.append("manaMax")
 
-    elif int(exp) < 0:
+    elif int(exp) < 0 or int(exp) > 105000000:
         errors.append({
             'field' : 'atributes2',
-            'message' : 'A experiência não pode ser menor que 0'
+            'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
         
