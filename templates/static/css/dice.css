@@ -105,6 +105,7 @@ input {
   align-items: center;
   gap: 8px;
   margin-top: 8px;
+  margin-bottom: 8px;
   font-size: x-small;
 }
 
@@ -137,6 +138,9 @@ input {
   animation: rollDice 0.5s infinite;
   color:var(--red-600)
 }
+
+
+
 
 @keyframes rollDice {
   from { transform: rotate(0deg) scale(1); }

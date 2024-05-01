@@ -1,11 +1,11 @@
 describe('test suite Sheet', () => {
     it('criação de fichas - sem foto e sem descrição', () => {
         cy.visit('/');
-        // cy.get('.registerAnchor').click()
-        // cy.get('#cadastrinho > form > #user').type('Gabriel')
-        // cy.get('#email').type('gabriel@gmail.com')
-        // cy.get('#cadastrinho > form > #password').type('123')
-        // cy.get('#cadastrinho > form > button').click()
+        cy.get('.registerAnchor').click()
+        cy.get('#cadastrinho > form > #user').type('Gabriel')
+        cy.get('#email').type('gabriel@gmail.com')
+        cy.get('#cadastrinho > form > #password').type('123')
+        cy.get('#cadastrinho > form > button').click()
         cy.get('#loginzinho > form > #user').type('Gabriel')
         cy.get('#loginzinho > form > #password').type('123')
         cy.get('#loginzinho > form > button').click()
@@ -31,11 +31,6 @@ describe('test suite Sheet', () => {
     })
     it('criação de fichas - com foto e descrição', () => {
         cy.visit('/');
-        // cy.get('.registerAnchor').click()
-        // cy.get('#cadastrinho > form > #user').type('Gabriel')
-        // cy.get('#email').type('gabriel@gmail.com')
-        // cy.get('#cadastrinho > form > #password').type('123')
-        // cy.get('#cadastrinho > form > button').click()
         cy.get('#loginzinho > form > #user').type('Gabriel')
         cy.get('#loginzinho > form > #password').type('123')
         cy.get('#loginzinho > form > button').click()
