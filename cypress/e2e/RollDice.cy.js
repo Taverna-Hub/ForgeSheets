@@ -14,6 +14,8 @@ describe('rolling dices', () => {
         cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
         cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "-2")
+        cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d10")
+        cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "1d20")
     })
 
     it('positive modifier roll', () =>{
@@ -31,5 +33,7 @@ describe('rolling dices', () => {
         cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
         cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "+3")
+        cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d4")
+        cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d6")
     })
 })
