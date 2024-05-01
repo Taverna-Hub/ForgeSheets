@@ -123,11 +123,15 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet = get_object_or_404(Sheet, id=id)
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
-
+        mana = (sheet.mana/sheet.manaMax)*100
+        hp = (sheet.healthPoint/sheet.healthPointMax)*100
+        exp = (sheet.exp/sheet.expMax)*100
         ctx = { 
             'sheet': sheet,
+            'mana': int(mana),
+            'hp': int(hp),
+            'exp': int(exp)
         }
-
         if not magics:
             ctx['magics'] = None
         else:

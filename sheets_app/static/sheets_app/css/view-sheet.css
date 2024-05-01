@@ -304,13 +304,19 @@ button {
     padding: 5px 0;
 }
 
-.bar{
+/* .bar{
     text-align: center;
-}
+} */
 
 .bar span{
     color: white;
     font-weight: bold;
+}
+
+.full {
+    background-color: lightgrey;
+    height: 35px;
+    text-align: center;
 }
 
 .hpRight, .manaRight{
@@ -351,6 +357,9 @@ button {
     background-color: var(--red-life);
     height: 35px;
     margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    overflow-x: visible;
 }
 
 .manaFill {
