@@ -28,24 +28,9 @@
                 <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
             </div>
 
-            <div class="sideBySide">
-                <div class="magicDiceType">
-                    <label for="diceTypeMagic">Tipo de dados:</label>
-                    <select name="diceTypeMagic" id="diceType">
-                        <option value="">Selecione</option>
-                        <option value="D4">D4</option>
-                        <option value="D6">D6</option>
-                        <option value="D8">D8</option>
-                        <option value="D10">D10</option>
-                        <option value="D12">D12</option>
-                        <option value="D20">D20</option>
-                    </select>
-                </div>
-
-                <div class="magicDiceQuant">
-                    <label for="diceQuantMagic">Quantidade de dados:</label>
-                    <input type="number" name="diceQuantMagic">
-                </div>
+            <div class="magicDamage">
+                <label for="damageMagic">Dano:</label>
+                <input type="text" name="damageMagic">
             </div>
 
             <div class="sideBySide">
@@ -67,11 +52,6 @@
                     <input type="text" name="elementMagic">
                 </div>
             </div>
-
-            <p>
-                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
-                do personagem, deixe um 0 nos campos.
-            </p>
 
             <div class="actions">
                 <button type="button" id="closeMagicModalBtn">
@@ -310,9 +290,9 @@
                             
                             <div class="bar">
                                 <span class="xpFill" style="widht: {{sheet.exp}}%">
-                                    <input class="expLeft" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
                                     <p class="barraBarra">/</p>
-                                    <input class="expRight" type="number" name="expMax" id="expMax" value="{{sheet.expMax}}">
+                                    <p class="expP">{{sheet.expMax}}</p>
 
                                 </span>
 
@@ -323,13 +303,11 @@
                         <div class="sideBySide">
                             <label for="race">Raça: </label>
                             <p>{{sheet.race}}</p>
-                            {% comment %} <input type="text" name="race" value="{{race}}"> {% endcomment %}
                         </div>
                         
                         <div class="sideBySide">
                             <label for="role">Classe: </label>
                             <p>{{sheet.role}}</p>
-                            {% comment %} <input type="text" name="role" id="role" value="{{role}}"> {% endcomment %}
                         </div>
                     
                     </section>
@@ -389,11 +367,19 @@
                                             <input type="hidden" name="mgcName" value="{{magic.name}}" />
                                             <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
                                             <input type="hidden" name="mgcElement" value="{{magic.element}}" />
-                                            <input type="hidden" name="mgcDiceType" value="{{magic.dice_type}}" />
-                                            <input type="hidden" name="mgcDiceQuant" value="{{magic.dice_quantity}}" />
+                                            <input type="hidden" name="mgcDamage" value="{{magic.damage}}" />
                                             <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
                                         </div>
-                                        {{magic.name}} | {{magic.element}} 
+                                        {{ magic.name }}
+                                        {% if magic.damage %}
+                                            | {{ magic.damage }}
+                                        {% endif %}
+                                        {% if magic.element %}
+                                            | {{ magic.element }}
+                                        {% endif %}
+                                        {% if magic.description %}
+                                            | {{ magic.description }}
+                                        {% endif %}
                                         <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                         </button>
