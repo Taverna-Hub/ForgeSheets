@@ -144,18 +144,28 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         sheet.name = name
         sheet.image = image if image else None
-        sheet.strength = strength
-        sheet.intelligence = intelligence
-        sheet.wisdom = wisdom
-        sheet.charisma = charisma
-        sheet.constitution = constitution
-        sheet.speed = speed
-        sheet.healthPoint = healthPoint
-        sheet.healthPointMax = healthPointMax
-        sheet.mana = manaActual
-        sheet.manaMax = manaMax
-        sheet.exp = exp
+        sheet.strength = int(strength)
+        sheet.intelligence = int(intelligence)
+        sheet.wisdom = int(wisdom)
+        sheet.charisma = int(charisma)
+        sheet.constitution = int(constitution)
+        sheet.speed = int(speed)
+        sheet.healthPoint = int(healthPoint)
+        sheet.healthPointMax = int(healthPointMax)
+        sheet.mana = int(manaActual)
+        sheet.manaMax = int(manaMax)
+        sheet.exp = int(exp)
         sheet.description = description
+
+        print(sheet.level())
+        sheet.save()
+        print(sheet.exp)
+        sheet.updateXp()
+        sheet.save()
+
+        print(sheet.exp)
+        print(sheet.level())
+        sheet.save()
     
         if isinstance(sheet, Sheet):
             sheet.save()

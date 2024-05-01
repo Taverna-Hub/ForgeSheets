@@ -1,11 +1,11 @@
 from .models import Equipment, Sheet, Race
 import re
 
-def sheet_update(sheet, name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expTotal, expMax, description):
+def sheet_update(sheet, name, race, role, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expTotal, expMax, description):
     errors = []
 
     patterns = r'^[a-zA-Z\s]+$'
-    image_patterns = re.compile(r'^https?:\/\/.*\.(?:png|jpg|jpeg|gif)$')
+    # image_patterns = re.compile(r'^https?:\/\/.*\.(?:png|jpg|jpeg|gif)$')
     
     # Tratando nomes, raças e classes aqui!
     if len(name) == 0 or name == '' or len(race) == 0 or race == '' or len(role) == 0 or role == '':
@@ -40,19 +40,65 @@ def sheet_update(sheet, name, race, role, image, strength, intelligence, wisdom,
                 'field':'role',
                 'message':'Insira apenas letras e espaços.'
             })
-    # Tratando Imagem aqui!
-    if image != '':
-        if not image_patterns.match(image):
+    if (len(name) or len(race) or len(role)) > 50:
+        if len(name) > 50:
             errors.append({
-                'field':'image',
-                'message':'Insira uma URL de imagem válida'
+                'field':'name',
+                'message':'Nome não pode ser maior que 50'
             })
-        if len(image) > 200:
+        if len(race) > 50:
+            errors.name({
+                'field':'race',
+                'message':'Nome de Raça não pode ser maior que 50'
+            })
+    # Tratando atributos
+    if not all([strength, intelligence, wisdom, charisma, constitution, speed]):
+        errors.append({
+            'field':'strength, intelligence, wisdom, charisma, constitution, speed',
+            'message':'Preencha todos os campos.'
+        })
+        if not strength:
             errors.append({
-                'field':'image',
-                'message':'Você não pode inserir uma URL de +200 caracteres'
+                'field':'strength',
+                'message':'Preencha o campo de Força.'
             })
-        
+        if not intelligence:
+            errors.append({
+                'field':'intelligence',
+                'message':'Preencha o campo de Inteligência.'
+            })
+        if not wisdom:
+            errors.append({
+                'field':'wisdom',
+                'message':'Preencha o campo de Sabedoria.'
+            })
+        if not charisma:
+            errors.append({
+                'field':'charisma',
+                'message':'Preencha o campo de Carisma.'
+            })
+        if not constitution:
+            errors.append({
+                'field': 'constitution',
+                'message':'Preencha o campo de Constituição.'
+            })
+        if not speed:
+            errors.append({
+                'field':'constitution',
+                'message':'Preencha o campo de Velocidade'
+            })
+
+
+
+
+    dict_attributes = {
+        'strength': strength,
+        'intelligence':intelligence, 
+        'wisdom':wisdom, 
+        'charisma':charisma, 
+        'constitution':constitution, 
+        'speed':speed
+    }
 
 
         
