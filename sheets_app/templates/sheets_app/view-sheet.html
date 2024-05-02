@@ -69,10 +69,10 @@
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
         <form>
-            {% csrf_token %}
+            {%csrf_token%}
             <div class="equipmentName">
-                <label for="name">Nome do equipamento:</label>
-                <input type="text" name="name" value="{{equipmentName}}">
+                <label for="equipmentName">Nome do equipamento:</label>
+                <input type="text" name="equipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
@@ -85,13 +85,13 @@
 
             <div class="equipmentQuantity">
                 <label for="quantity">Quantidade:</label>
-                {% if quantity %}
+                {%if quantity %}
                 <input type="number" name="quantity" value="{{quantity}}">
-                {% else %}
+                {%else%}
                 <input type="number" name="quantity" value=1>
                 {% endif %}
                 {% for error in errors %}
-                {% if error.field == 'quantity' %}
+                {% if error.field == 'quantity'%}
                 <span>
                     <i data-lucide="octagon-alert"></i>
                     {{ error.message }}
@@ -103,13 +103,13 @@
             <div class="sideBySide">
                 <div class="equipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
-                    {% if attack %}
+                    {% if attack%}
                     <input type="number" name="attack" value="{{attack}}">
-                    {% else %}
+                    {%else%}
                     <input type="number" name="attack" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'attack' %}
+                    {% if error.field == 'attack'%}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -120,13 +120,13 @@
 
                 <div class="equipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
-                    {% if defense%}
+                    {%if defense%}
                     <input type="number" name="defense" value="{{defense}}">
-                    {% else %}
+                    {%else%}
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense' %}
+                    {% if error.field == 'defense'%}
                     <span>
                         <i data-lucide="octagon-alert"></i>
                         {{ error.message }}
@@ -231,7 +231,7 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:view_Sheet' sheet.id %}" method="POST">
+        <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form" method="POST">
             {%csrf_token%}
             <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
             
@@ -242,9 +242,13 @@
                     <section class="add-image">
                         
                         <div class="add_image_div">
-                                
-                            <i class="swords" data-lucide="swords" width="64" height="64" stroke-width="1.5px"></i>
-                            <i class="shield" data-lucide="shield" width="64" height="64" stroke-width="1.5px"></i>
+                            
+                            <div class="totalAtk">
+                                <p class="atkText">{{atk}}</p>
+                            </div>
+                            <div class="totalDef">
+                                <p class="defText">{{def}}</p>
+                            </div>
                             
                             <input type="hidden" name="image" class="imageInputCircle">
                             
@@ -259,23 +263,31 @@
                     
                     <div class="status">
 
-                        <div class="bar">
-                            <p>HP</p>
-                            <span class="hpFill" style="widht: {{sheet.hp}}%">
+                        <p>HP</p>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="hpFill" style="width: {{hp}}%"></div>
+                            </div>
+                            
+                            <span class="inputs">
                                 <input class="hpLeft" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
                                 <p class="barraBarra">/</p>
                                 <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
                             </span>
-                        </div>
+                        </section>
 
-                        <div class="bar">
-                            <p>MANA</p>
-                            <span class="manaFill" style="widht: {{sheet.mana}}%">
-                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}">
+                        <p>MANA</p>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="manaFill" style="width: {{mana}}%"></div>
+                            </div>
+                            
+                            <span class="inputs">
+                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}" >
                                 <p class="barraBarra">/</p>
-                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}">
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
                             </span>
-                        </div>
+                        </section>
                         
                     </div>
                     
@@ -287,16 +299,18 @@
                         
                         <div class="xpStatus">
                             <p>Level:  {{sheet.level}}</p>
-                            
-                            <div class="bar">
-                                <span class="xpFill" style="widht: {{sheet.exp}}%">
+
+                            <section class="bar">
+                                <div class="bar-fill">
+                                    <div class="xpFill" style="width: {{exp}}%"></div>
+                                </div>
+                                
+                                <span class="inputs">
                                     <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
                                     <p class="barraBarra">/</p>
-                                    <p class="expP">{{sheet.expMax}}</p>
-
+                                    <p class="expP">{{sheet.expMax}}xp</p>
                                 </span>
-
-                            </div>
+                            </section>
 
                         </div>
                     
@@ -327,7 +341,7 @@
                              <button type="button" class="openEquipmentBtn">
                                  <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
                              </button>
-                        </div>
+                        </div>    
                          <div class="equipmentsListContainer">
                              <ul class="equipmentList">
                                  {% for equipment in equipments %}
@@ -338,7 +352,18 @@
                                          <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
                                          <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
                                          </div>
-                                         {{equipment.quantity}}x {{equipment.name}}- Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                        {% if equipment.attack %}
+                                            {% if equipment.defense %}
+                                                {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                            {% else  %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}}
+                                            {% endif %}
+                                        {% elif equipment.defense %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Def: {{equipment.defense}}
+                                        {% else %}
+                                            {{equipment.quantity}}x {{equipment.name}}
+                                        {% endif %}
+
                                          <button type="button" class="editEquipment">
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                          </button>
@@ -349,9 +374,9 @@
                                  {% endfor %}
                              </ul>
                          </div>
-                     </section>
+                    </section> 
 
-                     <section class="magics">
+                    <section class="magics">
                         <div class="header">
                             <p>Magias</p>
                             <button type="button" class="openMagicModalBtn">
@@ -377,9 +402,6 @@
                                         {% if magic.element %}
                                             | {{ magic.element }}
                                         {% endif %}
-                                        {% if magic.description %}
-                                            | {{ magic.description }}
-                                        {% endif %}
                                         <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                         </button>
@@ -390,11 +412,11 @@
                                  {% endfor %}
                              </ul>
                          </div>
-                     </section> 
+                    </section> 
                 </div>
                 
 
-                <div class="under">
+                <div class="underTwo">
                     <section class="atributos">
                         <div class="atributosInputs">
                             <div>
@@ -435,18 +457,16 @@
             </div>
 
             <div class="createSheetActions">
-                <button type="button">
-                    <a href="{% url 'sheets:homesheets' %}">
+                    <a href="{% url 'sheets:homesheets' %}" class="cancelSheetView">
                         Cancelar
                     </a>
-                </button>
                 <script>
                     function disableButton() {
                         const button = document.getElementById("submit_button");
                         button.disabled = true;
                     }
                 </script>
-                <button type="submit" id="submit_button" method="POST">
+                <button type="submit" id="submit_button" method="POST" class="saveSheetView">
                     Salvar
                 </button>
             </div>
@@ -459,5 +479,22 @@
 <script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
-<script type="module" src="{% static 'sheets_app/js/manage_magic.js' %}"></script>
+<script>
+    document.querySelector('.nameInput').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    document.querySelector('#healthPoint').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    document.getElementById('mana').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    function submitForm() {
+        document.querySelector('#form').submit();
+    }
+</script>
+
 {% endblock %}

@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet#, update_sheet
+from .utils import save_equipment, save_sheet, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 
 class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
@@ -50,27 +51,25 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         magicName = (request.POST.getlist('mgcName'))
         magicDescription = (request.POST.getlist('mgcDesc'))
-        diceType = (request.POST.getlist('mgcDiceType'))
-        diceQuantity = (request.POST.getlist('mgcDiceQuant'))
+        magicDamage = request.POST.getlist('mgcDamage')
         atributeModifier = (request.POST.getlist('mgcAttribute'))
         element = request.POST.getlist('mgcElement')
-
+        print(magicName, magicDescription, magicDamage, atributeModifier, element)
         user_id = request.user.id
 
         equipment_list = []
         magic_list = []
 
-        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPoinViewStMax, manaMax, exp, user_id, description)
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
             if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
-                for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
                     magic = {
                         'name': mgcName,
                         'description': mgcDesc,
-                        'dice_type': mgcDiceType,
-                        'dice_quantity': mgcDiceQuant,
+                        'damage': magicDamage,
                         'atribute': mgcAtribute,
                         'element': mgcElement,
                     }
@@ -109,26 +108,34 @@ class CreateSheetView(LoginRequiredMixin, View):
                         ctx[atributo] = valor
                 
                 return render(request, 'sheets_app/create-sheets.html', ctx)
-                
+            
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
         
-        for mgcName,mgcDesc, mgcDiceType, mgcDiceQuant, mgcAtribute, mgcElement in zip(magicName, magicDescription, diceType, diceQuantity, atributeModifier, element):
-            magic =  Magic(name=mgcName,description=mgcDesc, dice_type = mgcDiceType, dice_quantity = mgcDiceQuant, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+        for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
             magic.save()
         return redirect('sheets:homesheets')
 
-class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
+class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
-
+        mana = (sheet.mana/sheet.manaMax)*100
+        hp = (sheet.healthPoint/sheet.healthPointMax)*100
+        exp = (sheet.exp/sheet.expMax)*100
+        atk = sheet.totalAtkDef()['atk'] 
+        defe = sheet.totalAtkDef()['def'] 
         ctx = { 
             'sheet': sheet,
+            'mana': int(mana),
+            'hp': int(hp),
+            'exp': int(exp),
+            'atk': atk,
+            'def': defe
         }
-
         if not magics:
             ctx['magics'] = None
         else:
@@ -161,26 +168,38 @@ class ViewSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         sheet.name = name
         sheet.image = image if image else None
-        sheet.strength = strength
-        sheet.intelligence = intelligence
-        sheet.wisdom = wisdom
-        sheet.charisma = charisma
-        sheet.constitution = constitution
-        sheet.speed = speed
-        sheet.healthPoint = healthPoint
-        sheet.healthPointMax = healthPointMax
-        sheet.mana = manaActual
-        sheet.manaMax = manaMax
-        sheet.exp = exp
+        sheet.strength = int(strength)
+        sheet.intelligence = int(intelligence)
+        sheet.wisdom = int(wisdom)
+        sheet.charisma = int(charisma)
+        sheet.constitution = int(constitution)
+        sheet.speed = int(speed)
+        sheet.healthPoint = int(healthPoint)
+        sheet.healthPointMax = int(healthPointMax)
+        sheet.mana = int(manaActual)
+        sheet.manaMax = int(manaMax)
+        expAtual = sheet.exp
+        sheet.exp = int(exp)
         sheet.description = description
-    
+
+        sheet.expTotal += int(exp) - expAtual
+
+        # updt = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        # preciso configurar a hora de salvar, criar ctx...
+
+        sheet.save()
+        sheet.updateXp()
+
+        # essas condicionais aqui terão que ser removidas depois
         if isinstance(sheet, Sheet):
+            # se alguem mexer, não apague esse sheet.save
+            # amanha eu termino isso daqui
             sheet.save()
             messages.success(request, 'Ficha atualizada com sucesso!')
-            return redirect('sheets:homesheets')
+            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
             messages.error(request, 'Erro ao atualizar ficha.')
-            return redirect('sheets:view_sheet')        
+            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))       
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):

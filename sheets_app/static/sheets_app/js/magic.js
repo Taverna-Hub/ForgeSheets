@@ -44,10 +44,10 @@ function handleMagicError(message, className) {
         ${message}
         </span>
     `
-  nameElement = document.querySelector(`.nameError`)
+  let nameElement = document.querySelector(`.nameError`)
 
-  if (nameElement) {
-    //pass
+  if (nameElement){
+    pass
   } else {
     const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
     document.querySelector(`.${className}`).appendChild(node)
@@ -68,7 +68,6 @@ function handleLoadMagicList(magic) {
           ${magic.name} 
           ${magic.damage ? `| ${magic.damage}` : ''}
           ${magic.element ? ` | ${magic.element} ` : ''}
-          ${magic.description ? ` | ${magic.description}` : ''}
           <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
