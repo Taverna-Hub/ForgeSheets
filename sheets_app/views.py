@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet#, update_sheet
+from .utils import save_equipment, save_sheet, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -184,10 +184,16 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         sheet.expTotal += int(exp) - expAtual
 
+        # updt = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        # preciso configurar a hora de salvar, criar ctx...
+
         sheet.save()
         sheet.updateXp()
-    
+
+        # essas condicionais aqui terão que ser removidas depois
         if isinstance(sheet, Sheet):
+            # se alguem mexer, não apague esse sheet.save
+            # amanha eu termino isso daqui
             sheet.save()
             messages.success(request, 'Ficha atualizada com sucesso!')
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
