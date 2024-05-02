@@ -1,5 +1,5 @@
-const imageLink = document.querySelector('input[name="image"]');
-let regex = '^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$';
+const imageLink = document.querySelector('.image');
+let regex = /^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$/;
 
 const addImageBtn = document.querySelector('#addImageBtn');
 const closeImageBtn = document.querySelector('#closeImageBtn');
@@ -12,24 +12,29 @@ const closeChooseSheetModalBtn = document.querySelector('#closeChooseSheet');
 
 const addImageDiv = document.querySelector('.add_image_div');
 
-const ImgStorageService = {
-    imgSaveData() {
-      localStorage.setItem('image', JSON.stringify(imageLink))
-    },
-    imgGetData() {
-      return  JSON.parse(localStorage.getItem('image')) || []
-    }
-  }
-  
+let imageCount = 0;
 
 function closeImageModal() {
+  const error = document.querySelector('.imageInput').lastElementChild;
+  if (error.tagName === 'SPAN') {
+    document.querySelector('.imageInput').removeChild(error);
+  }
   imageModal.style.display = 'none';
 }
 
+function handleOpenImageModal() {
+  imageModal.style.display = 'flex';
+}
 
+// async function handleCheckImage(url){
+     
+//   const res = await fetch(url);
+//   const buff = await res.blob();
+ 
+//   return buff.type.startsWith('image/')
+// }
 
-
-function handleErrorImage(message, className) {
+function handleErrorImage(message) {
   const error =       
   `
       <span> 
@@ -38,36 +43,45 @@ function handleErrorImage(message, className) {
       </span>
     `
     const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
-    document.querySelector(`.${className}`).appendChild(node);
+    document.querySelector('.imageInput').appendChild(node);
 }
 
 
-function addImageToSheet() {
-  image_test = imageLink.value
+async function addImageToSheet() {
+  const contextImage = document.querySelector('.imageInputCircle');
 
-  console.log(image_test)
+  let modalImageValue = imageLink.value;
+  const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
+  // console.log(await handleCheckImage(modalImageValue))
 
-  if (!regex.image_test){
+  if (!regex.test(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
+    return
   }
 
+
   const image = `
-    <button type="button" class="openImageBtn">
-      <img src="${imageLink.value}" alt="Imagem" class="selectedImage">
+    <button type="button" onclick="handleOpenImageModal()">
+      <img src="${imageSrc}" alt="Imagem" class="selectedImage">
     </button>
   ` 
 
   const node = new DOMParser().parseFromString(image, 'text/html').body.firstElementChild
-  addImageDiv.removeChild(openImageModal);
+
+  if (imageCount === 0) {
+    addImageDiv.removeChild(openImageModal);
+  }
+
+  if (imageCount !== 0) {
+    addImageDiv.removeChild(addImageDiv.lastElementChild);
+  }
+
   addImageDiv.appendChild(node);
-  document.querySelector('.imageInputCircle').value = image_test;
+  document.querySelector('.imageInputCircle').value = modalImageValue;
+  imageCount += 1;
   closeImageModal();
 }
 
-openImageModal.addEventListener('click', () => {
-  imageModal.style.display = 'flex';
-});
-
+openImageModal.addEventListener('click', () => handleOpenImageModal());
 addImageBtn?.addEventListener('click', () => addImageToSheet());
-
 closeImageBtn?.addEventListener('click', () => closeImageModal());

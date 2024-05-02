@@ -1,0 +1,500 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/view-sheet.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-magic.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
+<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+<title>Visualizar Ficha - ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+<input type="hidden" id="context" data-context="{{ errors }}">
+
+<section class="magicModal">
+    <div class="modal">
+        <h2>Adicionar Magia/Habilidades</h2>
+        <form>
+            {%csrf_token%}
+            <div class="magicName">
+                <label for="nameMagic">Nome da magia:</label>
+                <input type="text" name="nameMagic">
+            </div>
+
+            <div class="magicDescription">
+                <label for="descriptionMagic">Descrição:</label>
+                <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="magicDamage">
+                <label for="damageMagic">Dano:</label>
+                <input type="text" name="damageMagic">
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicAttribute">
+                    <label for="attributeMagic">Atributo modificador:</label>
+                    <select name="attributeMagic">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="magicElement">
+                    <label for="elementMagic">Elemento da magia: </label>
+                    <input type="text" name="elementMagic">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="closeMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addMagicBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="equipmentModal">
+    <div class="modal">
+        <h2>Adicionar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="equipmentName">Nome do equipamento:</label>
+                <input type="text" name="equipmentName" value="{{equipmentName}}">
+                {% for error in errors %}
+                {% if error.field == 'name'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                {%if quantity %}
+                <input type="number" name="quantity" value="{{quantity}}">
+                {%else%}
+                <input type="number" name="quantity" value=1>
+                {% endif %}
+                {% for error in errors %}
+                {% if error.field == 'quantity'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    {% if attack%}
+                    <input type="number" name="attack" value="{{attack}}">
+                    {%else%}
+                    <input type="number" name="attack" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'attack'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    {%if defense%}
+                    <input type="number" name="defense" value="{{defense}}">
+                    {%else%}
+                    <input type="number" name="defense" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'defense'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addEquipmentBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="editEquipmentModal">
+    <div class="modal">
+        <h2>Editar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="editName">
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" name="editQuantity">
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    <input type="number" name="editAttack">
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    <input type="number" name="editDefense">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEditEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="editEquipmentBtn">
+                    Editar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="imageModal">
+    <div class="modal">
+        <h2>Adicionar Imagem</h2>
+        <form>
+            {% csrf_token %}
+            <div class="imageInput">
+                <label for="image">URL da foto: </label>
+                <input type="url" class="image" name="image">
+                {% for error in errors %}
+                {% if error.field == 'image'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+                {% endfor %}
+            
+            </div>
+            <div class="actions">
+                <button type="button" id="closeImageBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addImageBtn">
+                    Adicionar
+                </button>
+            </div>
+        </form>
+        
+    </div>
+    
+</section>
+
+<section class="mainSheet">
+    <section class="sheet">
+        <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form" method="POST">
+            {%csrf_token%}
+            <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
+            
+            <section class="sheetHeader">
+                
+                <div class="under">
+                    
+                    <section class="add-image">
+                        
+                        <div class="add_image_div">
+                            
+                            <div class="totalAtk">
+                                <p class="atkText">{{atk}}</p>
+                            </div>
+                            <div class="totalDef">
+                                <p class="defText">{{def}}</p>
+                            </div>
+                            
+                            <input type="hidden" name="image" class="imageInputCircle">
+                            
+                            <button type="button" class="openImageBtn">
+                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                            </button>
+
+                        </div>
+
+                    </section>
+                    
+                    
+                    <div class="status">
+
+                        <p>HP</p>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="hpFill" style="width: {{hp}}%"></div>
+                            </div>
+                            
+                            <span class="inputs">
+                                <input class="hpLeft" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
+                                <p class="barraBarra">/</p>
+                                <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
+                            </span>
+                        </section>
+
+                        <p>MANA</p>
+                        <section class="bar">
+                            <div class="bar-fill">
+                                <div class="manaFill" style="width: {{mana}}%"></div>
+                            </div>
+                            
+                            <span class="inputs">
+                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}" >
+                                <p class="barraBarra">/</p>
+                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
+                            </span>
+                        </section>
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="under">
+                    
+                    <section class="infos">
+                        
+                        <div class="xpStatus">
+                            <p>Level:  {{sheet.level}}</p>
+
+                            <section class="bar">
+                                <div class="bar-fill">
+                                    <div class="xpFill" style="width: {{exp}}%"></div>
+                                </div>
+                                
+                                <span class="inputs">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <p class="barraBarra">/</p>
+                                    <p class="expP">{{sheet.expMax}}xp</p>
+                                </span>
+                            </section>
+
+                        </div>
+                    
+                        <div class="race">
+                            <p for="race">Raça: </p>
+                            <p>{{sheet.race}}</p>
+                        </div>
+                        
+                        <div class="class">
+                            <p for="role">Classe: </p>
+                            <p>{{sheet.role}}</p>
+                        </div>
+                    
+                    </section>
+                    
+                </div>
+
+            </section>
+
+            
+            <div class="sideBySide">
+
+                <div class="under">
+
+                    <section class="equipamentos">
+                        <div class="header">
+                             <p>Equipamentos</p>
+                             <button type="button" class="openEquipmentBtn">
+                                 <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                             </button>
+                        </div>    
+                         <div class="equipmentsListContainer">
+                             <ul class="equipmentList">
+                                 {% for equipment in equipments %}
+                                     <li>
+                                         <div>
+                                         <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                         <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                         <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                         <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                         </div>
+                                        {% if equipment.attack %}
+                                            {% if equipment.defense %}
+                                                {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                            {% else  %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}}
+                                            {% endif %}
+                                        {% elif equipment.defense %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Def: {{equipment.defense}}
+                                        {% else %}
+                                            {{equipment.quantity}}x {{equipment.name}}
+                                        {% endif %}
+
+                                         <button type="button" class="editEquipment">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                         </button>
+                                         <button type="button" class="removeEquipment">
+                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                         </button>
+                                     </li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                    </section> 
+
+                    <section class="magics">
+                        <div class="header">
+                            <p>Magias</p>
+                            <button type="button" class="openMagicModalBtn">
+                                <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                            </button>
+                        </div>
+        
+                         <div class="magicListContainer">
+                             <ul class="magicList">
+                                 {% for magic in magics %}
+                                    <li>
+                                        <div>
+                                            <input type="hidden" name="mgcName" value="{{magic.name}}" />
+                                            <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
+                                            <input type="hidden" name="mgcElement" value="{{magic.element}}" />
+                                            <input type="hidden" name="mgcDamage" value="{{magic.damage}}" />
+                                            <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
+                                        </div>
+                                        {{ magic.name }}
+                                        {% if magic.damage %}
+                                            | {{ magic.damage }}
+                                        {% endif %}
+                                        {% if magic.element %}
+                                            | {{ magic.element }}
+                                        {% endif %}
+                                        <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                        </button>
+                                        <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" style="margin-right: -10px;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                        </button>
+                                    </li>
+                                 {% endfor %}
+                             </ul>
+                         </div>
+                    </section> 
+                </div>
+                
+
+                <div class="underTwo">
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{sheet.strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{sheet.speed}}">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="description">
+                        <label for="description">Descrição: </label>
+                        <textarea name="description" id="description" >{{sheet.description}}</textarea>
+                    </section> 
+
+                </div>
+
+
+            </div>
+
+            <div class="createSheetActions">
+                    <a href="{% url 'sheets:homesheets' %}" class="cancelSheetView">
+                        Cancelar
+                    </a>
+                <script>
+                    function disableButton() {
+                        const button = document.getElementById("submit_button");
+                        button.disabled = true;
+                    }
+                </script>
+                <button type="submit" id="submit_button" method="POST" class="saveSheetView">
+                    Salvar
+                </button>
+            </div>
+           
+        </form>
+    </section>
+</section>
+{% include "dice.html" %}
+
+<script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
+<script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
+<script>
+    document.querySelector('.nameInput').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    document.querySelector('#healthPoint').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    document.getElementById('mana').addEventListener('blur', function() {
+        submitForm();
+    });
+
+    function submitForm() {
+        document.querySelector('#form').submit();
+    }
+</script>
+
+{% endblock %}

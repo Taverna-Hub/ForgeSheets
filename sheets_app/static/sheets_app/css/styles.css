@@ -105,7 +105,20 @@
 .sheetCard h2 {
   text-align: center;
   color: var(--gray-300);
-} 
+}
+
+.deleteSheet{
+  position: absolute;
+  z-index: 9999999999;
+  right: 10px;
+  top: 10px;
+
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
 
 .sheet_info {
   margin-top: 24px;
@@ -185,4 +198,11 @@
   cursor: pointer;
   filter: saturate(120%);
   box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
+}
+
+.detailLink{
+  width: 94%;
+  text-decoration: none;
+  color: var(--white);
+  cursor: pointer;
 }

@@ -1,29 +1,46 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/dice.css' %}">
+<link rel="stylesheet" href="{% static 'css/dice.css' %}">
+
+
 <div class="dice">
-    <button class="diceButton">Dado</button>
+    <button class="diceButton">
+        <i data-lucide="dices" width="32" height="32"></i>
+    </button>
 </div>
+
 <section class="diceModal">
     <div class="modal">
         <button type="button" id="closeDice">
             <i data-lucide="x"></i>
         </button>
         <div class="container">
-            <form id="formDice" action="" method="POST">
+            <form id="formDice">
                 {% csrf_token %}
+                
                 <div>
-                    <h2>Quantidade de dados</h2>
-                    <input type="number" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
+                    <h2>Quantidade de dados:</h2>
+                    <input type="text" id="quantityDice" name="quantityDice" placeholder="Insira a quantidade de dados" min="1">
+                    <span class="error-message" id="quantityError"></span>
                 </div>
+                
                 <div>
-                    <h2>Tipo de dado</h2>
-                    <input type="number" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
+                    <h2>Tipo de dado:</h2>
+                    <input type="text" id="typeDice" name="typeDice" placeholder="Insira o tipo do dado" min="1">
+                    <span class="error-message" id="typeError"></span>
                 </div>
+                
                 <div>
-                    <h2>Modificador</h2>
-                    <input type="number" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
+                    <h2>Modificador:</h2>
+                    <input type="text" id="modDice" name="modDice" placeholder="Insira o modificador do dado">
+                    <span class="error-message" id="modifierError"></span>
                 </div>
-                <button type="submit">Rolar dados</button>
+                
+                <div>
+                    <button type="submit" class="rollButton">Rolar dados</button>
+                </div>
+                
+                <div id="diceContainer" class="dice-container">
+                </div>
             </form>
             <div>
                 <div id="resultDisplay"><h1></h1></div>
@@ -31,4 +48,5 @@
         </div>
     </div>
 </section>
+
 <script src="{% static 'js/dice.js' %}"></script>

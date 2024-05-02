@@ -1,4 +1,4 @@
-const name = document.querySelector('input[name="name"]');
+const name = document.querySelector('input[name="equipmentName"]');
 const quantity = document.querySelector('input[name="quantity"]');
 const attack = document.querySelector('input[name="attack"]');
 const defense = document.querySelector('input[name="defense"]');
@@ -20,10 +20,9 @@ const removeEquipmentBtn = document.querySelector('.removeEquipment')
 
 const equipmentModal = document.querySelector('.equipmentModal')
 const editEquipmentModal = document.querySelector('.editEquipmentModal')
-
-let context = document.getElementById('context').getAttribute('data-context');
-if (context) {
-  context = JSON.parse(context.replace(/'/g, '"'));
+let ctxErrors = document.getElementById('context').getAttribute('data-errors');
+if (ctxErrors) {
+  ctxErrors = JSON.parse(ctxErrors.replace(/'/g, '"'));
 }
 
 let equipmentString = '';
@@ -31,18 +30,6 @@ let equipmentList = [];
 let selectedEquipmentToEdit;
 let equipmentNode;
 
-
-const StorageService = {
-  saveData() {
-    localStorage.setItem('equipments', JSON.stringify(equipmentList))
-  },
-  getData() {
-    return  JSON.parse(localStorage.getItem('equipments')) || []
-  },
-  removeData() {
-    localStorage.removeItem('equipments')
-  }
-}
 
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
@@ -64,7 +51,7 @@ function handleOpenEditEquipmentModal(selectedEquipment) {
   editDefense.value = selectedEquipment.defense;
 }
 
-function handleError(message, className) {
+function handleEquipmentError(message, className) {
   const error =       
   `
     <span> 
@@ -76,7 +63,7 @@ function handleError(message, className) {
   document.querySelector(`.${className}`).appendChild(node)
 }
 
-function handleLoadHtmlList(equipment) {
+function handleLoadEquipmentList(equipment) {
   return (
     `
       <li data-id="${equipment.local_id}">
@@ -86,7 +73,10 @@ function handleLoadHtmlList(equipment) {
         <input type="hidden" name="equipmentAtk" value="${equipment.attack}" />
         <input type="hidden" name="equipmentDef" value="${equipment.defense}" />
       </div>
-      ${equipment.quantity}x ${equipment.name}- Atk: ${equipment.attack} | Def: ${equipment.defense}
+      ${equipment.quantity}x ${equipment.name}
+      ${equipment.attack > 0 ? `- Atk: ${equipment.attack} ` : ''}
+      ${equipment.defense > 0 & equipment.attack > 0 ? `| Def: ${equipment.defense}` : ''}
+      ${equipment.defense > 0 & equipment.attack <= 0 ? `- Def: ${equipment.defense}` : ''}
       <button type="button" class="removeEquipment" onclick="handleDeleteEquipment(this)">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
       </button>
@@ -97,6 +87,7 @@ function handleLoadHtmlList(equipment) {
     `
   )
 }
+
 
 function handleAddEquipmentToList() {
   const equipment = {
@@ -111,56 +102,55 @@ function handleAddEquipmentToList() {
     (equipmentItem) => equipmentItem.name.toLowerCase() === equipment.name.toLowerCase());
 
   if (equipment.name === '') {
-    handleError('Esse campo não pode ser vazio', 'equipmentName')
+    handleEquipmentError('Esse campo não pode ser vazio', 'equipmentName')
     return
   }
   if (nameExists) {
-    handleError('Esse equipamento já existe', 'equipmentName')
+    handleEquipmentError('Esse equipamento já existe', 'equipmentName')
     return
   }
   if (equipment.name.length > 55) {
-    handleError('O nome deve ser menor que 55 caracteres', 'equipmentName')
+    handleEquipmentError('O nome deve ser menor que 55 caracteres', 'equipmentName')
     return
   }
   if (equipment.name.length < 2) {
-    handleError('Este campo deve ter mais de 2 caracteres', 'equipmentName')
+    handleEquipmentError('Este campo deve ter mais de 2 caracteres', 'equipmentName')
     return
   }
 
   if (equipment.quantity < 1) {
-    handleError('A quantidade não pode ser inferior a 1', 'equipmentQuantity')
+    handleEquipmentError('A quantidade não pode ser inferior a 1', 'equipmentQuantity')
     return
   }
 
   if (equipment.attack < 0) {
-    handleError('O valor de ataque não pode ser inferior a 0', 'equipmentAttack')
+    handleEquipmentError('O valor de ataque não pode ser inferior a 0', 'equipmentAttack')
     return
   }
 
   if (equipment.defense < 0) {
-    handleError('O valor de defesa não pode ser inferior a 0', 'equipmentDefense')
+    handleEquipmentError('O valor de defesa não pode ser inferior a 0', 'equipmentDefense')
     return
   }
 
   if (!Number.isInteger(equipment.quantity)) {
-    handleError('Utilize apenas números inteiros', 'equipmentQuantity')
+    handleEquipmentError('Utilize apenas números inteiros', 'equipmentQuantity')
     return
   }
 
   if (!Number.isInteger(equipment.attack)) {
-    handleError('Utilize apenas números inteiros', 'equipmentAttack')
+    handleEquipmentError('Utilize apenas números inteiros', 'equipmentAttack')
     return
   }
 
   if (!Number.isInteger(equipment.defense)) {
-    handleError('Utilize apenas números inteiros', 'equipmentDefense')
+    handleEquipmentError('Utilize apenas números inteiros', 'equipmentDefense')
     return
   }
 
   equipmentList.push(equipment);
-  StorageService.saveData();
 
-  equipmentString += handleLoadHtmlList(equipment);
+  equipmentString += handleLoadEquipmentList(equipment);
 
   const node = new DOMParser().parseFromString(equipmentString, 'text/html').body.firstElementChild
   document.querySelector('.equipmentList').appendChild(node)
@@ -194,13 +184,10 @@ function handleEditEquipment() {
     ))
   );
 
-  StorageService.removeData();
-  StorageService.saveData();
-
   document.querySelector('.equipmentList').innerHTML = '';
 
   equipmentListFiltered.forEach((equipmentItem) => {
-    equipmentString += handleLoadHtmlList(equipmentItem);
+    equipmentString += handleLoadEquipmentList(equipmentItem);
   })
 
   document.querySelector('.equipmentList').innerHTML = equipmentString;
@@ -214,7 +201,7 @@ function handleDeleteEquipment(equipment) {
   equipmentList.splice(actualIndex, 1)
 
   equipmentList.forEach((equipmentItem) => {
-    equipmentString += handleLoadHtmlList(equipmentItem);
+    equipmentString += handleLoadEquipmentList(equipmentItem);
   })
 
   document.querySelector('.equipmentList').innerHTML = equipmentString;

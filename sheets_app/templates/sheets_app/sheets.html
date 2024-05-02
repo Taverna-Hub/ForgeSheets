@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
-<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Suas Fichas - ForgeSheets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/choose-sheet.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/delete-sheet.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Suas Fichas - ForgeSheets</title>
 {% endblock %}
 
 {% block 'body' %}
@@ -35,6 +36,31 @@
     </div>
 </section>
 
+<section class="deleteSheetModal">
+    <div class="modal">
+        <button type="button" id="closeDeleteSheet">
+            <i data-lucide="x"></i>
+        </button>
+        <div class="container">
+            <div>
+                <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
+                <h2>Você tem certeza que deseja excluir esta ficha?</h2>
+
+                <div class="buttons">
+                    <button class="cancel">
+                        Cancelar
+                    </button>
+
+                    <button class="delete" type="submit" method="POST">
+                        Excluir
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
     <section class="cardList">
@@ -46,47 +72,51 @@
 
         {% for sheet in sheets_view%}
         <div class="sheetCard" style="{% if sheet.image %}
-                background-image: url({{ sheet.image }});  
-                background-position: center;
-                {% endif %}">
+        background-image: url({{ sheet.image }});
+        background-position: center;
+        {% endif %}">
+
+            {% comment %} <button type="button" class="deleteSheet" data-url="{% 'sheets:delete_sheet' sheet.id%}"> {% endcomment %}
+            <button class="deleteSheet" >
+                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            </button>
+
             <div style="{% if sheet.image %}
-                        background-color: rgba(0,0,0,0.5);
-                        backdrop-filter: blur(2px); 
-                        {% endif %}">
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            {% endif %}">
+
+                <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
                     <h2>{{sheet.name}}</h2>
-
-                <div class="sheet_info">
-                    <div class="sideBySide">
-                        <p><b>Nível:</b></p>
-                        {% if sheet.level == 20 %}
-                            <p>{{sheet.level}} (Nível Max.)</p>
-                        {% else %}
-                            <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
-                        {% endif %}
+                    <div class="sheet_info">
+                        <div class="sideBySide">
+                            <p><b>Nível:</b></p>
+                            {% if sheet.level == 20 %}
+                                <p>{{sheet.level}} (Nível Max.)</p>
+                            {% else %}
+                                <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                            {% endif %}
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Raça:</b></p>
+                            <p>{{sheet.race}}</p>
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Classe:</b></p>
+                            <p>{{sheet.role}}</p>
+                        </div>
+                        <div class="bar">
+                            <span class="hp-bar"></span>
+                            <span class="mana-bar"></span>
+                        </div>
                     </div>
-                    <div class="sideBySide">
-                        <p><b>Raça:</b></p>
-                        <p>{{sheet.race}}</p>
-                    </div>
-                    <div class="sideBySide">
-                        <p><b>Classe:</b></p>
-                        <p>{{sheet.role}}</p>
-                    </div>
-
-                    <div class="bar">
-                        <span class="hp-bar">
-                            {% comment %} <p>Vida</p> {% endcomment %}
-                        </span>
-                        <span class="mana-bar">
-                            {% comment %} <p>Vida</p> {% endcomment %}
-                        </span>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
+       
         {% endfor %}
-        {% include "dice.html" %}
     </section>
+    {% include "dice.html" %}
 </section>
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 {% endblock %}

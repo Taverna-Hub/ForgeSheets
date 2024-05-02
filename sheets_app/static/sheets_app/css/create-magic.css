@@ -1,0 +1,150 @@
+:root {
+  --red-50: #fef2f2;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-950: #450a0a;
+  --green-500: #22c55e;
+  --white: #f7f7f7;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+}
+
+a {
+  text-decoration: none;
+}
+
+textarea {
+  resize: none;
+}
+
+select {
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 8px;
+  background: transparent;
+}
+
+select option:checked {
+  background-color: var(--red-600);
+  color: var(--white);
+}
+
+select option:hover {
+  box-shadow: 0 0 10px 100px #1882A8 inset;
+}
+
+.magicModal, .editMagicModal {
+  background: rgba(0,0,0,0.8);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+}
+
+.magicModal input, textarea, .editMagicModal input, textarea {
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.magicModal input, .editMagicModal input {
+  height: 35px;
+}
+
+.magicModal textarea, .editMagicModal textarea {
+  resize: none;
+}
+
+.magicModal label, .editMagicModal label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--gray-700);
+}
+
+.magicModal h2, .editMagicModal h2 {
+  color: var(--gray-800);
+}
+
+.magicModal button, .editMagicModal button {
+  cursor: pointer;
+}
+
+.magicModal .modal, .editMagicModal .modal {
+  background-color: white;
+  padding: 24px;
+  border-radius: 4px;
+  width: 650px;
+  max-height: 90vh;
+  height: fit-content;
+  overflow-y: auto;
+}
+
+.magicModal .modal form, .editMagicModal .modal form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+
+  margin-top: 40px;
+}
+
+.magicModal .modal span, .editMagicModal .modal span {
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 8px;
+}
+
+.magicModal .actions, .editMagicModal .actions {
+  align-self: flex-end;
+}
+
+.magicModal .actions button, .editMagicModal .actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.magicModal .actions button:first-child, .editMagicModal .actions button:first-child {
+  background-color: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.magicModal .actions button:first-child a, .editMagicModal .actions button:first-child a {
+  color: var(--gray-700);
+}
+
+.magicModal .actions button:last-child, .editMagicModal .actions button:last-child  {
+  background-color: var(--red-600);
+  color: var(--gray-200);
+}
+
+.magicModal .sideBySide, .editMagicModal .sideBySide {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.magicModal .sideBySide div, .editMagicModal .sideBySide div {
+  width: 100%; 
+} 

@@ -1,5 +1,7 @@
 {
     "emmet.includeLanguages": {
         "django": "django.html"
-    }
+    },
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "python.analysis.autoImportCompletions": true
 }
