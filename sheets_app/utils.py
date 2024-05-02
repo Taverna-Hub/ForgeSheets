@@ -129,6 +129,23 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
                 'field':'speed',
                 'message':'Velocidade deve ser no mínimo 1'
             })
+    if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
+        errors.append({
+            'field': 'strength, intelligence, wisdom, charisma, constitution, speed',
+            'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
+            })
+        if str(strength).count(' ') == len(str(strength)):
+            errors.append("strength")
+        if str(intelligence).count(' ') == len(str(intelligence)):
+            errors.append("intelligence")
+        if str(charisma).count(' ') == len(str(charisma)):
+            errors.append("charisma")
+        if str(speed).count(' ') == len(str(speed)):
+            errors.append("speed")
+        if str(wisdom).count(' ') == len(str(wisdom)):
+            errors.append("wisdom")
+        if str(constitution).count(' ') == len(str(constitution)):
+            errors.append("constitution")
     # Tratando atributos secundários
     if not all([healthPoint, healthPointMax, manaActual, manaMax, exp]):
         errors.append({
@@ -160,8 +177,15 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
                 'field':'exp',
                 'message':'Preencha o campo de XP.'
             })
-    if len(errors):
+    if len(errors) > 0:
         return errors
+    
+    sheet_updated = Sheet(name = name, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthPointMax, mana = manaMax)
+    # sheet_updated.save()
+    # sheet_updated.updateXp()
+    # sheet_updated.save()
+    return sheet_updated
+
 
 #Tratamento de erro na utils
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
@@ -246,7 +270,7 @@ def atribute_verifier(atr):
     return 1 if not re.match(r'^[-+]?\d*\.?\d+$', atr) else 0
 
 # add imagem
-def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthpointMax, manaMax, exp, user_id, description):
+def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description):
     errors=[]
 
     image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
@@ -347,36 +371,36 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
         if  atribute_verifier(str(constitution)) == 1:
             errors.append("constitution")
 
-    if str(healthpointMax).count(' ') == len(str(healthpointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
+    if str(healthPointMax).count(' ') == len(str(healthPointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
         errors.append({
             'field': 'atributes2',
             'message' : 'Estes campos não podem ser vazios'
             })
-        if str(healthpointMax).count(' ') == len(str(healthpointMax)):
-            errors.append("healthpointMax")
+        if str(healthPointMax).count(' ') == len(str(healthPointMax)):
+            errors.append("healthPointMax")
         if str(manaMax).count(' ') == len(str(manaMax)):
             errors.append("manaMax")
         if str(exp).count(' ') == len(str(exp)):
             errors.append("exp")
 
-    elif atribute_verifier(str(healthpointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
+    elif atribute_verifier(str(healthPointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
         errors.append({
             'field' : 'atributes2',
             'message' : 'Os atributos secundarios devem ser numeros inteiros'
             })
-        if atribute_verifier(str(healthpointMax)) == 1:
-            errors.append("healthpointMax")
+        if atribute_verifier(str(healthPointMax)) == 1:
+            errors.append("healthPointMax")
         if atribute_verifier(str(manaMax)) == 1:
             errors.append("manaMax")
         if atribute_verifier(str(exp)) == 1:
             errors.append("exp")
 
-    elif int(healthpointMax) < 1 or int(manaMax) < 1 or int(healthpointMax) > 100000 or int(manaMax) > 100000:
+    elif int(healthPointMax) < 1 or int(manaMax) < 1 or int(healthPointMax) > 100000 or int(manaMax) > 100000:
         errors.append({
             'field' : 'atributes2',
             'message' : 'Vida e mana não podem ser menores que 1 ou maiores que 100 mil'
             })
-        if int(healthpointMax) < 1 or int(healthpointMax) > 100000:
+        if int(healthPointMax) < 1 or int(healthPointMax) > 100000:
             errors.append("healthPointMax")
         if int(manaMax) < 1 or int(manaMax) > 100000:
             errors.append("manaMax")
@@ -391,7 +415,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthpointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthpointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthPointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
     sheet.updateXp()
     sheet.save()

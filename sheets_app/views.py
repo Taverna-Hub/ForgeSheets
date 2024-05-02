@@ -1,3 +1,4 @@
+from email import errors, message
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
@@ -54,7 +55,6 @@ class CreateSheetView(LoginRequiredMixin, View):
         magicDamage = request.POST.getlist('mgcDamage')
         atributeModifier = (request.POST.getlist('mgcAttribute'))
         element = request.POST.getlist('mgcElement')
-        print(magicName, magicDescription, magicDamage, atributeModifier, element)
         user_id = request.user.id
 
         equipment_list = []
@@ -120,6 +120,8 @@ class CreateSheetView(LoginRequiredMixin, View):
 
 class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
+        user_id = request.user.id
+
         sheet = get_object_or_404(Sheet, id=id)
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
@@ -145,8 +147,9 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             ctx['equipments'] = None
         else:
             ctx['equipments'] = equipments
-            
-        return render(request, 'sheets_app/view-sheet.html', ctx)
+
+        if user_id == sheet.user_id:
+            return render(request, 'sheets_app/view-sheet.html', ctx)
     
     def post(self, request, id):
         sheet = get_object_or_404(Sheet, id=id)
@@ -183,19 +186,13 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.description = description
 
         sheet.expTotal += int(exp) - expAtual
-
-        # updt = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
-        # preciso configurar a hora de salvar, criar ctx...
-
         sheet.save()
         sheet.updateXp()
-
-        # essas condicionais aqui terão que ser removidas depois
-        if isinstance(sheet, Sheet):
-            # se alguem mexer, não apague esse sheet.save
-            # amanha eu termino isso daqui
-            sheet.save()
-            messages.success(request, 'Ficha atualizada com sucesso!')
+        sheet.save()
+        
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        if isinstance(updated, Sheet):
+            messages.success(request,'Ficha atualizada com sucesso!')
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
             messages.error(request, 'Erro ao atualizar ficha.')
