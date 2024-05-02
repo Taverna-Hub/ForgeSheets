@@ -29,7 +29,15 @@ let equipmentString = '';
 let equipmentList = [];
 let selectedEquipmentToEdit;
 let equipmentNode;
+let isEditingSheet = false;
 
+// Edit sheet function
+function submitForm() {
+  const editSheetForm = document.querySelector('#form-edit-sheet')
+  if (editSheetForm) {
+    editSheetForm.submit();
+  }
+}
 
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
@@ -160,6 +168,8 @@ function handleAddEquipmentToList() {
   quantity.value = 1;
   attack.value = 0;
   defense.value = 0;
+
+  submitForm()
 }
 
 function handleGetEditEquipmentInfo(equipment) {
