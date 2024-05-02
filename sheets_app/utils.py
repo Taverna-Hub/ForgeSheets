@@ -4,134 +4,22 @@ import re
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp):
     errors = []
 
-    patterns = r'^[a-zA-Z\s]+$'
-    atribute_pattern = r'^[1-9]\d*$'
-    
-    # Tratando nomes, raças e classes aqui!
-    if len(name) == 0 or name == '':
-        
+    # Tratando nomes!
+    if str(name).count(' ') == len(name):
+        errors.append({
+            'field': 'name',
+            'message' : 'Este campo não pode ser vazio!'
+            })
+    elif 2 > len(name) or len(name) > 50:
         errors.append({
             'field':'name',
-            'message':'Insira o nome corretamente.'
-        })
-    if len(name) > 0:
-        if not re.match(patterns, name):
-            errors.append({
-                'field':'name',
-                'message':'Insira apenas letras e espaços.'
-            })
-    if len(name) > 50:
-        if len(name) > 50:
-            errors.append({
-                'field':'name',
-                'message':'Nome não pode ser maior que 50'
+            'message': 'Insira de 2 a 50 caracteres!'
             })
         
-    # Tratando atributos primários
-    if not strength or not intelligence or not wisdom or not charisma or not constitution or not speed:
-        errors.append({
-            'field':'strength, intelligence, wisdom, charisma, constitution, speed',
-            'message':'Preencha todos os campos.'
-        })
-        if not strength:
-            errors.append({
-                'field':'strength',
-                'message':'Preencha o campo de Força.'
-            })
-        if not intelligence:
-            errors.append({
-                'field':'intelligence',
-                'message':'Preencha o campo de Inteligência.'
-            })
-        if not wisdom:
-            errors.append({
-                'field':'wisdom',
-                'message':'Preencha o campo de Sabedoria.'
-            })
-        if not charisma:
-            errors.append({
-                'field':'charisma',
-                'message':'Preencha o campo de Carisma.'
-            })
-        if not constitution:
-            errors.append({
-                'field': 'constitution',
-                'message':'Preencha o campo de Constituição.'
-            })
-        if not speed:
-            errors.append({
-                'field':'constitution',
-                'message':'Preencha o campo de Velocidade'
-            })
-    if not re.match(atribute_pattern, strength) or not re.match(atribute_pattern, intelligence) or not re.match(atribute_pattern, wisdom) or not re.match(atribute_pattern, charisma) or not re.match(atribute_pattern, constitution) or not re.match(atribute_pattern, speed):
-        if not re.match(atribute_pattern, int(strength)):
-            errors.append({
-                'field':'strength',
-                'message':'Insira apenas inteiros positivos!'
-            })
-        if not re.match(atribute_pattern, int(strength)):
-            errors.append({
-                'field':'strength',
-                'message':'Insira apenas inteiros positivos!'
-            })
-        if not re.match(atribute_pattern, int(wisdom)):
-            errors.append({
-                'field':'wisdom',
-                'message':'Insira apenas inteiros positivos!'
-            })
-        if not re.match(atribute_pattern, int(charisma)):
-            errors.append({
-                'field':'charisma',
-                'message':'Insira apenas inteiros positivos!'
-            })
-        if not re.match(atribute_pattern, int(constitution)):
-            errors.append({
-                'field':'constitution',
-                'message':'Insira apenas inteiros positivos!'
-            })
-        if not re.match(atribute_pattern, int(speed)):
-            errors.append({
-                'field':'speed',
-                'message':'Insira apenas inteiros positivos!'
-            })
-    elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1:
-        errors.append({
-            'field' : 'strenth, intelligence, wisdom, charisma, constitution, speed',
-            'message' : 'Os atributos devem ser maiores que 1'
-            })
-        if int(strength) < 1:
-            errors.append({
-                'field':'strength',
-                'message':'Força deve ser no mínimo 1'
-            })
-        if int(intelligence) < 1:
-            errors.append({
-                'field':'intelligence',
-                'message':'Inteligência deve ser no mínimo 1'
-            })
-        if int(wisdom) < 1 :
-            errors.append({
-                'field':'wisdom',
-                'message':'Sabedoria deve ser no mínimo 1'
-            })
-        if int(charisma) < 1 :
-            errors.append({
-                'field':'charisma',
-                'message':'Carisma deve ser no mínimo 1'
-            })
-        if int(constitution) < 1:
-            errors.append({
-                'field':'constitution',
-                'message':'Constituição deve ser no mínimo 1'
-            })
-        if int(speed) < 1:
-            errors.append({
-                'field':'speed',
-                'message':'Velocidade deve ser no mínimo 1'
-            })
+    # Tratando Atributos    
     if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
         errors.append({
-            'field': 'strength, intelligence, wisdom, charisma, constitution, speed',
+            'field': 'atributes1',
             'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
             })
         if str(strength).count(' ') == len(str(strength)):
@@ -146,37 +34,84 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             errors.append("wisdom")
         if str(constitution).count(' ') == len(str(constitution)):
             errors.append("constitution")
-    # Tratando atributos secundários
-    if not all([healthPoint, healthPointMax, manaActual, manaMax, exp]):
+
+    elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1:
         errors.append({
-            'field':'healthPoint, healthPointMax, manaActual, manaMax, exp',
-            'message':'Preencha todos os campos.'
-        })
-        if not re.match(atribute_pattern, healthPoint):
-            errors.append({
-                'field':'healthPoint',
-                'message':'Preencha o campo de Vida.'
+            'field' : 'atributes1',
+            'message' : 'Os atributos devem estar entre 1 e 20'
             })
-        if not re.match(atribute_pattern, healthPointMax):
-            errors.append({
-                'field':'healthPointMax',
-                'message':'Preencha o campo de Vida Máxima.'
+        if int(strength) < 1:
+            errors.append("strength")
+        if int(intelligence) < 1:
+            errors.append("intelligence")
+        if int(wisdom) < 1 :
+            errors.append("wisdom")
+        if int(speed) < 1:
+            errors.append("speed")
+        if int(charisma) < 1 :
+            errors.append("charisma")
+        if int(constitution) < 1:
+            errors.append("constitution")
+
+    elif atribute_verifier(str(strength)) == 1 or atribute_verifier(str(intelligence)) == 1 or atribute_verifier(str(wisdom)) == 1 or atribute_verifier(str(charisma)) == 1 or atribute_verifier(str(constitution)) == 1 or atribute_verifier(str(speed)) == 1:
+        errors.append({
+            'field' : 'atributes1',
+            'message' : 'Os atributos primarios devem ser numeros inteiros'
             })
-        if not re.match(atribute_pattern, manaActual):
-            errors.append({
-                'field':'manaActual',
-                'message':'Preencha o campo de Mana.'
+        if atribute_verifier(str(strength)) == 1:
+            errors.append("strength")
+        if atribute_verifier(str(intelligence)) == 1:
+            errors.append("intelligence")
+        if atribute_verifier(str(wisdom)) == 1:
+            errors.append("wisdom")
+        if atribute_verifier(str(speed)) == 1:
+            errors.append("speed")
+        if  atribute_verifier(str(charisma)) == 1:
+            errors.append("charisma")
+        if  atribute_verifier(str(constitution)) == 1:
+            errors.append("constitution")
+
+    if str(healthPointMax).count(' ') == len(str(healthPointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
+        errors.append({
+            'field': 'atributes2',
+            'message' : 'Estes campos não podem ser vazios'
             })
-        if not re.match(atribute_pattern, manaMax):
-            errors.append({
-                'field':'manaMax',
-                'message':'Preencha o campo de Mana Máxima.'
+        if str(healthPointMax).count(' ') == len(str(healthPointMax)):
+            errors.append("healthPointMax")
+        if str(manaMax).count(' ') == len(str(manaMax)):
+            errors.append("manaMax")
+        if str(exp).count(' ') == len(str(exp)):
+            errors.append("exp")
+
+    elif atribute_verifier(str(healthPointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Os atributos secundarios devem ser numeros inteiros'
             })
-        if not re.match(atribute_pattern, exp):
-            errors.append({
-                'field':'exp',
-                'message':'Preencha o campo de XP.'
+        if atribute_verifier(str(healthPointMax)) == 1:
+            errors.append("healthPointMax")
+        if atribute_verifier(str(manaMax)) == 1:
+            errors.append("manaMax")
+        if atribute_verifier(str(exp)) == 1:
+            errors.append("exp")
+
+    elif int(healthPointMax) < 1 or int(manaMax) < 1 or int(healthPointMax) > 100000 or int(manaMax) > 100000:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'Vida e mana não podem ser menores que 1 ou maiores que 100 mil'
             })
+        if int(healthPointMax) < 1 or int(healthPointMax) > 100000:
+            errors.append("healthPointMax")
+        if int(manaMax) < 1 or int(manaMax) > 100000:
+            errors.append("manaMax")
+
+    elif int(exp) < 0 or int(exp) > 105000000:
+        errors.append({
+            'field' : 'atributes2',
+            'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
+            })
+        errors.append("exp")
+
     if len(errors) > 0:
         return errors
     
@@ -185,7 +120,6 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
     # sheet_updated.updateXp()
     # sheet_updated.save()
     return sheet_updated
-
 
 #Tratamento de erro na utils
 def save_equipment(equipment, name, quantity, attack, defense, sheet):

@@ -192,6 +192,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.save()
         
         updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        
         if isinstance(updated, Sheet):
             messages.success(request,'Ficha atualizada com sucesso!')
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
