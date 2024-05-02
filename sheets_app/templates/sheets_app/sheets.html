@@ -71,7 +71,7 @@
         </button>
 
         {% for sheet in sheets_view%}
-        <div class="sheetCard" style="{% if sheet.image %}
+        <div id="Card" class="sheetCard" style="{% if sheet.image %}
         background-image: url({{ sheet.image }});
         background-position: center;
         {% endif %}">
@@ -81,7 +81,7 @@
                 <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
             </button>
 
-            <div style="{% if sheet.image %}
+            <div id="Card" {% if sheet.image %}
             background-color: rgba(0,0,0,0.5);
             backdrop-filter: blur(2px);
             {% endif %}">
