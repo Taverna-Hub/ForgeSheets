@@ -45,15 +45,15 @@ class CreateSheetView(LoginRequiredMixin, View):
 
         description = request.POST.get('description')
 
-        eqpsName = (request.POST.getlist('equipmentName'))  
-        eqpsQnt = (request.POST.getlist('equipmentQnt'))
-        eqpsAtk = (request.POST.getlist('equipmentAtk'))
-        eqpsDef = (request.POST.getlist('equipmentDef'))
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
 
-        magicName = (request.POST.getlist('mgcName'))
-        magicDescription = (request.POST.getlist('mgcDesc'))
+        magicName = request.POST.getlist('mgcName')
+        magicDescription = request.POST.getlist('mgcDesc')
         magicDamage = request.POST.getlist('mgcDamage')
-        atributeModifier = (request.POST.getlist('mgcAttribute'))
+        atributeModifier = request.POST.getlist('mgcAttribute')
         element = request.POST.getlist('mgcElement')
         user_id = request.user.id
 
@@ -169,6 +169,22 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         manaMax = request.POST.get('manaMax')
         exp = request.POST.get('exp')
         description = request.POST.get('description')
+
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
+
+
+        equipments = Equipment.objects.filter(sheet_id=sheet.id)
+        equipment_list = []
+        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+            for i in equipments:
+                if i.name == equipmentName:
+                    equipment_list.append(equipmentName)
+            if  equipmentName not in equipment_list:
+                equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
+                equipment.save()  
 
         sheet.name = name
         sheet.image = image if image else None

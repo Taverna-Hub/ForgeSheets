@@ -145,7 +145,7 @@
                 <button type="button" id="closeEquipmentBtn">
                     Cancelar
                 </button>
-                <button type="button" id="addEquipmentBtn">
+                <button type="button" id="addEquipmentBtn" onclick="submitForm()">
                     Criar
                 </button>
             </div>
@@ -231,9 +231,9 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form" method="POST">
+        <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form-edit-sheet" method="POST">
             {%csrf_token%}
-            <input class="nameInput" type="text" name="name" id="" value="{{sheet.name}}">
+            <input class="nameInput sheet-submit" type="text" name="name" id="" value="{{sheet.name}}">
             
             <section class="sheetHeader">
                 
@@ -270,9 +270,9 @@
                             </div>
                             
                             <span class="inputs">
-                                <input class="hpLeft" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
+                                <input class="hpLeft sheet-submit" type="number" name="healthPoint" id="healthPoint" value="{{sheet.healthPoint}}" >
                                 <p class="barraBarra">/</p>
-                                <input class="hpRight" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
+                                <input class="hpRight sheet-submit" type="number" name="healthPointMax" id="healthPointMax" value="{{sheet.healthPointMax}}" >
                             </span>
                         </section>
 
@@ -283,9 +283,9 @@
                             </div>
                             
                             <span class="inputs">
-                                <input class="manaLeft" type="number" name="manaActual" id="mana" value="{{sheet.mana}}" >
+                                <input class="manaLeft sheet-submit" type="number" name="manaActual" id="mana" value="{{sheet.mana}}" >
                                 <p class="barraBarra">/</p>
-                                <input class="manaRight" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
+                                <input class="manaRight sheet-submit" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
                             </span>
                         </section>
                         
@@ -306,7 +306,7 @@
                                 </div>
                                 
                                 <span class="inputs">
-                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}" class="sheet-submit">
                                     <p class="barraBarra">/</p>
                                     <p class="expP">{{sheet.expMax}}xp</p>
                                 </span>
@@ -421,34 +421,34 @@
                         <div class="atributosInputs">
                             <div>
                                 <label for="strength">Força: </label>
-                                <input type="number" name="strength" id="strength" value="{{sheet.strength}}">
+                                <input type="number" name="strength" id="strength" value="{{sheet.strength}}" class="sheet-submit">
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
-                                <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}">
+                                <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}" class="sheet-submit">
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
-                                <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}">
+                                <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}" class="sheet-submit">
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
-                                <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}">
+                                <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}" class="sheet-submit">
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
-                                <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}">
+                                <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}" class="sheet-submit">
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
-                                <input type="number" name="speed" id="speed" value="{{sheet.speed}}">
+                                <input type="number" name="speed" id="speed" value="{{sheet.speed}}" class="sheet-submit">
                             </div>
                         </div>
                     </section>
 
                     <section class="description">
                         <label for="description">Descrição: </label>
-                        <textarea name="description" id="description" >{{sheet.description}}</textarea>
+                        <textarea name="description" id="description" class="sheet-submit">{{sheet.description}}</textarea>
                     </section> 
 
                 </div>
@@ -479,22 +479,6 @@
 <script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/magic.js' %}"></script>
-<script>
-    document.querySelector('.nameInput').addEventListener('blur', function() {
-        submitForm();
-    });
-
-    document.querySelector('#healthPoint').addEventListener('blur', function() {
-        submitForm();
-    });
-
-    document.getElementById('mana').addEventListener('blur', function() {
-        submitForm();
-    });
-
-    function submitForm() {
-        document.querySelector('#form').submit();
-    }
-</script>
+<script type="module" src="{% static 'sheets_app/js/edit-sheet.js' %}"></script>
 
 {% endblock %}
