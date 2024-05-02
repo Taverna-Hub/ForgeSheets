@@ -73,7 +73,8 @@ button {
     padding: 32px 22px 32px 32px;
     margin: 15%;
     margin-top: 5%;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     height: fit-content;
 }
   
@@ -153,6 +154,16 @@ button {
     width: 100%;
     position: relative;
     top: -230px;
+}
+
+.race, .class {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.race {
+    margin-bottom: 16px;
 }
 
 /*css de equipamentos*/
@@ -450,10 +461,6 @@ button {
     font-size: 16px;
 }
   
-.createSheetActions button:first-child {
-    background-color: var(--gray-200);
-    color: var(--gray-700);
-}
   
 .createSheetActions button:first-child a {
     color: var(--gray-700);
@@ -483,16 +490,26 @@ button {
     .sheetHeader {
       flex-direction: column;
     }
+
+    .sheetSideBySide, .sideBySide {
+        flex-direction: column;
+        align-items: baseline;
+        justify-content: baseline;
+        height: fit-content;
+    }  
+
+    .underTwo {
+        position: static;
+    }
+
+    .createSheetActions {
+        flex-direction: column;
+        float: none;
+    }
   }
   
 @media (max-width: 1180px) {
-    .sheetSideBySide {
-      flex-direction: column;
-      align-items: baseline;
-      justify-content: baseline;
-      height: fit-content;
-    }
-  
+
     .atributos {
       margin-top: 24px;
     }
@@ -537,8 +554,8 @@ button {
     width: 66px;
     text-align: center;
     align-items: center;
-    margin-top: 170px;
-    margin-left: -85px;
+    top: 170px;
+    left: -85px;
     position: absolute;
 }
 
@@ -566,8 +583,8 @@ button {
     width: 66px;
     text-align: center;
     align-items: center;
-    margin-top: 170px;
-    margin-left: 70px;
+    top: 170px;
+    left: 70px;
     position: absolute;
 }
 
@@ -585,7 +602,7 @@ button {
     font-weight: bold;
 }
 
-.cancelSheetView{
+.cancelSheetView {
     background-color: var(--gray-200);
     padding: 8px 16px;
     border-radius: 4px;
@@ -594,8 +611,12 @@ button {
     font-size: 16px;
     color: var(--gray-700);
     margin: 6px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.saveSheetView{
+.saveSheetView {
     margin: 6px;
 }

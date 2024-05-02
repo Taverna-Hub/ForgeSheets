@@ -26,6 +26,14 @@ function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
 
+// async function handleCheckImage(url){
+     
+//   const res = await fetch(url);
+//   const buff = await res.blob();
+ 
+//   return buff.type.startsWith('image/')
+// }
+
 function handleErrorImage(message) {
   const error =       
   `
@@ -39,11 +47,12 @@ function handleErrorImage(message) {
 }
 
 
-function addImageToSheet() {
+async function addImageToSheet() {
   const contextImage = document.querySelector('.imageInputCircle');
 
   let modalImageValue = imageLink.value;
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
+  // console.log(await handleCheckImage(modalImageValue))
 
   if (!regex.test(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')

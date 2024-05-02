@@ -129,6 +129,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         atk = sheet.totalAtkDef()['atk'] 
         defe = sheet.totalAtkDef()['def'] 
         ctx = { 
+            'app_name': 'sheets',
             'sheet': sheet,
             'mana': int(mana),
             'hp': int(hp),
@@ -245,7 +246,9 @@ class DelEquipmentView(LoginRequiredMixin, View):
 class ListEquipmentView(LoginRequiredMixin, View):
     def get(self, request):
         equipments = Equipment.objects.all()
-        ctx = {'equipments': equipments}
+        ctx = {
+            'equipments': equipments
+        }
         return render(request, 'sheets_app/testEquipment2.html', ctx)
     
 class EditEquipmentView(LoginRequiredMixin, View):
