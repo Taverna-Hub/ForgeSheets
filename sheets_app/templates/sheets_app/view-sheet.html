@@ -234,7 +234,14 @@
         <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form-edit-sheet" method="POST">
             {%csrf_token%}
             <input class="nameInput sheet-submit" type="text" name="name" id="" value="{{sheet.name}}">
-            
+            {% for error in errors %}
+                {% if error.field == 'name'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+            {% endfor %}
             <section class="sheetHeader">
                 
                 <div class="under">
@@ -288,7 +295,14 @@
                                 <input class="manaRight sheet-submit" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
                             </span>
                         </section>
-                        
+                        {% for error in errors %}
+                            {% if error.field == 'atributes2'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
                     </div>
                     
                 </div>
@@ -444,11 +458,27 @@
                                 <input type="number" name="speed" id="speed" value="{{sheet.speed}}" class="sheet-submit">
                             </div>
                         </div>
+                        {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
                     </section>
 
                     <section class="description">
                         <label for="description">Descrição: </label>
                         <textarea name="description" id="description" class="sheet-submit">{{sheet.description}}</textarea>
+                        {% for error in errors %}
+                        {% if error.field == 'description'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                        {% endfor %}
                     </section> 
 
                 </div>

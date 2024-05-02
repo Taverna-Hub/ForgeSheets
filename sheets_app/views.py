@@ -157,32 +157,92 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         name = request.POST.get('name')
         image = request.POST.get('image')
+
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
         wisdom = request.POST.get('wisdom')
         charisma = request.POST.get('charisma')
         constitution = request.POST.get('constitution')
         speed = request.POST.get('speed')
+    
         healthPoint = request.POST.get('healthPoint')
         healthPointMax = request.POST.get('healthPointMax')
         manaActual = request.POST.get('manaActual')
         manaMax = request.POST.get('manaMax')
         exp = request.POST.get('exp')
+
         description = request.POST.get('description')
 
         eqpsName = request.POST.getlist('equipmentName')
         eqpsQnt = request.POST.getlist('equipmentQnt')
         eqpsAtk = request.POST.getlist('equipmentAtk')
         eqpsDef = request.POST.getlist('equipmentDef')
+        equipment_list = []
 
+        magicName = request.POST.getlist('mgcName')
+        magicDescription = request.POST.getlist('mgcDesc')
+        magicDamage = request.POST.getlist('mgcDamage')
+        atributeModifier = request.POST.getlist('mgcAttribute')
+        element = request.POST.getlist('mgcElement')
+        magic_list = []
+
+        atk = sheet.totalAtkDef()['atk'] 
+        defe = sheet.totalAtkDef()['def'] 
+
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        if not isinstance(updated, Sheet):
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': updated,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'sheet': sheet,
+                    'atk': atk,
+                    'def': defe
+                }
+                if 'name' not in updated:
+                    ctx['name'] = name
+                if 'image' not in updated:
+                    ctx['image'] = image
+                if 'description' not in updated:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+            return render(request, 'sheets_app/view-sheet.html', ctx)
 
         equipments = Equipment.objects.filter(sheet_id=sheet.id)
-        equipment_list = []
+        equipment_lists = []
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             for i in equipments:
                 if i.name == equipmentName:
-                    equipment_list.append(equipmentName)
-            if  equipmentName not in equipment_list:
+                    equipment_lists.append(equipmentName)
+            if  equipmentName not in equipment_lists:
                 equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
                 equipment.save()  
 
@@ -205,16 +265,58 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.expTotal += int(exp) - expAtual
         sheet.save()
         sheet.updateXp()
-        sheet.save()
         
         updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
         
         if isinstance(updated, Sheet):
             messages.success(request,'Ficha atualizada com sucesso!')
+            sheet.save()
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
-            messages.error(request, 'Erro ao atualizar ficha.')
-            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))       
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': updated,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'sheet': sheet,
+                    'atk': atk,
+                    'def': defe
+                }
+                if 'name' not in updated:
+                    ctx['name'] = name
+                if 'image' not in updated:
+                    ctx['image'] = image
+                if 'description' not in updated:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+            return render(request, 'sheets_app/view-sheet.html', ctx)
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
