@@ -278,9 +278,12 @@
                             </div>
                             
                             <input type="hidden" name="image" class="imageInputCircle">
-                            
                             <button type="button" class="openImageBtn">
-                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                                {% if image %}
+                                    <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                                {% else %}
+                                    <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                                {% endif %}
                             </button>
 
                         </div>

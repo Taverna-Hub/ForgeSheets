@@ -1,4 +1,5 @@
 from email import errors, message
+from email.mime import image
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
@@ -123,13 +124,14 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         user_id = request.user.id
 
         sheet = get_object_or_404(Sheet, id=id)
+        image = sheet.image
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
         mana = (sheet.mana/sheet.manaMax)*100
         hp = (sheet.healthPoint/sheet.healthPointMax)*100
         exp = (sheet.exp/sheet.expMax)*100
         atk = sheet.totalAtkDef()['atk'] 
-        defe = sheet.totalAtkDef()['def'] 
+        defe = sheet.totalAtkDef()['def']
         ctx = { 
             'app_name': 'sheets',
             'sheet': sheet,
@@ -137,8 +139,13 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             'hp': int(hp),
             'exp': int(exp),
             'atk': atk,
-            'def': defe
+            'def': defe,
         }
+        if  image:
+            ctx['image'] = image
+        elif not image:
+            ctx['image'] = None
+        print(image)
         if not magics:
             ctx['magics'] = None
         else:
