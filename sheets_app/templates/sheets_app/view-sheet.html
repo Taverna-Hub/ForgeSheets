@@ -228,6 +228,7 @@
     </div>
     
 </section>
+
 {% for message in messages %}
     <div class="toast {{ message.tags }}">
         {{message}}
@@ -249,6 +250,7 @@
       </svg>
     </div>
 {% endfor %}
+
 <section class="mainSheet">
     <section class="sheet">
         <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form-edit-sheet" method="POST">
@@ -318,14 +320,15 @@
                                 <input class="manaRight sheet-submit" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
                             </span>
                         </section>
-                        {% for error in errors %}
+
+                        {% comment %} {% for error in errors %}
                             {% if error.field == 'atributes2'%}
                             <span>
                                 <i data-lucide="octagon-alert"></i>
                                 {{ error.message }}
                             </span>
                             {% endif %}
-                            {% endfor %}
+                        {% endfor %} {% endcomment %}
                     </div>
                     
                 </div>
@@ -360,6 +363,16 @@
                             <p for="role">Classe: </p>
                             <p>{{sheet.role}}</p>
                         </div>
+
+                        <br>
+                        {% for error in errors %}
+                            {% if error.field == 'atributes2'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                        {% endfor %}
                     
                     </section>
                     
