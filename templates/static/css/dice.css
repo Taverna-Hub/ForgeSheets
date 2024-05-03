@@ -124,19 +124,18 @@ input {
 }
               
 .dice-face {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid var(--red-600);
-  border-radius: 12px;
-  margin: 5px;
-  background-color: rgba(0,0,0,0.8);
   position: relative;
-  font-size: 20px;
+  font-size: 16px;
   animation: rollDice 0.5s infinite;
-  color:var(--red-600)
+  color: #f3efef;
+  background-size:contain;
+  font-weight: 600;
+  text-shadow: 1px 1px 0px black;
 }
 
 

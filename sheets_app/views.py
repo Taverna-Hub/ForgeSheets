@@ -187,12 +187,18 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         magic_list = []
 
         atk = sheet.totalAtkDef()['atk'] 
-        defe = sheet.totalAtkDef()['def'] 
+        defe = sheet.totalAtkDef()['def']
+        expMax = sheet.expMax
+        expActual = sheet.exp
 
-        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        # if exp < xp:
+        #     errors.append()
+
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
         if not isinstance(updated, Sheet):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
-            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            atributos2 = ['healthPointMax', 'manaMax']
+            experiencia = ['exp', 'expActual', 'expMax']
             if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
                 for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
                     magic = {
@@ -234,6 +240,10 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                     if atributo not in updated:
                         valor = request.POST.get(atributo)
                         ctx[atributo] = valor
+                for xp in experiencia:
+                    if xp not in updated:
+                        valor = request.POST.get(xp)
+                        ctx[xp] = valor
             return render(request, 'sheets_app/view-sheet.html', ctx)
 
         equipments = Equipment.objects.filter(sheet_id=sheet.id)
@@ -258,15 +268,16 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.healthPointMax = int(healthPointMax)
         sheet.mana = int(manaActual)
         sheet.manaMax = int(manaMax)
-        expAtual = sheet.exp
         sheet.exp = int(exp)
+        expActual = sheet.exp
+        expMax = sheet.expMax
         sheet.description = description
 
-        sheet.expTotal += int(exp) - expAtual
+        sheet.expTotal += int(exp) - expActual
         sheet.save()
         sheet.updateXp()
         
-        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
         
         if isinstance(updated, Sheet):
             messages.success(request,'Ficha atualizada com sucesso!')
@@ -274,7 +285,8 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
-            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            atributos2 = ['healthPointMax', 'manaMax']
+            experiencia = [ 'exp', 'expActual', 'expMax']
             if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
                 for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
                     magic = {
@@ -316,6 +328,10 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                     if atributo not in updated:
                         valor = request.POST.get(atributo)
                         ctx[atributo] = valor
+                for xp in experiencia:
+                    if xp not in updated:
+                        valor = request.POST.get(xp)
+                        ctx[xp] = valor
             return render(request, 'sheets_app/view-sheet.html', ctx)
         
 

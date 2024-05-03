@@ -72,6 +72,8 @@ class Sheet(models.Model):
             level += 1
             expMax *= 2
         return level
+    
+    # ;-;
 
 class Equipment(models.Model):
     name = models.CharField(max_length=55)

@@ -104,15 +104,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function rollDice(diceResults) {
         const diceContainer = document.getElementById('diceContainer');
         diceContainer.innerHTML = '';
-    
+
         diceResults.forEach(result => {
             result.rolls.forEach((roll, i) => {
                 const dice = document.createElement('div');
-                dice.className = 'dice-face';
+                dice.className = `dice-face dice-${result.type}`;
+                dice.style.backgroundImage = getDiceImageUrl(result.type);
+                dice.style.backgroundSize = "contain";
                 dice.textContent = '...';
                 diceContainer.appendChild(dice);
-                
-                
+
                 setTimeout(() => {
                     dice.textContent = roll;
                     dice.style.animation = 'none';
@@ -123,6 +124,20 @@ document.addEventListener('DOMContentLoaded', function () {
         diceContainer.style.scrollBehavior = 'smooth';
         diceContainer.scrollIntoView();
     };
+
+
+    function getDiceImageUrl(diceType) {
+        const urls = {
+            4: 'https://pbs.twimg.com/media/GMnhDY5XUAAnIvO?format=png&name=240x240',
+            6: 'https://pbs.twimg.com/media/GMnhDY0XsAAvjb_?format=png&name=240x240',
+            8: 'https://pbs.twimg.com/media/GMnhDY3W0AAXXSJ?format=png&name=240x240',
+            10: 'https://pbs.twimg.com/media/GMnhDY2WwAEZNuL?format=png&name=240x240',
+            12: 'https://pbs.twimg.com/media/GMnAe5rWsAAYFB9?format=png&name=240x240',
+            20: 'https://pbs.twimg.com/media/GMnhMIJXIAAtIpm?format=png&name=240x240',
+            100: 'https://pbs.twimg.com/media/GMnhMJ2WkAAKjLx?format=png&name=240x240'
+        };
+        return `url('${urls[diceType]}')`;
+    }
 
     // function dragElement(element) {
     //     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
