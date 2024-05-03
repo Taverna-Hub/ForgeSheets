@@ -111,11 +111,6 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
-    elif int(exp) > int(expMax):
-        errors.append({
-            'field': 'atributes2',
-            'message': ''
-        })
 
     elif int(exp) < int(expActual):
         errors.append({
@@ -130,6 +125,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
     # sheet_updated.updateXp()
     # sheet_updated.save()
     return sheet_updated
+
 
 #Tratamento de erro na utils
 def save_equipment(equipment, name, quantity, attack, defense, sheet):
