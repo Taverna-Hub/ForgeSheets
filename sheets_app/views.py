@@ -357,7 +357,7 @@ class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, pk):
         sheet = get_object_or_404(Sheet, pk=pk, user=request.user)
         sheet.delete()
-        return redirect('')
+        return redirect('sheets:homesheets')
 
 class AddEquipmentView(LoginRequiredMixin, View):
 
