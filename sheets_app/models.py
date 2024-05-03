@@ -1,7 +1,9 @@
+import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from utilities_app.models import Users
 from django.core.validators import MinValueValidator
 from django.db.models import Sum
+
 
 class Race(models.Model):
     name = models.CharField(max_length=75)
@@ -16,6 +18,7 @@ class Race(models.Model):
         return self.name
 
 class Sheet(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=75)
     image = models.URLField(null=True)
 
@@ -40,7 +43,7 @@ class Sheet(models.Model):
     notes = models.TextField(default='')
     description = models.TextField(default='NULL')
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name
@@ -76,6 +79,7 @@ class Sheet(models.Model):
     # ;-;
 
 class Equipment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=55)
     quantity = models.IntegerField(validators=[MinValueValidator(1)])
     attack = models.IntegerField(default=0, validators=[MinValueValidator(0)])
@@ -86,6 +90,7 @@ class Equipment(models.Model):
         return f'{self.name} {self.attack} | {self.defense}'
 
 class Magic(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=70)
     description = models.CharField(max_length=200)
     damage = models.CharField(max_length=50, default='')

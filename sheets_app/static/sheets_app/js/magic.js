@@ -46,7 +46,7 @@ magicsDiv.forEach(div => {
   });
 
   const magic = {
-    local_id: Number(id),
+    local_id: id,
     name: values[0],
     description: values[1], 
     element: values[2],

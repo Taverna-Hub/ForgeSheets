@@ -26,13 +26,13 @@ function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
 
-// async function handleCheckImage(url){
+async function handleCheckImage(url) {
      
-//   const res = await fetch(url);
-//   const buff = await res.blob();
+  const res = await fetch(url);
+  const buff = await res.blob();
  
-//   return buff.type.startsWith('image/')
-// }
+  return buff.type.startsWith('image/')
+}
 
 function handleErrorImage(message) {
   const error =       
@@ -52,9 +52,13 @@ async function addImageToSheet() {
 
   let modalImageValue = imageLink.value;
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
-  // console.log(await handleCheckImage(modalImageValue))
 
   if (!regex.test(modalImageValue)) {
+    handleErrorImage('Insira uma URL válida', 'imageInput')
+    return
+  }
+
+  if (await handleCheckImage(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
     return
   }

@@ -1,13 +1,8 @@
 from django.views import View
-from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .utils import register, login
 from django.contrib.auth import logout
-from django.urls import reverse
-from sheets_app.models import Sheet
-from sheets_app.views import SheetsView
 
 class SignView(View):
     def get(self, request):
