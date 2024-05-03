@@ -36,6 +36,7 @@
     </div>
 </section>
 
+{% for sheet in sheets_view%}
 <section class="deleteSheetModal">
     <div class="modal">
         <button type="button" id="closeDeleteSheet">
@@ -44,22 +45,25 @@
         <div class="container">
             <div>
                 <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
-                <h2>Você tem certeza que deseja excluir esta ficha?</h2>
-
-                <div class="buttons">
-                    <button class="cancel">
+                <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
+                <strong>Essa ação vai deletar a ficha permanentemente!</strong>
+                <br>
+                <forms id="formDeleteSheet" method="POST" action="">
+                    {% csrf_token %}
+                    <button type="button" class="cancel">
                         Cancelar
                     </button>
 
-                    <button class="delete" type="submit" method="POST">
-                        Excluir
+                    <button type="submit" class="delete">
+                            Excluir
                     </button>
-                </div>
+                </forms>
 
             </div>
         </div>
     </div>
-</section>
+</section> 
+{%endfor%}
 
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
@@ -76,9 +80,8 @@
         background-position: center;
         {% endif %}">
 
-            {% comment %} <button type="button" class="deleteSheet" data-url="{% 'sheets:delete_sheet' sheet.id%}"> {% endcomment %}
-            <button class="deleteSheet" >
-                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
+                    <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
             </button>
 
             <div id="Card" {% if sheet.image %}
@@ -119,4 +122,5 @@
     {% include "dice.html" %}
 </section>
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% endblock %}
