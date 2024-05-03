@@ -135,6 +135,7 @@ input {
   color: #f3efef;
   background-size:contain;
   font-weight: 600;
+  text-shadow: 1px 1px 0px black;
 }
 
 
