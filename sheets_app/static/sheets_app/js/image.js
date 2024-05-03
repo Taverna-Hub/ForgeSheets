@@ -26,13 +26,13 @@ function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
 
-async function handleCheckImage(url) {
+/*async function handleCheckImage(url) {
      
   const res = await fetch(url);
   const buff = await res.blob();
  
   return buff.type.startsWith('image/')
-}
+}*/
 
 function handleErrorImage(message) {
   const error =       
@@ -58,10 +58,10 @@ async function addImageToSheet() {
     return
   }
 
-  if (await handleCheckImage(modalImageValue)) {
+ /* if (await handleCheckImage(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
     return
-  }
+  }*/
 
 
   const image = `
