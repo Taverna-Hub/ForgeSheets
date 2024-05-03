@@ -1,8 +1,13 @@
 const inputs = document.querySelectorAll('.sheet-submit');
 
 inputs.forEach(input => {
-    input.addEventListener('blur', function() {
-        submitForm();
+    const inputValue = input.value
+    input.addEventListener('blur', function(event) {
+        if (event.target.value === inputValue) {
+            return 
+        } else {
+            submitForm()
+        }
     });
 });
 

@@ -1,4 +1,5 @@
 from email import errors, message
+from email.mime import image
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
@@ -123,13 +124,23 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         user_id = request.user.id
 
         sheet = get_object_or_404(Sheet, id=id)
+        image = sheet.image
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
         mana = (sheet.mana/sheet.manaMax)*100
         hp = (sheet.healthPoint/sheet.healthPointMax)*100
         exp = (sheet.exp/sheet.expMax)*100
         atk = sheet.totalAtkDef()['atk'] 
-        defe = sheet.totalAtkDef()['def'] 
+        defe = sheet.totalAtkDef()['def']
+        
+        if int(sheet.healthPoint) > int(sheet.healthPointMax):
+            sheet.healthPoint = sheet.healthPointMax
+            hp = 100
+            
+        if int(sheet.mana) > int(sheet.manaMax):
+            sheet.mana = sheet.manaMax
+            mana = 100
+        
         ctx = { 
             'app_name': 'sheets',
             'sheet': sheet,
@@ -137,8 +148,13 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             'hp': int(hp),
             'exp': int(exp),
             'atk': atk,
-            'def': defe
+            'def': defe,
         }
+        if  image:
+            ctx['image'] = image
+        elif not image:
+            ctx['image'] = None
+        print(image)
         if not magics:
             ctx['magics'] = None
         else:
@@ -163,26 +179,95 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         charisma = request.POST.get('charisma')
         constitution = request.POST.get('constitution')
         speed = request.POST.get('speed')
+    
         healthPoint = request.POST.get('healthPoint')
         healthPointMax = request.POST.get('healthPointMax')
         manaActual = request.POST.get('manaActual')
         manaMax = request.POST.get('manaMax')
         exp = request.POST.get('exp')
+
         description = request.POST.get('description')
 
         eqpsName = request.POST.getlist('equipmentName')
         eqpsQnt = request.POST.getlist('equipmentQnt')
         eqpsAtk = request.POST.getlist('equipmentAtk')
         eqpsDef = request.POST.getlist('equipmentDef')
+        equipment_list = []
 
+        magicName = request.POST.getlist('mgcName')
+        magicDescription = request.POST.getlist('mgcDesc')
+        magicDamage = request.POST.getlist('mgcDamage')
+        atributeModifier = request.POST.getlist('mgcAttribute')
+        element = request.POST.getlist('mgcElement')
+        magic_list = []
+
+        atk = sheet.totalAtkDef()['atk'] 
+        defe = sheet.totalAtkDef()['def']
+        expMax = sheet.expMax
+        expActual = sheet.exp
+
+        # if exp < xp:
+        #     errors.append()
+        print("view= ", healthPoint, manaActual, exp)
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
+        if not isinstance(updated, Sheet):
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax']
+            experiencia = ['exp', 'expActual', 'expMax']
+            if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': updated,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'sheet': sheet,
+                    'atk': atk,
+                    'def': defe
+                }
+                if 'name' not in updated:
+                    ctx['name'] = name
+                if 'image' not in updated:
+                    ctx['image'] = image
+                if 'description' not in updated:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for xp in experiencia:
+                    if xp not in updated:
+                        valor = request.POST.get(xp)
+                        ctx[xp] = valor
+            return render(request, 'sheets_app/view-sheet.html', ctx)
 
         equipments = Equipment.objects.filter(sheet_id=sheet.id)
-        equipment_list = []
+        equipment_lists = []
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             for i in equipments:
                 if i.name == equipmentName:
-                    equipment_list.append(equipmentName)
-            if  equipmentName not in equipment_list:
+                    equipment_lists.append(equipmentName)
+            if  equipmentName not in equipment_lists:
                 equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
                 equipment.save()  
 
@@ -198,22 +283,71 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet.healthPointMax = int(healthPointMax)
         sheet.mana = int(manaActual)
         sheet.manaMax = int(manaMax)
-        expAtual = sheet.exp
         sheet.exp = int(exp)
+        expActual = sheet.exp
+        expMax = sheet.expMax
         sheet.description = description
 
-        sheet.expTotal += int(exp) - expAtual
+        sheet.expTotal += int(exp) - expActual
         sheet.save()
         sheet.updateXp()
-        sheet.save()
         
-        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp)
+        updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
+        
         if isinstance(updated, Sheet):
             messages.success(request,'Ficha atualizada com sucesso!')
+            sheet.save()
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))
         else:
-            messages.error(request, 'Erro ao atualizar ficha.')
-            return redirect(reverse('sheets:edit_sheet', kwargs={'id': id}))       
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax']
+            experiencia = [ 'exp', 'expActual', 'expMax']
+            if str(type(updated)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': updated,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'sheet': sheet,
+                    'atk': atk,
+                    'def': defe
+                }
+                if 'name' not in updated:
+                    ctx['name'] = name
+                if 'image' not in updated:
+                    ctx['image'] = image
+                if 'description' not in updated:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in updated:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for xp in experiencia:
+                    if xp not in updated:
+                        valor = request.POST.get(xp)
+                        ctx[xp] = valor
+            return render(request, 'sheets_app/view-sheet.html', ctx)
         
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):

@@ -228,13 +228,40 @@
     </div>
     
 </section>
-
+{% for message in messages %}
+    <div class="toast {{ message.tags }}">
+        {{message}}
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-circle-check"
+        ><circle cx="12" cy="12" r="10"/>
+        <path
+          d="m9 12 2 2 4-4"
+        />
+      </svg>
+    </div>
+{% endfor %}
 <section class="mainSheet">
     <section class="sheet">
         <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form-edit-sheet" method="POST">
             {%csrf_token%}
             <input class="nameInput sheet-submit" type="text" name="name" id="" value="{{sheet.name}}">
-            
+            {% for error in errors %}
+                {% if error.field == 'name'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+            {% endfor %}
             <section class="sheetHeader">
                 
                 <div class="under">
@@ -250,10 +277,13 @@
                                 <p class="defText">{{def}}</p>
                             </div>
                             
-                            <input type="hidden" name="image" class="imageInputCircle">
-                            
+                            <input type="hidden" name="image" class="imageInputCircle" value="{{ image }}">
                             <button type="button" class="openImageBtn">
-                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                                {% if image %}
+                                    <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                                {% else %}
+                                    <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                                {% endif %}
                             </button>
 
                         </div>
@@ -288,7 +318,14 @@
                                 <input class="manaRight sheet-submit" type="number" name="manaMax" id="manaMax" value="{{sheet.manaMax}}" >
                             </span>
                         </section>
-                        
+                        {% for error in errors %}
+                            {% if error.field == 'atributes2'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
                     </div>
                     
                 </div>
@@ -444,11 +481,27 @@
                                 <input type="number" name="speed" id="speed" value="{{sheet.speed}}" class="sheet-submit">
                             </div>
                         </div>
+                        {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
                     </section>
 
                     <section class="description">
-                        <label for="description">Descrição: </label>
+                        <label for="description">Anotações: </label>
                         <textarea name="description" id="description" class="sheet-submit">{{sheet.description}}</textarea>
+                        {% for error in errors %}
+                        {% if error.field == 'description'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                        {% endfor %}
                     </section> 
 
                 </div>
@@ -470,7 +523,6 @@
                     Salvar
                 </button>
             </div>
-           
         </form>
     </section>
 </section>
