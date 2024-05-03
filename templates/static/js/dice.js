@@ -128,13 +128,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getDiceImageUrl(diceType) {
         const urls = {
-            4: 'https://pbs.twimg.com/media/GMnBT1NWkAAXYK0?format=png&name=240x240',
-            6: 'https://pbs.twimg.com/media/GMnBJ5AXcAAgFQu?format=png&name=240x240',
-            8: 'https://pbs.twimg.com/media/GMnA_zkXMAAkPlM?format=png&name=240x240',
-            10: 'https://pbs.twimg.com/media/GMnArtFWgAAjOQH?format=png&name=240x240',
+            4: 'https://pbs.twimg.com/media/GMnhDY5XUAAnIvO?format=png&name=240x240',
+            6: 'https://pbs.twimg.com/media/GMnhDY0XsAAvjb_?format=png&name=240x240',
+            8: 'https://pbs.twimg.com/media/GMnhDY3W0AAXXSJ?format=png&name=240x240',
+            10: 'https://pbs.twimg.com/media/GMnhDY2WwAEZNuL?format=png&name=240x240',
             12: 'https://pbs.twimg.com/media/GMnAe5rWsAAYFB9?format=png&name=240x240',
-            20: 'https://pbs.twimg.com/media/GMm8s3YWgAAfTK3?format=png&name=240x240',
-            100: 'https://pbs.twimg.com/media/GMm_vG0XQAAikib?format=png&name=240x240'
+            20: 'https://pbs.twimg.com/media/GMnhMIJXIAAtIpm?format=png&name=240x240',
+            100: 'https://pbs.twimg.com/media/GMnhMJ2WkAAKjLx?format=png&name=240x240'
         };
         return `url('${urls[diceType]}')`;
     }
