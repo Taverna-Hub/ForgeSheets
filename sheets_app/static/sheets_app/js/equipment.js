@@ -1,4 +1,4 @@
-const name = document.querySelector('input[name="equipmentName"]');
+const name = document.querySelector('input[name="createEquipmentName"]');
 const quantity = document.querySelector('input[name="quantity"]');
 const attack = document.querySelector('input[name="attack"]');
 const defense = document.querySelector('input[name="defense"]');
@@ -15,21 +15,52 @@ const editEquipmentBtn = document.querySelector('#editEquipmentBtn');
 const closeEditEquipmentBtn = document.querySelector('#closeEditEquipmentBtn')
 
 const openEquipmentModal = document.querySelector('.openEquipmentBtn')
-const openEditEquipmentBtn = document.querySelector('.editEquipment');
-const removeEquipmentBtn = document.querySelector('.removeEquipment')
+const openEditEquipmentBtn = document.querySelectorAll('.editEquipment'); // cu
+const removeEquipmentBtn = document.querySelectorAll('.removeEquipment')// cu
 
 const equipmentModal = document.querySelector('.equipmentModal')
 const editEquipmentModal = document.querySelector('.editEquipmentModal')
-let ctxErrors = document.getElementById('context').getAttribute('data-errors');
-if (ctxErrors) {
-  ctxErrors = JSON.parse(ctxErrors.replace(/'/g, '"'));
-}
+
+const equipmentsNames = document.querySelectorAll('.equipmentList > li > div > input[name="equipmentName"]');
+const equipmentsDiv = document.querySelectorAll('.equipmentList > li > div');
 
 let equipmentString = '';
 let equipmentList = [];
 let selectedEquipmentToEdit;
 let equipmentNode;
-let isEditingSheet = false;
+let equipmentsNamesList = [];
+
+equipmentsDiv.forEach(div => {
+  const id = div.parentNode.getAttribute('data-id');
+  const inputs = div.querySelectorAll('input');
+  const values = [];
+  
+  inputs.forEach(input => {
+    values.push(input.value);
+  });
+
+  const equipment = {
+    local_id: Number(id),
+    name: values[0],
+    quantity: Number(values[1]),
+    attack: Number(values[2]),
+    defense: Number(values[3])
+  };
+
+  equipmentList.push(equipment);
+});
+
+equipmentsNames.forEach(input => {
+  equipmentsNamesList.push(input.value);
+});
+
+openEditEquipmentBtn.forEach(input => {
+  input.onclick = () => handleGetEditEquipmentInfo(input);
+});
+
+removeEquipmentBtn.forEach(input => {
+  input.onclick = () => handleDeleteEquipment(input);
+});
 
 // Edit sheet function
 function submitForm() {
@@ -38,6 +69,7 @@ function submitForm() {
     editSheetForm.submit();
   }
 }
+// =========================
 
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
@@ -74,7 +106,7 @@ function handleEquipmentError(message, className) {
 function handleLoadEquipmentList(equipment) {
   return (
     `
-      <li data-id="${equipment.local_id}">
+    <li data-id="${ equipment.local_id }">
       <div>
         <input type="hidden" name="equipmentName" value="${equipment.name}" />
         <input type="hidden" name="equipmentQnt" value="${equipment.quantity}" />
@@ -85,17 +117,17 @@ function handleLoadEquipmentList(equipment) {
       ${equipment.attack > 0 ? `- Atk: ${equipment.attack} ` : ''}
       ${equipment.defense > 0 & equipment.attack > 0 ? `| Def: ${equipment.defense}` : ''}
       ${equipment.defense > 0 & equipment.attack <= 0 ? `- Def: ${equipment.defense}` : ''}
-      <button type="button" class="removeEquipment" onclick="handleDeleteEquipment(this)">
+
+      <button type="button" class="removeEquipment" onclick=handleDeleteEquipment(this)>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
       </button>
-      <button type="button" class="editEquipment" onclick="handleGetEditEquipmentInfo(this)" style="margin-right: -10px;">
+      <button type="button" class="editEquipment" onclick=handleGetEditEquipmentInfo(this)>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
       </button>
     </li>
     `
   )
 }
-
 
 function handleAddEquipmentToList() {
   const equipment = {
@@ -109,11 +141,14 @@ function handleAddEquipmentToList() {
   const nameExists = equipmentList.some(
     (equipmentItem) => equipmentItem.name.toLowerCase() === equipment.name.toLowerCase());
 
+  const nameExistsInListedList = equipmentsNamesList.some(
+    (name) => name.toLowerCase() === equipment.name.toLowerCase());
+
   if (equipment.name === '') {
     handleEquipmentError('Esse campo não pode ser vazio', 'equipmentName')
     return
   }
-  if (nameExists) {
+  if (nameExists || nameExistsInListedList) {
     handleEquipmentError('Esse equipamento já existe', 'equipmentName')
     return
   }
@@ -203,20 +238,28 @@ function handleEditEquipment() {
   document.querySelector('.equipmentList').innerHTML = equipmentString;
   equipmentString = '';
   handleCloseEditEquipmentModal();
+  submitForm();
 }
 
-function handleDeleteEquipment(equipment) {
+async function handleDeleteEquipment(equipment) {
   const selectedEquipmentId = equipment.parentNode.getAttribute('data-id');
-  const actualIndex = equipmentList.findIndex(equipmentItem => equipmentItem.id == selectedEquipmentId);
-  equipmentList.splice(actualIndex, 1)
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  
+  const listItemToRemove = document.querySelector(`.equipmentList > li[data-id="${selectedEquipmentId}"]`);
+  listItemToRemove.parentNode.removeChild(listItemToRemove);
 
-  equipmentList.forEach((equipmentItem) => {
-    equipmentString += handleLoadEquipmentList(equipmentItem);
+  const actualIndex = equipmentList.findIndex(equipmentItem => equipmentItem.local_id == selectedEquipmentId);
+  equipmentList.splice(actualIndex, 1);
+
+  await fetch(`/fichas/deletar_equipamento/${selectedEquipmentId}`, {
+    method: 'POST',
+    headers: {
+      'X-CSRFToken': csrfToken
+    },
+    mode: 'same-origin'
   })
-
-  document.querySelector('.equipmentList').innerHTML = equipmentString;
-  equipmentString = '';
 }
+
 
 openEquipmentModal?.addEventListener('click', () => handleOpenEquipmentModal());
 addEquipmentBtn?.addEventListener('click', () => handleAddEquipmentToList());

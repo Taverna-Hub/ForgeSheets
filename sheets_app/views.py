@@ -347,8 +347,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                     if xp not in updated:
                         valor = request.POST.get(xp)
                         ctx[xp] = valor
-            return render(request, 'sheets_app/view-sheet.html', ctx)
-        
+            return render(request, 'sheets_app/view-sheet.html', ctx)   
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
     def get(self, request, id):
@@ -360,11 +359,9 @@ class DeleteSheetView(LoginRequiredMixin, View):
         sheet.delete()
         return redirect('sheets:homesheets')
 
-
 class AddEquipmentView(LoginRequiredMixin, View):
 
     # TO DO: Tratar se um equipamento já existe
-
     def get(self, request):
         return render(request, 'sheets_app/create_equip.html')
 
@@ -388,8 +385,7 @@ class DelEquipmentView(LoginRequiredMixin, View):
     def post(self, request, id):
         equipment = Equipment.objects.get(id=id)
         equipment.delete()
-        return redirect('sheets:list_equipment')
-    
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))
 class ListEquipmentView(LoginRequiredMixin, View):
     def get(self, request):
         equipments = Equipment.objects.all()

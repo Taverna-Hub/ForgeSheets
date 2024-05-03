@@ -123,8 +123,8 @@
         <form>
             {%csrf_token%}
             <div class="equipmentName">
-                <label for="equipmentName">Nome do equipamento:</label>
-                <input type="text" name="equipmentName" value="{{equipmentName}}">
+                <label for="createEquipmentName">Nome do equipamento:</label>
+                <input type="text" name="createEquipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
