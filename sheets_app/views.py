@@ -270,6 +270,16 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             if  equipmentName not in equipment_lists:
                 equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=sheet.id)
                 equipment.save()  
+        
+        magics = Magic.objects.filter(sheet_id=sheet.id)
+        magic_lists = []
+        for mgcName, mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+            for i in magics:
+                if i.name == mgcName:
+                    magic_lists.append(mgcName)
+            if  mgcName not in magic_lists:
+                magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = sheet.id)
+                magic.save()
 
         sheet.name = name
         sheet.image = image if image else None
@@ -381,11 +391,6 @@ class AddEquipmentView(LoginRequiredMixin, View):
             }
         return render(request, 'sheets_app/create_equip.html', ctx)
 
-class DelEquipmentView(LoginRequiredMixin, View):
-    def post(self, request, id):
-        equipment = Equipment.objects.get(id=id)
-        equipment.delete()
-        return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))
 class ListEquipmentView(LoginRequiredMixin, View):
     def get(self, request):
         equipments = Equipment.objects.all()
@@ -417,7 +422,40 @@ class EditEquipmentView(LoginRequiredMixin, View):
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}), ctx)
         
         return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))
+
+class DelEquipmentView(LoginRequiredMixin, View):
+    def post(self, request, id):
+        equipment = Equipment.objects.get(id=id)
+        equipment.delete()
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))        
+
+class EditMagicView(LoginRequiredMixin, View): 
+    def post(self, request, id):
+        try:
+            magic = Magic.objects.get(id=id)
+        except:
+            return HttpResponse('Essa magia não existe')
         
+        name = request.POST.get('nameMagicEdit')
+        description = request.POST.get('descriptionMagicEdit')
+        damage = request.POST.get('damageMagicEdit')
+        atribute_modifier = request.POST.get('attributeMagicEdit')
+        element = request.POST.get('elementMagicEdit')
+
+        magic.name = name   
+        magic.description = description
+        magic.damage = damage
+        magic.atribute_modifier = atribute_modifier
+        magic.element = element
+        magic.save()
+        
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': magic.sheet_id}))
+
+class DeleteMagicView(LoginRequiredMixin, View):
+    def post(self, request, id):
+        magic = Magic.objects.get(id=id)
+        magic.delete()
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': magic.sheet_id}))        
 
 
 

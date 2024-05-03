@@ -449,7 +449,7 @@ button {
     
     width: 100%;
     gap: 40px;
-    margin-bottom: -77px;
+    /* margin-bottom: -77px; */
     align-items: baseline;
 }
 

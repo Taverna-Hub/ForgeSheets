@@ -15,8 +15,8 @@ const editEquipmentBtn = document.querySelector('#editEquipmentBtn');
 const closeEditEquipmentBtn = document.querySelector('#closeEditEquipmentBtn')
 
 const openEquipmentModal = document.querySelector('.openEquipmentBtn')
-const openEditEquipmentBtn = document.querySelectorAll('.editEquipment'); // cu
-const removeEquipmentBtn = document.querySelectorAll('.removeEquipment')// cu
+const openEditEquipmentBtn = document.querySelectorAll('.editEquipment');
+const removeEquipmentBtn = document.querySelectorAll('.removeEquipment')
 
 const equipmentModal = document.querySelector('.equipmentModal')
 const editEquipmentModal = document.querySelector('.editEquipmentModal')
@@ -236,7 +236,6 @@ async function handleEditEquipment() {
   if (!String(selectedEquipmentToEdit.local_id).includes('.')) {
     const editEquipmentForm = document.querySelector('.editEquipmentModal form')
     editEquipmentForm.action = `/fichas/editar_equipamento/${selectedEquipmentToEdit.local_id}`
-    console.log(editEquipmentForm)
   }
 }
 

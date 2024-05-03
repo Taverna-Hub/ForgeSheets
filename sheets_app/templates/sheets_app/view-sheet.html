@@ -65,6 +65,58 @@
     </div>
 </section>
 
+<section class="editMagicModal">
+    <div class="modal">
+        <h2>Editar Magia/Habilidades</h2>
+        <form method="POST">
+            {%csrf_token%}
+            <div class="magicName">
+                <label for="nameMagicEdit">Nome da magia:</label>
+                <input type="text" name="nameMagicEdit">
+            </div>
+
+            <div class="magicDescription">
+                <label for="descriptionMagicEdit">Anotações:</label>
+                <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="magicDamage">
+                    <label for="damageMagicEdit">Dano: </label>
+                    <input type="text" name="damageMagicEdit">
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicAttribute">
+                    <label for="attributeMagicEdit">Atributo modificador:</label>
+                    <select name="attributeMagicEdit">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="magicElement">
+                    <label for="elementMagicEdit">Elemento da magia: </label>
+                    <input type="text" name="elementMagicEdit">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="closeEditMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="submit" id="saveMagicBtn">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
 <section class="equipmentModal">
     <div class="modal">
         <h2>Adicionar Equipamento</h2>
@@ -438,13 +490,13 @@
                          <div class="magicListContainer">
                              <ul class="magicList">
                                  {% for magic in magics %}
-                                    <li>
+                                    <li data-id="{{ magic.id }}">
                                         <div>
                                             <input type="hidden" name="mgcName" value="{{magic.name}}" />
                                             <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
                                             <input type="hidden" name="mgcElement" value="{{magic.element}}" />
                                             <input type="hidden" name="mgcDamage" value="{{magic.damage}}" />
-                                            <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
+                                            <input type="hidden" name="mgcAttribute" value="{{magic.atribute_modifier}}" />
                                         </div>
                                         {{ magic.name }}
                                         {% if magic.damage %}
