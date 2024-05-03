@@ -153,7 +153,7 @@ button {
 .underTwo {
     width: 100%;
     position: relative;
-    top: -230px;
+    top: -145px;
 }
 
 .race, .class {
@@ -446,7 +446,7 @@ button {
     
     width: 100%;
     gap: 40px;
-    padding-bottom: 100px;
+    margin-bottom: -77px;
     align-items: baseline;
 }
 
@@ -531,7 +531,7 @@ button {
 }
   
 .description textarea {
-    height: 408px;
+    height: 325px;
     width: 100%;
 }
   
@@ -621,4 +621,37 @@ button {
 
 .saveSheetView {
     margin: 6px;
+}
+
+.toast {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+  
+    background-color: var(--white);
+    color: var(--gray-800);
+  
+    animation: slideInLeft ease .5s, fadeOut linear 1s .5s forwards;
+}
+  
+.success {
+    border-left: 4px solid var(--green-500);
+}
+  
+.success>svg {
+    color: var(--green-500);
+}
+  
+.error {
+    border-left: 4px solid var(--red-600);
+}
+  
+.error>svg {
+    color: var(--red-600);
 }
