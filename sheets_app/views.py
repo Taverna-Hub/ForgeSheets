@@ -152,8 +152,9 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         }
         if  image:
             ctx['image'] = image
-        elif not image:
-            ctx['image'] = None
+        #elif not image:
+        #   ctx['image'] = None
+        #print(image)
         if not magics:
             ctx['magics'] = None
         else:

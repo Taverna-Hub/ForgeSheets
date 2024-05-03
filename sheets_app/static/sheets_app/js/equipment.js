@@ -40,7 +40,7 @@ equipmentsDiv.forEach(div => {
   });
 
   const equipment = {
-    local_id: Number(id),
+    local_id: id,
     name: values[0],
     quantity: Number(values[1]),
     attack: Number(values[2]),

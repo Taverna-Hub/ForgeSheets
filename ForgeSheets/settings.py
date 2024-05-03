@@ -110,6 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# User model config
+AUTH_USER_MODEL = 'utilities_app.Users'
+
 # Internationalization
 LANGUAGE_CODE = 'pt-BR'
 
