@@ -3,13 +3,13 @@ from .models import Equipment, Sheet, Race
 import re
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):
     errors = []
-    print("itils= ", healthPoint, manaActual, exp)
     # Tratando nomes!
     if str(name).count(' ') == len(name):
         errors.append({
             'field': 'name',
             'message' : 'Este campo não pode ser vazio!'
             })
+        return errors
     elif 2 > len(name) or len(name) > 50:
         errors.append({
             'field':'name',
@@ -111,12 +111,12 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
-
     elif int(exp) < int(expActual):
         errors.append({
             'field': 'atributes2',
-            'message': 'Você somente pode adicionar experiência!'
+            'message': 'A experiência não pode diminuir'
         })
+
     if len(errors) > 0:
         return errors
     
@@ -338,11 +338,15 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
-        
+    
+    if 104857500 <= int(exp) or  int(exp) <= 105000000:
+        exp1 = 104857500
+    else:
+        exp1 = int(exp)
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthPointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp1, expTotal = exp1, healthPoint = healthPointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
     sheet.updateXp()
     sheet.save()

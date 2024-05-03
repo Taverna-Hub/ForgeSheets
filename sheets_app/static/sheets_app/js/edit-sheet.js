@@ -14,3 +14,15 @@ inputs.forEach(input => {
 function submitForm() {
     document.querySelector('#form-edit-sheet').submit();
 }
+
+const toasts = document.querySelectorAll('.toast');
+
+function removeToast() {
+    toasts.forEach(toast => {
+        setTimeout(() => {
+            toast.remove();
+        }, 3000); 
+    });
+}
+
+removeToast();
