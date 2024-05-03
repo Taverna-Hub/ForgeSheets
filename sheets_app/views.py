@@ -394,49 +394,31 @@ class ListEquipmentView(LoginRequiredMixin, View):
         }
         return render(request, 'sheets_app/testEquipment2.html', ctx)
     
-class EditEquipmentView(LoginRequiredMixin, View):
-    
-    # TO DO: Tratar se um equipamento já existe
-    def get(self, request, id):
-        equipment = Equipment.objects.filter(id=id).first()
-        if not equipment:
-            return HttpResponse('Esse equipamento não existe')
-        ctx = {'equipment': equipment}
-        return render(request, 'sheets_app/testEquipment3.html', ctx)
-    
+class EditEquipmentView(LoginRequiredMixin, View): 
+    # Editar equipamento na visualização de ficha
     def post(self, request, id):
         try:
             equipment = Equipment.objects.get(id=id)
         except:
             return HttpResponse('Esse equipamento não existe')
         
-        newName = request.POST.get('name')
-        newQuantity = (request.POST.get('quantity'))
-        newAttack = (request.POST.get('attack'))
-        newDefense = (request.POST.get('defense'))
+        newName = request.POST.get('editName')
+        newQuantity = request.POST.get('editQuantity')
+        newAttack = request.POST.get('editAttack')
+        newDefense = request.POST.get('editDefense')
 
-        editEquipmentResult = save_equipment(equipment,newName, int(newQuantity), int(newAttack), int(newDefense), 0)
+        errors = save_equipment(newName, int(newQuantity), int(newAttack), int(newDefense), equipment)
 
-        if editEquipmentResult == 0:
-            messages.error(request, 'Nome inválido')
-            ctx = {'quantity': newQuantity, 'attack': newAttack, 'defense': newDefense, 'equipment': equipment}
-            return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 2:
-            messages.error(request, 'Preencha todos os campos')
-            ctx = {'name': newName, 'quantity': newQuantity, 'attack': newAttack, 'defense': newDefense, 'equipment': equipment}
-            return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 3:
-            messages.error(request, 'A quantidade não pode ser inferior a 1')
-            ctx = {'name': newName, 'attack': newAttack, 'defense': newDefense, 'equipment': equipment}
-            return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 4:
-            messages.error(request, 'O ataque e a defesa não podem ser inferior a 0')
-            ctx = {'name': newName, 'quantity': newQuantity, 'equipment': equipment}
-            return render(request, 'sheets_app/testEquipment3.html', ctx)
-        elif editEquipmentResult == 5:
-            messages.error(request, 'Utilize apenas números inteiros')
-            ctx = {'name': newName, 'equipment': equipment}
-            return render(request, 'sheets_app/testEquipment3.html', ctx)
-        if editEquipmentResult == 1:
-            messages.success(request, 'Equipamento editado com sucesso')
-            return redirect('sheets:list_equipment')
+        if errors:
+            ctx = {
+                'errors': errors
+            }
+            messages.error('Erro ao editar equipamento')
+            return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}), ctx)
+        
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))
+        
+
+
+
+        

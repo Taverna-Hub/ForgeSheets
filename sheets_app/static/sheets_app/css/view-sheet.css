@@ -317,7 +317,7 @@ button {
 
 /*Css das barras de vida, mana e xp*/
 
-.status{
+.status {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -325,39 +325,36 @@ button {
     padding: 5px 0;
 }
 
-.bar{
+.bar {
     text-align: center;
     margin-bottom: -35px;
     padding-top: 3px;
 }
 
-.bar span{
+.bar span {
     color: white;
     font-weight: bold;
 }
 
-.bar-fill{
+.bar-fill {
     background-color: lightgray;
     height: 35px;
     width: 300px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: none;
-    /* position: relative; */
 }
 
 .hpFill {
     background-color: var(--red-life);
     height: 35px;
     border-radius: 5px;
-    /* margin-bottom: 15px; */
 }
 
 .manaFill {
     background-color: var(--blue-mana);
     height: 35px;
     border-radius: 5px;
-    /* margin-bottom: 15px; */
 }
 
 .xpFill {
@@ -368,7 +365,6 @@ button {
 }
 
 .hpRight, .manaRight{
-    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -378,7 +374,6 @@ button {
 }
 
 .hpLeft, .manaLeft{
-    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -397,17 +392,20 @@ button {
     font-size: 16px;
 }
 
-.expP{
+.expP {
     padding-right: 40%;
 }
 
 
-.inputs{
+.inputs {
     position: relative;
     top: -50px;
     color: white;
     font-weight: bold;
     font-size: 16px;
+    font-size: 16px;
+    
+    font-size: 16px;    
     
 }
 
@@ -440,8 +438,13 @@ button {
     border-radius: 2px;
 }
 
+.atributosInputs div input, .statusInputs div input {
+    max-width: 300px;
+}
+
 .sideBySide {
     display: flex;
+    align-items: baseline;
     justify-content: space-around;
     
     width: 100%;

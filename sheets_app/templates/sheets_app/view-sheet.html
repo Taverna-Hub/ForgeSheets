@@ -156,7 +156,7 @@
 <section class="editEquipmentModal">
     <div class="modal">
         <h2>Editar Equipamento</h2>
-        <form>
+        <form method="POST">
             {%csrf_token%}
             <div class="equipmentName">
                 <label for="name">Nome do equipamento:</label>
@@ -189,7 +189,7 @@
                 <button type="button" id="closeEditEquipmentBtn">
                     Cancelar
                 </button>
-                <button type="button" id="editEquipmentBtn">
+                <button type="submit" id="editEquipmentBtn">
                     Editar
                 </button>
             </div>

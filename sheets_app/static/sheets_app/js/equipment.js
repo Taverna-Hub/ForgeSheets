@@ -217,28 +217,27 @@ function handleGetEditEquipmentInfo(equipment) {
   handleOpenEditEquipmentModal(selectedEquipment)
 }
 
-function handleEditEquipment() {
+async function handleEditEquipment() {
   selectedEquipmentToEdit.name = editName.value; 
   selectedEquipmentToEdit.quantity = Number(editQuantity.value); 
   selectedEquipmentToEdit.attack = Number(editAttack.value); 
   selectedEquipmentToEdit.defense = Number(editDefense.value); 
 
-  const equipmentListFiltered = equipmentList.filter((item, index, self) =>
-    index === self.findIndex((t) => (
-      t.local_id === item.local_id
-    ))
-  );
-
   document.querySelector('.equipmentList').innerHTML = '';
 
-  equipmentListFiltered.forEach((equipmentItem) => {
+  equipmentList.forEach((equipmentItem) => {
     equipmentString += handleLoadEquipmentList(equipmentItem);
   })
 
   document.querySelector('.equipmentList').innerHTML = equipmentString;
   equipmentString = '';
   handleCloseEditEquipmentModal();
-  submitForm();
+
+  if (!String(selectedEquipmentToEdit.local_id).includes('.')) {
+    const editEquipmentForm = document.querySelector('.editEquipmentModal form')
+    editEquipmentForm.action = `/fichas/editar_equipamento/${selectedEquipmentToEdit.local_id}`
+    console.log(editEquipmentForm)
+  }
 }
 
 async function handleDeleteEquipment(equipment) {
@@ -251,13 +250,17 @@ async function handleDeleteEquipment(equipment) {
   const actualIndex = equipmentList.findIndex(equipmentItem => equipmentItem.local_id == selectedEquipmentId);
   equipmentList.splice(actualIndex, 1);
 
-  await fetch(`/fichas/deletar_equipamento/${selectedEquipmentId}`, {
-    method: 'POST',
-    headers: {
-      'X-CSRFToken': csrfToken
-    },
-    mode: 'same-origin'
-  })
+  if (!selectedEquipmentId.includes('.')) {
+    await fetch(`/fichas/deletar_equipamento/${selectedEquipmentId}`, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      mode: 'same-origin'
+    })
+
+    location.reload();
+  }
 }
 
 

@@ -128,7 +128,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
 
 
 #Tratamento de erro na utils
-def save_equipment(equipment, name, quantity, attack, defense, sheet):
+def save_equipment(name, quantity, attack, defense, equipment):
     name_treated = name.strip()
     quantity_treated = int(quantity)
     attack_treated = int(attack)
@@ -183,28 +183,15 @@ def save_equipment(equipment, name, quantity, attack, defense, sheet):
             'message': 'Utilize apenas números inteiros'
         })
 
-
     if len(wrong_fields) > 0:
         return wrong_fields
     
-    if sheet == 0:
-            equipment.name = name
-            equipment.quantity = quantity
-            equipment.attack = attack
-            equipment.defense = defense
-            equipment.save()
-            return 1
-    else:
-        equipamento = Equipment(
-                name = name,
-                quantity = quantity,
-                attack = attack,
-                defense = defense,
-                sheet_id = sheet,
-            )
+    equipment.name = name
+    equipment.quantity = quantity
+    equipment.attack = attack
+    equipment.defense = defense
+    equipment.save()
 
-        equipamento.save()
-        return 1
 
 def atribute_verifier(atr):
     return 1 if not re.match(r'^[-+]?\d*\.?\d+$', atr) else 0
