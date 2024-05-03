@@ -1,7 +1,7 @@
+from os import error
 from .models import Equipment, Sheet, Race
 import re
-
-def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp):
+def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):
     errors = []
 
     # Tratando nomes!
@@ -38,7 +38,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
     elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1:
         errors.append({
             'field' : 'atributes1',
-            'message' : 'Os atributos devem estar entre 1 e 20'
+            'message' : 'O atributo deve ser no minímo 1'
             })
         if int(strength) < 1:
             errors.append("strength")
@@ -70,8 +70,8 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             errors.append("charisma")
         if  atribute_verifier(str(constitution)) == 1:
             errors.append("constitution")
-
-    if str(healthPointMax).count(' ') == len(str(healthPointMax)) or str(exp).count(' ') == len(str(exp)) or str(manaMax).count(' ') == len(str(manaMax)):
+    
+    if str(healthPoint).count(' ') == len(str(healthPoint)) or str(exp).count(' ') == len(str(exp)) or str(manaActual).count(' ') == len(str(manaActual)):
         errors.append({
             'field': 'atributes2',
             'message' : 'Estes campos não podem ser vazios'
@@ -82,7 +82,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             errors.append("manaMax")
         if str(exp).count(' ') == len(str(exp)):
             errors.append("exp")
-
+    
     elif atribute_verifier(str(healthPointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
         errors.append({
             'field' : 'atributes2',
@@ -105,17 +105,37 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
         if int(manaMax) < 1 or int(manaMax) > 100000:
             errors.append("manaMax")
 
+    elif str(healthPoint) > str(healthPointMax) or str(manaActual) > str(manaMax):
+        errors.append({
+            'field': 'atributes2',
+            'message' : 'Estes campos não podem ser vazios'
+            })
+        if str(healthPoint) > str(healthPointMax):
+            errors.append("healthPoint")
+        if str(manaActual) > str(manaMax):
+            errors.append("manaActual")
+
     elif int(exp) < 0 or int(exp) > 105000000:
         errors.append({
             'field' : 'atributes2',
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
+    elif int(exp) > int(expMax):
+        errors.append({
+            'field': 'atributes2',
+            'message': ''
+        })
 
+    elif int(exp) < int(expActual):
+        errors.append({
+            'field': 'atributes2',
+            'message': 'Você somente pode adicionar experiência!'
+        })
     if len(errors) > 0:
         return errors
     
-    sheet_updated = Sheet(name = name, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthPointMax, mana = manaMax)
+    sheet_updated = Sheet(name = name, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, expMax = expMax, healthPoint = healthPointMax, mana = manaMax)
     # sheet_updated.save()
     # sheet_updated.updateXp()
     # sheet_updated.save()
