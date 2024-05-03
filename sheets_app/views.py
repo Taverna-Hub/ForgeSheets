@@ -132,6 +132,15 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         exp = (sheet.exp/sheet.expMax)*100
         atk = sheet.totalAtkDef()['atk'] 
         defe = sheet.totalAtkDef()['def']
+        
+        if int(sheet.healthPoint) > int(sheet.healthPointMax):
+            sheet.healthPoint = sheet.healthPointMax
+            hp = 100
+            
+        if int(sheet.mana) > int(sheet.manaMax):
+            sheet.mana = sheet.manaMax
+            mana = 100
+        
         ctx = { 
             'app_name': 'sheets',
             'sheet': sheet,
@@ -164,7 +173,6 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         name = request.POST.get('name')
         image = request.POST.get('image')
-
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
         wisdom = request.POST.get('wisdom')
@@ -200,7 +208,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
 
         # if exp < xp:
         #     errors.append()
-
+        print("view= ", healthPoint, manaActual, exp)
         updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
         if not isinstance(updated, Sheet):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']

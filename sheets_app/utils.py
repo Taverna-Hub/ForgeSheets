@@ -3,7 +3,7 @@ from .models import Equipment, Sheet, Race
 import re
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):
     errors = []
-
+    print("itils= ", healthPoint, manaActual, exp)
     # Tratando nomes!
     if str(name).count(' ') == len(name):
         errors.append({
@@ -72,6 +72,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             errors.append("constitution")
     
     if str(healthPoint).count(' ') == len(str(healthPoint)) or str(exp).count(' ') == len(str(exp)) or str(manaActual).count(' ') == len(str(manaActual)):
+        print('if = ', healthPoint, exp, manaActual)
         errors.append({
             'field': 'atributes2',
             'message' : 'Estes campos não podem ser vazios'
@@ -104,17 +105,6 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             errors.append("healthPointMax")
         if int(manaMax) < 1 or int(manaMax) > 100000:
             errors.append("manaMax")
-
-    elif str(healthPoint) > str(healthPointMax) or str(manaActual) > str(manaMax):
-        errors.append({
-            'field': 'atributes2',
-            'message' : 'Estes campos não podem ser vazios'
-            })
-        if str(healthPoint) > str(healthPointMax):
-            errors.append("healthPoint")
-        if str(manaActual) > str(manaMax):
-            errors.append("manaActual")
-
     elif int(exp) < 0 or int(exp) > 105000000:
         errors.append({
             'field' : 'atributes2',
