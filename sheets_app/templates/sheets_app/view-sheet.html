@@ -71,8 +71,8 @@
         <form>
             {%csrf_token%}
             <div class="equipmentName">
-                <label for="equipmentName">Nome do equipamento:</label>
-                <input type="text" name="equipmentName" value="{{equipmentName}}">
+                <label for="createEquipmentName">Nome do equipamento:</label>
+                <input type="text" name="createEquipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
@@ -382,7 +382,7 @@
                          <div class="equipmentsListContainer">
                              <ul class="equipmentList">
                                  {% for equipment in equipments %}
-                                     <li>
+                                     <li data-id="{{ equipment.id }}">
                                          <div>
                                          <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
                                          <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
@@ -401,10 +401,11 @@
                                             {{equipment.quantity}}x {{equipment.name}}
                                         {% endif %}
 
-                                         <button type="button" class="editEquipment">
-                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                         <button type="button" class="removeEquipment" >
+                                            {% csrf_token %}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                          </button>
-                                         <button type="button" class="removeEquipment">
+                                         <button type="button" class="editEquipment" >
                                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
                                          </button>
                                      </li>
@@ -525,8 +526,8 @@
             </div>
         </form>
     </section>
+    {% include "dice.html" %}
 </section>
-{% include "dice.html" %}
 
 <script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
