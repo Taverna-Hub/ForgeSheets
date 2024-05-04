@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block 'body' %}
+
 <input type="hidden" id="context" data-errors="{{ errors }}" data-magics="{{ magics }}">
 
 <section class="magicModal">
@@ -368,10 +369,13 @@
                 <div class="under">
                     <section class="add-image">
                         <div class="add_image_div">
-                            <input type="hidden" name="image" class="imageInputCircle" value={{image}}>  
-
+                            <input type="hidden" name="image" class="imageInputCircle" value="{{image}}" >  
                             <button type="button" class="openImageBtn">
+                            {% if image %}
+                                <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                            {% else %}
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                            {% endif %}
                             </button>
                         </div>
                     </section>

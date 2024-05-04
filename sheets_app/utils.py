@@ -3,13 +3,13 @@ from .models import Equipment, Sheet, Race
 import re
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):
     errors = []
-    print("itils= ", healthPoint, manaActual, exp)
     # Tratando nomes!
     if str(name).count(' ') == len(name):
         errors.append({
             'field': 'name',
             'message' : 'Este campo não pode ser vazio!'
             })
+        return errors
     elif 2 > len(name) or len(name) > 50:
         errors.append({
             'field':'name',
@@ -38,7 +38,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
     elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1:
         errors.append({
             'field' : 'atributes1',
-            'message' : 'O atributo deve ser no minímo 1'
+            'message' : 'O atributo deve ser no mínimo 1'
             })
         if int(strength) < 1:
             errors.append("strength")
@@ -87,7 +87,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
     elif atribute_verifier(str(healthPointMax)) == 1 or atribute_verifier(str(manaMax)) == 1 or atribute_verifier(str(exp)) == 1:
         errors.append({
             'field' : 'atributes2',
-            'message' : 'Os atributos secundarios devem ser numeros inteiros'
+            'message' : 'Os atributos secundários devem ser números inteiros'
             })
         if atribute_verifier(str(healthPointMax)) == 1:
             errors.append("healthPointMax")
@@ -111,12 +111,12 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
-
     elif int(exp) < int(expActual):
         errors.append({
             'field': 'atributes2',
-            'message': 'Você somente pode adicionar experiência!'
+            'message': 'A experiência não pode diminuir'
         })
+
     if len(errors) > 0:
         return errors
     
@@ -210,7 +210,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
         elif len(str(image)) > 200:
             errors.append({
                     'field': 'image',
-                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                    'message': 'A URL deve ter no máximo 200 caracteres!'
                 })
 
     if str(name).count(' ') == len(name):
@@ -338,11 +338,15 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             'message' : 'A experiência não pode ser menor que 0 ou maior que 105M'
             })
         errors.append("exp")
-        
+    if exp!="":
+        if 104857500 <= int(exp) and  int(exp) <= 105000000:
+            exp1 = 104857500
+        else:
+            exp1 = int(exp)
     if len(errors) > 0:
         return errors
     #add imagem
-    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, healthPoint = healthPointMax, mana = manaMax, user_id = user_id, description = description)
+    sheet = Sheet(name = name, race = race, role = role, image = image, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp1, expTotal = exp1, healthPoint = healthPointMax, mana = manaMax, user_id = user_id, description = description)
     sheet.save()
     sheet.updateXp()
     sheet.save()

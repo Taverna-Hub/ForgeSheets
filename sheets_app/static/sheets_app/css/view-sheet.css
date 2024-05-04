@@ -562,6 +562,7 @@ button {
     top: 170px;
     left: -85px;
     position: absolute;
+    z-index: 1;
 }
 
 .atkText {
@@ -591,6 +592,7 @@ button {
     top: 170px;
     left: 70px;
     position: absolute;
+    z-index: 1;
 }
 
 .defText {
@@ -636,7 +638,8 @@ button {
     justify-content: center;
     gap: 16px;
     padding: 16px;
-  
+    
+    box-shadow: 0px 0px 5px black;
     background-color: var(--white);
     color: var(--gray-800);
   

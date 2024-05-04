@@ -197,7 +197,7 @@
                 <button type="button" id="closeEquipmentBtn">
                     Cancelar
                 </button>
-                <button type="button" id="addEquipmentBtn" onclick="submitForm()">
+                <button type="button" class="addEquipmentBtn" id="addEquipmentBtn" onclick="submitForm()">
                     Criar
                 </button>
             </div>
@@ -282,24 +282,24 @@
 </section>
 
 {% for message in messages %}
-    <div class="toast {{ message.tags }}">
+    <div id="toast" class="toast {{ message.tags }}">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-circle-check"
+          ><circle cx="12" cy="12" r="10"/>
+          <path
+            d="m9 12 2 2 4-4"
+          />
+        </svg>
         {{message}}
-      <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-circle-check"
-        ><circle cx="12" cy="12" r="10"/>
-        <path
-          d="m9 12 2 2 4-4"
-        />
-      </svg>
     </div>
 {% endfor %}
 
@@ -332,9 +332,14 @@
                             </div>
                             
                             <input type="hidden" name="image" class="imageInputCircle" value="{{ image }}">
-                            <button type="button" class="openImageBtn">
+                            <button type="button" id=openImageBtn" class="openImageBtn">
                                 {% if image %}
-                                    <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                                    {% if sheet.healthPoint == 0 %}
+                                        <img src="{{ image }}" alt="Imagem" class="selectedImage" style="filter: grayscale(1);">
+                                        <p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>
+                                    {% else %}
+                                        <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                                    {% endif %}
                                 {% else %}
                                     <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                                 {% endif %}
@@ -386,21 +391,28 @@
                 </div>
                 
                 <div class="under">
-                    
                     <section class="infos">
                         
                         <div class="xpStatus">
-                            <p>Level:  {{sheet.level}}</p>
+                            <p>Level: {{sheet.level}} ({{sheet.expTotal}}xp)</p>
 
                             <section class="bar">
                                 <div class="bar-fill">
-                                    <div class="xpFill" style="width: {{exp}}%"></div>
+                                    {% if sheet.level == 20 %}
+                                        <div class="xpFill" style="width: 100%"></div>
+                                    {% else %}
+                                        <div class="xpFill" style="width: {{exp}}%"></div>
+                                    {% endif %}
                                 </div>
-                                
                                 <span class="inputs">
-                                    <input class="expInput" type="number" name="exp" id="exp" value="{{sheet.exp}}" class="sheet-submit">
-                                    <p class="barraBarra">/</p>
-                                    <p class="expP">{{sheet.expMax}}xp</p>
+                                    {% if sheet.level == 20 %}
+                                        <p class="expP">Nivel Max.</p>
+                                        <input class="expInput sheet-submit" type="hidden" name="exp" id="exp" value="{{sheet.exp}}">
+                                    {% else %}
+                                        <input class="expInput sheet-submit" type="number" name="exp" id="exp" value="{{sheet.exp}}">
+                                        <p class="barraBarra">/</p>
+                                        <p class="expP">{{sheet.expMax}}xp</p>
+                                    {% endif %}
                                 </span>
                             </section>
 
@@ -577,7 +589,7 @@
 
             <div class="createSheetActions">
                     <a href="{% url 'sheets:homesheets' %}" class="cancelSheetView">
-                        Cancelar
+                        Voltar
                     </a>
                 <script>
                     function disableButton() {

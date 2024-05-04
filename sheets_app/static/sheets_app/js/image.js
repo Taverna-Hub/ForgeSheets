@@ -22,17 +22,34 @@ function closeImageModal() {
   imageModal.style.display = 'none';
 }
 
+
 function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
-
-async function handleCheckImage(url) {
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', function(event) {
+      
+      let targetElement = event.target.closest('.openImageBtn');
+      if (targetElement) {
+          handleOpenImageModal();
+          clearImageInput();
+      }
+  });
+});
+function clearImageInput() {
+  
+  const imageInput = document.querySelector('.image'); 
+  if (imageInput) {
+      imageInput.value = ''; 
+  }
+}
+/*async function handleCheckImage(url) {
      
   const res = await fetch(url);
   const buff = await res.blob();
  
   return buff.type.startsWith('image/')
-}
+}*/
 
 function handleErrorImage(message) {
   const error =       
@@ -58,14 +75,14 @@ async function addImageToSheet() {
     return
   }
 
-  if (await handleCheckImage(modalImageValue)) {
+ /* if (await handleCheckImage(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
     return
-  }
+  }*/
 
 
   const image = `
-    <button type="button" onclick="handleOpenImageModal()">
+    <button type="button" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
     </button>
   ` 
@@ -85,6 +102,7 @@ async function addImageToSheet() {
   imageCount += 1;
   closeImageModal();
 }
+
 
 openImageModal.addEventListener('click', () => handleOpenImageModal());
 addImageBtn?.addEventListener('click', () => addImageToSheet());
