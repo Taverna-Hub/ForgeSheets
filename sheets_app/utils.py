@@ -339,7 +339,7 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
             })
         errors.append("exp")
     if exp!="":
-        if 104857500 <= int(exp) or  int(exp) <= 105000000:
+        if 104857500 <= int(exp) and  int(exp) <= 105000000:
             exp1 = 104857500
         else:
             exp1 = int(exp)

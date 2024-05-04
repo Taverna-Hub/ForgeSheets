@@ -1,5 +1,3 @@
-// const { it } = require("mocha");
-
 describe('test suite campaign', () => {
   it('criação de campanha - com imagem', () => {
     cy.visit('/');
