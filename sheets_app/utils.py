@@ -341,12 +341,11 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     sheet.save()
     return sheet
 
-class SheetRepresentation:
     def  __init__(self, id, name, hp, hpMax, mana, manaMax, role, race, exp, expMax, level, image):
         self.id = id
         self.name = name
-        self.hp = hp *100 // hpMax
-        self.mana = mana *100 // manaMax
+        self.hp = hp * 100 // hpMax
+        self.mana = mana * 100 // manaMax
         self.role = role
         self.race = race
         self.exp = exp
