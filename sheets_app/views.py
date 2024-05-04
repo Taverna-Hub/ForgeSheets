@@ -416,13 +416,14 @@ class EditEquipmentView(LoginRequiredMixin, View):
         newAttack = request.POST.get('editAttack')
         newDefense = request.POST.get('editDefense')
 
-        errors = save_equipment(newName, int(newQuantity), int(newAttack), int(newDefense), equipment)
+        errors = save_equipment(newName, newQuantity, newAttack, newDefense, equipment)
 
         if errors:
             ctx = {
                 'errors': errors
             }
-            messages.error('Erro ao editar equipamento')
+            #messages.error('Erro ao editar equipamento')
+            print(errors)
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}), ctx)
         
         return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))

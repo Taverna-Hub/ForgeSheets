@@ -129,11 +129,30 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
 
 #Tratamento de erro na utils
 def save_equipment(name, quantity, attack, defense, equipment):
-    name_treated = name.strip()
-    quantity_treated = int(quantity)
-    attack_treated = int(attack)
-    defense_treated = int(defense)
     wrong_fields = []
+    name_treated = name.strip()
+    if quantity!='':
+        quantity_treated = int(quantity)
+    else:
+         wrong_fields.append({
+            'field': 'quantity',
+            'message': 'Esse campo não pode ser vazio.'
+        })   
+    if attack!='':
+        attack_treated = int(attack)
+    else:
+         wrong_fields.append({
+            'field': 'attack',
+            'message': 'Esse campo não pode ser vazio.'
+        })   
+    if defense!='':
+        defense_treated = int(defense)
+    else:
+         wrong_fields.append({
+            'field': 'defense',
+            'message': 'Esse campo não pode ser vazio.'
+        })   
+
 
     if not name_treated:
         wrong_fields.append({
@@ -143,28 +162,31 @@ def save_equipment(name, quantity, attack, defense, equipment):
     elif len(name) > 55:
         wrong_fields.append({
             'field': 'name',
-            'message': 'Este campo deve ter menos de 55 caractéres'
+            'message': 'Este campo deve ter menos de 55 caracteres'
         })
     elif len(name) < 2:
         wrong_fields.append({
             'field': 'name',
-            'message': 'Este campo deve ter mais de 2 caractéres'
+            'message': 'Este campo deve ter mais de 2 caracteres'
         })
-    if quantity_treated < 1:
-        wrong_fields.append({
-            'field': 'quantity',
-            'message': 'A quantidade não pode ser inferior a 1'
-        })   
-    if attack_treated < 0:
-        wrong_fields.append({
-            'field': 'attack',
-            'message': 'O valor de ataque não pode ser inferior a 0'
-        })
-    if defense_treated < 0:
-        wrong_fields.append({
-            'field': 'defense',
-            'message': 'O valor de defesa não pode ser inferior a 0'
-        })
+    if quantity!='':
+        if quantity_treated < 1:
+            wrong_fields.append({
+                'field': 'quantity',
+                'message': 'A quantidade não pode ser inferior a 1'
+            })
+    if attack!='':   
+        if attack_treated < 0:
+            wrong_fields.append({
+                'field': 'attack',
+                'message': 'O valor de ataque não pode ser inferior a 0'
+            })
+    if defense!='':
+        if defense_treated < 0:
+            wrong_fields.append({
+                'field': 'defense',
+                'message': 'O valor de defesa não pode ser inferior a 0'
+            })
 
     if type(quantity) != int:
         wrong_fields.append({
@@ -191,6 +213,7 @@ def save_equipment(name, quantity, attack, defense, equipment):
     equipment.attack = attack
     equipment.defense = defense
     equipment.save()
+    print("panana")
 
 
 def atribute_verifier(atr):
