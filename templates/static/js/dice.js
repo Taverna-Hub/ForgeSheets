@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let hasError = false;
 
         const totalDice = quantityInputs.reduce((acc, val) => acc + val, 0);
+        if (quantityInputs.length !== diceTypeInputs.length) {
+            quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Adicione a quantidade de dados rolados para cada tipo de dado.</span>`;
+            hasError=true;
+        }
         if (totalDice > maxDiceCount) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Não é possível rolar mais de ${maxDiceCount} dados de uma vez.</span>`;
             hasError=true;
@@ -121,8 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        diceContainer.style.scrollBehavior = 'smooth';
-        diceContainer.scrollIntoView();
+        diceContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     };
 
 
