@@ -27,8 +27,10 @@ const equipmentsDiv = document.querySelectorAll('.equipmentList > li > div');
 let equipmentString = '';
 let equipmentList = [];
 let selectedEquipmentToEdit;
+let selectedEquipmentToEditRaw;
 let equipmentNode;
 let equipmentsNamesList = [];
+let previousErrorClassName;
 
 equipmentsDiv.forEach(div => {
   const id = div.parentNode.getAttribute('data-id');
@@ -80,7 +82,18 @@ function handleOpenEquipmentModal() {
 }
 
 function handleCloseEditEquipmentModal() {
-  editEquipmentModal.style.display = 'none';
+  if (document.querySelector(`.${previousErrorClassName}`)?.children[2] && document.querySelector(`.${previousErrorClassName}`).children[2].tagName === 'SPAN') {
+    document.querySelector(`.${previousErrorClassName}`).removeChild(document.querySelector(`.${previousErrorClassName}`).children[2])
+
+    const selectedEquipment = document.querySelector(`li[data-id="${selectedEquipmentToEdit.local_id}"] > div`)
+
+    selectedEquipmentToEdit.name = selectedEquipment.children[0].value; 
+    selectedEquipmentToEdit.quantity = selectedEquipment.children[1].value; 
+    selectedEquipmentToEdit.attack = selectedEquipment.children[2].value; 
+    selectedEquipmentToEdit.defense = selectedEquipment.children[3].value; 
+  }
+
+  editEquipmentModal.style.display = "none";
 }
 
 function handleOpenEditEquipmentModal(selectedEquipment) {
@@ -92,6 +105,8 @@ function handleOpenEditEquipmentModal(selectedEquipment) {
 }
 
 function handleEquipmentError(message, className) {
+  const existingError = document.querySelector(`.${className}`).children[2]
+
   const error =       
   `
     <span> 
@@ -99,8 +114,22 @@ function handleEquipmentError(message, className) {
       ${message}
     </span>
   `
+  if (existingError && existingError.tagName === 'SPAN' && existingError.value === message) {
+    return
+  } else if (existingError && existingError.tagName === 'SPAN' && existingError.value !== message) {
+    document.querySelector(`.${className}`).removeChild(existingError)
+  }
+
+  if (previousErrorClassName && previousErrorClassName !== className) {
+    const previousElement = document.querySelector(`.${previousErrorClassName}`);
+    const previousError = previousElement.children[2];
+    previousElement.removeChild(previousError);
+  } 
+
   const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
   document.querySelector(`.${className}`).appendChild(node)
+
+  previousErrorClassName = className;
 }
 
 function handleLoadEquipmentList(equipment) {
@@ -219,9 +248,64 @@ function handleGetEditEquipmentInfo(equipment) {
 
 async function handleEditEquipment() {
   selectedEquipmentToEdit.name = editName.value; 
-  selectedEquipmentToEdit.quantity = Number(editQuantity.value); 
-  selectedEquipmentToEdit.attack = Number(editAttack.value); 
-  selectedEquipmentToEdit.defense = Number(editDefense.value); 
+  selectedEquipmentToEdit.quantity = editQuantity.value; 
+  selectedEquipmentToEdit.attack = editAttack.value; 
+  selectedEquipmentToEdit.defense = editDefense.value; 
+
+  const nameExistsInListedList = equipmentsNamesList.some(
+    (name) => name.toLowerCase() === selectedEquipmentToEdit.name.toLowerCase());
+
+  if (selectedEquipmentToEdit.name === '') {
+    handleEquipmentError('Esse campo não pode ser vazio', 'editEquipmentName')
+    return
+  }
+  if (nameExistsInListedList) {
+    handleEquipmentError('Esse equipamento já existe', 'editEquipmentName')
+    return
+  }
+  if (selectedEquipmentToEdit.name.length > 55) {
+    handleEquipmentError('O nome deve ser menor que 55 caracteres', 'editEquipmentName')
+    return
+  }
+  if (selectedEquipmentToEdit.name.length < 2) {
+    handleEquipmentError('Este campo deve ter mais de 2 caracteres', 'editEquipmentName')
+    return
+  }
+
+  if (selectedEquipmentToEdit.quantity.length === 0) {
+    handleEquipmentError('A quantidade não pode ser vazia', 'editEquipmentQuantity')
+    return
+  }
+
+  if (selectedEquipmentToEdit.quantity < 1) {
+    handleEquipmentError('A quantidade não pode ser inferior a 1', 'editEquipmentQuantity')
+    return
+  }
+  
+  if (selectedEquipmentToEdit.attack < 0) {
+    handleEquipmentError('O valor de ataque não pode ser inferior a 0', 'editEquipmentAttack')
+    return
+  }
+
+  if (selectedEquipmentToEdit.defense < 0) {
+    handleEquipmentError('O valor de defesa não pode ser inferior a 0', 'editEquipmentDefense')
+    return
+  }
+
+  if (!Number.isInteger(Number(selectedEquipmentToEdit.quantity))) {
+    handleEquipmentError('Utilize apenas números inteiros', 'editEquipmentQuantity')
+    return
+  }
+
+  if (!Number.isInteger(Number(selectedEquipmentToEdit.attack))) {
+    handleEquipmentError('Utilize apenas números inteiros', 'editEquipmentAttack')
+    return
+  }
+
+  if (!Number.isInteger(Number(selectedEquipmentToEdit.defense))) {
+    handleEquipmentError('Utilize apenas números inteiros', 'editEquipmentDefense')
+    return
+  }
 
   document.querySelector('.equipmentList').innerHTML = '';
 
@@ -236,6 +320,7 @@ async function handleEditEquipment() {
   if (!String(selectedEquipmentToEdit.local_id).includes('.')) {
     const editEquipmentForm = document.querySelector('.editEquipmentModal form')
     editEquipmentForm.action = `/fichas/editar_equipamento/${selectedEquipmentToEdit.local_id}`
+    editEquipmentForm.submit();
   }
 }
 

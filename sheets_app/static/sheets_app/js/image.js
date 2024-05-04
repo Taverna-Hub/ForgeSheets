@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function clearImageInput() {
-  
   const imageInput = document.querySelector('.image'); 
   if (imageInput) {
       imageInput.value = ''; 
