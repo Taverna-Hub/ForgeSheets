@@ -332,7 +332,7 @@
                             </div>
                             
                             <input type="hidden" name="image" class="imageInputCircle" value="{{ image }}">
-                            <button type="button" class="openImageBtn">
+                            <button type="button" id=openImageBtn" class="openImageBtn">
                                 {% if image %}
                                     {% if sheet.healthPoint == 0 %}
                                         <img src="{{ image }}" alt="Imagem" class="selectedImage" style="filter: grayscale(1);">

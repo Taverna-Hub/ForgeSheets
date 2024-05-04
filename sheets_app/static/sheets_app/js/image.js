@@ -22,10 +22,27 @@ function closeImageModal() {
   imageModal.style.display = 'none';
 }
 
+
 function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
-
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', function(event) {
+      
+      let targetElement = event.target.closest('.openImageBtn');
+      if (targetElement) {
+          handleOpenImageModal();
+          clearImageInput();
+      }
+  });
+});
+function clearImageInput() {
+  
+  const imageInput = document.querySelector('.image'); 
+  if (imageInput) {
+      imageInput.value = ''; 
+  }
+}
 /*async function handleCheckImage(url) {
      
   const res = await fetch(url);
@@ -65,7 +82,7 @@ async function addImageToSheet() {
 
 
   const image = `
-    <button type="button" onclick="handleOpenImageModal()">
+    <button type="button" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
     </button>
   ` 
