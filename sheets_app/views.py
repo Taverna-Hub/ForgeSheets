@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet, sheet_update, SheetRepresentation
+from .utils import save_equipment, save_sheet, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -13,21 +13,17 @@ class SheetsView(LoginRequiredMixin, View):
     def get(self, request):
         sheets_view = Sheet.objects.filter(user_id=request.user.id)
 
-        # sheets_rep_view = [ SheetRepresentation(sheet.id, sheet.name, sheet.healthPoint, sheet.healthPointMax, sheet.mana, sheet.manaMax, sheet.role, sheet.race, sheet.exp, sheet.expMax, sheet.level(), sheet.image) for sheet in sheets_view]
+        for sheet in sheets_view:
+            sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
+            sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
 
-        hp_percents = {sheet.id: int((sheet.healthPoint / sheet.healthPointMax) * 100) for sheet in sheets_view}
-        mana_percents = {sheet.id: int((sheet.mana / sheet.manaMax) * 100) for sheet in sheets_view}
-        print(hp_percents)
         ctx = {
-            # 'sheets_view': sheets_rep_view,
             'sheets_view': sheets_view,
             'app_name': 'sheets',
             'user': request.user,
-            'hp_percents': hp_percents,
-            'mana_percents': mana_percents
         }
+        
         return render(request, 'sheets_app/sheets.html', ctx)
-
 
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
@@ -469,8 +465,4 @@ class DeleteMagicView(LoginRequiredMixin, View):
     def post(self, request, id):
         magic = Magic.objects.get(id=id)
         magic.delete()
-        return redirect(reverse('sheets:edit_sheet', kwargs={'id': magic.sheet_id}))        
-
-
-
-        
+        return redirect(reverse('sheets:edit_sheet', kwargs={'id': magic.sheet_id}))
