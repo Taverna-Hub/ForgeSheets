@@ -107,7 +107,9 @@ class CreateSheetView(LoginRequiredMixin, View):
                     if atributo not in errors:
                         valor = request.POST.get(atributo)
                         ctx[atributo] = valor
-                
+                        
+                if errors:
+                    print("Errors: ", errors)
                 return render(request, 'sheets_app/create-sheets.html', ctx)
             
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):

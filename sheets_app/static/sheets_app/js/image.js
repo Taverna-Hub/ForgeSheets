@@ -86,6 +86,7 @@ async function addImageToSheet() {
   closeImageModal();
 }
 
+
 openImageModal.addEventListener('click', () => handleOpenImageModal());
 addImageBtn?.addEventListener('click', () => addImageToSheet());
 closeImageBtn?.addEventListener('click', () => closeImageModal());
