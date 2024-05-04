@@ -33,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Adicione a quantidade de dados rolados para cada tipo de dado.</span>`;
             hasError=true;
         }
+        if(modifierInputs.some(val=>val>20 || val<-20)){
+            modifierError.innerHTML=`<span> <i data-lucide="octagon-alert"></i>Insira um número entre -20 e 20.</span>`
+            hasError=true;
+        }
         if (totalDice > maxDiceCount) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Não é possível rolar mais de ${maxDiceCount} dados de uma vez.</span>`;
             hasError=true;
@@ -41,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             typeError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Somente D4, D6, D8, D10, D12, D20, e D100 são permitidos.</span>`;
             hasError = true;
         }
+
         if (quantityInputs.some(val => val === 0)) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados não pode ser zero.</span>`;
             hasError = true;
