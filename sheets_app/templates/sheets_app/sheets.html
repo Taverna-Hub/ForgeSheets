@@ -48,7 +48,7 @@
                 <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
                 <strong>Essa ação vai deletar a ficha permanentemente!</strong>
                 <br>
-                <forms id="formDeleteSheet" method="POST" action="">
+                <form id="formDeleteSheet" method="POST" action="">
                     {% csrf_token %}
                     <button type="button" class="cancel">
                         Cancelar
@@ -57,7 +57,7 @@
                     <button type="submit" class="delete">
                             Excluir
                     </button>
-                </forms>
+                </form>
 
             </div>
         </div>
@@ -67,6 +67,10 @@
 
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
+    <h1 class="title">
+        {{ hp_percents }}
+        {{ mana_percents }}
+    </h1>
     <section class="cardList">
         <button class="createSheet">
             <div>
@@ -76,6 +80,9 @@
 
         {% for sheet in sheets_view%}
         <div id="Card" class="sheetCard" style="{% if sheet.image %}
+        {% if sheet.hp == 0%}
+        backdrop-filter: grayscale(1);
+        {% endif %}
         background-image: url({{ sheet.image }});
         background-position: center;
         {% endif %}">
@@ -84,9 +91,12 @@
                     <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
             </button>
 
-            <div id="Card" {% if sheet.image %}
+            <div id="Card" style="{% if sheet.image %}
             background-color: rgba(0,0,0,0.5);
             backdrop-filter: blur(2px);
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
             {% endif %}">
 
                 <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
@@ -109,9 +119,11 @@
                             <p>{{sheet.role}}</p>
                         </div>
                         <div class="bar">
-                            <span class="hp-bar"></span>
-                            <span class="mana-bar"></span>
-                        </div>
+                            <div class="background-bar"></div>
+                            <div class="background-bar2"></div>
+                            <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
+                            <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
+                        </div>                        
                     </div>
                 </a>
             </div>
