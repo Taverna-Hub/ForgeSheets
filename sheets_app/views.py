@@ -179,6 +179,8 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         sheet = get_object_or_404(Sheet, id=id)
 
         expPercent = (sheet.exp/sheet.expMax)*100
+        mana = int((sheet.mana/sheet.manaMax)*100)
+        hp = int((sheet.healthPoint/sheet.healthPointMax)*100)
 
         name = request.POST.get('name')
         image = request.POST.get('image')
@@ -239,7 +241,6 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                     'defense': equipmentDef
                 }
                 equipment_list.append(equipment)
-            print("Esse é o percentual: ", int(expPercent))
             ctx = {
                 'errors': updated,
                 'equipments': equipment_list,
@@ -248,7 +249,9 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                 'sheet': sheet,
                 'atk': atk,
                 'def': defe,
-                'exp': int(expPercent)
+                'exp': int(expPercent),
+                'mana': mana,
+                'hp': hp
             }
             if 'name' not in updated:
                 ctx['name'] = name
@@ -347,6 +350,8 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                 'atk': atk,
                 'def': defe,
                 'exp': int(expPercent),
+                'mana': mana,
+                'hp': hp
             }
             if 'name' not in updated:
                 ctx['name'] = name
