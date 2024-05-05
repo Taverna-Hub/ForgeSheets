@@ -12,7 +12,6 @@
 {% block 'body' %}
 <section class="chooseSheetModal">
     <div class="modal">
-        {% include "dice.html" %}
         <button type="button" id="closeChooseSheet">
             <i data-lucide="x"></i>
         </button>
@@ -128,8 +127,10 @@
        
         {% endfor %}
     </section>
-    {% include "dice.html" %}
 </section>
+
+{% include "dice.html" %}
+
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 <script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% endblock %}

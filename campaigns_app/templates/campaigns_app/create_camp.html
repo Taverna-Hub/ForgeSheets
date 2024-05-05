@@ -8,8 +8,7 @@
 {% endblock %}
 
 {% block 'body' %}
-<section>
-    {% include "dice.html" %}
+<section class="campaignModalOverlay">
     <div class="modal">
         <h2>Criar uma nova campanha</h2>
         <form action="{% url 'campaigns:create_campaign' %}" onsubmit="disableButton()" method="POST">
@@ -66,4 +65,6 @@
             </form>
         </div>
     </section>
-    {% endblock %}
+
+    {% include "dice.html" %}
+{% endblock %}
