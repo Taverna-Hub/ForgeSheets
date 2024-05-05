@@ -330,7 +330,7 @@ function handleEditMagic() {
 }
   
 async function handleDeleteMagic(magic) {
-  const selectedMagicId = selectedMagicToEdit.parentNode.getAttribute('data-id'); // pega id
+  const selectedMagicId = magic.parentNode.getAttribute('data-id'); // pega id
   const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
   const listItemToRemove = document.querySelector(`.magicList > li[data-id="${selectedMagicId}"]`);
