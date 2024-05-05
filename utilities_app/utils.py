@@ -1,7 +1,8 @@
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as login_django
 import re
+
+from .models import Users
 
 def register(username, email, password):
     if len(username) < 1 or len(password) < 1 or len(email) < 1:
@@ -19,15 +20,15 @@ def register(username, email, password):
         if not re.match("^[a-zA-Z0-9]+$", username):
             return 0
 
-    mail = User.objects.filter(email=email).first()
+    mail = Users.objects.filter(email=email).first()
     if mail:
         return 4
 
-    user = User.objects.filter(username=username).first()
+    user = Users.objects.filter(username=username).first()
     if user:
         return 5
 
-    user = User.objects.create_user(username=username, email=email, password=password)
+    user = Users.objects.create_user(username=username, email=email, password=password)
     user.save()
 
     return 1

@@ -22,11 +22,62 @@ const closeEditMagicModalBtn = document.querySelector('#closeEditMagicModalBtn')
 const openEditMagicModalBtn = document.querySelector('.openEditMagicModalBtn')
 const saveEditMagicBtn = document.querySelector('#saveMagicBtn')
 
+const openEditMagicBtn = document.querySelectorAll('.editMagic');
+const removeMagicBtn = document.querySelectorAll('.removeMagic')
+
 const editMagicModal = document.querySelector('.editMagicModal')
+
+const magicsName = document.querySelectorAll('.magicList > li > div > input[name="mgcName"]');
+const magicsDiv = document.querySelectorAll('.magicList > li > div');
 
 let magicString = '';
 let magicList = [];
 let selectedMagicToEdit;
+let magicNode;
+let magicsNamesList = [];
+
+magicsDiv.forEach(div => {
+  const id = div.parentNode.getAttribute('data-id');
+  const inputs = div.querySelectorAll('input');
+  const values = [];
+  
+  inputs.forEach(input => {
+    values.push(input.value);
+  });
+
+  const magic = {
+    local_id: id,
+    name: values[0],
+    description: values[1], 
+    element: values[2],
+    damage: values[3],
+    attribute: values[4]
+  };
+
+  magicList.push(magic);
+});
+
+magicsName.forEach(input => {
+  magicsNamesList.push(input.value);
+});
+
+openEditMagicBtn.forEach(input => {
+  input.onclick = () => handleGetEditMagicInfo(input);
+});
+
+removeMagicBtn.forEach(input => {
+  input.onclick = () => handleDeleteMagic(input);
+});
+
+// Edit sheet function
+function submitForm() {
+  const editSheetForm = document.querySelector('#form-edit-sheet')
+  if (editSheetForm) {
+    editSheetForm.submit();
+  }
+}
+// =========================
+
 
 function handleCloseMagicModal() {
   magicModal.style.display = 'none';
@@ -71,8 +122,8 @@ function handleLoadMagicList(magic) {
           <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
-          <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" style="margin-right: -10px;">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </li>
       `
@@ -138,6 +189,7 @@ function handleAddMagicToList() {
   element.value = '' ;
   damage.value = '' ;
   attribute.value = '' ;
+  submitForm()
 }
 
 // Editar
@@ -154,7 +206,6 @@ function handleOpenEditMagicModal(selectedMagic) {
   editMagicAttribute.value = selectedMagic.attribute;
 }
 
-
 function handleGetEditMagicInfo(magic) {
   const selectedMagicId = magic.parentNode.getAttribute('data-id'); // pega id
   magicNode = magic.parentNode;  // atribui id
@@ -167,39 +218,47 @@ function handleGetEditMagicInfo(magic) {
   
 function handleEditMagic() {
   selectedMagicToEdit.name = editMagicName.value;
-  selectedMagicToEdit.description = (editMagicDescription.value); 
-  selectedMagicToEdit.element = (editMagicElement.value); 
-  selectedMagicToEdit.damage = (editMagicDamage.value); 
-  selectedMagicToEdit.attribute = (editMagicAttribute.value); 
-
-  const magicListFiltered = magicList.filter((item, index, self) =>
-    index === self.findIndex((t) => (
-      t.local_id === item.local_id 
-    ))
-  );
+  selectedMagicToEdit.description = editMagicDescription.value; 
+  selectedMagicToEdit.element = editMagicElement.value; 
+  selectedMagicToEdit.damage = editMagicDamage.value; 
+  selectedMagicToEdit.attribute = editMagicAttribute.value; 
 
   document.querySelector('.magicList').innerHTML = ''; 
-  magicListFiltered.forEach((magicItem) => {
-    console.log(magicItem)
+  magicList.forEach((magicItem) => {
     magicString += handleLoadMagicList(magicItem); 
   })
 
   document.querySelector('.magicList').innerHTML = magicString; 
   magicString = ''; 
   handleCloseEditMagicModal(); 
+
+  if (!String(selectedMagicToEdit.local_id).includes('.')) {
+    const editMagicForm = document.querySelector('.editMagicModal form')
+    editMagicForm.action = `/fichas/editar_magia/${selectedMagicToEdit.local_id}`
+  }
 }
   
-function handleDeleteMagic(magic) {
+async function handleDeleteMagic(magic) {
   const selectedMagicId = magic.parentNode.getAttribute('data-id'); // pega id
+  const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  const listItemToRemove = document.querySelector(`.magicList > li[data-id="${selectedMagicId}"]`);
+  listItemToRemove.parentNode.removeChild(listItemToRemove);
+
   const actualIndex = magicList.findIndex(magicItem => magicItem.id == selectedMagicId); // acha idnex na lista
   magicList.splice(actualIndex, 1) // remove ok
 
-  magicList.forEach((magicItem) => {
-    magicString += handleLoadMagicList(magicItem); // carrega dnv
-  })
+  if (!selectedMagicId.includes('.')) {
+    await fetch(`/fichas/deletar_magia/${selectedMagicId}`, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrfToken
+      },
+      mode: 'same-origin'
+    })
 
-  document.querySelector('.magicList').innerHTML = magicString;
-  magicString = '';
+    location.reload();
+  }
 }
 
 openMagicModalBtn?.addEventListener('click', () => handleOpenMagicModal());

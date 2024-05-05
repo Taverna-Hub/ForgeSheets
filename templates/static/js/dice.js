@@ -29,6 +29,14 @@ document.addEventListener('DOMContentLoaded', function () {
         let hasError = false;
 
         const totalDice = quantityInputs.reduce((acc, val) => acc + val, 0);
+        if (quantityInputs.length !== diceTypeInputs.length) {
+            quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Adicione a quantidade de dados rolados para cada tipo de dado.</span>`;
+            hasError=true;
+        }
+        if(modifierInputs.some(val=>val>20 || val<-20)){
+            modifierError.innerHTML=`<span> <i data-lucide="octagon-alert"></i>Insira um número entre -20 e 20.</span>`
+            hasError=true;
+        }
         if (totalDice > maxDiceCount) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Não é possível rolar mais de ${maxDiceCount} dados de uma vez.</span>`;
             hasError=true;
@@ -37,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
             typeError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Somente D4, D6, D8, D10, D12, D20, e D100 são permitidos.</span>`;
             hasError = true;
         }
+
         if (quantityInputs.some(val => val === 0)) {
             quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados não pode ser zero.</span>`;
             hasError = true;
@@ -104,15 +113,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function rollDice(diceResults) {
         const diceContainer = document.getElementById('diceContainer');
         diceContainer.innerHTML = '';
-    
+
         diceResults.forEach(result => {
             result.rolls.forEach((roll, i) => {
                 const dice = document.createElement('div');
-                dice.className = 'dice-face';
+                dice.className = `dice-face dice-${result.type}`;
+                dice.style.backgroundImage = getDiceImageUrl(result.type);
+                dice.style.backgroundSize = "contain";
                 dice.textContent = '...';
                 diceContainer.appendChild(dice);
-                
-                
+
                 setTimeout(() => {
                     dice.textContent = roll;
                     dice.style.animation = 'none';
@@ -120,9 +130,22 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
 
-        diceContainer.style.scrollBehavior = 'smooth';
-        diceContainer.scrollIntoView();
+        diceContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
     };
+
+
+    function getDiceImageUrl(diceType) {
+        const urls = {
+            4: 'https://pbs.twimg.com/media/GMnhDY5XUAAnIvO?format=png&name=240x240',
+            6: 'https://pbs.twimg.com/media/GMnhDY0XsAAvjb_?format=png&name=240x240',
+            8: 'https://pbs.twimg.com/media/GMnhDY3W0AAXXSJ?format=png&name=240x240',
+            10: 'https://pbs.twimg.com/media/GMnhDY2WwAEZNuL?format=png&name=240x240',
+            12: 'https://pbs.twimg.com/media/GMnAe5rWsAAYFB9?format=png&name=240x240',
+            20: 'https://pbs.twimg.com/media/GMnhMIJXIAAtIpm?format=png&name=240x240',
+            100: 'https://pbs.twimg.com/media/GMnhMJ2WkAAKjLx?format=png&name=240x240'
+        };
+        return `url('${urls[diceType]}')`;
+    }
 
     // function dragElement(element) {
     //     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;

@@ -14,6 +14,22 @@ const addImageDiv = document.querySelector('.add_image_div');
 
 let imageCount = 0;
 
+function handleCheckImage(url) {
+  const proxyUrl = `https://crossorigin.me/${url}`;
+
+  fetch(proxyUrl, { method: 'HEAD' })
+    .then(response => {
+      if (response.ok) {
+        console.log("Image exists");
+      } else {
+        console.log("Image doesn't exist");
+      }
+    })
+    .catch(error => {
+      console.error("Error checking image:", error);
+    });
+}
+
 function closeImageModal() {
   const error = document.querySelector('.imageInput').lastElementChild;
   if (error.tagName === 'SPAN') {
@@ -26,15 +42,28 @@ function handleOpenImageModal() {
   imageModal.style.display = 'flex';
 }
 
-// async function handleCheckImage(url){
-     
-//   const res = await fetch(url);
-//   const buff = await res.blob();
- 
-//   return buff.type.startsWith('image/')
-// }
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', function(event) {
+      
+      let targetElement = event.target.closest('.openImageBtn');
+      if (targetElement) {
+          handleOpenImageModal();
+          clearImageInput();
+      }
+  });
+});
+
+function clearImageInput() {
+  const imageInput = document.querySelector('.image'); 
+  if (imageInput) {
+      imageInput.value = ''; 
+  }
+}
 
 function handleErrorImage(message) {
+  const imageInput = document.querySelector('.imageInput');
+  const existingError = imageInput.children[2]
+
   const error =       
   `
       <span> 
@@ -42,26 +71,34 @@ function handleErrorImage(message) {
         ${message}
       </span>
     `
+    if (existingError && existingError.tagName === 'SPAN' && existingError.value === message) {
+      return
+    } else if (existingError && existingError.tagName === 'SPAN' && existingError.value !== message) {
+      imageInput.removeChild(existingError)
+    }
     const node = new DOMParser().parseFromString(error, 'text/html').body.firstElementChild
-    document.querySelector('.imageInput').appendChild(node);
+    imageInput.appendChild(node)
 }
 
-
-async function addImageToSheet() {
+function addImageToSheet() {
   const contextImage = document.querySelector('.imageInputCircle');
 
   let modalImageValue = imageLink.value;
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
-  // console.log(await handleCheckImage(modalImageValue))
 
   if (!regex.test(modalImageValue)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
     return
   }
 
+  // if (handleCheckImage(modalImageValue)) {
+  //   handleErrorImage('Insira uma URL válida', 'imageInput')
+  //   return
+  // }
+
 
   const image = `
-    <button type="button" onclick="handleOpenImageModal()">
+    <button type="button" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
     </button>
   ` 
@@ -81,6 +118,7 @@ async function addImageToSheet() {
   imageCount += 1;
   closeImageModal();
 }
+
 
 openImageModal.addEventListener('click', () => handleOpenImageModal());
 addImageBtn?.addEventListener('click', () => addImageToSheet());

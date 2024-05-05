@@ -158,11 +158,36 @@
   width: 100%;
   margin-top: 10px;
   padding: 5px 0;
+  position: relative; /* Para posicionar corretamente o background-bar */
+}
+
+.background-bar {
+  background-color: rgba(187, 187, 187, 0.797); 
+  height: 4.8px;
+  width: 100%;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  z-index: -1;
+}
+.background-bar2 {
+  background-color: rgba(187, 187, 187, 0.797);
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  z-index: -1; 
+}
+
+.hp-bar, .mana-bar {
+  height: 5px;
+  position: relative; 
 }
 
 .hp-bar {
   background-color: rgba(238, 67, 67, 0.8);
-  height: 5px;
+  height: 4.8px;
   margin-bottom: 15px;
 }
 
@@ -170,6 +195,7 @@
   background-color: rgba(86, 86, 227, 0.8);
   height: 5px;
 }
+
 
 @media (max-width: 1653px) {
   .cardList {

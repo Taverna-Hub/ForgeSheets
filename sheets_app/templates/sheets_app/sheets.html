@@ -36,6 +36,7 @@
     </div>
 </section>
 
+{% for sheet in sheets_view %}
 <section class="deleteSheetModal">
     <div class="modal">
         <button type="button" id="closeDeleteSheet">
@@ -44,22 +45,25 @@
         <div class="container">
             <div>
                 <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
-                <h2>Você tem certeza que deseja excluir esta ficha?</h2>
-
-                <div class="buttons">
-                    <button class="cancel">
+                <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
+                <strong>Essa ação vai deletar a ficha permanentemente!</strong>
+                <br>
+                <form id="formDeleteSheet" method="POST" action="">
+                    {% csrf_token %}
+                    <button type="button" class="cancel">
                         Cancelar
                     </button>
 
-                    <button class="delete" type="submit" method="POST">
-                        Excluir
+                    <button type="submit" class="delete">
+                            Excluir
                     </button>
-                </div>
+                </form>
 
             </div>
         </div>
     </div>
-</section>
+</section> 
+{%endfor%}
 
 <section class="listSheetsContainer">
     <h1 class="title">Suas Fichas</h1>
@@ -72,18 +76,23 @@
 
         {% for sheet in sheets_view%}
         <div id="Card" class="sheetCard" style="{% if sheet.image %}
+        {% if sheet.hp == 0%}
+        backdrop-filter: grayscale(1);
+        {% endif %}
         background-image: url({{ sheet.image }});
         background-position: center;
         {% endif %}">
 
-            {% comment %} <button type="button" class="deleteSheet" data-url="{% 'sheets:delete_sheet' sheet.id%}"> {% endcomment %}
-            <button class="deleteSheet" >
-                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
+                    <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
             </button>
 
-            <div id="Card" {% if sheet.image %}
+            <div id="Card" style="{% if sheet.image %}
             background-color: rgba(0,0,0,0.5);
             backdrop-filter: blur(2px);
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
             {% endif %}">
 
                 <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
@@ -106,9 +115,11 @@
                             <p>{{sheet.role}}</p>
                         </div>
                         <div class="bar">
-                            <span class="hp-bar"></span>
-                            <span class="mana-bar"></span>
-                        </div>
+                            <div class="background-bar"></div>
+                            <div class="background-bar2"></div>
+                            <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
+                            <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
+                        </div>                        
                     </div>
                 </a>
             </div>
@@ -119,4 +130,5 @@
     {% include "dice.html" %}
 </section>
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% endblock %}

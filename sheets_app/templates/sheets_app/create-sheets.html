@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block 'body' %}
+
 <input type="hidden" id="context" data-errors="{{ errors }}" data-magics="{{ magics }}">
 
 <section class="magicModal">
@@ -24,7 +25,7 @@
             </div>
 
             <div class="magicDescription">
-                <label for="descriptionMagic">Descrição:</label>
+                <label for="descriptionMagic">Anotações:</label>
                 <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
             </div>
 
@@ -76,7 +77,7 @@
             </div>
 
             <div class="magicDescription">
-                <label for="descriptionMagicEdit">Descrição:</label>
+                <label for="descriptionMagicEdit">Anotações:</label>
                 <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
             </div>
 
@@ -123,8 +124,8 @@
         <form>
             {%csrf_token%}
             <div class="equipmentName">
-                <label for="equipmentName">Nome do equipamento:</label>
-                <input type="text" name="equipmentName" value="{{equipmentName}}">
+                <label for="createEquipmentName">Nome do equipamento:</label>
+                <input type="text" name="createEquipmentName" value="{{equipmentName}}">
                 {% for error in errors %}
                 {% if error.field == 'name'%}
                 <span>
@@ -368,10 +369,13 @@
                 <div class="under">
                     <section class="add-image">
                         <div class="add_image_div">
-                            <input type="hidden" name="image" class="imageInputCircle" value={{image}}>  
-
+                            <input type="hidden" name="image" class="imageInputCircle" value="{{image}}" >  
                             <button type="button" class="openImageBtn">
+                            {% if image %}
+                                <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                            {% else %}
                                 <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                            {% endif %}
                             </button>
                         </div>
                     </section>
@@ -438,8 +442,9 @@
                                     <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
                                     </button>
-                                    <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)" style="margin-right: -10px;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+
+                                    <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                                     </button>
                                 </li>
                              {% endfor %}
@@ -490,7 +495,7 @@
             </div>
             
             <section class="description">
-                <label for="description">Descrição: </label>
+                <label for="description">Anotações: </label>
                 <textarea name="description" id="description">{{description}}</textarea>
                 {% for error in errors %}
                     {% if error.field == 'description'%}

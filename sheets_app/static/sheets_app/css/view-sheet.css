@@ -153,17 +153,21 @@ button {
 .underTwo {
     width: 100%;
     position: relative;
-    top: -230px;
+    top: -145px;
 }
 
 .race, .class {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 5px;
+    background-color: #D1D5DB;
+    border-radius: 5px;
 }
 
 .race {
     margin-bottom: 16px;
+    margin-top: 6px;
 }
 
 /*css de equipamentos*/
@@ -313,7 +317,7 @@ button {
 
 /*Css das barras de vida, mana e xp*/
 
-.status{
+.status {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -321,39 +325,36 @@ button {
     padding: 5px 0;
 }
 
-.bar{
+.bar {
     text-align: center;
     margin-bottom: -35px;
     padding-top: 3px;
 }
 
-.bar span{
+.bar span {
     color: white;
     font-weight: bold;
 }
 
-.bar-fill{
+.bar-fill {
     background-color: lightgray;
     height: 35px;
     width: 300px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: none;
-    /* position: relative; */
 }
 
 .hpFill {
     background-color: var(--red-life);
     height: 35px;
     border-radius: 5px;
-    /* margin-bottom: 15px; */
 }
 
 .manaFill {
     background-color: var(--blue-mana);
     height: 35px;
     border-radius: 5px;
-    /* margin-bottom: 15px; */
 }
 
 .xpFill {
@@ -364,7 +365,6 @@ button {
 }
 
 .hpRight, .manaRight{
-    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -374,7 +374,6 @@ button {
 }
 
 .hpLeft, .manaLeft{
-    /* outline: 0; */
     border: none;
     background-color: transparent;
     
@@ -393,17 +392,20 @@ button {
     font-size: 16px;
 }
 
-.expP{
+.expP {
     padding-right: 40%;
 }
 
 
-.inputs{
+.inputs {
     position: relative;
     top: -50px;
     color: white;
     font-weight: bold;
     font-size: 16px;
+    font-size: 16px;
+    
+    font-size: 16px;    
     
 }
 
@@ -436,18 +438,22 @@ button {
     border-radius: 2px;
 }
 
+.atributosInputs div input, .statusInputs div input {
+    max-width: 300px;
+}
+
 .sideBySide {
     display: flex;
+    align-items: baseline;
     justify-content: space-around;
     
     width: 100%;
     gap: 40px;
-
+    /* margin-bottom: -77px; */
     align-items: baseline;
 }
 
 .createSheetActions {
-    margin-top: 16px;
     float: right;
     display: flex;
 }
@@ -456,7 +462,6 @@ button {
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
-  
     font-weight: 600;
     font-size: 16px;
 }
@@ -529,7 +534,7 @@ button {
 }
   
 .description textarea {
-    height: 280px;
+    height: 325px;
     width: 100%;
 }
   
@@ -557,6 +562,7 @@ button {
     top: 170px;
     left: -85px;
     position: absolute;
+    z-index: 1;
 }
 
 .atkText {
@@ -586,6 +592,7 @@ button {
     top: 170px;
     left: 70px;
     position: absolute;
+    z-index: 1;
 }
 
 .defText {
@@ -619,4 +626,38 @@ button {
 
 .saveSheetView {
     margin: 6px;
+}
+
+.toast {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 16px;
+    
+    box-shadow: 0px 0px 5px black;
+    background-color: var(--white);
+    color: var(--gray-800);
+  
+    animation: slideInLeft ease .5s, fadeOut linear 1s .5s forwards;
+}
+  
+.success {
+    border-left: 4px solid var(--green-500);
+}
+  
+.success>svg {
+    color: var(--green-500);
+}
+  
+.error {
+    border-left: 4px solid var(--red-600);
+}
+  
+.error>svg {
+    color: var(--red-600);
 }
