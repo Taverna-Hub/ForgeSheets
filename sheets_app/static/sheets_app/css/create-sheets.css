@@ -282,8 +282,6 @@ button {
 .add_image_div button {
   border-radius: 100%;
   background-color: var(--gray-300);
-  margin: auto;
-  border: none;
   width: 230px;
   height: 230px;
 }

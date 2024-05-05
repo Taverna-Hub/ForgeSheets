@@ -1,5 +1,5 @@
 const imageLink = document.querySelector('.image');
-let regex = /^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$/;
+let regex = /https?:\/\/\S+?\.(?:png|jpe?g|gif|bmp|tiff|webp|svg|ico)(?:\?\S*)?(?:#\S*)?/i;
 
 const addImageBtn = document.querySelector('#addImageBtn');
 const closeImageBtn = document.querySelector('#closeImageBtn');
@@ -11,6 +11,8 @@ const createSheetBtn = document.querySelector('.createSheet');
 const closeChooseSheetModalBtn = document.querySelector('#closeChooseSheet');
 
 const addImageDiv = document.querySelector('.add_image_div');
+
+const healthPoint = document.querySelector('#healthPoint')
 
 let imageCount = 0;
 
@@ -86,7 +88,7 @@ function addImageToSheet() {
   let modalImageValue = imageLink.value;
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
 
-  if (!regex.test(modalImageValue)) {
+  if (!regex.test(imageSrc)) {
     handleErrorImage('Insira uma URL válida', 'imageInput')
     return
   }
@@ -96,10 +98,11 @@ function addImageToSheet() {
   //   return
   // }
 
-
   const image = `
-    <button type="button" class="openImageBtn">
+    <button type="button" id="openImageBtn" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
+
+      ${healthPoint.value === "0" && `<p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>`}
     </button>
   ` 
 
@@ -115,6 +118,9 @@ function addImageToSheet() {
 
   addImageDiv.appendChild(node);
   document.querySelector('.imageInputCircle').value = modalImageValue;
+  if (healthPoint.value === "0") {
+    document.querySelector('.selectedImage').style.filter = 'grayscale(1)';
+  }
   imageCount += 1;
   closeImageModal();
 }
