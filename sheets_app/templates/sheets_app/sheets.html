@@ -127,8 +127,10 @@
        
         {% endfor %}
     </section>
-    {% include "dice.html" %}
 </section>
+
+{% include "dice.html" %}
+
 <script src="{% static 'sheets_app/js/sheet.js' %}"></script>
 <script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% endblock %}

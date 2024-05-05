@@ -70,23 +70,23 @@
         <h2>Editar Magia/Habilidades</h2>
         <form method="POST">
             {%csrf_token%}
-            <div class="magicName">
+            <div class="editMagicName">
                 <label for="nameMagicEdit">Nome da magia:</label>
                 <input type="text" name="nameMagicEdit">
             </div>
 
-            <div class="magicDescription">
+            <div class="editMagicDescription">
                 <label for="descriptionMagicEdit">Anotações:</label>
                 <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
             </div>
 
-            <div class="magicDamage">
-                    <label for="damageMagicEdit">Dano: </label>
-                    <input type="text" name="damageMagicEdit">
+            <div class="editMagicDamage">
+                <label for="damageMagicEdit">Dano: </label>
+                <input type="text" name="damageMagicEdit">
             </div>
 
             <div class="sideBySide">
-                <div class="magicAttribute">
+                <div class="editMagicAttribute">
                     <label for="attributeMagicEdit">Atributo modificador:</label>
                     <select name="attributeMagicEdit">
                         <option value="">Selecione</option>
@@ -99,7 +99,7 @@
                     </select>
                 </div>
 
-                <div class="magicElement">
+                <div class="editMagicElement">
                     <label for="elementMagicEdit">Elemento da magia: </label>
                     <input type="text" name="elementMagicEdit">
                 </div>
@@ -109,7 +109,7 @@
                 <button type="button" id="closeEditMagicModalBtn">
                     Cancelar
                 </button>
-                <button type="submit" id="saveMagicBtn">
+                <button type="button" id="saveMagicBtn">
                     Salvar
                 </button>
             </div>
@@ -319,11 +319,8 @@
             <section class="sheetHeader">
                 
                 <div class="under">
-                    
                     <section class="add-image">
-                        
                         <div class="add_image_div">
-                            
                             <div class="totalAtk">
                                 <p class="atkText">{{atk}}</p>
                             </div>
@@ -344,9 +341,7 @@
                                     <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
                                 {% endif %}
                             </button>
-
                         </div>
-
                     </section>
                     
                     
@@ -602,8 +597,9 @@
             </div>
         </form>
     </section>
-    {% include "dice.html" %}
 </section>
+
+{% include "dice.html" %}
 
 <script type="module" src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script type="module" src="{% static 'sheets_app/js/image.js' %}"></script>
