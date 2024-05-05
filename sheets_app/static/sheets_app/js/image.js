@@ -16,6 +16,13 @@ const healthPoint = document.querySelector('#healthPoint')
 
 let imageCount = 0;
 
+function submitForm() {
+  const editSheetForm = document.querySelector('#form-edit-sheet')
+  if (editSheetForm) {
+    editSheetForm.submit();
+  }
+}
+
 function handleCheckImage(url) {
   const proxyUrl = `https://crossorigin.me/${url}`;
 
@@ -102,7 +109,7 @@ function addImageToSheet() {
     <button type="button" id="openImageBtn" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
 
-      ${healthPoint.value === "0" ? `<p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>` : ''}
+      ${healthPoint?.value === "0" ? `<p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>` : ''}
     </button>
   ` 
 
@@ -118,11 +125,12 @@ function addImageToSheet() {
 
   addImageDiv.appendChild(node);
   document.querySelector('.imageInputCircle').value = modalImageValue;
-  if (healthPoint.value === "0") {
+  if (healthPoint?.value === "0") {
     document.querySelector('.selectedImage').style.filter = 'grayscale(1)';
   }
   imageCount += 1;
   closeImageModal();
+  submitForm()
 }
 
 
