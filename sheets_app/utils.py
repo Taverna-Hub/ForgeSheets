@@ -29,7 +29,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
         elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1 or int(strength) > 100 or int(intelligence) > 100 or int(wisdom) > 100 or int(charisma) > 100 or int(constitution) > 100 or int(speed) > 100:
             errors.append({
                 'field' : 'atributes1',
-                'message' : 'O atributos primários devem estrar entre 1 e 100'
+                'message' : 'O atributos primários devem estar entre 1 e 100'
                 })
     except:
         errors.append({

@@ -274,12 +274,20 @@ async function handleEditEquipment() {
   const nameExistsInListedList = equipmentsNamesList.some(
     (name) => name.toLowerCase() === selectedEquipmentToEdit.name.toLowerCase());
 
+  const nameExists = equipmentList.some(
+    (equipmentItem) => equipmentItem.name.toLowerCase() === selectedEquipmentToEdit.name.toLowerCase());
+  
+
   if (selectedEquipmentToEdit.name === '') {
     handleEquipmentError('Esse campo não pode ser vazio', 'editEquipmentName')
     return
   }
   if (nameExistsInListedList && selectedEquipmentToEdit.name !== selectedEquipmentToEditRaw.name) {
     handleEquipmentError('Esse equipamento já existe', 'editEquipmentName')
+    return
+  }
+  if (String(selectedEquipmentToEdit.local_id).includes('.') && nameExists && selectedEquipmentToEdit.name !== selectedEquipmentToEditRaw.name) {
+    handleMagicError('Esse equipamento já existe', 'editEquipmentName')
     return
   }
   if (selectedEquipmentToEdit.name.length > 55) {

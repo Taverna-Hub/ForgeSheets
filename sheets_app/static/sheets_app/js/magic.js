@@ -275,9 +275,16 @@ function handleEditMagic() {
 
   const nameExistsInListedList = magicsNamesList.some(
     (name) => name.toLowerCase() === selectedMagicToEdit.name.toLowerCase());
+  
+  const nameExists = magicList.filter(
+    (magicItem) => magicItem.name.toLowerCase() === selectedMagicToEdit.name.toLowerCase()); 
 
   if (selectedMagicToEdit.name === '') {
     handleMagicError('Esse campo não pode ser vazio', 'editMagicName')
+    return
+  }
+  if (String(selectedMagicToEdit.local_id).includes('.') && nameExists && selectedMagicToEdit.name !== selectedMagicToEditRaw.name) {
+    handleMagicError('Essa magia/habilidade já existe', 'editMagicName')
     return
   }
   if (nameExistsInListedList && selectedMagicToEdit.name !== selectedMagicToEditRaw.name) {
