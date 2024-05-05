@@ -4,6 +4,7 @@ import re
 
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):
     errors = []
+
     # Tratando nomes!
     if str(name).count(' ') == len(name):
         errors.append({
@@ -16,7 +17,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             'field':'name',
             'message': 'Insira de 2 a 50 caracteres!'
             })
-        
+
     # Tratando Atributos
     try:    
         if str(strength).count(' ') == len(str(strength)) or str(intelligence).count(' ') == len(str(intelligence)) or str(wisdom).count(' ') == len(str(wisdom)) or str(charisma).count(' ') == len(str(charisma)) or str(constitution).count(' ') == len(str(constitution)) or str(speed).count(' ') == len(str(speed)):
@@ -24,36 +25,12 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
                 'field': 'atributes1',
                 'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)!'
                 })
-            if str(strength).count(' ') == len(str(strength)):
-                errors.append("strength")
-            if str(intelligence).count(' ') == len(str(intelligence)):
-                errors.append("intelligence")
-            if str(charisma).count(' ') == len(str(charisma)):
-                errors.append("charisma")
-            if str(speed).count(' ') == len(str(speed)):
-                errors.append("speed")
-            if str(wisdom).count(' ') == len(str(wisdom)):
-                errors.append("wisdom")
-            if str(constitution).count(' ') == len(str(constitution)):
-                errors.append("constitution")
 
         elif int(strength) < 1 or int(intelligence) < 1 or int(wisdom) < 1 or int(charisma) < 1 or int(constitution) < 1 or int(speed) < 1 or int(strength) > 100 or int(intelligence) > 100 or int(wisdom) > 100 or int(charisma) > 100 or int(constitution) > 100 or int(speed) > 100:
             errors.append({
                 'field' : 'atributes1',
                 'message' : 'O atributos primários devem estrar entre 1 e 100'
                 })
-            if int(strength) < 1:
-                errors.append("strength")
-            if int(intelligence) < 1:
-                errors.append("intelligence")
-            if int(wisdom) < 1 :
-                errors.append("wisdom")
-            if int(speed) < 1:
-                errors.append("speed")
-            if int(charisma) < 1 :
-                errors.append("charisma")
-            if int(constitution) < 1:
-                errors.append("constitution")
     except:
         errors.append({
                 'field' : 'atributes1',
@@ -65,12 +42,6 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
             'field': 'atributes2',
             'message' : 'Este(s) campo(s) não pode(m) ser vazio(s)'
             })
-        if str(healthPointMax).count(' ') == len(str(healthPointMax)):
-            errors.append("healthPointMax")
-        if str(manaMax).count(' ') == len(str(manaMax)):
-            errors.append("manaMax")
-        if str(exp).count(' ') == len(str(exp)):
-            errors.append("exp")
 
     try:
         if int(healthPointMax) < 1 or int(manaMax) < 1 or int(healthPointMax) > 100000 or int(manaMax) > 100000 or int(healthPoint) < 0 or int(manaActual) < 0:
@@ -78,19 +49,11 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
                 'field' : 'atributes2',
                 'message' : 'Vida e mana não podem ser menores que 1 ou maiores que 100 mil'
                 })
-            if int(healthPointMax) < 1 or int(healthPointMax) > 100000:
-                errors.append("healthPointMax")
-            if int(manaMax) < 1 or int(manaMax) > 100000:
-                errors.append("manaMax")
         elif int(healthPoint) > int(healthPointMax) or int(manaActual) > int(manaMax):
             errors.append({
                 'field' : 'atributes2',
                 'message' : 'Vida e mana não podem ultrapassar o valor máximo'
                 })
-            if int(healthPoint) > int(healthPointMax):
-                errors.append("healthPoint")
-            if int(manaActual) > int(manaMax):
-                errors.append("manaActual")
     except:
         if not str(healthPoint) == '' and str(healthPoint) == '':
             errors.append({
@@ -126,12 +89,9 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
         return errors
     
     sheet_updated = Sheet(name = name, strength = strength, intelligence = intelligence, wisdom = wisdom, charisma = charisma, constitution = constitution, speed = speed, healthPointMax = healthPointMax, manaMax = manaMax, exp = exp, expTotal = exp, expMax = expMax, healthPoint = healthPointMax, mana = manaMax)
-    # sheet_updated.save()
-    # sheet_updated.updateXp()
-    # sheet_updated.save()
+
     return sheet_updated
 
-#Tratamento de erro na utils
 def save_equipment(name, quantity, attack, defense, equipment):
     wrong_fields = []
     name_treated = name.strip()
@@ -340,15 +300,3 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     sheet.updateXp()
     sheet.save()
     return sheet
-
-    def  __init__(self, id, name, hp, hpMax, mana, manaMax, role, race, exp, expMax, level, image):
-        self.id = id
-        self.name = name
-        self.hp = hp * 100 // hpMax
-        self.mana = mana * 100 // manaMax
-        self.role = role
-        self.race = race
-        self.exp = exp
-        self.expMax = expMax
-        self.level = level
-        self.image = image
