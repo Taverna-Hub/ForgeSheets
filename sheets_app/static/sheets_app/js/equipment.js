@@ -199,18 +199,18 @@ function handleAddEquipmentToList() {
     return
   }
 
-  if (equipment.quantity < 1) {
-    handleEquipmentError('A quantidade não pode ser inferior a 1', 'equipmentQuantity')
+  if (equipment.quantity < 1 || equipment.quantity > 999) {
+    handleEquipmentError('A quantidade não pode ser inferior a 1 nem maior que 999', 'equipmentQuantity')
     return
   }
 
-  if (equipment.attack < 0) {
-    handleEquipmentError('O valor de ataque não pode ser inferior a 0', 'equipmentAttack')
+  if (equipment.attack < 0 || equipment.attack > 100) {
+    handleEquipmentError('O valor de ataque não pode ser inferior a 0 nem maior que 100', 'equipmentAttack')
     return
   }
 
-  if (equipment.defense < 0) {
-    handleEquipmentError('O valor de defesa não pode ser inferior a 0', 'equipmentDefense')
+  if (equipment.defense < 0 || equipment.defense > 100) {
+    handleEquipmentError('O valor de defesa não pode ser inferior a 0 nem maior que 100', 'equipmentDefense')
     return
   }
 
@@ -294,18 +294,18 @@ async function handleEditEquipment() {
     return
   }
 
-  if (selectedEquipmentToEdit.quantity < 1) {
-    handleEquipmentError('A quantidade não pode ser inferior a 1', 'editEquipmentQuantity')
-    return
-  }
-  
-  if (selectedEquipmentToEdit.attack < 0) {
-    handleEquipmentError('O valor de ataque não pode ser inferior a 0', 'editEquipmentAttack')
+  if (selectedEquipmentToEdit.quantity < 1 || selectedEquipmentToEdit.quantity > 999) {
+    handleEquipmentError('A quantidade não pode ser inferior a 1 nem maior que 999', 'editEquipmentQuantity')
     return
   }
 
-  if (selectedEquipmentToEdit.defense < 0) {
-    handleEquipmentError('O valor de defesa não pode ser inferior a 0', 'editEquipmentDefense')
+  if (selectedEquipmentToEdit.attack < 0 || selectedEquipmentToEdit.attack > 100) {
+    handleEquipmentError('O valor de ataque não pode ser inferior a 0 nem maior que 100', 'editEquipmentAttack')
+    return
+  }
+
+  if (selectedEquipmentToEdit.defense < 0 || selectedEquipmentToEdit.defense > 100) {
+    handleEquipmentError('O valor de defesa não pode ser inferior a 0 nem maior que 100', 'editEquipmentDefense')
     return
   }
 
