@@ -140,7 +140,7 @@ select option:hover {
 
 .magicModal .sideBySide, .editMagicModal .sideBySide {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   gap: 16px;
 }

@@ -251,7 +251,9 @@ function handleGetEditEquipmentInfo(equipment) {
   equipmentNode = equipment.parentNode;
 
   const selectedEquipment = equipmentList.filter((equipmentItem) => equipmentItem.local_id == selectedEquipmentId)[0];
+  
   selectedEquipmentToEdit = selectedEquipment;
+
   selectedEquipmentToEditRaw = {
     local_id: selectedEquipmentId,
     name: selectedEquipmentElement.children[0].value,

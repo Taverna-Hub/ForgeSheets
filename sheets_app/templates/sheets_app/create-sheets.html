@@ -71,23 +71,23 @@
         <h2>Editar Magia/Habilidades</h2>
         <form>
             {%csrf_token%}
-            <div class="magicName">
+            <div class="editMagicName">
                 <label for="nameMagicEdit">Nome da magia:</label>
                 <input type="text" name="nameMagicEdit">
             </div>
 
-            <div class="magicDescription">
+            <div class="editMagicDescription">
                 <label for="descriptionMagicEdit">Anotações:</label>
                 <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
             </div>
 
-            <div class="magicDamage">
+            <div class="editMagicDamage">
                     <label for="damageMagicEdit">Dano: </label>
                     <input type="text" name="damageMagicEdit">
             </div>
 
             <div class="sideBySide">
-                <div class="magicAttribute">
+                <div class="editMagicAttribute">
                     <label for="attributeMagicEdit">Atributo modificador:</label>
                     <select name="attributeMagicEdit">
                         <option value="">Selecione</option>
@@ -100,7 +100,7 @@
                     </select>
                 </div>
 
-                <div class="magicElement">
+                <div class="editMagicElement">
                     <label for="elementMagicEdit">Elemento da magia: </label>
                     <input type="text" name="elementMagicEdit">
                 </div>
@@ -211,23 +211,23 @@
         <h2>Editar Equipamento</h2>
         <form>
             {%csrf_token%}
-            <div class="equipmentName">
+            <div class="editEquipmentName">
                 <label for="name">Nome do equipamento:</label>
                 <input type="text" name="editName">
             </div>
 
-            <div class="equipmentQuantity">
+            <div class="editEquipmentQuantity">
                 <label for="quantity">Quantidade:</label>
                 <input type="number" name="editQuantity">
             </div>
 
             <div class="sideBySide">
-                <div class="equipmentAttack">
+                <div class="editEquipmentAttack">
                     <label for="attack">Pontos de ataque:</label>
                     <input type="number" name="editAttack">
                 </div>
 
-                <div class="equipmentDefense">
+                <div class="editEquipmentDefense">
                     <label for="defense">Pontos de defesa:</label>
                     <input type="number" name="editDefense">
                 </div>
