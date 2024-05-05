@@ -18,7 +18,8 @@ class Race(models.Model):
         return self.name
 
 class Sheet(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    
     name = models.CharField(max_length=75)
     image = models.URLField(null=True)
 
@@ -79,7 +80,8 @@ class Sheet(models.Model):
     # ;-;
 
 class Equipment(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+
     name = models.CharField(max_length=55)
     quantity = models.IntegerField(validators=[MinValueValidator(1)])
     attack = models.IntegerField(default=0, validators=[MinValueValidator(0)])
@@ -90,7 +92,8 @@ class Equipment(models.Model):
         return f'{self.name} {self.attack} | {self.defense}'
 
 class Magic(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+
     name = models.CharField(max_length=70)
     description = models.CharField(max_length=200)
     damage = models.CharField(max_length=50, default='')
