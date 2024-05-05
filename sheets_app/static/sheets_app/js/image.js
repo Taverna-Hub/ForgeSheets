@@ -102,7 +102,7 @@ function addImageToSheet() {
     <button type="button" id="openImageBtn" class="openImageBtn">
       <img src="${imageSrc}" alt="Imagem" class="selectedImage">
 
-      ${healthPoint.value === "0" && `<p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>`}
+      ${healthPoint.value === "0" ? `<p style="padding-top: 6px; font-weight: 600;">Você morreu!</p>` : ''}
     </button>
   ` 
 
