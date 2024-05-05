@@ -1,41 +1,42 @@
 // describe('rolling dices', () => {
-//     it('negative modifier roll', () =>{
-//         cy.visit('/');
-//         cy.get('#loginzinho > form > #user').type('Gabriel')
-//         cy.get('#loginzinho > form > #password').type('123')
-//         cy.get('#loginzinho > form > button').click()
+//         it('succesful dice roll', () =>{
+//             cy.visit('/');
+//             cy.get('#loginzinho > form > #user').type('login1')
+//             cy.get('#loginzinho > form > #password').type('login1')
+//             cy.get('#loginzinho > form > button').click()
+    
+//             cy.get('.diceButton').click()
+//             cy.get('#quantityDice').type('2 3')
+//             cy.get('#typeDice').type('6 8')
+//             cy.get('#modDice').type('2')
+//             cy.get('.rollButton').click()
+    
+//             cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
+//             cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
+//             cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "+2")
+//             cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d6")
+//             cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "3d8")
+//         })
 
-//         cy.get('.diceButton').click()
-//         cy.get('#quantityDice').type('2 1')
-//         cy.get('#typeDice').type('10 20')
-//         cy.get('#modDice').type('-2')
-//         cy.get('.rollButton').click()
+    // it('negative modifier roll', () =>{
+    //     cy.visit('/');
+    //     cy.get('#loginzinho > form > #user').type('login1')
+    //     cy.get('#loginzinho > form > #password').type('login1')
+    //     cy.get('#loginzinho > form > button').click()
 
-//         cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
-//         cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "-2")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d10")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "1d20")
-//     })
+    //     cy.get('.diceButton').click()
+    //     cy.get('#quantityDice').type('2 1')
+    //     cy.get('#typeDice').type('10 20')
+    //     cy.get('#modDice').type('-2')
+    //     cy.get('.rollButton').click()
 
-//     it('positive modifier roll', () =>{
-//         cy.visit('/');
-//         cy.get('#loginzinho > form > #user').type('Gabriel')
-//         cy.get('#loginzinho > form > #password').type('123')
-//         cy.get('#loginzinho > form > button').click()
+    //     cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
+    //     cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
+    //     cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "-2")
+    //     cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d10")
+    //     cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "1d20")
+    // })
 
-//         cy.get('.diceButton').click()
-//         cy.get('#quantityDice').type('2 2')
-//         cy.get('#typeDice').type('4 6')
-//         cy.get('#modDice').type('3')
-//         cy.get('.rollButton').click()
-
-//         cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
-//         cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "+3")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d4")
-//         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d6")
-//     })
 //     it('quantity zero roll', () =>{
 //         cy.visit('/');
 //         cy.get('#loginzinho > form > #user').type('Gabriel')
@@ -67,4 +68,4 @@
 //         cy.get('#modifierError').invoke('text').should('have.string', "Os modificadores devem ser compostos apenas por números inteiros.")
         
 //     })
-// })
+})
