@@ -75,22 +75,30 @@ function submitForm() {
 
 function handleCloseEquipmentModal() {
   equipmentModal.style.display = 'none';
+
+  if (document.querySelector(`.${previousErrorClassName}`)?.children[2] && document.querySelector(`.${previousErrorClassName}`).children[2].tagName === 'SPAN') {
+    document.querySelector(`.${previousErrorClassName}`).removeChild(document.querySelector(`.${previousErrorClassName}`).children[2])
+
+    name.value = '';
+    quantity.value = 1;
+    attack.value = 0;
+    defense.value = 0;
+  }
 }
 
 function handleOpenEquipmentModal() {
   equipmentModal.style.display = 'flex';
+  previousErrorClassName = null;
 }
 
 function handleCloseEditEquipmentModal() {
   if (document.querySelector(`.${previousErrorClassName}`)?.children[2] && document.querySelector(`.${previousErrorClassName}`).children[2].tagName === 'SPAN') {
     document.querySelector(`.${previousErrorClassName}`).removeChild(document.querySelector(`.${previousErrorClassName}`).children[2])
 
-    const selectedEquipment = document.querySelector(`li[data-id="${selectedEquipmentToEdit.local_id}"] > div`)
-
-    selectedEquipmentToEdit.name = selectedEquipment.children[0].value; 
-    selectedEquipmentToEdit.quantity = selectedEquipment.children[1].value; 
-    selectedEquipmentToEdit.attack = selectedEquipment.children[2].value; 
-    selectedEquipmentToEdit.defense = selectedEquipment.children[3].value; 
+    selectedEquipmentToEdit.name = selectedEquipmentToEditRaw.name; 
+    selectedEquipmentToEdit.quantity = selectedEquipmentToEditRaw.quantity; 
+    selectedEquipmentToEdit.attack = selectedEquipmentToEditRaw.attack; 
+    selectedEquipmentToEdit.defense = selectedEquipmentToEditRaw.defense; 
   }
 
   editEquipmentModal.style.display = "none";
@@ -98,6 +106,7 @@ function handleCloseEditEquipmentModal() {
 
 function handleOpenEditEquipmentModal(selectedEquipment) {
   editEquipmentModal.style.display = 'flex';
+  previousErrorClassName = null;
   editName.value = selectedEquipment.name;
   editQuantity.value = selectedEquipment.quantity;
   editAttack.value = selectedEquipment.attack;
@@ -238,10 +247,18 @@ function handleAddEquipmentToList() {
 
 function handleGetEditEquipmentInfo(equipment) {
   const selectedEquipmentId = equipment.parentNode.getAttribute('data-id');
+  const selectedEquipmentElement = document.querySelector(`li[data-id="${selectedEquipmentId}"] > div`)
   equipmentNode = equipment.parentNode;
 
   const selectedEquipment = equipmentList.filter((equipmentItem) => equipmentItem.local_id == selectedEquipmentId)[0];
   selectedEquipmentToEdit = selectedEquipment;
+  selectedEquipmentToEditRaw = {
+    local_id: selectedEquipmentId,
+    name: selectedEquipmentElement.children[0].value,
+    quantity: selectedEquipmentElement.children[1].value, 
+    attack: selectedEquipmentElement.children[2].value, 
+    defense: selectedEquipmentElement.children[3].value, 
+  }
 
   handleOpenEditEquipmentModal(selectedEquipment)
 }
@@ -259,7 +276,7 @@ async function handleEditEquipment() {
     handleEquipmentError('Esse campo não pode ser vazio', 'editEquipmentName')
     return
   }
-  if (nameExistsInListedList) {
+  if (nameExistsInListedList && selectedEquipmentToEdit.name !== selectedEquipmentToEditRaw.name) {
     handleEquipmentError('Esse equipamento já existe', 'editEquipmentName')
     return
   }
@@ -307,6 +324,11 @@ async function handleEditEquipment() {
     return
   }
 
+  if (JSON.stringify(selectedEquipmentToEditRaw) === JSON.stringify(selectedEquipmentToEdit)) {
+    handleCloseEditEquipmentModal()
+    return
+  }
+
   document.querySelector('.equipmentList').innerHTML = '';
 
   equipmentList.forEach((equipmentItem) => {
@@ -346,7 +368,6 @@ async function handleDeleteEquipment(equipment) {
     location.reload();
   }
 }
-
 
 openEquipmentModal?.addEventListener('click', () => handleOpenEquipmentModal());
 addEquipmentBtn?.addEventListener('click', () => handleAddEquipmentToList());
