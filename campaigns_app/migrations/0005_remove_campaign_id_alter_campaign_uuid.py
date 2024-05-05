@@ -7,18 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('campaigns_app', '0004_alter_campaign_id'),
+        ('campaigns_app', '0004_campaign_uuid_alter_campaign_id'),
     ]
 
     operations = [
-        migrations.AddField(
+        migrations.RemoveField(
             model_name='campaign',
-            name='uuid',
-            field=models.UUIDField(default=uuid.uuid4, unique=True),
+            name='id',
         ),
         migrations.AlterField(
             model_name='campaign',
-            name='id',
-            field=models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID'),
+            name='uuid',
+            field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False),
         ),
     ]

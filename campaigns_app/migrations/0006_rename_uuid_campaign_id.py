@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('campaigns_app', '0006_remove_campaign_id_alter_campaign_uuid'),
+        ('campaigns_app', '0005_remove_campaign_id_alter_campaign_uuid'),
     ]
 
     operations = [
