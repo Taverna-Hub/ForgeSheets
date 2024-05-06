@@ -77,7 +77,7 @@
 <a href="https://scribehow.com/shared/Criando_uma_campanha_no_Forgesheets__Zvl76TYgTZOOdZd_tJr-tg?referrer=documents"">
   <img src="https://img.shields.io/badge/Criação de Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_gerenciar_seus_equipamentos_no_ForgeSheets__EiE0ewe9S0eX6An4SjFzdA?referrer=documents"">
-  <img src="https://img.shields.io/badge/Gerenciamento de Equipamentos-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
+  <img src="https://img.shields.io/badge/Gerenciamento de Equipamentos-000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 </p>
 <br/>
 
