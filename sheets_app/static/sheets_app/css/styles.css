@@ -23,7 +23,7 @@
   border-radius: 6px;
 }
 
-.listSheetsContainer{
+.listSheetsContainer {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
   z-index: 999;
@@ -214,6 +214,9 @@
 }
 
 @media (max-width: 1080px) {
+  .listSheetsContainer {
+    padding-top: 64px;
+  }
   .cardList {
     grid-template-columns: repeat(1, 1fr);
   }

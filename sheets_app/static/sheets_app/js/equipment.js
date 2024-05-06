@@ -31,6 +31,7 @@ let selectedEquipmentToEditRaw;
 let equipmentNode;
 let equipmentsNamesList = [];
 let previousErrorClassName;
+let equipmentListCopy;
 
 equipmentsDiv.forEach(div => {
   const id = div.parentNode.getAttribute('data-id');
@@ -250,6 +251,7 @@ function handleGetEditEquipmentInfo(equipment) {
   const selectedEquipmentElement = document.querySelector(`li[data-id="${selectedEquipmentId}"] > div`)
   equipmentNode = equipment.parentNode;
 
+  equipmentListCopy = JSON.parse(JSON.stringify(equipmentList));
   const selectedEquipment = equipmentList.filter((equipmentItem) => equipmentItem.local_id == selectedEquipmentId)[0];
   
   selectedEquipmentToEdit = selectedEquipment;
@@ -274,9 +276,8 @@ async function handleEditEquipment() {
   const nameExistsInListedList = equipmentsNamesList.some(
     (name) => name.toLowerCase() === selectedEquipmentToEdit.name.toLowerCase());
 
-  const nameExists = equipmentList.some(
+  const nameExists = equipmentListCopy.some(
     (equipmentItem) => equipmentItem.name.toLowerCase() === selectedEquipmentToEdit.name.toLowerCase());
-  
 
   if (selectedEquipmentToEdit.name === '') {
     handleEquipmentError('Esse campo não pode ser vazio', 'editEquipmentName')
