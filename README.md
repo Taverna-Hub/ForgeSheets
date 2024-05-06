@@ -20,14 +20,11 @@
 ## 🔨 Ferramentas
 <div style="display: flex; align-items: center;">
   <a href="https://forgesheets.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMDJkY2ZjNTMyNDg5NGRkODlmZWQwZDc5ZTZkY2U5ZTYiLCJwIjoiaiJ9">
-    <img src="https://img.shields.io/badge/Jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"/>
-  </a>
+    <img src="https://img.shields.io/badge/Jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"/></a>
   <a href="https://www.figma.com/file/GevyRkqG9ICW9ZyhrXDtl1/Forge-Sheets-(Lo-Fi)?type=design&node-id=0%3A1&mode=design&t=1tBcAI8RKL5A3Zd2-1">
-    <img src="https://img.shields.io/badge/figma-000?style=for-the-badge&logo=figma&logoColor=white"/>
-  </a>
+    <img src="https://img.shields.io/badge/figma-000?style=for-the-badge&logo=figma&logoColor=white"/></a>
   <a href="https://www.youtube.com/@Taverna-Hub">
-    <img src="https://img.shields.io/badge/YOUTUBE-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white"/>
-  </a>
+    <img src="https://img.shields.io/badge/YOUTUBE-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white"/></a>
   <img src="https://img.shields.io/badge/discord-000?style=for-the-badge&logo=discord&logoColor=white"/>
 </div>
 
@@ -38,14 +35,11 @@
 <br/>
 <p align="center" style="">
 <a href="https://www.youtube.com/watch?v=oNvP1qluKYE"">
-  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://www.figma.com/file/GevyRkqG9ICW9ZyhrXDtl1/Forge-Sheets-(Lo-Fi)?type=design&node-id=0%3A1&mode=design&t=1tBcAI8RKL5A3Zd2-1">
-  <img src="https://img.shields.io/badge/figma-000?style=for-the-badge&logo=figma&logoColor=white"  height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/figma-000?style=for-the-badge&logo=figma&logoColor=white"  height="35px"/></a>
   <a href="https://forgesheets.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMDJkY2ZjNTMyNDg5NGRkODlmZWQwZDc5ZTZkY2U5ZTYiLCJwIjoiaiJ9">
-    <img src="https://img.shields.io/badge/jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"  height="35px"/>
-  </a>
+    <img src="https://img.shields.io/badge/jira-7f1d1d?style=for-the-badge&logo=Jira&logoColor=white"  height="35px"/></a>
 </p>
 <br/>
 
@@ -65,14 +59,11 @@
 <br/>
 <p align="center" style="">
 <a href="https://youtu.be/ICCpQ_v98Ag?si=JbpMcWvCwF-y9nmI"">
-  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
-  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://forgesheets.azurewebsites.net/"">
-  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/></a>
 </p>
 <br/>
 
@@ -80,17 +71,13 @@
 
 <p align="center" style="">
 <a href="https://scribehow.com/shared/Cadastro_e_Login_no_ForgeSheets___UA3MjHAQj6dw8Te9NOScw?referrer=documents"">
-  <img src="https://img.shields.io/badge/Cadastro / Login-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Cadastro / Login-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_criar_sua_ficha_corretamente_no_ForgeSheets__AP6rEuLqThmEmttf2IWEHA?referrer=documents"">
-  <img src="https://img.shields.io/badge/Criação de Ficha-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Criação de Ficha-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Criando_uma_campanha_no_Forgesheets__Zvl76TYgTZOOdZd_tJr-tg?referrer=documents"">
-  <img src="https://img.shields.io/badge/Criação de Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Criação de Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_gerenciar_seus_equipamentos_no_ForgeSheets__EiE0ewe9S0eX6An4SjFzdA?referrer=documents"">
-  <img src="https://img.shields.io/badge/Gerenciamento de Equipamentos-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Gerenciamento de Equipamentos-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 </p>
 <br/>
 
@@ -119,14 +106,11 @@
 
 <p align="center" style="">
 <a href="#">
-  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
-  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://forgesheets.azurewebsites.net/"">
-  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/></a>
 </p>
 <br/>
 
@@ -134,14 +118,11 @@
 
 <p align="center" style="">
 <a href="https://scribehow.com/shared/Como_visualizar_e_editar_os_atributos_do_seu_personagem_no_ForgeSheets__6_HKY66rRPyqp766QfkfNA?referrer=documents"">
-  <img src="https://img.shields.io/badge/Gerenciamento de Fichas-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Gerenciamento de Fichas-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_visualizar_e_editar_as_magias_do_seu_personagem_no_ForgeSheets__nzhMsENFSKmYa9inqnzpew?referrer=documents"">
-  <img src="https://img.shields.io/badge/Gerenciamento de Magias na Ficha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Gerenciamento de Magias na Ficha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_executar_uma_Rolagem_de_Dados_no_ForgeSheets__AJSbfUhySpWku3OfWnAx2g?referrer=documents"">
-  <img src="https://img.shields.io/badge/Rolagem de Dados-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
-</a>
+  <img src="https://img.shields.io/badge/Rolagem de Dados-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 </p>
 <br/>
 
