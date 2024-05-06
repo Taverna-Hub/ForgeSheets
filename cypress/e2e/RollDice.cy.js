@@ -1,3 +1,23 @@
+Cypress.Commands.add('removeDatabase', () => {
+    cy.exec('rm ./db.sqlite3')
+    cy.exec('python3 manage.py migrate')
+})
+
+Cypress.Commands.add('registerLogin', () => {
+    cy.removeDatabase()
+
+    cy.get('.registerAnchor').click()
+    cy.get('#cadastrinho > form > #user').type('rolldice')
+    cy.get('#email').type('roll@dice.com')
+    cy.get('#cadastrinho > form > #password').type('rolldice')
+    cy.get('#cadastrinho > form > button').click()
+    
+    cy.get('#loginzinho > form > #user').type('rolldice')
+    cy.get('#loginzinho > form > #password').type('rolldice')
+    cy.get('#loginzinho > form > button').click()
+
+})
+
 describe('rolling dices', () => {
     it('successful dice roll', () =>{
         cy.visit('/');
@@ -5,13 +25,13 @@ describe('rolling dices', () => {
         cy.exec('python3 manage.py migrate')
 
         cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('rolldice1')
-        cy.get('#email').type('roll1@dice.com')
-        cy.get('#cadastrinho > form > #password').type('rolldice1')
+        cy.get('#cadastrinho > form > #user').type('rolldice')
+        cy.get('#email').type('roll@dice.com')
+        cy.get('#cadastrinho > form > #password').type('rolldice')
         cy.get('#cadastrinho > form > button').click()
         
-        cy.get('#loginzinho > form > #user').type('rolldice1')
-        cy.get('#loginzinho > form > #password').type('rolldice1')
+        cy.get('#loginzinho > form > #user').type('rolldice')
+        cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
     
         cy.wait(2000)
@@ -36,18 +56,8 @@ describe('rolling dices', () => {
 
     it('trying to submit an out-of-scope modifier', () =>{
         cy.visit('/');
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
-        
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('rolldice2')
-        cy.get('#email').type('roll2@dice.com')
-        cy.get('#cadastrinho > form > #password').type('rolldice2')
-        cy.get('#cadastrinho > form > button').click()
-        
-        cy.get('#loginzinho > form > #user').type('rolldice2')
-        cy.get('#loginzinho > form > #password').type('rolldice2')
-        cy.get('#loginzinho > form > button').click()
+
+        cy.registerLogin()
 
         cy.wait(2000)
         cy.get('.diceButton').click()
@@ -67,18 +77,8 @@ describe('rolling dices', () => {
 
     it('trying to submit different quantities of types and dice', () =>{
         cy.visit('/');
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
         
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('rolldice3')
-        cy.get('#email').type('roll3@dice.com')
-        cy.get('#cadastrinho > form > #password').type('rolldice3')
-        cy.get('#cadastrinho > form > button').click()
-        
-        cy.get('#loginzinho > form > #user').type('rolldice3')
-        cy.get('#loginzinho > form > #password').type('rolldice3')
-        cy.get('#loginzinho > form > button').click()
+        cy.registerLogin()
 
         cy.wait(2000)
         cy.get('.diceButton').click()
@@ -98,18 +98,8 @@ describe('rolling dices', () => {
 
     it('trying to submit ouf-of-scope dice type', () =>{
         cy.visit('/');
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
         
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('rolldice4')
-        cy.get('#email').type('roll4@dice.com')
-        cy.get('#cadastrinho > form > #password').type('rolldice4')
-        cy.get('#cadastrinho > form > button').click()
-        
-        cy.get('#loginzinho > form > #user').type('rolldice4')
-        cy.get('#loginzinho > form > #password').type('rolldice4')
-        cy.get('#loginzinho > form > button').click()
+        cy.registerLogin()
 
         cy.wait(2000)
         cy.get('.diceButton').click()

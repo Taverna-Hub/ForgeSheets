@@ -1,8 +1,47 @@
+Cypress.Commands.add('removeDatabase', () => {
+    cy.exec('rm ./db.sqlite3')
+    cy.exec('python3 manage.py migrate')
+})
+
+Cypress.Commands.add('registerLoginCreateSheet', () => {
+    cy.removeDatabase()
+
+    cy.get('.registerAnchor').click()
+    cy.get('#cadastrinho > form > #user').type('updatesheet')
+    cy.get('#email').type('updatesheet@updatesheet.com')
+    cy.get('#cadastrinho > form > #password').type('updatesheet')
+    cy.get('#cadastrinho > form > button').click()
+    
+    cy.get('#loginzinho > form > #user').type('updatesheet')
+    cy.get('#loginzinho > form > #password').type('updatesheet')
+    cy.get('#loginzinho > form > button').click()
+
+    cy.wait(1000)
+
+    cy.get('.createSheet').click()
+    cy.get('.container > :nth-child(2) > a').click()
+    cy.get('.sheetHeader > :nth-child(1) > input').type('Aragon')
+    cy.get('.sheetHeader > :nth-child(2) > input').type('Humano')
+    cy.get('.sheetHeader > :nth-child(3) > input').type('Guerreiro')
+    cy.get('.openImageBtn').click()
+    cy.get('.image').type('https://pareto.io/wp-content/uploads/2023/07/header-tess-ai-urso-1.jpg')
+    cy.get('#addImageBtn').click()
+    cy.get('#strength').type('1')
+    cy.get('#intelligence').type('1')
+    cy.get('#wisdom').type('1')
+    cy.get('#charisma').type('1')
+    cy.get('#constitution').type('1')
+    cy.get('#speed').type('1')
+    cy.get('#healthPointMax').type('100')
+    cy.get('#manaMax').type('100')
+    cy.get('#exp').type('0')
+    cy.get('#submit_button').click()
+
+})
+
 describe ('update sheet', () => {
     it('succesful sheet management', () => {
         cy.visit('/')
-
-        //------------------------------------------------------------------------------
 
         cy.exec('rm ./db.sqlite3')
         cy.exec('python3 manage.py migrate')
@@ -37,7 +76,6 @@ describe ('update sheet', () => {
         cy.get('#manaMax').type('100')
         cy.get('#exp').type('0')
         cy.get('#submit_button').click()
-        //------------------
 
         cy.wait(2000)
         cy.get('.cardList > #Card').last().click()
@@ -113,41 +151,7 @@ describe ('update sheet', () => {
     it ('submitting empty attributes', () => {
         cy.visit('/')
 
-        //------------------------------------------------------------------------------
-
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
-
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('updatesheet')
-        cy.get('#email').type('updatesheet@updatesheet.com')
-        cy.get('#cadastrinho > form > #password').type('updatesheet')
-        cy.get('#cadastrinho > form > button').click()
-
-        cy.get('.createSheet').click()
-        cy.get('.container > :nth-child(2) > a').click()
-        cy.get('.sheetHeader > :nth-child(1) > input').type('Aragon')
-        cy.get('.sheetHeader > :nth-child(2) > input').type('Humano')
-        cy.get('.sheetHeader > :nth-child(3) > input').type('Guerreiro')
-        cy.get('.openImageBtn').click()
-        cy.get('.image').type('https://files.tecnoblog.net/wp-content/uploads/2022/09/stable-diffusion-imagem.jpg')
-        cy.get('#addImageBtn').click()
-        cy.get('#strength').type('1')
-        cy.get('#intelligence').type('1')
-        cy.get('#wisdom').type('1')
-        cy.get('#charisma').type('1')
-        cy.get('#constitution').type('1')
-        cy.get('#speed').type('1')
-        cy.get('#healthPointMax').type('100')
-        cy.get('#manaMax').type('100')
-        cy.get('#exp').type('0')
-        cy.get('#submit_button').click()
-        //------------------------------------------------------------------------------
-        
-
-        cy.get('#loginzinho > form > #user').type('updatesheet')
-        cy.get('#loginzinho > form > #password').type('updatesheet')
-        cy.get('#loginzinho > form > button').click()
+        cy.registerLoginCreateSheet()
         
         cy.wait(1000)
         cy.get('.cardList > #Card').last().click()
@@ -187,40 +191,7 @@ describe ('update sheet', () => {
     it ('submitting out-of-scope attributes', () => {
         cy.visit('/')
 
-
-        //------------------------------------------------------------------------------
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
-
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('updatesheet')
-        cy.get('#email').type('updatesheet@updatesheet.com')
-        cy.get('#cadastrinho > form > #password').type('updatesheet')
-        cy.get('#cadastrinho > form > button').click()
-
-        cy.get('.createSheet').click()
-        cy.get('.container > :nth-child(2) > a').click()
-        cy.get('.sheetHeader > :nth-child(1) > input').type('Aragon')
-        cy.get('.sheetHeader > :nth-child(2) > input').type('Humano')
-        cy.get('.sheetHeader > :nth-child(3) > input').type('Guerreiro')
-        cy.get('.openImageBtn').click()
-        cy.get('.image').type('https://files.tecnoblog.net/wp-content/uploads/2022/09/stable-diffusion-imagem.jpg')
-        cy.get('#addImageBtn').click()
-        cy.get('#strength').type('1')
-        cy.get('#intelligence').type('1')
-        cy.get('#wisdom').type('1')
-        cy.get('#charisma').type('1')
-        cy.get('#constitution').type('1')
-        cy.get('#speed').type('1')
-        cy.get('#healthPointMax').type('100')
-        cy.get('#manaMax').type('100')
-        cy.get('#exp').type('0')
-        cy.get('#submit_button').click()
-        //------------------------------------------------------------------------------
-
-        cy.get('#loginzinho > form > #user').type('updatesheet')
-        cy.get('#loginzinho > form > #password').type('updatesheet')
-        cy.get('#loginzinho > form > button').click()
+        cy.registerLoginCreateSheet()
         
         cy.wait(2000)
         cy.get('.cardList > #Card').last().click()
@@ -238,40 +209,8 @@ describe ('update sheet', () => {
     it ('submitting HP and Mana values higher than max', () => {
         cy.visit('/')
         
-        //------------------------------------------------------------------------------
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
+        cy.registerLoginCreateSheet()
 
-        cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('updatesheet')
-        cy.get('#email').type('updatesheet@updatesheet.com')
-        cy.get('#cadastrinho > form > #password').type('updatesheet')
-        cy.get('#cadastrinho > form > button').click()
-
-        cy.get('.createSheet').click()
-        cy.get('.container > :nth-child(2) > a').click()
-        cy.get('.sheetHeader > :nth-child(1) > input').type('Aragon')
-        cy.get('.sheetHeader > :nth-child(2) > input').type('Humano')
-        cy.get('.sheetHeader > :nth-child(3) > input').type('Guerreiro')
-        cy.get('.openImageBtn').click()
-        cy.get('.image').type('https://files.tecnoblog.net/wp-content/uploads/2022/09/stable-diffusion-imagem.jpg')
-        cy.get('#addImageBtn').click()
-        cy.get('#strength').type('1')
-        cy.get('#intelligence').type('1')
-        cy.get('#wisdom').type('1')
-        cy.get('#charisma').type('1')
-        cy.get('#constitution').type('1')
-        cy.get('#speed').type('1')
-        cy.get('#healthPointMax').type('100')
-        cy.get('#manaMax').type('100')
-        cy.get('#exp').type('0')
-        cy.get('#submit_button').click()
-        //------------------------------------------------------------------------------
-
-        cy.get('#loginzinho > form > #user').type('updatesheet')
-        cy.get('#loginzinho > form > #password').type('updatesheet')
-        cy.get('#loginzinho > form > button').click()
-        
         cy.wait(2000)
         cy.get('.cardList > #Card').last().click()
         cy.get('#healthPoint').invoke('val', '400').trigger('change')
