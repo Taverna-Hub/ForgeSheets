@@ -117,6 +117,52 @@
 
 # Entrega 03
 
+<p align="center" style="">
+<a href="#">
+  <img src="https://img.shields.io/badge/screencast-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
+</a>
+<a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
+  <img src="https://img.shields.io/badge/relatório programação em par-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://forgesheets.azurewebsites.net/"">
+  <img src="https://img.shields.io/badge/site na azure-7f1d1d?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/>
+</a>
+</p>
+<br/>
+
+- <strong> Instruções de acesso </strong>
+
+<p align="center" style="">
+<a href="https://scribehow.com/shared/Como_visualizar_e_editar_os_atributos_do_seu_personagem_no_ForgeSheets__6_HKY66rRPyqp766QfkfNA?referrer=documents"">
+  <img src="https://img.shields.io/badge/Gerenciamento de Fichas-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://scribehow.com/shared/Como_visualizar_e_editar_as_magias_do_seu_personagem_no_ForgeSheets__nzhMsENFSKmYa9inqnzpew?referrer=documents"">
+  <img src="https://img.shields.io/badge/Gerenciamento de Magias na Ficha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+<a href="https://scribehow.com/shared/Como_executar_uma_Rolagem_de_Dados_no_ForgeSheets__AJSbfUhySpWku3OfWnAx2g?referrer=documents"">
+  <img src="https://img.shields.io/badge/Rolagem de Dados-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/>
+</a>
+</p>
+<br/>
+
+
+- <strong> Backlog </strong>
+![Backlog-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/142419823/d0c5291c-ac15-4f38-962d-690badd261b2)
+
+
+<br/>
+  
+- <strong> Board </strong>
+![Board-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/142419823/709c3e70-c455-4215-b67f-c34b3bb5a9e0)
+
+
+<br/>
+
+- <strong> Issues </strong>
+
+
+<br/>
+
 - <strong> Diagrama de Atividades Atualizado </strong>
 
 ![Diagrama-de-Atividades-ATUALIZADO](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)

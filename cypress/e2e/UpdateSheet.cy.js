@@ -2,13 +2,14 @@ describe ('update sheet', () => {
     it('succesful sheet management', () => {
         cy.visit('/')
 
-        // cy.get('.registerAnchor').click()
-        // cy.get('#cadastrinho > form > #user').type('login1')
-        // cy.get('#email').type('login1@login1.com')
-        // cy.get('#cadastrinho > form > #password').type('login1')
-
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('.registerAnchor').click()
+        cy.get('#cadastrinho > form > #user').type('updatesheet')
+        cy.get('#email').type('updatesheet@updatesheet.com')
+        cy.get('#cadastrinho > form > #password').type('updatesheet')
+        cy.get('#cadastrinho > form > button').click()
+        
+        cy.get('#loginzinho > form > #user').type('updatesheet')
+        cy.get('#loginzinho > form > #password').type('updatesheet')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.createSheet').click()
@@ -74,13 +75,12 @@ describe ('update sheet', () => {
         cy.get('.sheets > a').click()
         cy.get('#Card > .detailLink > h2').last().invoke('text').should('have.string',"Légolas")
         cy.get('#Card > .detailLink > .sheet_info > :nth-child(1) > :nth-child(2)').last().invoke("text").should('have.string', "1 (2/200xp)")
-        // cy.get('#Card > .detailLink > .sheet_info > :nth-child(1) > :nth-child(2)').last().invoke("text").should('have.string', "20 (Nível Max.)")
     })
 
     it ('submitting empty attributes', () => {
         cy.visit('/')
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('updatesheet')
+        cy.get('#loginzinho > form > #password').type('updatesheet')
         cy.get('#loginzinho > form > button').click()
         
         cy.get('.cardList > #Card').last().click()
@@ -110,8 +110,8 @@ describe ('update sheet', () => {
 
     it ('submitting out-of-scope attributes', () => {
         cy.visit('/')
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('updatesheet')
+        cy.get('#loginzinho > form > #password').type('updatesheet')
         cy.get('#loginzinho > form > button').click()
         
         cy.get('.cardList > #Card').last().click()
@@ -124,8 +124,8 @@ describe ('update sheet', () => {
 
     it ('submitting HP and Mana values higher than max', () => {
         cy.visit('/')
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('updatesheet')
+        cy.get('#loginzinho > form > #password').type('updatesheet')
         cy.get('#loginzinho > form > button').click()
         
         cy.get('.cardList > #Card').last().click()
