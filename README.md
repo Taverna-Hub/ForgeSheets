@@ -161,67 +161,77 @@
 ## 👥 Equipe
 <table>
 <tr>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href=https://github.com/n3waz>
-            <div style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;">
-              <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/d8b65a88-272f-4653-9aa4-5be373517472" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Luan Kato"/>
-            </div>
-            <br />
-            <sub style="font-size:14px;"><b>Luan Kato</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+      <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href="https://github.com/Pandor4b">
         <div
           style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;"
         >
-            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/d4df0935-d266-4bd3-8dca-45eed6f8d878" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Ana Clara"/>
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/1f1b6267-1c09-4a45-9f8d-962091d19469" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Ana Clara"/>
         </div>
             <br />
             <sub style="font-size:14px"><b>Ana Clara</b></sub>
         </a>
     </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href="https://github.com/paulorosadodev">
-        <div  
-          style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;">
-            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/f189ada4-9da2-4218-ac22-1b809ea3b9f6" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Paulo Rosado"/>
-        </div>
-            <br />
-            <sub style="font-size:14px"><b>Paulo Rosado</b></sub>
-        </a>
-    </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href="https://github.com/sophia-15">
+  <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href="https://github.com/deadcube04" >
         <div  
           style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;"
         >
-            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/5fc93ac3-52e2-4068-9324-ce7abb1dc1c0" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Sophia Gallindo">
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/70b42b25-007f-439e-ae79-ff9b0b93cd0f" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px;" alt="Gabriel Albuquerque"/>
         </div>
             <br />
-            <sub style="font-size:14px"><b>Sophia Gallindo</b></sub>
+            <sub style="font-size:14px"><b>Gabriel Albuquerque</b></sub>
         </a>
     </td>
-    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+   <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
         <a href="https://github.com/gustavoyoq">
         <div  
           style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;"
         >
-            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/0f74e341-feea-412d-868c-d56045ac66b7" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Gustavo Mourato"/>
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/9e28af63-09ca-43ac-ba4e-e3a44bdad3db" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Gustavo Mourato"/>
         </div>
             <br />
             <sub style="font-size:14px"><b>Gustavo Mourato</b></sub>
         </a>
     </td>
     <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
-        <a href="https://github.com/deadcube04" >
+        <a href=https://github.com/n3waz>
+            <div style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;">
+              <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/7fc1f353-1103-4a0b-becb-c60cc05b69b1" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Luan Kato"/>
+            </div>
+            <br />
+            <sub style="font-size:14px;"><b>Luan Kato</b></sub>
+        </a>
+    </td>
+    <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href="https://github.com/paulorosadodev">
+        <div  
+          style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;">
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/87e696b5-7b42-4d03-aa4f-775800e990cf" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Paulo Rosado"/>
+        </div>
+            <br />
+            <sub style="font-size:14px"><b>Paulo Rosado</b></sub>
+        </a>
+    </td>
+  <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href="https://github.com/sophia-15">
         <div  
           style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;"
         >
-            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e166ecff-6cb5-4db4-b847-ace2c0b5afa4" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px;" alt="Gabriel Albuquerque"/>
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/fd713c44-4d59-4156-9b5d-5ab73abd9df6" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Sophia Gallindo">
         </div>
             <br />
-            <sub style="font-size:14px"><b>Gabriel Albuquerque</b></sub>
+            <sub style="font-size:14px"><b>Sophia Gallindo</b></sub>
+        </a>
+    </td>
+      <td align="center" style="word-wrap: break-word; width: 150.0; height: 150.0">
+        <a href="https://github.com/viniciusdandrade">
+        <div  
+          style="border: 3px solid #7f1d1d; border-radius: 50%; width: 115px; height: 115px; display: flex; align-items: center; justify-content: center;">
+            <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0561385-0849-4a2a-a8e4-ed90baf3ee8d" style="border-radius:50%;align-items:center;justify-content:center;overflow:hidden; width: 150px; " alt="Paulo Rosado"/>
+        </div>
+            <br />
+            <sub style="font-size:14px"><b>Vinícius de Andrade</b></sub>
         </a>
     </td>
 </tr>
