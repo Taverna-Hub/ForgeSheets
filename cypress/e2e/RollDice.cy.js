@@ -1,8 +1,15 @@
 describe('rolling dices', () => {
     it('succesful dice roll', () =>{
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        
+        cy.get('.registerAnchor').click()
+        cy.get('#cadastrinho > form > #user').type('rolldice')
+        cy.get('#email').type('roll@dice.com')
+        cy.get('#cadastrinho > form > #password').type('rolldice')
+        cy.get('#cadastrinho > form > button').click()
+        
+        cy.get('#loginzinho > form > #user').type('rolldice')
+        cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
     
         cy.get('.diceButton').click()
@@ -20,8 +27,8 @@ describe('rolling dices', () => {
 
     it('trying to submit an out-of-scope modifier', () =>{
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('rolldice')
+        cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.diceButton').click()
@@ -35,8 +42,8 @@ describe('rolling dices', () => {
 
     it('trying to submit different quantities of types and dice', () =>{
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('rolldice')
+        cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.diceButton').click()
@@ -50,8 +57,8 @@ describe('rolling dices', () => {
 
     it('trying to submit ouf-of-scope dice type', () =>{
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('rolldice')
+        cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.diceButton').click()
