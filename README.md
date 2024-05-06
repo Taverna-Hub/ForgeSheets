@@ -140,6 +140,10 @@
 <br/>
 
 - <strong> Issues </strong>
+![image](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/89167e8d-5ef3-4418-b69f-eacfa0e22a38)
+![743db41b-b5fe-4cb9-9bd4-1789863e1af7](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/4adc60d7-89dd-4c33-b8ed-6956777ad2d3)
+![743db41b-b5fe-4cb9-9bd4-1789863e1af7](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/22bed9f1-c6f2-4e31-af86-44a3e7101a17)
+![2d33a142-e741-4c75-84c4-540f4bd220d5](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/6c02420e-9451-42fe-a442-1e76382cb6b9)
 
 
 <br/>
@@ -218,8 +222,6 @@
     </td>
 </tr>
 </table>
-
-<!-- 🔗 <a href="https://forgesheets.atlassian.net/jira/software/projects/SCRUM/boards/1?atlOrigin=eyJpIjoiMDJkY2ZjNTMyNDg5NGRkODlmZWQwZDc5ZTZkY2U5ZTYiLCJwIjoiaiJ9">Clique aqui</a> para acessar o nosso projeto no Jira -->
 
 ---
 <p align="center">
