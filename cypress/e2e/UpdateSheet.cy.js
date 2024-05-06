@@ -2,11 +2,6 @@ describe ('update sheet', () => {
     it('succesful sheet management', () => {
         cy.visit('/')
 
-        // cy.get('.registerAnchor').click()
-        // cy.get('#cadastrinho > form > #user').type('login1')
-        // cy.get('#email').type('login1@login1.com')
-        // cy.get('#cadastrinho > form > #password').type('login1')
-
         cy.get('#loginzinho > form > #user').type('login1')
         cy.get('#loginzinho > form > #password').type('login1')
         cy.get('#loginzinho > form > button').click()
