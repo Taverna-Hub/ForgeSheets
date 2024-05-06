@@ -123,5 +123,4 @@
 .delete{
     background-color: var(--gray-500);
     color: white;
-    text-decoration: underline;
 }
