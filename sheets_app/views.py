@@ -378,8 +378,8 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         return render(request, 'sheets_app/create-sheets.html')
 
 class DeleteSheetView(LoginRequiredMixin, View):
-    def post(self, request, pk):
-        sheet = get_object_or_404(Sheet, pk=pk, user=request.user)
+    def post(self, request, id):
+        sheet = get_object_or_404(Sheet, pk=id, user=request.user)
         sheet.delete()
         return redirect('sheets:homesheets')
 
