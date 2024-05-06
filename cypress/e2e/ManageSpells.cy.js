@@ -3,13 +3,13 @@ describe('test suite spells', () => {
             cy.visit('/');
     
         cy.get('.registerAnchor').click()
-        cy.get('#cadastrinho > form > #user').type('login1')
-        cy.get('#email').type('login1@login1.com')
-        cy.get('#cadastrinho > form > #password').type('login1')
+        cy.get('#cadastrinho > form > #user').type('managespells')
+        cy.get('#email').type('managespells@managespells.com')
+        cy.get('#cadastrinho > form > #password').type('managespells')
         cy.get('#cadastrinho > form > button').click()
         
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('managespells')
+        cy.get('#loginzinho > form > #password').type('managespells')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.createSheet').click()
@@ -43,8 +43,8 @@ describe('test suite spells', () => {
     it('editing spell succesfully', () => {
         cy.visit('/');
     
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('managespells')
+        cy.get('#loginzinho > form > #password').type('managespells')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.cardList > #Card').last().click()
@@ -61,8 +61,8 @@ describe('test suite spells', () => {
 
     it('adding spell with same name', () => {
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('managespells')
+        cy.get('#loginzinho > form > #password').type('managespells')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.cardList > #Card').last().click()
@@ -79,15 +79,14 @@ describe('test suite spells', () => {
 
     it('deleting spell succesfully', () => {
         cy.visit('/');
-        cy.get('#loginzinho > form > #user').type('login1')
-        cy.get('#loginzinho > form > #password').type('login1')
+        cy.get('#loginzinho > form > #user').type('managespells')
+        cy.get('#loginzinho > form > #password').type('managespells')
         cy.get('#loginzinho > form > button').click()
 
         cy.get('.cardList > #Card').last().click()
         cy.get('.removeMagic').click()
 
         cy.get('.magicListContainer').contains('Bola de Fogo').should('not.exist')
-        // cy.get('.magicListContainer').invoke('text').should('not', 'be.visible')
     })
 
 })
