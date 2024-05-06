@@ -5,6 +5,7 @@ const menuHamburguerBtn = document.querySelector('#menuHamburguer');
 function toggleMenuHamburguer() {
   const nav = document.querySelector('#sidebarNav');
   nav.classList.toggle('active');
+  menuHamburguerBtn.classList.toggle('is-active')
 }
 
-menuHamburguer.addEventListener('click', () => toggleMenuHamburguer());
+menuHamburguerBtn.addEventListener('click', () => toggleMenuHamburguer());

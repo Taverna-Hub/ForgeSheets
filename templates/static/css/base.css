@@ -157,9 +157,6 @@ h1 {
   #menuHamburguer {
     display: block;
     position: absolute;
-    top: 16px;
-    left: 16px;
-    border: 1px solid red;
     z-index: 99999;
   }
 }

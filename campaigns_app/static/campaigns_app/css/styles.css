@@ -152,6 +152,9 @@
 }
 
 @media (max-width: 1080px) {
+  .listCampaignContainer {
+    padding-top: 64px;
+  }
   .cardList {
     grid-template-columns: repeat(1, 1fr);
   }

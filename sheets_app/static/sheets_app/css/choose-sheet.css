@@ -54,6 +54,11 @@
   border: none;
 }
 
+.chooseSheetModal .modal .container div {
+  display: flex;
+  flex-direction: column;
+}
+
 .chooseSheetModal .modal div:first-child {
   justify-content: center;
   border-right: 1px solid var(--gray-300);
@@ -65,11 +70,6 @@
   justify-content: center;
   align-items: center;
   margin: 0 32px;
-}
-
-.chooseSheetModal .modal .container div {
-  display: flex;
-  flex-direction: column;
 }
 
 .chooseSheetModal .modal h2 {
@@ -99,4 +99,40 @@
   color: var(--white);
   font-weight: 600;
   margin-top: 28px;
+}
+
+@media (max-width: 900px) {
+  .chooseSheetModal .modal {
+    margin: 0 5%;
+    width: 90%;
+  }
+
+  .chooseSheetModal .modal div {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 580px) {
+  .chooseSheetModal .modal  {
+    max-height: none;
+    height: fit-content;
+    padding: 32px;
+  }
+
+  .chooseSheetModal .modal .container {
+    flex-direction: column;
+  }
+
+  .chooseSheetModal .modal div:first-child {
+    border-right: none;
+    border-bottom: 1px solid var(--gray-300);
+    margin-right: 0;
+    padding-right: 0;
+    padding-bottom: 32px;
+  }
+
+  .chooseSheetModal .modal div:last-child {
+    padding-top: 32px;
+  }
 }

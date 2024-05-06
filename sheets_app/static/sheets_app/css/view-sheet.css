@@ -514,7 +514,6 @@ button {
   }
   
 @media (max-width: 1180px) {
-
     .atributos {
       margin-top: 24px;
     }
@@ -548,6 +547,12 @@ button {
       height: 100%;
     }
 }
+
+@media (max-width: 800px) {
+    .sheet {
+      margin: 64px 5%;
+    }
+  }
 
 .totalAtk {
     background-repeat: no-repeat; 

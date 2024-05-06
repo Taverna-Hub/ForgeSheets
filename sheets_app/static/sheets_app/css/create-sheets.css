@@ -372,7 +372,7 @@ button {
 
 @media (max-width: 800px) {
   .sheet {
-    margin: 8%;
+    margin: 64px 5%;
     height: 100%;
   }
 }

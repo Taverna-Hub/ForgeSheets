@@ -37,6 +37,7 @@ let selectedMagicToEditRaw;
 let magicNode;
 let magicsNamesList = [];
 let previousClassName;
+let magicListCopy = [];
 
 magicsDiv.forEach(div => {
   const id = div.parentNode.getAttribute('data-id');
@@ -251,6 +252,7 @@ function handleGetEditMagicInfo(magic) {
   magicNode = magic.parentNode;  // atribui id
 
   const selectedMagic = magicList.filter((magicItem) => magicItem.local_id == selectedMagicId)[0]; // peag 1
+  magicListCopy = JSON.parse(JSON.stringify(magicList))
 
   selectedMagicToEdit = selectedMagic; // atribui oq pego
 
@@ -276,7 +278,7 @@ function handleEditMagic() {
   const nameExistsInListedList = magicsNamesList.some(
     (name) => name.toLowerCase() === selectedMagicToEdit.name.toLowerCase());
   
-  const nameExists = magicList.filter(
+  const nameExists = magicListCopy.some(
     (magicItem) => magicItem.name.toLowerCase() === selectedMagicToEdit.name.toLowerCase()); 
 
   if (selectedMagicToEdit.name === '') {
