@@ -1,5 +1,5 @@
 describe('rolling dices', () => {
-    it('succesful dice roll', () =>{
+    it('successful dice roll', () =>{
         cy.visit('/');
         cy.exec('rm ./db.sqlite3')
         cy.exec('python3 manage.py migrate')
