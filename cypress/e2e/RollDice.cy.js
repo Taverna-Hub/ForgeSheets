@@ -34,24 +34,17 @@ describe('rolling dices', () => {
         cy.get('#loginzinho > form > #password').type('rolldice')
         cy.get('#loginzinho > form > button').click()
     
-        cy.wait(2000)
         cy.get('.diceButton').click()
-        cy.wait(2000)
         cy.get('#quantityDice').type('2 3')
-        cy.wait(800)
         cy.get('#typeDice').type('6 8')
-        cy.wait(800)
         cy.get('#modDice').type('2')
-        cy.wait(800)
         cy.get('.rollButton').click()
-        cy.wait(1000)
     
         cy.get('#resultDisplay > :nth-child(1)').invoke('text').should('have.string', "Total:")
         cy.get('#resultDisplay > :nth-child(3)').invoke('text').should('have.string', "Detalhes:")
         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "+2")
         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "2d6")
         cy.get('#resultDisplay > :nth-child(4)').invoke('text').should('have.string', "3d8")
-        cy.wait(1000)
     })
 
     it('trying to submit an out-of-scope modifier', () =>{
@@ -59,20 +52,13 @@ describe('rolling dices', () => {
 
         cy.registerLogin()
 
-        cy.wait(2000)
         cy.get('.diceButton').click()
-        cy.wait(2000)
         cy.get('#quantityDice').type('2 3')
-        cy.wait(800)
         cy.get('#typeDice').type('6 8')
-        cy.wait(800)
         cy.get('#modDice').type('-800')
-        cy.wait(800)
         cy.get('.rollButton').click()
-        cy.wait(1000)
 
         cy.get('#modifierError > span').invoke('text').should('have.string', 'Insira um número entre -20 e 20.')
-        cy.wait(1000)
     })
 
     it('trying to submit different quantities of types and dice', () =>{
@@ -80,20 +66,13 @@ describe('rolling dices', () => {
         
         cy.registerLogin()
 
-        cy.wait(2000)
         cy.get('.diceButton').click()
-        cy.wait(2000)
         cy.get('#quantityDice').type('2 3 6')
-        cy.wait(800)
         cy.get('#typeDice').type('6 8')
-        cy.wait(800)
         cy.get('#modDice').type('2')
-        cy.wait(800)
         cy.get('.rollButton').click()
-        cy.wait(1000)
 
         cy.get('#quantityError > span').invoke('text').should('have.string', 'Adicione a quantidade de dados rolados para cada tipo de dado.')  
-        cy.wait(1000)      
     })
 
     it('trying to submit ouf-of-scope dice type', () =>{
@@ -101,19 +80,12 @@ describe('rolling dices', () => {
         
         cy.registerLogin()
 
-        cy.wait(2000)
         cy.get('.diceButton').click()
-        cy.wait(2000)
         cy.get('#quantityDice').type('2 4 6')
-        cy.wait(800)
         cy.get('#typeDice').type('5 13 2')
-        cy.wait(800)
         cy.get('#modDice').type('2')
-        cy.wait(800)
         cy.get('.rollButton').click()
-        cy.wait(1000)
 
         cy.get('#typeError > span').invoke('text').should('have.string', 'Somente D4, D6, D8, D10, D12, D20, e D100 são permitidos.')
-        cy.wait(1000)
     })
 })
