@@ -111,7 +111,7 @@
   <img src="https://img.shields.io/badge/screencast dos protótipos-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="#">
   <img src="https://img.shields.io/badge/screencast de build & deploy-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
-<a href="#">
+<a href="https://youtu.be/kco5XmxPI1Y">
   <img src="https://img.shields.io/badge/screencast dos testes e2e-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
   <img src="https://img.shields.io/badge/relatório programação em par-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
