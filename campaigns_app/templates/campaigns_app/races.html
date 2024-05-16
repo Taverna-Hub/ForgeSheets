@@ -7,9 +7,8 @@
 {% endblock %}
 
 {% block 'body' %}
-
-<section>
-    <div class="ModalCreateRace">
+<section class="ModalCreateRace">
+    <div class="modal">
         <h2>Raças:</h2>
         <form>
             {%csrf_token%}
@@ -52,6 +51,15 @@
                 </div>
             </div>
         </form>
+        <div class="actions">  
+            <a href="{% url 'campaigns:view_campaign' campaign.id %}" id="cancel"> Cancelar</a> 
+            <script>
+                function disableButton() {
+                    const button = document.getElementById("submit_button");
+                    button.disabled = true;
+                }
+                </script>
+        <button id="submit_button" >Criar Raça</button>
     </div>
 </section>
 {% endblock %}

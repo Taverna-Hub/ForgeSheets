@@ -68,7 +68,7 @@ class ManageRaceOnCampaignView(LoginRequiredMixin, View):
 
       campaign = get_object_or_404(Campaign, id=id)
       ctx = {
-         'campaign': campaign.id
+         'campaign': campaign
          
       }
       return render(request, 'campaigns_app/races.html', ctx)
