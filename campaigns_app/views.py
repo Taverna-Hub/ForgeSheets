@@ -48,3 +48,19 @@ class CreateCampaignView(LoginRequiredMixin, View):
 
 #class UpdateCampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
+class VisualizeCampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      pass
+   
+   def post(self, request,id):
+      pass
+
+class ManageRaceOnCampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      ctx = {
+         'app_name': 'campaign'
+      }
+      return render(request, 'campaigns_app/races.html', ctx)
+   
+   def post(self, request, id):
+      request.POST.get()
