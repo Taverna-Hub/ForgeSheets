@@ -1,7 +1,8 @@
+from os import name
 from django.shortcuts import redirect, render
 from django.views import View
-from campaigns_app.models import Campaign
-from .utils import save_campaign
+from campaigns_app.models import Campaign, Race
+from .utils import save_campaign, save_race
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from sheets_app.models import Sheet
@@ -60,3 +61,27 @@ class CampaignView(LoginRequiredMixin, View):
 
 #class UpdateCampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
+class VisualizeCampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      pass
+   
+   def post(self, request,id):
+      pass
+
+class ManageRaceOnCampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      ctx = {
+         'app_name': 'campaign'
+      }
+      return render(request, 'campaigns_app/races.html', ctx)
+   
+   def post(self, request, id):
+      name = request.POST.get('name')
+      strength_buff = request.POST.get('strength_buff')
+      intelligence_buff = request.POST.get('intelligence_buff')
+      wisdom_buff = request.POST.get('wisdom_buff')
+      charisma_buff = request.POST.get('charisma_buff')
+      constitution_buff = request.POST.get('constitution_buff')
+      speed_buff = request.POST.get('speed_buff')
+
+      fields = save_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)

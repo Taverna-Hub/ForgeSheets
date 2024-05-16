@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load 'static' %}
+
+{% block 'head' %}
+<link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
+<title>Adicionar Raças - ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+
+<section>
+    <div>
+        <h2>Raças:</h2>
+        <form>
+            {%csrf_token%}
+            <label for="name">Nome da Raça: </label>
+            <input type="text" name="name" value="{{name}}">
+            {% for error in errors %}
+                {% if error.field == 'name' %}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+            {% endfor %}
+
+        </form>
+    </div>
+</section>
+
+
+
+
+
+
+{% endblock %}
