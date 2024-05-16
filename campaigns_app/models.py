@@ -9,7 +9,6 @@ class Campaign(models.Model):
     image = models.URLField(null=True)
     title = models.CharField(max_length=75)
     description = models.TextField(default='', null=True)
-    
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
 
 class Race(models.Model):
@@ -20,6 +19,7 @@ class Race(models.Model):
     charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
     constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
     speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    campaign = models.ForeignKey(Campaign, related_name='races', on_delete=models.CASCADE)
     
     def __str__(self) -> str:
         return self.name

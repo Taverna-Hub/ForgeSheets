@@ -84,3 +84,14 @@ class ManageRaceOnCampaignView(LoginRequiredMixin, View):
       speed_buff = request.POST.get('speed_buff')
 
       fields = save_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+'''
+class RaceListView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      campaign = get_object_or_404(Campaign, id=id)
+      ctx = {
+         'campaign': campaign.id
+         
+      }
+   
+   def post(self, request, id):
+'''
