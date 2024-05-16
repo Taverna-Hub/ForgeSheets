@@ -1,5 +1,5 @@
 from os import name
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from campaigns_app.models import Campaign, Race
 from .utils import save_campaign, save_race
@@ -65,12 +65,16 @@ class CampaignView(LoginRequiredMixin, View):
 
 class ManageRaceOnCampaignView(LoginRequiredMixin, View):
    def get(self, request, id):
+
+      campaign = get_object_or_404(Campaign, id=id)
       ctx = {
-         'app_name': 'campaign'
+         'campaign': campaign.id
+         
       }
       return render(request, 'campaigns_app/races.html', ctx)
    
    def post(self, request, id):
+            
       name = request.POST.get('name')
       strength_buff = request.POST.get('strength_buff')
       intelligence_buff = request.POST.get('intelligence_buff')
