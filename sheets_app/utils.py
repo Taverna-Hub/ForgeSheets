@@ -1,5 +1,7 @@
 from os import error
-from .models import Equipment, Sheet, Race
+from .models import Equipment, Sheet
+from campaigns_app.models import Race
+
 import re
 
 def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax):

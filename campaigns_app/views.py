@@ -22,7 +22,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
       ctx = {
          'app_name': 'campaign'
       }
-      return render(request, 'campaigns_app/create_camp.html', ctx)
+      return render(request, 'campaigns_app/create_campaign.html', ctx)
 
    def post(self, request):
       image = request.POST.get('image')
@@ -61,11 +61,6 @@ class CampaignView(LoginRequiredMixin, View):
 
 #class UpdateCampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
-class VisualizeCampaignView(LoginRequiredMixin, View):
-   def get(self, request, id):
-      pass
-   
-   def post(self, request,id):
       pass
 
 class ManageRaceOnCampaignView(LoginRequiredMixin, View):

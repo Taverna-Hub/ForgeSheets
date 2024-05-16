@@ -1,5 +1,6 @@
 from email import errors
-from .models import Campaign, Race
+from .models import Campaign
+from campaigns_app.models import Race
 import re
 
 
