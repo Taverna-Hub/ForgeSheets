@@ -4,15 +4,16 @@ from campaigns_app.models import Campaign
 from .utils import save_campaign
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from sheets_app.models import Sheet
 
-class CampaignView(LoginRequiredMixin, View): 
+class CampaignsView(LoginRequiredMixin, View): 
   def get(self, request):
       campaigns = Campaign.objects.filter(user_id=request.user.id)
       ctx = {
          'campaigns': campaigns,
          'app_name': 'campaign'
       }
-      return render(request, 'campaigns_app/campaign.html', ctx)
+      return render(request, 'campaigns_app/campaigns.html', ctx)
 
 
 class CreateCampaignView(LoginRequiredMixin, View):
@@ -36,7 +37,6 @@ class CreateCampaignView(LoginRequiredMixin, View):
       'description': description,
    }
 
-      
       if fields:
          ctx['errors'] = fields
          ctx['app_name'] = 'campaign'
@@ -44,7 +44,19 @@ class CreateCampaignView(LoginRequiredMixin, View):
                ctx.pop(field_error['field'], None)
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
-      return redirect('campaigns:campaign')
+      return redirect('campaigns:campaigns')
+
+class CampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      campaign = Campaign.objects.filter(id=id).first()
+      #sheets = Sheet.objects.all()
+
+      ctx = {
+         'campaign': campaign,
+         #'sheets': sheets,
+      }
+
+      return render(request, 'campaigns_app/campaign.html', ctx)
 
 #class UpdateCampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
