@@ -49,7 +49,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
 
 class CampaignView(LoginRequiredMixin, View):
    def get(self, request, id):
-      campaign = Campaign.objects.filter(id=id).first()
+      campaign = get_object_or_404(Campaign, id=id)
       #sheets = Sheet.objects.all()
 
       ctx = {
