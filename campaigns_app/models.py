@@ -19,7 +19,7 @@ class Race(models.Model):
     charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
     constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
     speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    campaign = models.ForeignKey(Campaign, related_name='races', on_delete=models.CASCADE)
+    campaign = models.ForeignKey(Campaign, related_name='races', on_delete=models.CASCADE, null=True)
     
     def __str__(self) -> str:
         return self.name

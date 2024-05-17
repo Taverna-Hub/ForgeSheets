@@ -52,7 +52,7 @@
             </div>
         </form>
         <div class="actions">  
-            <a href="{% url 'campaigns:view_campaign' campaign.id %}" id="cancel"> Cancelar</a> 
+            <a href="{% url 'campaigns:races' campaign.id %}" id="cancel"> Cancelar</a> 
             <script>
                 function disableButton() {
                     const button = document.getElementById("submit_button");
