@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/styles.css' %}">
+  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+  <title>Suas campanhas - ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+  <section class="listCampaignContainer">
+    <h1 class="title">Suas Campanhas</h1>
+    <section class="cardList">
+      <a href="{% url 'campaigns:create_campaign' %}" class="createCampaign">
+        <div>
+          <i data-lucide="plus" width="64" height="64" stroke-width="1.5px" ></i>
+        </div>
+      </a>
+
+      {% for campaign in campaigns %}
+        <a href="{% url 'campaigns:view_campaign' campaign.id %}">
+          <div
+            class="campaignCard"
+            style="{% if campaign.image %}
+                    background-image: url({{ campaign.image }});
+                    background-position: center;
+                  {% endif %}"
+          >
+            <div
+              style="{% if campaign.image %}
+                      backdrop-filter: blur(2px);
+                      background-color: rgba(0,0,0,0.5);
+                    {% endif %}"
+            >
+                <h2> {{ campaign.title }} </h2>
+                <div class="campaignInfo">
+                  <span>Descrição: </span>
+                  <p> {{ campaign.description }} </p>
+                </div>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </section>
+  </section>
+  {% include "dice.html" %}
+{% endblock %}

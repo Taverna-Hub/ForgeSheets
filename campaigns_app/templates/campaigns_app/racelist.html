@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Raças</title>
+{% endblock 'head' %}
+{% block 'body' %}
+<section class="RaceList">
+    <h1>Raças</h1>
+    <div class="race-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nº de Jogadores</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for race in races %}
+                    <tr>
+                        <td>{{ race.name }}</td>
+                        <td><i data-lucide="users"></i> 1</td> 
+                        <td>
+                            <a href="{% url 'campaigns:edit_race' race.id %}" class="edit-btn"><i data-lucide="edit-3"></i></a>
+                            <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="AddRace">
+        <a href="{% url 'campaigns:adding_race' campaign.id %}">
+            <i data-lucide="circle-plus"></i> 
+        </a>
+    </button>
+</section>
+{% endblock 'body' %}

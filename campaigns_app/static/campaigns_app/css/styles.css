@@ -29,7 +29,7 @@
   backdrop-filter: blur(12px);
   z-index: 999;
   height: 100vh;
-
+  
   padding: 32px 64px;
   overflow: auto;
 }
@@ -38,8 +38,12 @@
   display: grid;
   grid-template-columns: repeat(4, 300px);
   justify-content: space-between;
-
+  
   gap: 16px;
+}
+
+.cardList a {
+  text-decoration: none;
 }
 
 .campaignCard {
@@ -71,7 +75,7 @@
   justify-content: center;
   border: 3px dashed var(--red-700);
   cursor: pointer;
-
+  
   background-size: cover;
   background-repeat: no-repeat;
   
@@ -87,11 +91,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   width: 90px;
   height: 90px;
   border-radius: 50%;
-
+  
   border: 3px dashed var(--red-700);
   color: var(--red-700);
 }
@@ -139,7 +143,7 @@
   .cardList {
     grid-template-columns: repeat(3, 1fr);
   }
-
+  
   .campaignCard > div, .createCampaign {
     width: 100%;
   }

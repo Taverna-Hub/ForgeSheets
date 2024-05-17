@@ -1,18 +1,20 @@
-from django.shortcuts import redirect, render
+from os import name
+from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.views import View
-from campaigns_app.models import Campaign
-from .utils import save_campaign
+from campaigns_app.models import Campaign, Race
+from .utils import save_campaign, save_race
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from sheets_app.models import Sheet
 
-class CampaignView(LoginRequiredMixin, View): 
+class CampaignsView(LoginRequiredMixin, View): 
   def get(self, request):
       campaigns = Campaign.objects.filter(user_id=request.user.id)
       ctx = {
          'campaigns': campaigns,
          'app_name': 'campaign'
       }
-      return render(request, 'campaigns_app/campaign.html', ctx)
+      return render(request, 'campaigns_app/campaigns.html', ctx)
 
 
 class CreateCampaignView(LoginRequiredMixin, View):
@@ -20,7 +22,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
       ctx = {
          'app_name': 'campaign'
       }
-      return render(request, 'campaigns_app/create_camp.html', ctx)
+      return render(request, 'campaigns_app/create_campaign.html', ctx)
 
    def post(self, request):
       image = request.POST.get('image')
@@ -36,7 +38,6 @@ class CreateCampaignView(LoginRequiredMixin, View):
       'description': description,
    }
 
-      
       if fields:
          ctx['errors'] = fields
          ctx['app_name'] = 'campaign'
@@ -44,7 +45,55 @@ class CreateCampaignView(LoginRequiredMixin, View):
                ctx.pop(field_error['field'], None)
          return render(request, 'campaigns_app/create_camp.html', ctx)
 
-      return redirect('campaigns:campaign')
+      return redirect('campaigns:campaigns')
+
+class CampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      campaign = get_object_or_404(Campaign, id=id)
+      #sheets = Sheet.objects.all()
+
+      ctx = {
+         'campaign': campaign,
+         #'sheets': sheets,
+      }
+
+      return render(request, 'campaigns_app/campaign.html', ctx)
 
 #class UpdateCampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
+      pass
+
+class ManageRaceOnCampaignView(LoginRequiredMixin, View):
+   def get(self, request, id):
+
+      campaign = get_object_or_404(Campaign, id=id)
+      ctx = {
+         'campaign': campaign
+         
+      }
+      return render(request, 'campaigns_app/races.html', ctx)
+   
+   def post(self, request, id):
+            
+      name = request.POST.get('name')
+      strength_buff = request.POST.get('strength_buff')
+      intelligence_buff = request.POST.get('intelligence_buff')
+      wisdom_buff = request.POST.get('wisdom_buff')
+      charisma_buff = request.POST.get('charisma_buff')
+      constitution_buff = request.POST.get('constitution_buff')
+      speed_buff = request.POST.get('speed_buff')
+
+      fields = save_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+
+class RaceListView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      campaign = get_object_or_404(Campaign, id=id)
+      races = Race.objects.filter(campaign=campaign)
+
+      ctx = {
+         'campaign': campaign,
+         'races': races
+         
+      }
+   
+      return render(request, "campaigns_app/racelist.html",ctx)

@@ -2,45 +2,36 @@
 {% load static %}
 
 {% block 'head' %}
-  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/styles.css' %}">
-  <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-  <title>Suas campanhas - ForgeSheets</title>
-{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Visualizar Campanha - ForgeSheets</title>
+{% endblock 'head' %}
 
 {% block 'body' %}
-  <section class="listCampaignContainer">
-    <h1 class="title">Suas Campanhas</h1>
-    <section class="cardList">
-      <a href="{% url 'campaigns:create_campaign' %}" class="createCampaign">
-        <div>
-          <i data-lucide="plus" width="64" height="64" stroke-width="1.5px" ></i>
-        </div>
-      </a>
 
-      {% for campaign in campaigns %}
-        <div 
-          class="campaignCard" 
-          style="{% if campaign.image %}
-                  background-image: url({{ campaign.image }});
-                  background-position: center;  
-                {% endif %}"
-        >
-          <div
-            style="{% if campaign.image %}
-                    backdrop-filter: blur(2px); 
-                    background-color: rgba(0,0,0,0.5);
-                  {% endif %}"
-          >
-              <h2> {{ campaign.title }} </h2>
-
-              <div class="campaignInfo">
-                <span>Descrição: </span>
-                <p> {{ campaign.description }} </p>
-              </div>
-          </div>
+    <section class="campaignContainer">
+        <h1 class="campaignName">{{ campaign.title }}</h1>
+        <h3 class="campaignCode">
+            <span>XXXXXX</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copy"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        </h3>
+        <div class="campaignImage" style="background-image: url('{{campaign.image}}')"></div>
+        <div class="buttons">
+            <a href="{% url 'campaigns:races' campaign.id %}" class="button">Gerenciar Raças</a>
+            <a href="#" class="button">Gerenciar Classes</a>
+            <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
         </div>
-      {% endfor %}
+        <div class="sheets">
+
+            {% for sheet in sheets %}
+                <div class="sheetCard">
+                    {% comment %} <p>{{sheet.name}}</p> {% endcomment %}
+                </div>
+            {% endfor %}
+
+        </div>
     </section>
-  </section>
-  {% include "dice.html" %}
-{% endblock %}
+
+{% include "dice.html" %}
+
+{% endblock 'body' %}
