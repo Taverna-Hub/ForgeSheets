@@ -32,17 +32,18 @@
 
 .ModalCreateRace{
     background: rgba(0,0,0,0.8);
-
+    z-index: 999;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
 
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
 }
+
 input, textarea {
     width: 100%;
     border: 2px solid var(--gray-200);
