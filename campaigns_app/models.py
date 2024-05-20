@@ -25,3 +25,9 @@ class Race(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+class Class(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True)
+    name = models.CharField(max_length=75)
+    role = models.CharField(max_length=15)
+    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)
