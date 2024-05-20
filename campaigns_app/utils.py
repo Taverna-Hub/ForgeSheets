@@ -3,7 +3,6 @@ from .models import Campaign
 from campaigns_app.models import Race
 import re
 
-
 def save_campaign(image, title, description, user_id):
   image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
   title_treated = title.strip()
@@ -48,7 +47,7 @@ def save_campaign(image, title, description, user_id):
   campaign.save()
   
 
-def save_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff):
+def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff):
   buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
   name_treated = name.strip()
   errors = []

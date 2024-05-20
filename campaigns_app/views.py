@@ -1,8 +1,8 @@
-from os import name
+from os import error, name
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.views import View
 from campaigns_app.models import Campaign, Race
-from .utils import save_campaign, save_race
+from .utils import save_campaign, treat_race
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from sheets_app.models import Sheet
@@ -83,7 +83,24 @@ class ManageRaceOnCampaignView(LoginRequiredMixin, View):
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
 
-      fields = save_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+      errors = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+
+      if errors:
+         atributos = ['strength_buff', 'intelligence_buff', 'wisdom_buff', 'charisma_buff', 'constitution_buff', 'speed_buff']
+         ctx ={
+            'errors': errors,
+            'app_name': 'campaign_app'
+         }
+         if name not in errors:
+            ctx['name'] = name
+         for atributo in atributos:
+            if atributo not in errors:
+               valor = request.POST.get(atributo)
+               ctx['atributo'] = valor
+         return render(request, 'campaigns_app/races.html', ctx)
+      else:
+         return redirect('campaigns:races')
+
 
 class RaceListView(LoginRequiredMixin, View):
    def get(self, request, id):
