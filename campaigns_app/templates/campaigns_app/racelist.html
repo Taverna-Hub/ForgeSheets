@@ -10,7 +10,7 @@
 {% block 'body' %}
 <section class="ModalCreateRace">
     <div class="modal">
-        <h2>Adicionar raça:</h2>
+        <h2>Adicionar raça</h2>
         <form action="{% url 'campaigns:races' campaign.id %}" method="post">
             {%csrf_token%}
             <div class="RaceName">
@@ -25,7 +25,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
-            <div class="AtributesInputs">
+            <div class="buff">
                 <div>
                     <label for="strength_buff">Modificador de Força: </label>
                     <input type="number" name="strength_buff" id="strength_buff" value="{{strength_buff}}">

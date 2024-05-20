@@ -30,7 +30,7 @@
     font-family: 'Montserrat';
 }
 
-.ModalCreateRace{
+.ModalCreateRace {
     background: rgba(0,0,0,0.8);
     z-index: 999;
     position: fixed;
@@ -78,7 +78,6 @@ button {
     padding: 24px;
     border-radius: 4px;
     width: 650px;
-    min-height: 595px;
     height: fit-content;
 }
 
@@ -86,9 +85,19 @@ button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 40px;
 
     margin-top: 40px;
+}
+
+.ModalCreateRace .modal form div {
+    margin-bottom: 8px;
+}
+
+.buff {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 16px;
+    margin-top: 24px;
 }
 
 .ModalCreateRace .modal span {
@@ -128,7 +137,7 @@ button {
     color: var(--gray-200);
 }
 
-#cancel{
+#cancel {
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
