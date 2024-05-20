@@ -13,49 +13,62 @@
   --gray-800: #1f2937;
 }
   
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: var(--red-700);
-    border-radius: 6px;
-  }
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--red-700);
+  border-radius: 6px;
+}
 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Montserrat';
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat';
 }
 
 .campaignContainer {
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(12px);
-    z-index: 999;
-    height: 100vh;
-    padding: 32px 64px;
-    overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  z-index: 9;
+  min-height: 100vh;
+  height: 100%;
+  padding: 32px 64px;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.campaignImage {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 280px);
+  height: 30vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(87%);
 }
 
 .campaignName {
-  display: block;
   position: absolute;
   z-index: 999;
-  font-size: 4em;
-  padding-top: 19vh;
-  font-weight: bold;
+  font-size: 64px;
   color: var(--white);
   text-shadow: 2px 2px 8px black;
+  bottom: -32px;
+  left: 32px;
 }
 
 .campaignCode {
   display: block;
   position: absolute;
   z-index: 999;
-  right: 0;
-  margin-right: 50px;
+  right: 24px;
+  top: 24px;
 }
 
 .campaignCode span {
@@ -63,32 +76,32 @@
   font-weight: bold;
 }
 
-.campaignCode svg {
-  cursor: pointer;
-  color: var(--gray-500);
+.campaignCode button {
+  background: none;
 }
 
-.campaignImage {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 81.5vw;
-  max-height: 30vh;
-  min-width: 81.5vw;
-  min-height: 30vh;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  overflow: hidden;
-  filter: brightness(87%);
+.campaignCode svg {
+  cursor: pointer;
+  color: var(--red-600);
+}
+
+.lottieAnimation {
+  height: 100px;
+  position: absolute;
+  top: -32px;
+  right: -36px;
+  pointer-events: none;
+  transform: rotate(180deg);
+}
+
+.hide {
+  display: none;
 }
 
 .buttons {
-  position: fixed;
-  right: 0;
-  margin-top: 30vh;
-  margin-right: 95px;
+  position: absolute;
+  right: 32px;
+  top: calc(30vh + 32px);
   display: flex;
   align-items: center;
 }
@@ -113,4 +126,10 @@
 .buttons #menu {
   color: var(--gray-400);
   cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .campaignImage {
+    width: 100vw;
+  }
 }

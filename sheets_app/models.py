@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from campaigns_app.models import Campaign
 from utilities_app.models import Users
 from django.core.validators import MinValueValidator
 from django.db.models import Sum
@@ -34,6 +35,7 @@ class Sheet(models.Model):
     description = models.TextField(default='NULL')
 
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    campaign = models.ForeignKey(Campaign, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name
