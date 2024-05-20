@@ -7,7 +7,7 @@ const animationItem = bodymovin.loadAnimation({
   animType: "svg",
   loop: false,
   autoplay: false,
-  path: "https://lottie.host/26330495-d39a-4ab0-bbbf-e23167a9d999/erjBn76wJ1.json"
+  path: "https://lottie.host/6175c2bc-23e9-48a3-a5f8-82ac2427f731/atQ5qM9sIA.json"
 })
 
 function handleCopyCodeToClipboard() {
