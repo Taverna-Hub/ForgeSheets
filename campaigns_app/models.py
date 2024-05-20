@@ -29,5 +29,5 @@ class Race(models.Model):
 class Class(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     name = models.CharField(max_length=75)
-    role = models.CharField(max_length=15)
+    roles = models.CharField(max_length=200, default=None, null=True, blank=True)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)

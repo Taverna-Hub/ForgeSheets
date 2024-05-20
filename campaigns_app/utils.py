@@ -46,7 +46,6 @@ def save_campaign(image, title, description, user_id):
   campaign = Campaign(image=image, title=title, description=description, user_id=user_id)
   campaign.save()
   
-
 def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff):
   buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
   name_treated = name.strip()

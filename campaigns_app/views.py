@@ -1,7 +1,8 @@
 from os import error, name
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
+from django.urls import reverse
 from django.views import View
-from campaigns_app.models import Campaign, Race
+from campaigns_app.models import Campaign, Class, Race
 from .utils import save_campaign, treat_race
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -114,3 +115,26 @@ class RaceListView(LoginRequiredMixin, View):
       }
    
       return render(request, "campaigns_app/racelist.html",ctx)
+   
+class ClassListView(LoginRequiredMixin, View):
+   def get(self, request, id):
+      campaign = get_object_or_404(Campaign, id=id)
+      classes = Class.objects.filter(campaign=campaign)
+      campaign_sheets = Sheet.objects.filter(campaign=campaign)
+
+      ctx = {
+         'campaign': campaign,
+         'classes': classes,
+         'app_name': 'campaign'
+      }
+   
+      return render(request, "campaigns_app/class-list.html",ctx)
+   
+   def post(self, request, id):
+      name = request.POST.get("className")
+      roles = request.POST.getlist("role")
+
+      newClass = Class(name=name, roles=roles, campaign_id=id)
+      newClass.save()
+
+      return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))
