@@ -54,7 +54,7 @@ class CampaignView(LoginRequiredMixin, View):
 
       ctx = {
          'campaign': campaign,
-         #'sheets': sheets,
+         'app_name': 'campaign'
       }
 
       return render(request, 'campaigns_app/campaign.html', ctx)
@@ -68,8 +68,8 @@ class ManageRaceOnCampaignView(LoginRequiredMixin, View):
 
       campaign = get_object_or_404(Campaign, id=id)
       ctx = {
-         'campaign': campaign
-         
+         'campaign': campaign,
+         'app_name': 'campaign'
       }
       return render(request, 'campaigns_app/races.html', ctx)
    
@@ -92,8 +92,8 @@ class RaceListView(LoginRequiredMixin, View):
 
       ctx = {
          'campaign': campaign,
-         'races': races
-         
+         'races': races,
+         'app_name': 'campaign'
       }
    
       return render(request, "campaigns_app/racelist.html",ctx)

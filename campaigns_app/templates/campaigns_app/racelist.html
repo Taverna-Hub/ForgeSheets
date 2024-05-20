@@ -7,9 +7,18 @@
     <title>Raças</title>
 {% endblock 'head' %}
 {% block 'body' %}
-<section class="RaceList">
+<section class="raceList">
     <h1>Raças</h1>
-    <div class="race-table">
+    <div class="raceTable">
+        <div>
+            <h3>Raças</h3>
+
+            <a href="{% url 'campaigns:adding_race' campaign.id %}">
+                <button class="addRace">
+                    <i data-lucide="plus"></i> 
+                </button>
+            </a>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -32,10 +41,5 @@
             </tbody>
         </table>
     </div>
-    <button class="AddRace">
-        <a href="{% url 'campaigns:adding_race' campaign.id %}">
-            <i data-lucide="circle-plus"></i> 
-        </a>
-    </button>
 </section>
 {% endblock 'body' %}

@@ -1,55 +1,91 @@
-.RaceList {
+:root {
+    --red-600: #dc2626;
+    --red-700: #b91c1c;
+    --red-950: #450a0a;
+    --green-500: #22c55e;
+    --white: #f7f7f7;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+}
+
+.raceList {
     padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(12px);
+    z-index: 999;
+    height: 100vh;
+    padding: 32px 64px;
+    overflow: auto;
 }
 
-.race-table {
+.raceTable {
+    background-color: var(--white);
+    border-radius: 8px;
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    margin: 84px 0 40px;
 }
 
-.race-table table {
-    width: 100%;
-    
+.raceTable > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    position: relative;
 }
 
-.race-table th, .race-table td {
-    padding: 10px;
-    text-align: left;
-    
-}
+.addRace {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-.race-table th {
-    background-color: #f4f4f4;
-}
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 
-.race-table td i {
-    margin-right: 5px;
-}
-
-.AddRace {
-    display: inline-block;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--red-700);
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 16px;
 }
 
-.AddRace a {
-    color: white;
-    text-decoration: none;
+.addRace svg {
+    color: var(--white);
 }
 
-.edit-btn, .delete-btn {
-    margin-right: 5px;
-    color: #007bff;
-    text-decoration: none;
+.raceTable h3 {
+    color: var(--red-700);
 }
 
-.edit-btn:hover, .delete-btn:hover {
-    color: #0056b3;
+table {
+    border-collapse: collapse;
+    text-align: left;
+
+    width: 100%;
+}
+
+table tr {
+    border-bottom: 1px solid var(--gray-300);
+}
+
+thead tr {
+    border-top: 1px solid var(--gray-300);
+    border-bottom: 1px solid var(--gray-300);
+}
+
+thead th {
+    color: var(--gray-600);
+    font-weight: 500;
+    padding: 12px 24px;
+}
+
+table tbody tr:last-child {
+    border-bottom: none;
+}
+
+tbody td {
+    padding: 12px 24px;
+    color: var(--gray-500);
 }
