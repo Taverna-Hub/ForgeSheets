@@ -64,15 +64,17 @@ class CampaignView(LoginRequiredMixin, View):
 #class DeleteCampaignView(LoginRequiredMixin, View):
       pass
 
-class ManageRaceOnCampaignView(LoginRequiredMixin, View):
+class RaceView(LoginRequiredMixin, View):
    def get(self, request, id):
-
       campaign = get_object_or_404(Campaign, id=id)
+      races = Race.objects.filter(campaign=campaign)
+
       ctx = {
          'campaign': campaign,
+         'races': races,
          'app_name': 'campaign'
       }
-      return render(request, 'campaigns_app/races.html', ctx)
+      return render(request, "campaigns_app/racelist.html",ctx)
    
    def post(self, request, id):
             
@@ -84,37 +86,27 @@ class ManageRaceOnCampaignView(LoginRequiredMixin, View):
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
 
-      errors = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+      # errors = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
 
-      if errors:
-         atributos = ['strength_buff', 'intelligence_buff', 'wisdom_buff', 'charisma_buff', 'constitution_buff', 'speed_buff']
-         ctx ={
-            'errors': errors,
-            'app_name': 'campaign_app'
-         }
-         if name not in errors:
-            ctx['name'] = name
-         for atributo in atributos:
-            if atributo not in errors:
-               valor = request.POST.get(atributo)
-               ctx['atributo'] = valor
-         return render(request, 'campaigns_app/races.html', ctx)
-      else:
-         return redirect('campaigns:races')
-
-
-class RaceListView(LoginRequiredMixin, View):
-   def get(self, request, id):
-      campaign = get_object_or_404(Campaign, id=id)
-      races = Race.objects.filter(campaign=campaign)
-
-      ctx = {
-         'campaign': campaign,
-         'races': races,
-         'app_name': 'campaign'
-      }
-   
-      return render(request, "campaigns_app/racelist.html",ctx)
+      # if errors:
+      #    atributos = ['strength_buff', 'intelligence_buff', 'wisdom_buff', 'charisma_buff', 'constitution_buff', 'speed_buff']
+      #    ctx ={
+      #       'errors': errors,
+      #       'app_name': 'campaign_app'
+      #    }
+      #    if name not in errors:
+      #       ctx['name'] = name
+      #    for atributo in atributos:
+      #       if atributo not in errors:
+      #          valor = request.POST.get(atributo)
+      #          ctx['atributo'] = valor
+      #    return render(request, 'campaigns_app/races.html', ctx)
+      # else:
+      #    return redirect('campaigns:races')
+      
+      race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff))
+      race.save()
+      return redirect(reverse('campaigns:races', kwargs={'id': id}))
    
 class ClassListView(LoginRequiredMixin, View):
    def get(self, request, id):
