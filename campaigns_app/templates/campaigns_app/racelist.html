@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="actions">  
-                <button id="cancel"> Cancelar</a> 
+                <button type="button" id="cancel">Cancelar</a> 
                 <button type="submit" id="submit_button" >Criar Raça</button>
             </div>
         </form>
@@ -72,18 +72,22 @@
                 <tr>
                     <th>Nome</th>
                     <th>Nº de Jogadores</th>
-                    <th>Ações</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for race in races %}
                     <tr>
                         <td>{{ race.name }}</td>
-                        <td><i data-lucide="users"></i> 1</td> 
                         <td>
+                            <i data-lucide="users"></i> 
+                            <p>1</p>
+                        </td> 
+                        {% comment %} <td>
                             <a href="{% url 'campaigns:edit_race' race.id %}" class="edit-btn"><i data-lucide="edit-3"></i></a>
                             <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
-                        </td>
+                        </td> {% endcomment %}
                     </tr>
                 {% endfor %}
             </tbody>

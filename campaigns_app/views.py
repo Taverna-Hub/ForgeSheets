@@ -104,7 +104,7 @@ class RaceView(LoginRequiredMixin, View):
       # else:
       #    return redirect('campaigns:races')
       
-      race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff))
+      race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
       race.save()
       return redirect(reverse('campaigns:races', kwargs={'id': id}))
    
