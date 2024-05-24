@@ -1,10 +1,10 @@
-Cypress.Commands.add('removeDatabase', () => {
-    cy.exec('rm ./db.sqlite3')
-    cy.exec('python3 manage.py migrate')
-})
+Cypress.Commands.add('deleteAllUsers', () => {
+    cy.exec('python delete_users.py', { failOnNonZeroExit: false })
+        
+});
 
 Cypress.Commands.add('registerLoginCreateSheet', () => {
-    cy.removeDatabase()
+    cy.deleteAllUsers();
 
     cy.get('.registerAnchor').click()
     cy.get('#cadastrinho > form > #user').type('managespells')
@@ -46,8 +46,8 @@ Cypress.Commands.add('registerLoginCreateSheet', () => {
 describe('test suite spells', () => {
     it('successfully added spell', () => {
         cy.visit('/');
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
 
         cy.get('.registerAnchor').click()
         cy.get('#cadastrinho > form > #user').type('managespells')
@@ -87,7 +87,7 @@ describe('test suite spells', () => {
 
     it('editing spell succesfully', () => {
         cy.visit('/');
-
+        cy.exec('python manage.py migrate')
         cy.registerLoginCreateSheet()
 
         cy.get('.cardList > #Card').last().click()
@@ -124,7 +124,7 @@ describe('test suite spells', () => {
 
     it('deleting spell successfully', () => {
         cy.visit('/');
-        
+        cy.exec('python manage.py migrate')
         cy.registerLoginCreateSheet()
 
         cy.get('.cardList > #Card').last().click()

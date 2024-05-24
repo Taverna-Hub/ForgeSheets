@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Raças</title>
+{% endblock 'head' %}
+{% block 'body' %}
+<section class="ModalCreateRace">
+    <div class="modal">
+        <h2>Adicionar raça</h2>
+        <form action="{% url 'campaigns:races' campaign.id %}" method="post">
+            {%csrf_token%}
+            <div class="RaceName">
+                <label for="name">Nome da Raça: </label>
+                <input type="text" name="name" id="name" value="{{name}}">
+                {% for error in errors %}
+                    {% if error.field == 'name' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="buff">
+                <div>
+                    <label for="strength_buff">Modificador de Força: </label>
+                    <input type="number" name="strength_buff" id="strength_buff" value="{{strength_buff}}">
+                </div>
+                <div>
+                    <label for="intelligence_buff">Modificador de Inteligência: </label>
+                    <input type="number" name="intelligence_buff" id="intelligence_buff" value="{{intelligence_buff}}">
+                </div>
+                <div>
+                    <label for="wisdom_buff">Modificador de Sabedoria: </label>
+                    <input type="number" name="wisdom_buff" id="wisdom_buff" value="{{wisdom_buff}}">
+                </div>
+                <div>
+                    <label for="charisma_buff">Modificador de Carisma: </label>
+                    <input type="number" name="charisma_buff" id="charisma_buff" value="{{charisma_buff}}">
+                </div>
+                <div>
+                    <label for="constitution_buff">Modificador de Constituição: </label>
+                    <input type="number" name="constitution_buff" id="constitution_buff" value="{{constitution_buff}}">
+                </div>
+                <div>
+                    <label for="speed_buff">Modificador de Velocidade: </label>
+                    <input type="number" name="speed_buff" id="speed_buff" value="{{speed_buff}}">
+                </div>
+            </div>
+            <div class="actions">  
+                <button type="button" id="cancel">Cancelar</a> 
+                <button type="submit" id="submit_button" >Criar Raça</button>
+            </div>
+        </form>
+</section>
+
+<section class="raceList">
+    <h1>Raças | {{campaign.title}}</h1>
+    <div class="raceTable">
+        <div>
+            <h3>Raças</h3>
+                <button class="addRace">
+                    <i data-lucide="plus"></i> 
+                </button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Nº de Jogadores</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for race in races %}
+                    <tr>
+                        <td>{{ race.name }}</td>
+                        <td>
+                            <i data-lucide="users"></i> 
+                            <p>1</p>
+                        </td> 
+                        {% comment %} <td>
+                            <a href="{% url 'campaigns:edit_race' race.id %}" class="edit-btn"><i data-lucide="edit-3"></i></a>
+                            <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
+                        </td> {% endcomment %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{% static 'campaigns_app/js/races.js' %}"></script>
+</section>
+{% endblock 'body' %}

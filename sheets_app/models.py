@@ -1,21 +1,11 @@
 import uuid
 from django.db import models
+from campaigns_app.models import Campaign
 from utilities_app.models import Users
 from django.core.validators import MinValueValidator
 from django.db.models import Sum
 
 
-class Race(models.Model):
-    name = models.CharField(max_length=75)
-    strength_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    intelligence_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    wisdom_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    
-    def __str__(self) -> str:
-        return self.name
 
 class Sheet(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
@@ -45,6 +35,7 @@ class Sheet(models.Model):
     description = models.TextField(default='NULL')
 
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
+    campaign = models.ForeignKey(Campaign, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.name
@@ -103,3 +94,4 @@ class Magic(models.Model):
 
     def __str__(self) -> str:
         return f'{self.name} {self.description} | {self.element}'
+    
