@@ -1,3 +1,5 @@
+from email.mime import image
+from hmac import new
 from os import error, name
 from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
@@ -31,7 +33,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
       description = request.POST.get('description')
       user_id = request.user.id
 
-      fields = save_campaign(image, title, description, user_id)
+      fields = save_campaign(image, title, description, user_id, 0)
 
       ctx = {
       'image': image,
@@ -44,7 +46,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
          ctx['app_name'] = 'campaign'
          for field_error in fields:
                ctx.pop(field_error['field'], None)
-         return render(request, 'campaigns_app/create_camp.html', ctx)
+         return render(request, 'campaigns_app/create_campaign.html', ctx)
 
       return redirect('campaigns:campaigns')
 
@@ -62,30 +64,45 @@ class CampaignView(LoginRequiredMixin, View):
 
    def post(self, request, id):
       campaign = get_object_or_404(Campaign, id=id)
+      user_id = request.user.id
+
+      ctx = {
+         'campaign': campaign,
+         'app_name': 'campaign'
+      }
       
       newTitle = request.POST.get('new-title')
       newDescription = request.POST.get('new-description')
       newImage = request.POST.get('new-image')
 
       if 'delete' in request.POST:
-         campaign.delete()
-         return redirect('campaigns:campaigns')
+            campaign.delete()
+            return redirect('campaigns:campaigns')
 
-      if newTitle:
-         campaign.title = newTitle
-      elif newDescription:
-         campaign.description = newDescription
-      elif newImage:
-         campaign.image = newImage
+      if not newTitle:
+         newTitle = campaign.title
+      if not newDescription:
+         newDescription = campaign.description
+      if not newImage:
+         newImage = campaign.image
 
-      campaign.save()
-
-      ctx = {
-         'campaign': campaign,
-         'app_name': 'campaign'
-      }
-
-      return redirect('campaigns:view_campaign', id=id)
+      fields = save_campaign(newImage, newTitle, newDescription, user_id, campaign.id)
+      print(fields)
+      if fields == 1:
+         return redirect('campaigns:view_campaign', id=id)
+      else:
+         if fields[0]['field'] == 'title':
+            ctx['titleError'] = 1
+            messages.error(request, fields[0]['message'])
+            return render(request, 'campaigns_app/campaign.html', ctx)
+         if fields[0]['field'] == 'description':
+            ctx['descriptionError'] = 1
+            messages.error(request, fields[0]['message'])
+            return render(request, 'campaigns_app/campaign.html', ctx)
+         if fields[0]['field'] == 'image':
+            ctx['imageError'] = 1
+            messages.error(request, fields[0]['message'])
+            return render(request, 'campaigns_app/campaign.html', ctx)
 
 class RaceView(LoginRequiredMixin, View):
    def get(self, request, id):

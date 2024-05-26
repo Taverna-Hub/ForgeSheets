@@ -94,3 +94,32 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+const titleError = document.getElementById('titleError');
+
+if (titleError) {
+  if (modalTitle.style.display === 'block') {
+    modalTitle.style.display = 'none';
+  } else {
+    modalTitle.style.display = 'block';
+  }
+}
+
+const imageError = document.getElementById('imageError');
+
+if (imageError) {
+  if (modalImage.style.display === 'block') {
+    modalImage.style.display = 'none';
+  } else {
+    modalImage.style.display = 'block';
+  }
+}
+
+const descriptionError = document.getElementById('descriptionError');
+
+if (descriptionError) {
+  if (modalDescription.style.display === 'block') {
+    modalDescription.style.display = 'none';
+  } else {
+    modalDescription.style.display = 'block';
+  }
+}

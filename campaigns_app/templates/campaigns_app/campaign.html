@@ -49,6 +49,14 @@
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <input type="text" id="new-title" name="new-title" value="{{campaign.title}}">
+                {% if titleError %}
+                    {% for message in messages %}
+                    <span id="titleError">
+                        <i data-lucide="octagon-alert"></i>
+                        {{ message }}
+                    </span>
+                    {% endfor %}
+                {% endif %}
                 <input type="submit" value="Editar">
             </form>
         </div>
@@ -61,6 +69,14 @@
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <textarea id="new-description" name="new-description">{{campaign.description}}</textarea>
+                {% if descriptionError %}
+                    {% for message in messages %}
+                    <span id="descriptionError">
+                        <i data-lucide="octagon-alert"></i>
+                        {{ message }}
+                    </span>
+                    {% endfor %}
+                {% endif %}
                 <input type="submit" value="Editar">
             </form>
         </div>
@@ -73,6 +89,14 @@
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <input type="text" name="new-image" id="image" value="{{campaign.image}}">
+                {% if imageError %}
+                    {% for message in messages %}
+                    <span id="imageError">
+                        <i data-lucide="octagon-alert"></i>
+                        {{ message }}
+                    </span>
+                    {% endfor %}
+                {% endif %}
                 <input type="submit" value="Editar">
             </form>
         </div>
