@@ -1,4 +1,5 @@
 from os import error, name
+from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views import View
@@ -16,7 +17,6 @@ class CampaignsView(LoginRequiredMixin, View):
          'app_name': 'campaign'
       }
       return render(request, 'campaigns_app/campaigns.html', ctx)
-
 
 class CreateCampaignView(LoginRequiredMixin, View):
    def get(self, request):
@@ -60,9 +60,32 @@ class CampaignView(LoginRequiredMixin, View):
 
       return render(request, 'campaigns_app/campaign.html', ctx)
 
-#class UpdateCampaignView(LoginRequiredMixin, View):
-#class DeleteCampaignView(LoginRequiredMixin, View):
-      pass
+   def post(self, request, id):
+      campaign = get_object_or_404(Campaign, id=id)
+      
+      newTitle = request.POST.get('new-title')
+      newDescription = request.POST.get('new-description')
+      newImage = request.POST.get('new-image')
+
+      if 'delete' in request.POST:
+         campaign.delete()
+         return redirect('campaigns:campaigns')
+
+      if newTitle:
+         campaign.title = newTitle
+      elif newDescription:
+         campaign.description = newDescription
+      elif newImage:
+         campaign.image = newImage
+
+      campaign.save()
+
+      ctx = {
+         'campaign': campaign,
+         'app_name': 'campaign'
+      }
+
+      return redirect('campaigns:view_campaign', id=id)
 
 class RaceView(LoginRequiredMixin, View):
    def get(self, request, id):

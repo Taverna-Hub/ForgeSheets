@@ -10,6 +10,3 @@ function openChooseSheetModal() {
 function closeChooseSheetModal() {
   chooseSheetModal.style.display = "none";
 }
-
-closeChooseSheetModalBtn?.addEventListener('click', () => closeChooseSheetModal());
-createSheetBtn?.addEventListener('click', () => openChooseSheetModal());

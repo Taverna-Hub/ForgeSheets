@@ -2,41 +2,98 @@
 {% load static %}
 
 {% block 'head' %}
-    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
-    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-    <title>Visualizar Campanha - ForgeSheets</title>
+<link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
+<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+<title>Visualizar Campanha - ForgeSheets</title>
 {% endblock 'head' %}
 
 {% block 'body' %}
-
-    <section class="campaignContainer">
-        <div class="campaignImage" style="background-image: url('{{campaign.image}}')">
-            <h1 class="campaignName">{{ campaign.title }}</h1>
-            <div class="campaignCode">
-                <div class="lottieAnimation hide"></div>
-                <span class="code"> {{ campaign.code }} </span>
-                <button type="button" class="copyCode">
-                    <i data-lucide="copy"></i>
-                </button>
-            </div>
+<section class="campaignContainer">
+    <div class="campaignImage" style="background-image: url('{{campaign.image}}')">
+        <h1 class="campaignName">{{ campaign.title }}</h1>
+        <div class="campaignCode">
+            <div class="lottieAnimation hide"></div>
+            <span class="code">{{ campaign.code }}</span>
+            <button type="button" class="copyCode">
+                <i data-lucide="copy"></i>
+            </button>
         </div>
-        <div class="buttons">
-            <a href="{% url 'campaigns:races' campaign.id %}" class="button">Gerenciar Raças</a>
-            <a href="{% url 'campaigns:campaign_classes' campaign.id %}" class="button">Gerenciar Classes</a>
-            <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+    </div>
+    <div class="buttons">
+        <a href="{% url 'campaigns:races' campaign.id %}" class="button">Gerenciar Raças</a>
+        <a href="{% url 'campaigns:campaign_classes' campaign.id %}" class="button">Gerenciar Classes</a>
+        <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
+            <circle cx="12" cy="12" r="1"/>
+            <circle cx="12" cy="5" r="1"/>
+            <circle cx="12" cy="19" r="1"/>
+        </svg>
+        <div class="dropdown-menu hide">
+            <a href="#" class="dropdown-item" id="edit-title">Editar título</a>
+            <a href="#" class="dropdown-item" id="edit-description">Editar descrição</a>
+            <a href="#" class="dropdown-item" id="edit-image">Editar imagem</a>
+            <a href="#" class="dropdown-item" id="edit-delete">Excluir campanha</a>
         </div>
-        <div class="sheets">
-
-            {% for sheet in sheets %}
-                <div class="sheetCard">
-                    {% comment %} <p>{{sheet.name}}</p> {% endcomment %}
-                </div>
-            {% endfor %}
-
+    </div>
+    <div class="sheets">
+        {% for sheet in sheets %}
+        <div class="sheetCard">
+            {% comment %} <p>{{sheet.name}}</p> {% endcomment %}
         </div>
+        {% endfor %}
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="{% static 'campaigns_app/js/campaign.js' %}"></script>
-    </section>
+    <div id="modal-title" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modal-title">&times;</span>
+            <h2>Editar Título</h2>
+            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                {% csrf_token %}
+                <input type="text" id="new-title" name="new-title" value="{{campaign.title}}">
+                <input type="submit" value="Editar">
+            </form>
+        </div>
+    </div>
+    
+    <div id="modal-description" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modal-description">&times;</span>
+            <h2>Editar Descrição</h2>
+            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                {% csrf_token %}
+                <textarea id="new-description" name="new-description">{{campaign.description}}</textarea>
+                <input type="submit" value="Editar">
+            </form>
+        </div>
+    </div>
+    
+    <div id="modal-image" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modal-image">&times;</span>
+            <h2>Editar Imagem</h2>
+            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                {% csrf_token %}
+                <input type="text" name="new-image" id="image" value="{{campaign.image}}">
+                <input type="submit" value="Editar">
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-delete" class="modal">
+        <div class="modal-content">
+            <span class="close" data-modal="modal-delete">&times;</span>
+            <h2>Tem certeza que deseja excluir a campanha?</h2>
+            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                {% csrf_token %}
+                <button>Cancelar</button>
+                <input type="hidden" name="delete">
+                <button type="submit">Excluir</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'campaigns_app/js/campaign.js' %}"></script>
+</section>
+
 {% include "dice.html" %}
 {% endblock 'body' %}
