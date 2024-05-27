@@ -55,7 +55,16 @@
 </section>
 
 <section class="classList">
-    <h1>Classes | {{campaign.title}}</h1>
+  
+    <div class="sideBySide">
+      <a href="{% url 'campaigns:view_campaign' campaign.id %}" class="back">
+        <i data-lucide="circle-arrow-left"></i>
+      </a>
+      <h1>
+        Classes | {{campaign.title}}
+      </h1>
+    </div>
+
     <div class="classTable">
         <div>
             <h3>Classes</h3>
