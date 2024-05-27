@@ -59,7 +59,14 @@
 </section>
 
 <section class="raceList">
-    <h1>Raças | {{campaign.title}}</h1>
+    <div class="sideBySide">
+        <a href="{% url 'campaigns:view_campaign' campaign.id %}" class="back">
+          <i data-lucide="circle-arrow-left"></i>
+        </a>
+        <h1>
+            Raças | {{campaign.title}}
+        </h1>
+      </div>
     <div class="raceTable">
         <div>
             <h3>Raças</h3>
