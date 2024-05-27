@@ -44,8 +44,10 @@
 
     <div id="modal-title" class="modal">
         <div class="modal-content">
-            <span class="close" data-modal="modal-title">&times;</span>
-            <h2>Editar Título</h2>
+            <div class="closeH2">
+                <h2>Editar título</h2>
+                <span class="close" data-modal="modal-title">&times;</span>
+            </div>
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <input type="text" id="new-title" name="new-title" value="{{campaign.title}}">
@@ -57,15 +59,17 @@
                     </span>
                     {% endfor %}
                 {% endif %}
-                <input type="submit" value="Editar">
+                <input type="submit" value="Editar" class="submitInput">
             </form>
         </div>
     </div>
     
     <div id="modal-description" class="modal">
         <div class="modal-content">
-            <span class="close" data-modal="modal-description">&times;</span>
-            <h2>Editar Descrição</h2>
+            <div class="closeH2">
+                <h2>Editar descrição</h2>
+                <span class="close" data-modal="modal-description">&times;</span>
+            </div>
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <textarea id="new-description" name="new-description">{{campaign.description}}</textarea>
@@ -77,15 +81,17 @@
                     </span>
                     {% endfor %}
                 {% endif %}
-                <input type="submit" value="Editar">
+                <input type="submit" value="Editar" class="submitInput">
             </form>
         </div>
     </div>
     
     <div id="modal-image" class="modal">
         <div class="modal-content">
-            <span class="close" data-modal="modal-image">&times;</span>
-            <h2>Editar Imagem</h2>
+            <div class="closeH2">
+                <h2>Editar imagem</h2>
+                <span class="close" data-modal="modal-image">&times;</span>
+            </div>
             <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
                 {% csrf_token %}
                 <input type="text" name="new-image" id="image" value="{{campaign.image}}">
@@ -97,21 +103,23 @@
                     </span>
                     {% endfor %}
                 {% endif %}
-                <input type="submit" value="Editar">
+                <input type="submit" value="Editar" class="submitInput">
             </form>
         </div>
     </div>
 
     <div id="modal-delete" class="modal">
         <div class="modal-content">
-            <span class="close" data-modal="modal-delete">&times;</span>
             <h2>Tem certeza que deseja excluir a campanha?</h2>
-            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
-                {% csrf_token %}
-                <button>Cancelar</button>
-                <input type="hidden" name="delete">
-                <button type="submit">Excluir</button>
-            </form>
+            <p>Todas as fichas vinculadas serão perdidas</p>
+            <div id="delete-form">
+                <button id="delete-close" class="close" data-modal="modal-delete">Cancelar</button>
+                <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="delete">
+                    <button type="submit" id="submit-delete">Excluir</button>
+                </form>
+            </div>
         </div>
     </div>
 
