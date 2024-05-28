@@ -29,11 +29,27 @@ class SheetsView(LoginRequiredMixin, View):
     def post(self, request):
         campaign_code = request.POST.get("code")
 
-        url = reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code})
-        
-        return redirect(url)
+        if not campaign_code.strip():
+            sheets_view = Sheet.objects.filter(user_id=request.user.id)
 
+            for sheet in sheets_view:
+                sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
+                sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
+
+            ctx = {
+                'sheets_view': sheets_view,
+                'app_name': 'sheets',
+                'user': request.user,
+                "error": {
+                    "message": "O campo de código não pode ser vazio!"
+                }
+            }
         
+            return render(request, 'sheets_app/sheets.html', ctx)
+            
+        
+        return redirect(reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code}))
+     
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {

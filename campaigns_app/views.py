@@ -55,6 +55,10 @@ class CampaignView(LoginRequiredMixin, View):
       campaign = get_object_or_404(Campaign, id=id)
       sheets = Sheet.objects.filter(campaign_id=campaign.id)
 
+      for sheet in sheets:
+         sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
+         sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
+
       ctx = {
          'campaign': campaign,
          'sheets': sheets,
