@@ -1,10 +1,9 @@
-Cypress.Commands.add('removeDatabase', () => {
-    cy.exec('rm ./db.sqlite3')
-    cy.exec('python3 manage.py migrate')
-})
+Cypress.Commands.add('deleteAllUsers', () => {
+    cy.exec('python delete_users.py', { failOnNonZeroExit: false })
+});
 
 Cypress.Commands.add('registerLogin', () => {
-    cy.removeDatabase()
+    cy.deleteAllUsers()
 
     cy.get('.registerAnchor').click()
     cy.get('#cadastrinho > form > #user').type('rolldice')
@@ -21,8 +20,8 @@ Cypress.Commands.add('registerLogin', () => {
 describe('rolling dices', () => {
     it('successful dice roll', () =>{
         cy.visit('/');
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
 
         cy.get('.registerAnchor').click()
         cy.get('#cadastrinho > form > #user').type('rolldice')
