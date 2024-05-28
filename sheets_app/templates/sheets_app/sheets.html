@@ -20,9 +20,9 @@
                 <h2>Criar ficha em uma campanha</h2>
                 <div>
                     <label for="code">Código da campanha</label>
-                    <input type="text" name="code" placeholder="Insira o código">
+                    <input type="text" name="code" placeholder="Insira o código" value={{campaign.id}}>
                 </div>
-                <a href="#" type="button">
+                <a href="{% url 'sheets:create_sheetsInCampaign' 'jaa8oR74' %}" type="button">
                     Criar ficha
                 </a>
             </div>

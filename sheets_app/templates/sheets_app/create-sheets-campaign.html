@@ -1,0 +1,544 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-sheets.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-equipment.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-magic.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/create-image.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Criar ficha - ForgeSheets</title>
+{% endblock %}
+
+{% block 'body' %}
+
+<input type="hidden" id="context" data-errors="{{ errors }}" data-magics="{{ magics }}">
+
+<section class="magicModal">
+    <div class="modal">
+        <h2>Adicionar Magia/Habilidades</h2>
+        <form>
+            {%csrf_token%}
+            <div class="magicName">
+                <label for="nameMagic">Nome da magia:</label>
+                <input type="text" name="nameMagic">
+            </div>
+
+            <div class="magicDescription">
+                <label for="descriptionMagic">Descrição:</label>
+                <textarea name="descriptionMagic" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="magicDamage">
+                <label for="damageMagic">Dano:</label>
+                <input type="text" name="damageMagic">
+            </div>
+
+            <div class="sideBySide">
+                <div class="magicAttribute">
+                    <label for="attributeMagic">Atributo modificador:</label>
+                    <select name="attributeMagic">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="magicElement">
+                    <label for="elementMagic">Elemento da magia: </label>
+                    <input type="text" name="elementMagic">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="closeMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addMagicBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="editMagicModal">
+    <div class="modal">
+        <h2>Editar Magia/Habilidades</h2>
+        <form>
+            {%csrf_token%}
+            <div class="editMagicName">
+                <label for="nameMagicEdit">Nome da magia:</label>
+                <input type="text" name="nameMagicEdit">
+            </div>
+
+            <div class="editMagicDescription">
+                <label for="descriptionMagicEdit">Descrição:</label>
+                <textarea name="descriptionMagicEdit" id="" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="editMagicDamage">
+                    <label for="damageMagicEdit">Dano: </label>
+                    <input type="text" name="damageMagicEdit">
+            </div>
+
+            <div class="sideBySide">
+                <div class="editMagicAttribute">
+                    <label for="attributeMagicEdit">Atributo modificador:</label>
+                    <select name="attributeMagicEdit">
+                        <option value="">Selecione</option>
+                        <option value="Força">Força</option>
+                        <option value="Inteligência">Inteligência</option>
+                        <option value="Sabedoria">Sabedoria</option>
+                        <option value="Carisma">Carisma</option>
+                        <option value="Constituição">Constituição</option>
+                        <option value="Velocidade">Velocidade</option>
+                    </select>
+                </div>
+
+                <div class="editMagicElement">
+                    <label for="elementMagicEdit">Elemento da magia: </label>
+                    <input type="text" name="elementMagicEdit">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="closeEditMagicModalBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="saveMagicBtn">
+                    Salvar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="equipmentModal">
+    <div class="modal">
+        <h2>Adicionar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="equipmentName">
+                <label for="createEquipmentName">Nome do equipamento:</label>
+                <input type="text" name="createEquipmentName" value="{{equipmentName}}">
+                {% for error in errors %}
+                {% if error.field == 'name'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="equipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                {%if quantity %}
+                <input type="number" name="quantity" value="{{quantity}}">
+                {%else%}
+                <input type="number" name="quantity" value=1>
+                {% endif %}
+                {% for error in errors %}
+                {% if error.field == 'quantity'%}
+                <span>
+                    <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                </span>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="sideBySide">
+                <div class="equipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    {% if attack%}
+                    <input type="number" name="attack" value="{{attack}}">
+                    {%else%}
+                    <input type="number" name="attack" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'attack'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+
+                <div class="equipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    {%if defense%}
+                    <input type="number" name="defense" value="{{defense}}">
+                    {%else%}
+                    <input type="number" name="defense" value=0>
+                    {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'defense'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addEquipmentBtn">
+                    Criar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="editEquipmentModal">
+    <div class="modal">
+        <h2>Editar Equipamento</h2>
+        <form>
+            {%csrf_token%}
+            <div class="editEquipmentName">
+                <label for="name">Nome do equipamento:</label>
+                <input type="text" name="editName">
+            </div>
+
+            <div class="editEquipmentQuantity">
+                <label for="quantity">Quantidade:</label>
+                <input type="number" name="editQuantity">
+            </div>
+
+            <div class="sideBySide">
+                <div class="editEquipmentAttack">
+                    <label for="attack">Pontos de ataque:</label>
+                    <input type="number" name="editAttack">
+                </div>
+
+                <div class="editEquipmentDefense">
+                    <label for="defense">Pontos de defesa:</label>
+                    <input type="number" name="editDefense">
+                </div>
+            </div>
+
+            <p>
+                Caso seu item não influenciar nos pontos de Ataque e/ou Defesa
+                do personagem, deixe um 0 nos campos.
+            </p>
+
+            <div class="actions">
+                <button type="button" id="closeEditEquipmentBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="editEquipmentBtn">
+                    Editar
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="imageModal">
+    <div class="modal">
+        <h2>Adicionar Imagem</h2>
+        <form>
+            {%csrf_token%}
+            <div class="imageInput">
+                <label for="image">URL da foto: </label>
+                <input type="url" class="image" name="image">
+                {% for error in errors %}
+                {% if error.field == 'image'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                {% endif %}
+                {% endfor %}
+            
+            </div>
+            <div class="actions">
+                <button type="button" id="closeImageBtn">
+                    Cancelar
+                </button>
+                <button type="button" id="addImageBtn">
+                    Adicionar
+                </button>
+            </div>
+        </form>
+        
+    </div>
+    
+</section>
+
+<section class="mainSheet">
+    <section class="sheet">
+        <form action="{% url 'sheets:create_sheetsInCampaign' id %}" method="post" onsubmit="disableButton()">
+            {% csrf_token %}
+            <section class="sheetHeader">
+                <div>
+                    <label for="name">Nome: </label>
+                    <input type="text" name="name" id="" value="{{name}}">
+                    {% for error in errors %}
+                        {% if error.field == 'name'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+                <div>
+                    <label for="race">Raça: </label>
+                    <select name="race" id="race">
+                        <option value=" " selected disabled>Selecione uma raça</option>
+                        
+                        {% for campaign_race in races %}
+                            <option value="{{campaign_race.name}}" {% if race == campaign_race.name %} selected {% endif %}> {{campaign_race.name}}</option>
+                        {% endfor %}
+                    </select>
+                    {% for error in errors %}
+                        {% if error.field == 'race'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+                <div>
+                    <label for="class">Classe: </label>
+                    <select name="role" id="class">
+                        <option value=" " selected disabled>Selecione uma classe</option>
+                        
+                        {% for campaign_class in classes %}
+                            <option value="{{campaign_class.name}}" {% if role == campaign_class.name %} selected {% endif %} > {{campaign_class.name}}</option>
+                        {% endfor %}
+                    </select>
+                    {% for error in errors %}
+                        {% if error.field == 'role'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </section>
+
+            <div class="sheetSideBySide"> 
+                    <section class="atributos">
+                        <div class="atributosInputs">
+                            <div>
+                                <label for="strength">Força: </label>
+                                <input type="number" name="strength" id="strength" value="{{strength}}">
+                            </div>
+                            <div>
+                                <label for="intelligence">Inteligência: </label>
+                                <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                            </div>
+                            <div>
+                                <label for="wisdom">Sabedoria: </label>
+                                <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                            </div>
+                            <div>
+                                <label for="charisma">Carisma: </label>
+                                <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                            </div>
+                            <div>
+                                <label for="constitution">Constituição: </label>
+                                <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                            </div>
+                            <div>
+                                <label for="speed">Velocidade: </label>
+                                <input type="number" name="speed" id="speed" value="{{speed}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes1'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+                <div class="under">
+                    <section class="add-image">
+                        <div class="add_image_div">
+                            <input type="hidden" name="image" class="imageInputCircle" value="{{image}}" >  
+                            <button type="button" class="openImageBtn">
+                            {% if image %}
+                                <img src="{{ image }}" alt="Imagem" class="selectedImage">
+                            {% else %}
+                                <i data-lucide="arrow-up-from-line" width="120" height="120" stroke-width="1.5px"></i>
+                            {% endif %}
+                            </button>
+                        </div>
+                    </section>
+                
+                    <section class="status">
+                        <div class="statusInputs">
+                            <div>
+                                <label for="healthPointMax">Vida: </label>
+                                <input type="number" name="healthPointMax" id="healthPointMax" value="{{healthPointMax}}">
+                            </div>
+
+                            <div>
+                                <label for="manaMax">Mana: </label>
+                                <input type="number" name="manaMax" id="manaMax" value="{{manaMax}}">
+                            </div>
+
+                            <div>
+                                <label for="exp">XP: </label>
+                                <input type="number" name="exp" id="exp" value="{{exp}}">
+                            </div>
+                            {% for error in errors %}
+                            {% if error.field == 'atributes2'%}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </section>
+
+
+                </div>
+
+            </div>
+            
+            <div class="sheetSideBySide"> 
+                <section class="magics">
+                    <div class="header">
+                        <p>Magias</p>
+                        <button type="button" class="openMagicModalBtn">
+                            <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                        </button>
+                    </div>
+    
+                     <div class="magicListContainer">
+                         <ul class="magicList">
+                             {% for magic in magics %}
+                                <li>
+                                    <div>
+                                        <input type="hidden" name="mgcName" value="{{magic.name}}" />
+                                        <input type="hidden" name="mgcDesc" value="{{magic.description}}" />
+                                        <input type="hidden" name="mgcElement" value="{{magic.element}}" />
+                                        <input type="hidden" name="mgcDamage" value="{{magic.damage}}" />
+                                        <input type="hidden" name="mgcAttribute" value="{{magic.attribute}}" />
+                                    </div>
+                                    {{ magic.name }}
+                                    {% if magic.damage %}
+                                        | {{ magic.damage }}
+                                    {% endif %}
+                                    {% if magic.element %}
+                                        | {{ magic.element }}
+                                    {% endif %}
+                                    <button type="button" class="removeMagic" onclick="handleDeleteMagic(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                    </button>
+
+                                    <button type="button" class="editMagic" onclick="handleGetEditMagicInfo(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    </button>
+                                </li>
+                             {% endfor %}
+                         </ul>
+                     </div>
+                 </section>
+ 
+                <section class="equipamentos">
+                   <div class="header">
+                        <p>Equipamentos</p>
+                        <button type="button" class="openEquipmentBtn">
+                            <i data-lucide="plus" width="32" height="32" stroke-width="1.5px"></i>
+                        </button>
+                   </div>
+
+                    <div class="equipmentsListContainer">
+                        <ul class="equipmentList">
+                            {% for equipment in equipments %}
+                                <li>
+                                    <div>
+                                    <input type="hidden" name="equipmentName" value="{{equipment.name}}" />
+                                    <input type="hidden" name="equipmentQnt" value="{{equipment.quantity}}" />
+                                    <input type="hidden" name="equipmentAtk" value="{{equipment.attack}}" />
+                                    <input type="hidden" name="equipmentDef" value="{{equipment.defense}}" />
+                                    </div>
+                                    {% if equipment.attack %}
+                                        {% if equipment.defense %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}} | Def: {{equipment.defense}}
+                                        {% else  %}
+                                            {{equipment.quantity}}x {{equipment.name}} - Atk: {{equipment.attack}}
+                                        {% endif %}
+                                    {% elif equipment.defense %}
+                                        {{equipment.quantity}}x {{equipment.name}} - Def: {{equipment.defense}}
+                                    {% else %}
+                                        {{equipment.quantity}}x {{equipment.name}}
+                                    {% endif %}
+                                    <button type="button" class="editEquipment">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                                    </button>
+                                    <button type="button" class="removeEquipment">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+                                    </button>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </section> 
+            </div>
+            
+            <section class="description">
+                <label for="description">Anotações: </label>
+                <textarea name="description" id="description">{{description}}</textarea>
+                {% for error in errors %}
+                    {% if error.field == 'description'%}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
+            </section> 
+
+            <div class="createSheetActions">
+                <button type="button">
+                    <a href="{% url 'sheets:homesheets' %}">Cancelar</a>
+                </button>
+                <script>
+                    function disableButton() {
+                        const button = document.getElementById("submit_button");
+                        button.disabled = true;
+                    }
+                </script>
+                <button type="submit" id="submit_button">Criar</button>
+            </div>
+        </form>
+    </section>
+</section>
+
+{% include "dice.html" %}
+
+<script src="{% static 'sheets_app/js/equipment.js' %}"></script>
+<script src="{% static 'sheets_app/js/image.js' %}"></script>
+<script src="{% static 'sheets_app/js/magic.js' %}"></script>
+{% endblock %}
