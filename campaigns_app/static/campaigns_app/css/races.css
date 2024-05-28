@@ -95,3 +95,18 @@ tbody td:nth-child(2) {
     align-items: center;
     gap: 16px;
 }
+
+a {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .back {
+    padding: 2px;
+    margin-right: 10px;
+  }
+  
+  .sideBySide{
+    display: flex;
+  }
+  

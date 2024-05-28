@@ -3,11 +3,16 @@ from .models import Campaign
 from campaigns_app.models import Race
 import re
 
-def save_campaign(image, title, description, user_id):
-  image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
+def save_campaign(image, title, description, user_id, edit):
+  image_treated = re.match(r"https?://\S+?\.(?:png|jpe?g|gif|bmp|tiff|webp|svg|ico)(?:\?\S*)?(?:#\S*)?(?=\s|$)", image)
   title_treated = title.strip()
   wrong_fields = []
 
+  if len(image) == image.count(" "):
+    wrong_fields.append({
+          'field': 'image',
+          'message': 'Este campo não pode ser vazio'
+        })
   if image.strip():
     if not image_treated:
         wrong_fields.append({
@@ -17,7 +22,7 @@ def save_campaign(image, title, description, user_id):
     elif len(str(image)) > 200:
             wrong_fields.append({
                     'field': 'image',
-                    'message': 'A URL deve ter no maximo 200 caracteres!'
+                    'message': 'A URL deve ter no maximo 200 caracteres'
                 })
   
   if not title_treated:
@@ -28,24 +33,34 @@ def save_campaign(image, title, description, user_id):
   elif len(title) > 70:
     wrong_fields.append({
       'field': 'title',
-      'message': 'Este campo deve ter menos de 70 caractéres'
+      'message': 'Este campo deve ter menos de 70 caracteres'
     })
   elif len(title) < 2:
     wrong_fields.append({
       'field': 'title',
-      'message': 'Este campo deve ter mais de 2 caractéres'
+      'message': 'Este campo deve ter mais de 2 caracteres'
     })
   if len(description) > 200:
     wrong_fields.append({
       'field': 'description',
-      'message': 'Este campo deve ter menos de 200 caractéres'
+      'message': 'Este campo deve ter menos de 200 caracteres'
     })
   if len(wrong_fields) > 0:
     return wrong_fields
 
-  campaign = Campaign(image=image, title=title, description=description, user_id=user_id)
-  campaign.save()
-  
+  if edit == 0:
+    campaign = Campaign(image=image, title=title, description=description, user_id=user_id)
+    campaign.save()
+  else:
+    campaign = Campaign.objects.filter(id=edit).first()
+
+    campaign.title = title
+    campaign.description = description
+    campaign.image = image
+
+    campaign.save()
+    return 1
+
 def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff):
   buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
   name_treated = name.strip()
