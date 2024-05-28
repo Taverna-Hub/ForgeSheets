@@ -5,7 +5,7 @@ from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
 from campaigns_app.models import Class, Race, Campaign
-from .utils import save_equipment, save_sheet, sheet_update
+from .utils import save_equipment, save_sheet, save_sheet_in_campaign, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -25,7 +25,15 @@ class SheetsView(LoginRequiredMixin, View):
         }
         
         return render(request, 'sheets_app/sheets.html', ctx)
+    
+    def post(self, request):
+        campaign_code = request.POST.get("code")
 
+        url = reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code})
+        
+        return redirect(url)
+
+        
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {
@@ -386,8 +394,7 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
             'id': campaign.id,
             'title': campaign.title,
             'races': races,
-            'classes': classes
-            
+            'classes': classes       
         }
         return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
     
@@ -429,7 +436,7 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         equipment_list = []
         magic_list = []
 
-        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        errors = save_sheet_in_campaign(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description, campaign.id)
         if errors:
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
             atributos2 = ['healthPointMax', 'manaMax', 'exp']
