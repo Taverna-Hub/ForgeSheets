@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
+from campaigns_app.models import Class, Race, Campaign
 from .utils import save_equipment, save_sheet, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -374,8 +375,122 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             return render(request, 'sheets_app/view-sheet.html', ctx)   
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
+    # def get(self, request, id):
+    #     return render(request, 'sheets_app/create-sheets.html')
     def get(self, request, id):
-        return render(request, 'sheets_app/create-sheets.html')
+        campaign = Campaign.objects.get(code=id)
+        races = Race.objects.filter(campaign_id=campaign.id)
+        classes = Class.objects.filter(campaign_id=campaign.id)
+
+        ctx = {
+            'app_name': 'sheets',
+            'id': campaign.id,
+            'races': races,
+            'classes': classes
+            
+        }
+        return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
+    
+    def post(self, request, id):
+        campaign = Campaign.objects.get(id=id)
+        races = Race.objects.filter(campaign_id=campaign.id)
+        classes = Class.objects.filter(campaign_id=campaign.id)
+
+        name = request.POST.get('name')
+        image = request.POST.get('image')
+        race = request.POST.get('race', " ")
+        role = request.POST.get('role', " ")
+
+        strength = request.POST.get('strength')
+        intelligence = request.POST.get('intelligence')
+        wisdom = request.POST.get('wisdom')
+        charisma = request.POST.get('charisma')
+        constitution = request.POST.get('constitution')
+        speed = request.POST.get('speed')
+
+        healthPointMax = request.POST.get('healthPointMax')
+        manaMax = request.POST.get('manaMax')
+        exp = request.POST.get('exp')
+
+        description = request.POST.get('description')
+
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
+
+        magicName = request.POST.getlist('mgcName')
+        magicDescription = request.POST.getlist('mgcDesc')
+        magicDamage = request.POST.getlist('mgcDamage')
+        atributeModifier = request.POST.getlist('mgcAttribute')
+        element = request.POST.getlist('mgcElement')
+        user_id = request.user.id
+
+        equipment_list = []
+        magic_list = []
+
+        errors = save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description)
+        if errors:
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': errors,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'id': campaign.id,
+                    'races': races,
+                    'classes': classes
+                }
+                if 'name' not in errors:
+                    ctx['name'] = name
+                if 'image' not in errors:
+                    ctx['image'] = image
+                if 'race' not in errors:
+                    ctx['race'] = race
+                if 'role' not in errors:
+                    ctx['role'] = role
+                if 'description' not in errors:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                        
+                if errors:
+                    print("Errors: ", errors)
+                return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
+            
+        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
+            equipment.save()       
+        
+        for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+            magic.save()
+        return redirect('sheets:homesheets')
 
 class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, id):
