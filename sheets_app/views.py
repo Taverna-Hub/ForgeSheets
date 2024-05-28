@@ -430,6 +430,12 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         race = request.POST.get('race', " ")
         role = request.POST.get('role', " ")
 
+        race_used = Race.objects.filter(campaign_id=campaign.id, name=race).first()
+        race_used.is_used += 1     
+
+        role_used = Class.objects.filter(campaign_id=campaign.id, name=role).first()
+        role_used.is_used += 1        
+
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
         wisdom = request.POST.get('wisdom')
@@ -519,11 +525,27 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
             magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
             magic.save()
+
+        race_used.save()
+        role_used.save()
         return redirect('sheets:homesheets')
 
 class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, id):
         sheet = get_object_or_404(Sheet, pk=id, user=request.user)
+
+        if sheet.campaign:
+            campaign = sheet.campaign
+            
+            race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
+            race_used.is_used -= 1     
+
+            role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
+            role_used.is_used -= 1   
+
+            race_used.save()
+            role_used.save()
+
         sheet.delete()
         return redirect('sheets:homesheets')
 
