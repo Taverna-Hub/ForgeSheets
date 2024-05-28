@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block 'body' %}
-<section class="chooseSheetModal">
+<section {% if error %}  class="chooseSheetModal active" {% else %}  class="chooseSheetModal" {% endif %}>
     <div class="modal">
         <button type="button" id="closeChooseSheet">
             <i data-lucide="x"></i>
@@ -18,13 +18,22 @@
         <div class="container">
             <div>
                 <h2>Criar ficha em uma campanha</h2>
-                <div>
-                    <label for="code">Código da campanha</label>
-                    <input type="text" name="code" placeholder="Insira o código" value={{campaign.id}}>
-                </div>
-                <a href="{% url 'sheets:create_sheetsInCampaign' 'jaa8oR74' %}" type="button">
-                    Criar ficha
-                </a>
+                <form action="{% url 'sheets:homesheets' %}" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="code">Código da campanha</label>
+                        <input type="text" name="code" placeholder="Insira o código">
+                        {% if error %}
+                            <span>
+                                <i data-lucide="octagon-alert"></i>
+                                {{ error.message }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    <button type="submit">
+                        Criar ficha
+                    </button>
+                </form>
             </div>
             <div>
                 <h2>Criar ficha independente</h2>
@@ -37,32 +46,32 @@
 </section>
 
 {% for sheet in sheets_view %}
-<section class="deleteSheetModal">
-    <div class="modal">
-        <button type="button" id="closeDeleteSheet">
-            <i data-lucide="x"></i>
-        </button>
-        <div class="container">
-            <div>
-                <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
-                <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
-                <strong>Essa ação vai deletar a ficha permanentemente!</strong>
-                <br>
-                <form id="formDeleteSheet" method="POST" action="">
-                    {% csrf_token %}
-                    <button type="button" class="cancel">
-                        Cancelar
-                    </button>
+    <section class="deleteSheetModal">
+        <div class="modal">
+            <button type="button" id="closeDeleteSheet">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="container">
+                <div>
+                    <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
+                    <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
+                    <strong>Essa ação vai deletar a ficha permanentemente!</strong>
+                    <br>
+                    <form id="formDeleteSheet" method="POST" action="">
+                        {% csrf_token %}
+                        <button type="button" class="cancel">
+                            Cancelar
+                        </button>
 
-                    <button type="submit" class="delete">
-                            Excluir
-                    </button>
-                </form>
+                        <button type="submit" class="delete">
+                                Excluir
+                        </button>
+                    </form>
 
+                </div>
             </div>
         </div>
-    </div>
-</section> 
+    </section> 
 {%endfor%}
 
 <section class="listSheetsContainer">
@@ -75,13 +84,15 @@
         </button>
 
         {% for sheet in sheets_view%}
-        <div id="Card" class="sheetCard" style="{% if sheet.image %}
-        {% if sheet.hp == 0%}
-        backdrop-filter: grayscale(1);
-        {% endif %}
-        background-image: url({{ sheet.image }});
-        background-position: center;
-        {% endif %}">
+        <div id="Card" class="sheetCard" 
+            style="{% if sheet.image %}
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
+            background-image: url({{ sheet.image }});
+            background-position: center;
+            {% endif %}"
+        >
 
             <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
                     <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>

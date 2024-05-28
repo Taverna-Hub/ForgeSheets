@@ -179,12 +179,12 @@
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense'%}
-                    <span>
-                        <i data-lucide="octagon-alert"></i>
-                        {{ error.message }}
-                    </span>
-                    {% endif %}
+                        {% if error.field == 'defense'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -284,7 +284,8 @@
 
 <section class="mainSheet">
     <section class="sheet">
-        <form action="{% url 'sheets:create_sheetsInCampaign' id %}" method="post" onsubmit="disableButton()">
+        <h5 class="title">{{title}}</h5><br><br>
+        <form action="{% url 'sheets:create_sheet_in_campaign' id %}" method="post" onsubmit="disableButton()">
             {% csrf_token %}
             <section class="sheetHeader">
                 <div>

@@ -385,4 +385,20 @@ button {
   color: red;
 }
 
+.title{
+  color: var(--gray-600);
+  float: right;
+}
 
+select {
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 8px;
+  background: transparent;
+}
+
+select option:checked {
+  background-color: var(--red-600);
+  color: var(--white);
+}

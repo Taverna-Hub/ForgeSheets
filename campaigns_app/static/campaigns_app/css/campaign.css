@@ -12,6 +12,16 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat';
+}
+
+a {
+  text-decoration: none;
+}
   
 ::-webkit-scrollbar {
   width: 6px;
@@ -24,19 +34,13 @@
   border-radius: 6px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: 'Montserrat';
-}
-
 .campaignContainer {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
   z-index: 9;
   min-height: 100vh;
   height: 100%;
-  padding: 32px 64px;
+  padding: 32px;
   overflow-x: hidden;
   position: relative;
 }
@@ -303,6 +307,159 @@ form span {
 
 #submit-delete:hover {
   background-color: var(--gray-300) !important;
+}
+
+.campaignSheets {
+  display: grid;
+  grid-template-columns: repeat(4, 300px);
+  justify-content: space-between;
+
+  gap: 16px;
+  margin-top: calc(30vh + 80px);
+}
+
+.sheetCard {
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  width: 100%;
+  transition: all .3s;
+}
+
+.sheetCard > div {
+  width: 300px;
+  height: 200px;
+  padding: 24px;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.createSheet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px dashed var(--red-700);
+  cursor: pointer;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transition: all .3s;
+}
+
+.sheetCard h2 {
+  text-align: center;
+  color: var(--gray-300);
+}
+
+.deleteSheet{
+  position: absolute;
+  z-index: 9999999999;
+  right: 10px;
+  top: 10px;
+
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+
+.sheet_info {
+  margin-top: 24px;
+  width: 100%;
+}
+
+.sheet_info span {
+  color: var(--gray-200);
+  font-weight: 600;
+}
+
+.sheet_info p {
+  margin-top: 4px;
+  color: var(--white);
+  word-break: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.title {
+  padding-bottom: 20px;
+}
+
+.sideBySide {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px 0;
+  position: relative; /* Para posicionar corretamente o background-bar */
+}
+
+.background-bar {
+  background-color: rgba(187, 187, 187, 0.797); 
+  height: 4.8px;
+  width: 100%;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  z-index: -1;
+}
+.background-bar2 {
+  background-color: rgba(187, 187, 187, 0.797);
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  z-index: -1; 
+}
+
+.hp-bar, .mana-bar {
+  height: 5px;
+  position: relative; 
+}
+
+.hp-bar {
+  background-color: rgba(238, 67, 67, 0.8);
+  height: 4.8px;
+  margin-bottom: 15px;
+}
+
+.mana-bar {
+  background-color: rgba(86, 86, 227, 0.8);
+  height: 5px;
+}
+
+.sheetCard:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  filter: saturate(120%);
+  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
+}
+
+.detailLink {
+  width: 94%;
+  color: var(--white);
+  cursor: pointer;
 }
 
 @media (max-width: 800px) {

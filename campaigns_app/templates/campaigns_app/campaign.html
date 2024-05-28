@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
-<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Visualizar Campanha - ForgeSheets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Visualizar Campanha - ForgeSheets</title>
 {% endblock 'head' %}
 
 {% block 'body' %}
@@ -115,13 +115,61 @@
             <a href="#" class="dropdown-item" id="edit-delete">Excluir campanha</a>
         </div>
     </div>
-    <div class="sheets">
+    <section class="campaignSheets">
         {% for sheet in sheets %}
-        <div class="sheetCard">
-            {% comment %} <p>{{sheet.name}}</p> {% endcomment %}
-        </div>
+            <div id="Card" class="sheetCard" 
+                style="{% if sheet.image %}
+                {% if sheet.hp == 0%}
+                backdrop-filter: grayscale(1);
+                {% endif %}
+                background-image: url({{ sheet.image }});
+                background-position: center;
+                {% endif %}"
+            >
+
+                <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
+                        <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+                </button>
+
+                <div id="Card" style="{% if sheet.image %}
+                background-color: rgba(0,0,0,0.5);
+                backdrop-filter: blur(2px);
+                {% if sheet.hp == 0%}
+                backdrop-filter: grayscale(1);
+                {% endif %}
+                {% endif %}">
+
+                    <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
+                        <h2>{{sheet.name}}</h2>
+                        <div class="sheet_info">
+                            <div class="sideBySide">
+                                <p><b>Nível:</b></p>
+                                {% if sheet.level == 20 %}
+                                    <p>{{sheet.level}} (Nível Max.)</p>
+                                {% else %}
+                                    <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                                {% endif %}
+                            </div>
+                            <div class="sideBySide">
+                                <p><b>Raça:</b></p>
+                                <p>{{sheet.race}}</p>
+                            </div>
+                            <div class="sideBySide">
+                                <p><b>Classe:</b></p>
+                                <p>{{sheet.role}}</p>
+                            </div>
+                            <div class="bar">
+                                <div class="background-bar"></div>
+                                <div class="background-bar2"></div>
+                                <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
+                                <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
+                            </div>                        
+                        </div>
+                    </a>
+                </div>
+            </div>
         {% endfor %}
-    </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'campaigns_app/js/campaign.js' %}"></script>
