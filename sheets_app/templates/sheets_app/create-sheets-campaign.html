@@ -284,6 +284,7 @@
 
 <section class="mainSheet">
     <section class="sheet">
+        <h5 class="title">{{title}}</h5><br><br>
         <form action="{% url 'sheets:create_sheetsInCampaign' id %}" method="post" onsubmit="disableButton()">
             {% csrf_token %}
             <section class="sheetHeader">
