@@ -53,7 +53,7 @@
   transition: all .3s;
 }
 
-.sheetCard>div, .createSheet {
+.sheetCard > div, .createSheet {
   width: 300px;
   height: 200px;
   padding: 24px;
@@ -146,8 +146,6 @@
 .sideBySide {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-  
   width: 100%;
   gap: 16px;
 }
@@ -196,6 +194,20 @@
   height: 5px;
 }
 
+.sheetCard:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  filter: saturate(120%);
+  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
+}
+
+.detailLink{
+  width: 94%;
+  text-decoration: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
 
 @media (max-width: 1653px) {
   .cardList {
@@ -220,18 +232,4 @@
   .cardList {
     grid-template-columns: repeat(1, 1fr);
   }
-}
-
-.sheetCard:hover {
-  transform: translateY(-4px);
-  cursor: pointer;
-  filter: saturate(120%);
-  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
-}
-
-.detailLink{
-  width: 94%;
-  text-decoration: none;
-  color: var(--white);
-  cursor: pointer;
 }
