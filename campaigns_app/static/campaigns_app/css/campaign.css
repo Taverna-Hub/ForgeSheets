@@ -130,7 +130,7 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 40px; /* Ajuste conforme necessário */
+  top: 40px;
   right: 0;
   background: var(--gray-800);
   border: 1px solid var(--gray-700);
@@ -154,7 +154,7 @@
 }
 
 .dropdown-menu a {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .dropdown-item:hover {
@@ -176,26 +176,76 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(12px);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+form input, textarea {
+  margin: 20px 0px;
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+.submitInput {
+  background-color: var(--red-600);
+  color: var(--gray-200);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  transition: all .2s;
+}
+
+.submitInput:hover {
+  background-color: var(--red-700);
+}
+
+.modal h2 {
+  color: var(--gray-800);
 }
 
 .modal-content {
-  background-color: var(--gray-800);
+  background-color: var(--white);
   margin: 15% auto;
-  padding: 20px;
+  padding: 25px;
   border: 1px solid var(--gray-700);
   border-radius: 4px;
   width: 80%;
-  max-width: 500px;
+  max-width: 650px;
+  height: fit-content;
   color: var(--white);
 }
 
 .close {
   color: var(--gray-400);
   float: right;
-  font-size: 30px;
+  font-size: 40px;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.closeH2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#modal-delete > .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
 }
 
 form span {
@@ -203,7 +253,51 @@ form span {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 8px;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+#delete-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+
+#delete-form button {
+  color: var(--white);
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  margin: 0 10px;
+  margin-bottom: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  background-color: var(--red-600);
+  border-radius: 5px;
+  transition: all .2s;
+}
+
+#delete-form button:hover {
+  background-color: var(--red-700);
+}
+
+#modal-delete p {
+  color: var(--gray-800);
+  margin-top: 20px;
+}
+
+#submit-delete {
+  background-color: var(--gray-200) !important;
+  color: var(--gray-600) !important;
+  transition: all .2s;
+}
+
+#submit-delete:hover {
+  background-color: var(--gray-300) !important;
 }
 
 @media (max-width: 800px) {
