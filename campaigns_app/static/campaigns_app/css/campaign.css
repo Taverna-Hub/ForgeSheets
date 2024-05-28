@@ -72,8 +72,13 @@
 }
 
 .campaignCode span {
-  color: var(--gray-800);
+  color: var(--white);
   font-weight: bold;
+  background-color: rgba(31, 41, 55, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+ 
+  
 }
 
 .campaignCode button {
