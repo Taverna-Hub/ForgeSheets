@@ -383,8 +383,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             return render(request, 'sheets_app/view-sheet.html', ctx)   
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
-    # def get(self, request, id):
-    #     return render(request, 'sheets_app/create-sheets.html')
+  
     def get(self, request, id):
         campaign = Campaign.objects.get(code=id)
         races = Race.objects.filter(campaign_id=campaign.id)
@@ -393,6 +392,7 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         ctx = {
             'app_name': 'sheets',
             'id': campaign.id,
+            'title': campaign.title,
             'races': races,
             'classes': classes       
         }
