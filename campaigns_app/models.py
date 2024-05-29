@@ -4,10 +4,12 @@ from django.core.validators import MinValueValidator
 import shortuuid
 from utilities_app.models import Users
 
-#adicionar código de compartilhamento depois
+def generate_unique_code():
+    return shortuuid.ShortUUID().random(length=8)
 class Campaign(models.Model):
+    
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    code = models.CharField(max_length=8, default=shortuuid.ShortUUID().random(length=8), unique=True, editable=False)
+    code = models.CharField(max_length=8, default=generate_unique_code, unique=True, editable=False)
     image = models.URLField(null=True)
     title = models.CharField(max_length=75)
     description = models.TextField(default='', null=True)
