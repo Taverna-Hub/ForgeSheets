@@ -176,7 +176,7 @@ a {
   cursor: pointer;
 }
 
-.modal {
+.campaignModal {
   display: none;
   position: fixed;
   z-index: 1001;
@@ -220,7 +220,7 @@ textarea {
   background-color: var(--red-700);
 }
 
-.modal h2 {
+.campaignModal h2 {
   color: var(--gray-800);
 }
 
@@ -362,7 +362,7 @@ form span {
   color: var(--gray-300);
 }
 
-.deleteSheet{
+.menu {
   position: absolute;
   z-index: 9999999999;
   right: 10px;

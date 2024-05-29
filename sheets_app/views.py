@@ -539,9 +539,13 @@ class DeleteSheetView(LoginRequiredMixin, View):
             
             race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
             race_used.is_used -= 1     
+            if race_used.is_used < 0:     
+                race_used.is_used = 0     
 
             role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
             role_used.is_used -= 1   
+            if role_used.is_used < 0:     
+                role_used.is_used = 0     
 
             race_used.save()
             role_used.save()

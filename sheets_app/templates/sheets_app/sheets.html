@@ -53,9 +53,8 @@
             </button>
             <div class="container">
                 <div>
-                    <i data-lucide="triangle-alert" width="128" height="128" stroke-width="1.5px" color="#dc2626"></i>
-                    <h2>Você tem certeza que deseja excluir esta ficha? {{sheet.name}}</h2>
-                    <strong>Essa ação vai deletar a ficha permanentemente!</strong>
+                    <h2>Você tem certeza que deseja excluir a ficha <strong>{{sheet.name}}</strong>?</h2>
+                    <p>Essa ação vai deletar a ficha permanentemente!</p>
                     <br>
                     <form id="formDeleteSheet" method="POST" action="">
                         {% csrf_token %}
@@ -94,8 +93,8 @@
             {% endif %}"
         >
 
-            <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
-                    <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            <button type="button" class="menu">
+                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
             </button>
 
             <div id="Card" style="{% if sheet.image %}
@@ -133,6 +132,16 @@
                         </div>                        
                     </div>
                 </a>
+
+                <div class="dropdown-menu hide">
+                    <a 
+                        href="#" 
+                        class="dropdown-item deleteSheet" 
+                        data-url="{% url 'sheets:delete_sheet' sheet.id %}"
+                    >
+                        Excluir ficha
+                    </a>
+                </div>
             </div>
         </div>
        
