@@ -160,6 +160,16 @@
 
 ---
 
+# Entrega 04
+
+<p align="center" style="">
+  <a href="https://youtu.be/D7V9OTswqSA">
+    <img src="https://img.shields.io/badge/screencast dos protótipos-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
+  </a>
+</p>
+
+---
+
 ## 👥 Equipe
 <table>
 <tr>
