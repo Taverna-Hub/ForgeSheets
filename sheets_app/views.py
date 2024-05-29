@@ -151,10 +151,9 @@ class CreateSheetView(LoginRequiredMixin, View):
             magic.save()
         return redirect('sheets:homesheets')
 
-class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
+class EditSheetView(LoginRequiredMixin, View): 
     def get(self, request, id):
         user_id = request.user.id
-        
 
         sheet = get_object_or_404(Sheet, id=id)
         is_sheet_owner = (sheet.user_id == user_id)
@@ -190,9 +189,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         }
         if  image:
             ctx['image'] = image
-        #elif not image:
-        #   ctx['image'] = None
-        #print(image)
+
         if not magics:
             ctx['magics'] = None
         else:
@@ -248,8 +245,6 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         expMax = sheet.expMax
         expActual = sheet.exp
 
-        # if exp < xp:
-        #     errors.append()
         updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
         if not isinstance(updated, Sheet):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
@@ -298,10 +293,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                 if atributo not in updated:
                     valor = request.POST.get(atributo)
                     ctx[atributo] = valor
-            # for xp in experiencia:
-            #     if xp not in updated:
-            #         valor = request.POST.get(xp)
-            #         ctx[xp] = valor
+            
             return render(request, 'sheets_app/view-sheet.html', ctx)
 
         equipments = Equipment.objects.filter(sheet_id=sheet.id)
@@ -553,38 +545,8 @@ class DeleteSheetView(LoginRequiredMixin, View):
         sheet.delete()
         return redirect('sheets:homesheets')
 
-class AddEquipmentView(LoginRequiredMixin, View):
-
-    # TO DO: Tratar se um equipamento já existe
-    def get(self, request):
-        return render(request, 'sheets_app/create_equip.html')
-
-    def post(self, request):
-        name = (request.POST.get('name'))
-        quantity = int(request.POST.get('quantity'))
-        attack = int(request.POST.get('attack'))
-        defense = int(request.POST.get('defense'))
-        sheet = (request.POST.get('sheet'))
-
-        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), 1)
-
-        if addEquipmentFields != 1:
-            ctx = {
-                'errors': addEquipmentFields,
-                'app_name': 'sheets'
-            }
-        return render(request, 'sheets_app/create_equip.html', ctx)
-
-class ListEquipmentView(LoginRequiredMixin, View):
-    def get(self, request):
-        equipments = Equipment.objects.all()
-        ctx = {
-            'equipments': equipments
-        }
-        return render(request, 'sheets_app/testEquipment2.html', ctx)
     
 class EditEquipmentView(LoginRequiredMixin, View): 
-    # Editar equipamento na visualização de ficha
     def post(self, request, id):
         try:
             equipment = Equipment.objects.get(id=id)
@@ -602,8 +564,7 @@ class EditEquipmentView(LoginRequiredMixin, View):
             ctx = {
                 'errors': errors
             }
-            #messages.error('Erro ao editar equipamento')
-            print(errors)
+
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}), ctx)
         
         return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))
