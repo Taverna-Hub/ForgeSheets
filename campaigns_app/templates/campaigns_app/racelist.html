@@ -57,6 +57,50 @@
             </div>
         </form>
 </section>
+<div id="editRaceModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeEditModal">&times;</span>
+        <h2>Editar Raça</h2>
+        <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="edit_race_id" id="edit_race_id">
+            <div class="RaceName">
+                <label for="edit_name">Nome da Raça: </label>
+                <input type="text" name="name" id="edit_name">
+            </div>
+            <div class="buff">
+                <div>
+                    <label for="edit_strength_buff">Modificador de Força: </label>
+                    <input type="number" name="strength_buff" id="edit_strength_buff">
+                </div>
+                <div>
+                    <label for="edit_intelligence_buff">Modificador de Inteligência: </label>
+                    <input type="number" name="intelligence_buff" id="edit_intelligence_buff">
+                </div>
+                <div>
+                    <label for="edit_wisdom_buff">Modificador de Sabedoria: </label>
+                    <input type="number" name="wisdom_buff" id="edit_wisdom_buff">
+                </div>
+                <div>
+                    <label for="edit_charisma_buff">Modificador de Carisma: </label>
+                    <input type="number" name="charisma_buff" id="edit_charisma_buff">
+                </div>
+                <div>
+                    <label for="edit_constitution_buff">Modificador de Constituição: </label>
+                    <input type="number" name="constitution_buff" id="edit_constitution_buff">
+                </div>
+                <div>
+                    <label for="edit_speed_buff">Modificador de Velocidade: </label>
+                    <input type="number" name="speed_buff" id="edit_speed_buff">
+                </div>
+            </div>
+            <div class="actions">
+                <button type="button" id="cancelEdit">Cancelar</button>
+                <button type="submit" id="submitEditButton">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <section class="raceList">
     <div class="sideBySide">
@@ -91,10 +135,14 @@
                             <i data-lucide="users"></i> 
                             <p>1</p>
                         </td> 
-                        {% comment %} <td>
-                            <a href="{% url 'campaigns:edit_race' race.id %}" class="edit-btn"><i data-lucide="edit-3"></i></a>
+                        <td>
+                            <button class="editRace" data-id="{{ race.id }}" data-name="{{ race.name }}" data-strength="{{ race.strength_buff }}" data-intelligence="{{ race.intelligence_buff }}" data-wisdom="{{ race.wisdom_buff }}" data-charisma="{{ race.charisma_buff }}" data-constitution="{{ race.constitution_buff }}" data-speed="{{ race.speed_buff }}">
+                                <i data-lucide="edit-3"></i>
+                            </button>
+                            {% comment %}
                             <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
-                        </td> {% endcomment %}
+                            {% endcomment %}
+                        </td> 
                     </tr>
                 {% endfor %}
             </tbody>
