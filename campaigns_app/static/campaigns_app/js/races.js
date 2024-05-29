@@ -1,4 +1,4 @@
-
+document.addEventListener('DOMContentLoaded', function() {
     const openAddRaceModalBtn = document.querySelector(".addRace");
     const cancelRaceModalBtn = document.querySelector("#cancel");
     const addRaceModal = document.querySelector(".ModalCreateRace");
@@ -11,11 +11,16 @@
         addRaceModal.style.display = "none";
     }
 
-    openAddRaceModalBtn.addEventListener("click", () => handleOpenAddRaceModal());
-    cancelRaceModalBtn.addEventListener("click", () => handleCloseAddRaceModal());
+    if (openAddRaceModalBtn) {
+        openAddRaceModalBtn.addEventListener("click", () => handleOpenAddRaceModal());
+    }
+
+    if (cancelRaceModalBtn) {
+        cancelRaceModalBtn.addEventListener("click", () => handleCloseAddRaceModal());
+    }
 
     const editButtons = document.querySelectorAll('.editRace');
-    const modal = document.getElementById('editRaceModal');
+    const editmodal = document.getElementById('editRaceModal');
     const closeModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
     const editForm = document.getElementById('editRaceForm');
@@ -41,20 +46,25 @@
             document.getElementById('edit_constitution_buff').value = constitutionBuff;
             document.getElementById('edit_speed_buff').value = speedBuff;
 
-            modal.style.display = 'block';
+            editmodal.style.display = 'block';
         });
     });
 
-    closeModalButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', function() {
+            editmodal.style.display = 'none';
+        });
+    }
 
-    cancelEditButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
+    if (cancelEditButton) {
+        cancelEditButton.addEventListener('click', function() {
+            editmodal.style.display = 'none';
+        });
+    }
 
     window.addEventListener('click', function(event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === editmodal) {
+            editmodal.style.display = 'none';
         }
     });
+});
