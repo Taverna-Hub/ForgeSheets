@@ -138,8 +138,14 @@ class CreateSheetView(LoginRequiredMixin, View):
 class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         user_id = request.user.id
+        
 
         sheet = get_object_or_404(Sheet, id=id)
+        is_sheet_owner = (sheet.user_id == user_id)
+        if sheet.campaign:
+            campaign = sheet.campaign
+            is_campaign_owner = (campaign.user_id == user_id)
+
         image = sheet.image
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
@@ -181,7 +187,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         else:
             ctx['equipments'] = equipments
 
-        if user_id == sheet.user_id:
+        if is_sheet_owner or is_campaign_owner:
             return render(request, 'sheets_app/view-sheet.html', ctx)
     
     def post(self, request, id):
