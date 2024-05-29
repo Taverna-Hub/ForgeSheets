@@ -133,7 +133,7 @@
                         <td>{{ race.name }}</td>
                         <td>
                             <i data-lucide="users"></i> 
-                            <p>1</p>
+                            <p>{{ race.is_used }}</p>
                         </td> 
                         <td>
                             <button class="editRace" data-id="{{ race.id }}" data-name="{{ race.name }}" data-strength="{{ race.strength_buff }}" data-intelligence="{{ race.intelligence_buff }}" data-wisdom="{{ race.wisdom_buff }}" data-charisma="{{ race.charisma_buff }}" data-constitution="{{ race.constitution_buff }}" data-speed="{{ race.speed_buff }}">
