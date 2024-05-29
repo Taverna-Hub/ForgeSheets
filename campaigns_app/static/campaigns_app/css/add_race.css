@@ -169,12 +169,14 @@ button {
 
     margin-top: 8px;
 }
-#editRaceModal .modal {
+#editRaceModal .modal-content {
     background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
     width: 650px;
     height: fit-content;
+  
+    
 }
 
 #editRaceModal .modal form {

@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_constitution_buff').value = constitutionBuff;
             document.getElementById('edit_speed_buff').value = speedBuff;
 
-            editmodal.style.display = 'block';
+            editmodal.style.display = 'flex';
         });
     });
 
