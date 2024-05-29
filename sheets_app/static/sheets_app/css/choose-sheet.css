@@ -12,6 +12,7 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
 }
+
 .chooseSheetModal {
   background: rgba(0,0,0,0.8);
 
@@ -28,6 +29,10 @@
   z-index: 9999;
 }
 
+.chooseSheetModal.active {
+  display: flex;
+}
+
 .chooseSheetModal .modal {
   background-color: var(--white);
   padding: 32px;
@@ -37,6 +42,16 @@
   height: 100%;
   position: relative;
 }
+
+.chooseSheetModal .modal span {
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
 
 .chooseSheetModal .modal .container {
   display: flex;
@@ -48,10 +63,11 @@
 
 #closeChooseSheet {
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: -16px;
+  right: 8px;
   background-color: transparent;
   border: none;
+  color: var(--gray-700);
 }
 
 .chooseSheetModal .modal .container div {
@@ -89,7 +105,12 @@
   padding: 8px;
 }
 
-.chooseSheetModal .modal a {
+.chooseSheetModal .modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.chooseSheetModal .modal a,  .chooseSheetModal .modal button {
   text-decoration: none;
   background-color: var(--red-700);
   padding: 8px 12px;
@@ -99,6 +120,7 @@
   color: var(--white);
   font-weight: 600;
   margin-top: 28px;
+  font-size: 16px;
 }
 
 @media (max-width: 900px) {

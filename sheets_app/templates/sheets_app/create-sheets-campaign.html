@@ -179,12 +179,12 @@
                     <input type="number" name="defense" value=0>
                     {% endif %}
                     {% for error in errors %}
-                    {% if error.field == 'defense'%}
-                    <span>
-                        <i data-lucide="octagon-alert"></i>
-                        {{ error.message }}
-                    </span>
-                    {% endif %}
+                        {% if error.field == 'defense'%}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
