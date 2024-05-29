@@ -122,6 +122,21 @@ class RaceView(LoginRequiredMixin, View):
       return render(request, "campaigns_app/racelist.html",ctx)
    
    def post(self, request, id):
+      if 'edit_race_id' in request.POST:
+         race_id = request.POST.get('edit_race_id')
+         race = get_object_or_404(Race, id=race_id)
+
+         race.name = request.POST.get('name')
+         race.strength_buff = int(request.POST.get('strength_buff'))
+         race.intelligence_buff = int(request.POST.get('intelligence_buff'))
+         race.wisdom_buff = int(request.POST.get('wisdom_buff'))
+         race.charisma_buff = int(request.POST.get('charisma_buff'))
+         race.constitution_buff = int(request.POST.get('constitution_buff'))
+         race.speed_buff = int(request.POST.get('speed_buff'))
+         race.save()
+
+         return redirect(reverse('campaigns:races', kwargs={'id': id}))
+            
       name = request.POST.get('name')
       strength_buff = request.POST.get('strength_buff')
       intelligence_buff = request.POST.get('intelligence_buff')
@@ -129,7 +144,24 @@ class RaceView(LoginRequiredMixin, View):
       charisma_buff = request.POST.get('charisma_buff')
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
-      
+
+      # errors = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff)
+
+      # if errors:
+      #    atributos = ['strength_buff', 'intelligence_buff', 'wisdom_buff', 'charisma_buff', 'constitution_buff', 'speed_buff']
+      #    ctx ={
+      #       'errors': errors,
+      #       'app_name': 'campaign_app'
+      #    }
+      #    if name not in errors:
+      #       ctx['name'] = name
+      #    for atributo in atributos:
+      #       if atributo not in errors:
+      #          valor = request.POST.get(atributo)
+      #          ctx['atributo'] = valor
+      #    return render(request, 'campaigns_app/races.html', ctx)
+      # else:
+      #    return redirect('campaigns:races')
       race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
       race.save()
       return redirect(reverse('campaigns:races', kwargs={'id': id}))
