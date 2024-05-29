@@ -42,6 +42,20 @@ button {
   cursor: pointer;
 }
 
+select {
+  width: 100%;
+  border: 2px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 8px;
+  height: 35px;
+  background: white;
+}
+
+select option:checked {
+  background-color: var(--red-600);
+  color: var(--white);
+}
+
 .mainSheet {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(12px);
@@ -58,6 +72,11 @@ button {
   margin-top: 5%;
   overflow: scroll;
   height: fit-content;
+}
+
+.title {
+  color: var(--gray-600);
+  float: right;
 }
 
 .sheet span {
@@ -207,6 +226,14 @@ button {
   position: absolute;
   right: 0;
   color: var(--red-600);
+}
+
+.equipmentDescription {
+  position: fixed;
+  display: none;
+  background-color: var(--gray-200);
+  padding: 5px;
+  color: red;
 }
 
 /* css de magia */
@@ -375,30 +402,4 @@ button {
     margin: 64px 5%;
     height: 100%;
   }
-}
-
-.equipmentDescription {
-  position: fixed;
-  display: none;
-  background-color: var(--gray-200);
-  padding: 5px;
-  color: red;
-}
-
-.title{
-  color: var(--gray-600);
-  float: right;
-}
-
-select {
-  width: 100%;
-  border: 2px solid var(--gray-200);
-  border-radius: 4px;
-  padding: 8px;
-  background: transparent;
-}
-
-select option:checked {
-  background-color: var(--red-600);
-  color: var(--white);
 }
