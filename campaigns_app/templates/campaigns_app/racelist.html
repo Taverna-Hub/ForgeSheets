@@ -61,11 +61,11 @@
         </form>
 </section>
 
-<section class="editRaceModal">
-    <div class="modal">
+<section id="editRaceModal" >
+    <div class="modal-content">
         <span class="close" id="closeEditModal">&times;</span>
         <h2>Editar Raça</h2>
-        <form action="{% url 'campaigns:races' campaign.id %}" method="post">
+        <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="edit_race_id" id="edit_race_id">
             <div class="RaceName">
@@ -105,10 +105,6 @@
         </form>
     </div>
 </section>
-</section>
-
-<section class="deleteRaceModal">
-    <div class="modal">
 <section class="deleteRaceModal">
     <div class="modal">
         <span class="close" onclick="closeModal()">&times;</span>

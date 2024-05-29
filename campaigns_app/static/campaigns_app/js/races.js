@@ -21,14 +21,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
    
     const editButtons = document.querySelectorAll('.editRace');
-    const editModal = document.querySelector('.editRaceModal');
+    const editModal = document.getElementById('editRaceModal');
     const closeEditModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
-    const editForm = document.getElementById('editRaceForm');
 
     editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const raceId = this.dataset.id;
             const raceName = this.dataset.name;
             const strengthBuff = this.dataset.strength;
@@ -47,14 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_constitution_buff').value = constitutionBuff;
             document.getElementById('edit_speed_buff').value = speedBuff;
 
-            editmodal.style.display = 'flex';
+            editModal.style.display = 'flex';
         });
     });
 
     if (closeEditModalButton) {
         closeEditModalButton.addEventListener('click', function() {
             editModal.style.display = 'none';
-   
         });
     }
 
