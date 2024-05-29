@@ -13,19 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (openAddRaceModalBtn) {
         openAddRaceModalBtn.addEventListener("click", handleOpenAddRaceModal);
-        openAddRaceModalBtn.addEventListener("click", handleOpenAddRaceModal);
     }
 
     if (cancelAddRaceModalBtn) {
         cancelAddRaceModalBtn.addEventListener("click", handleCloseAddRaceModal);
-    if (cancelAddRaceModalBtn) {
-        cancelAddRaceModalBtn.addEventListener("click", handleCloseAddRaceModal);
     }
 
-    // Edit Race Modal
+   
     const editButtons = document.querySelectorAll('.editRace');
-    const editModal = document.querySelector('.editRaceModal');
-    const closeEditModalButton = document.getElementById('closeEditModal');
     const editModal = document.querySelector('.editRaceModal');
     const closeEditModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
@@ -59,9 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeEditModalButton) {
         closeEditModalButton.addEventListener('click', function() {
             editModal.style.display = 'none';
-    if (closeEditModalButton) {
-        closeEditModalButton.addEventListener('click', function() {
-            editModal.style.display = 'none';
+   
         });
     }
 
@@ -107,14 +100,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         if (event.target === editModal) {
             editModal.style.display = 'none';
-        }
-        if (event.target === deleteModal) {
-            deleteModal.style.display = 'none';
-        if (event.target === editModal) {
-            editModal.style.display = 'none';
-        }
-        if (event.target === deleteModal) {
-            deleteModal.style.display = 'none';
         }
     });
 });
