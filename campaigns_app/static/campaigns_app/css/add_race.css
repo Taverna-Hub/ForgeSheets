@@ -148,7 +148,7 @@ button {
     margin-right: 16px;
 }
 
-#editRaceModal {
+.editRaceModal {
     background: rgba(0,0,0,0.8);
     z-index: 999;
     position: fixed;
@@ -161,15 +161,8 @@ button {
     align-items: center;
     justify-content: center;
 }
-#editRaceModal .modal span {
-    color: var(--red-600);
-    display: flex;
-    align-items: center;
-    gap: 8px;
 
-    margin-top: 8px;
-}
-#editRaceModal .modal {
+.editRaceModal .modal {
     background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
@@ -177,7 +170,16 @@ button {
     height: fit-content;
 }
 
-#editRaceModal .modal form {
+.editRaceModal .modal span {
+    color: var(--red-600);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 8px;
+}
+
+.editRaceModal .modal form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -185,11 +187,7 @@ button {
     margin-top: 40px;
 }
 
-.ModalCreateRace .modal form div {
-    margin-bottom: 8px;
-}
-
-#deleteRaceModal {
+.deleteRaceModal {
     background: rgba(0,0,0,0.8);
     z-index: 999;
     position: fixed;
@@ -202,4 +200,3 @@ button {
     align-items: center;
     justify-content: center;
 }
-
