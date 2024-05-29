@@ -55,7 +55,7 @@
             </div>
             <div class="actions">  
                 <button type="button" id="cancel">Cancelar</button> 
-                <button type="submit" id="submit_button" >Criar Raça</button>
+                <button type="submit" id="submit_button" >Criar</button>
             </div>
         </form>
 </section>
@@ -108,11 +108,15 @@
 <section class="deleteRaceModal">
     <div class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
-        <div class="actions">
-            <h2>Deseja apagar esta raça?</h2>
-            <button type="button" id="cancel">Cancelar</button>
-            <button type="submit" class="delete_race">Apagar Raça</button>
-        </div>
+        <h2>Deseja apagar esta raça?</h2>
+        <form method="post" action="{% url 'campaigns:races' campaign.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="delete_race_id" id="delete_race_id">
+            <div class="actions">
+                <button type="button" id="cancel">Cancelar</button>
+                <button type="submit">Apagar</button>
+            </div>
+        </form>
     </div>
 </section>
 
@@ -156,7 +160,7 @@
                             
                         </td> 
                         <td>
-                            <button class="deleteRace" data-id="{{ race.id }}">
+                            <button class="delete_race_button" data-id="{{ race.id }}">
                                 <i data-lucide="trash-2"></i>
                             </button>
                         </td>

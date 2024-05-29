@@ -19,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelAddRaceModalBtn.addEventListener("click", handleCloseAddRaceModal);
     }
 
-    // Edit Race Modal
     const editButtons = document.querySelectorAll('.editRace');
     const editModal = document.querySelector('.editRaceModal');
     const closeEditModalButton = document.getElementById('closeEditModal');
@@ -63,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Delete Race Modal
     const deleteButtons = document.querySelectorAll('.deleteRace');
     const deleteModal = document.querySelector('.deleteRaceModal');
     const closeDeleteModalButton = document.querySelector('.deleteRaceModal .close');
@@ -93,12 +91,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     deleteFormButton.addEventListener('click', function() {
         const raceId = this.dataset.id;
-        // Add your form submission logic here, e.g., using AJAX or a form submission
         console.log('Delete race with ID:', raceId);
         deleteModal.style.display = 'none';
     });
 
-    // Close modal when clicking outside
     window.addEventListener('click', function(event) {
         if (event.target === editModal) {
             editModal.style.display = 'none';
