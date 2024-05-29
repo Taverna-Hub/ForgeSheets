@@ -9,6 +9,7 @@
     <title>Raças</title>
 {% endblock 'head' %}
 {% block 'body' %}
+
 <section class="ModalCreateRace">
     <div class="modal">
         <h2>Adicionar raça</h2>
@@ -59,11 +60,11 @@
         </form>
 </section>
 
-<div id="editRaceModal" class="modal">
-    <div class="modal-content">
+<section class="editRaceModal">
+    <div class="modal">
         <span class="close" id="closeEditModal">&times;</span>
         <h2>Editar Raça</h2>
-        <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
+        <form action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="edit_race_id" id="edit_race_id">
             <div class="RaceName">
@@ -102,10 +103,10 @@
             </div>
         </form>
     </div>
-</div>
+</section>
 
-<div id="deleteRaceModal" class="modal">
-    <div class="deleteRace">
+<section class="deleteRaceModal">
+    <div class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <div class="actions">
             <h2>Deseja apagar esta raça?</h2>
@@ -113,7 +114,7 @@
             <button type="submit" class="delete_race">Apagar Raça</button>
         </div>
     </div>
-</div>
+</section>
 
 <section class="raceList">
     <div class="sideBySide">
