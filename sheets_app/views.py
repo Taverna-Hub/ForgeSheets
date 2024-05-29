@@ -28,10 +28,8 @@ class SheetsView(LoginRequiredMixin, View):
     
     def post(self, request):
         campaign_code = request.POST.get("code")
-
         if not campaign_code.strip():
             sheets_view = Sheet.objects.filter(user_id=request.user.id)
-
             for sheet in sheets_view:
                 sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
                 sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
@@ -47,6 +45,19 @@ class SheetsView(LoginRequiredMixin, View):
         
             return render(request, 'sheets_app/sheets.html', ctx)
             
+        try:
+            sheets_view = Sheet.objects.filter(user_id=request.user.id)
+            campaign = Campaign.objects.get(code=campaign_code)
+        except Campaign.DoesNotExist:
+            ctx = {
+                'sheets_view': sheets_view,
+                'app_name': 'sheets',
+                'user': request.user,
+                "error": {
+                    "message": "Insira um codigo valido!"
+                }
+            }
+            return render(request, 'sheets_app/sheets.html', ctx)
         
         return redirect(reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code}))
      
@@ -422,12 +433,6 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         race = request.POST.get('race', " ")
         role = request.POST.get('role', " ")
 
-        race_used = Race.objects.filter(campaign_id=campaign.id, name=race).first()
-        race_used.is_used += 1     
-
-        role_used = Class.objects.filter(campaign_id=campaign.id, name=role).first()
-        role_used.is_used += 1        
-
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
         wisdom = request.POST.get('wisdom')
@@ -509,7 +514,13 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
                 if errors:
                     print("Errors: ", errors)
                 return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
-            
+        
+        race_used = Race.objects.filter(campaign_id=campaign.id, name=race).first()
+        race_used.is_used += 1     
+
+        role_used = Class.objects.filter(campaign_id=campaign.id, name=role).first()
+        role_used.is_used += 1        
+   
         for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
             equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
             equipment.save()       
@@ -524,26 +535,36 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
 
 class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, id):
-        sheet = get_object_or_404(Sheet, pk=id, user=request.user)
 
-        if sheet.campaign:
-            campaign = sheet.campaign
+        sheet = get_object_or_404(Sheet, pk=id)
+        current_user = request.user
+        sheet_owner = sheet.user
+        campaign = sheet.campaign 
+        if current_user == sheet_owner or current_user == campaign.user:
             
-            race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
-            race_used.is_used -= 1     
-            if race_used.is_used < 0:     
-                race_used.is_used = 0     
+            if campaign:
+                campaign_id = sheet.campaign_id
+                race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
+                race_used.is_used -= 1     
+                if race_used.is_used < 0:     
+                    race_used.is_used = 0     
 
-            role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
-            role_used.is_used -= 1   
-            if role_used.is_used < 0:     
-                role_used.is_used = 0     
+                role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
+                role_used.is_used -= 1   
+                if role_used.is_used < 0:     
+                    role_used.is_used = 0     
 
-            race_used.save()
-            role_used.save()
+                race_used.save()
+                role_used.save()
 
-        sheet.delete()
-        return redirect('sheets:homesheets')
+            sheet.delete()
+            if current_user == sheet_owner:
+                return redirect('sheets:homesheets')
+            if current_user == campaign.user:
+                return redirect('campaigns:view_campaign', id=campaign_id)
+
+        
+        
 
     
 class EditEquipmentView(LoginRequiredMixin, View): 
