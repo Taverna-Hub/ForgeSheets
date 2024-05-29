@@ -28,10 +28,8 @@ class SheetsView(LoginRequiredMixin, View):
     
     def post(self, request):
         campaign_code = request.POST.get("code")
-
         if not campaign_code.strip():
             sheets_view = Sheet.objects.filter(user_id=request.user.id)
-
             for sheet in sheets_view:
                 sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
                 sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
@@ -47,6 +45,19 @@ class SheetsView(LoginRequiredMixin, View):
         
             return render(request, 'sheets_app/sheets.html', ctx)
             
+        try:
+            sheets_view = Sheet.objects.filter(user_id=request.user.id)
+            campaign = Campaign.objects.get(code=campaign_code)
+        except Campaign.DoesNotExist:
+            ctx = {
+                'sheets_view': sheets_view,
+                'app_name': 'sheets',
+                'user': request.user,
+                "error": {
+                    "message": "Insira um codigo valido!"
+                }
+            }
+            return render(request, 'sheets_app/sheets.html', ctx)
         
         return redirect(reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code}))
      
