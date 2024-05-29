@@ -154,8 +154,14 @@ class CreateSheetView(LoginRequiredMixin, View):
 class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
     def get(self, request, id):
         user_id = request.user.id
+        
 
         sheet = get_object_or_404(Sheet, id=id)
+        is_sheet_owner = (sheet.user_id == user_id)
+        if sheet.campaign:
+            campaign = sheet.campaign
+            is_campaign_owner = (campaign.user_id == user_id)
+
         image = sheet.image
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
@@ -197,7 +203,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         else:
             ctx['equipments'] = equipments
 
-        if user_id == sheet.user_id:
+        if is_sheet_owner or is_campaign_owner:
             return render(request, 'sheets_app/view-sheet.html', ctx)
     
     def post(self, request, id):
@@ -424,6 +430,12 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         race = request.POST.get('race', " ")
         role = request.POST.get('role', " ")
 
+        race_used = Race.objects.filter(campaign_id=campaign.id, name=race).first()
+        race_used.is_used += 1     
+
+        role_used = Class.objects.filter(campaign_id=campaign.id, name=role).first()
+        role_used.is_used += 1        
+
         strength = request.POST.get('strength')
         intelligence = request.POST.get('intelligence')
         wisdom = request.POST.get('wisdom')
@@ -513,11 +525,27 @@ class CreateSheetInCampaingView(LoginRequiredMixin, View):
         for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
             magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
             magic.save()
+
+        race_used.save()
+        role_used.save()
         return redirect('sheets:homesheets')
 
 class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, id):
         sheet = get_object_or_404(Sheet, pk=id, user=request.user)
+
+        if sheet.campaign:
+            campaign = sheet.campaign
+            
+            race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
+            race_used.is_used -= 1     
+
+            role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
+            role_used.is_used -= 1   
+
+            race_used.save()
+            role_used.save()
+
         sheet.delete()
         return redirect('sheets:homesheets')
 

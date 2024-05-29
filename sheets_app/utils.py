@@ -51,11 +51,7 @@ def sheet_update(name, strength, intelligence, wisdom, charisma, constitution, s
                 'field' : 'atributes2',
                 'message' : 'Vida e mana não podem ser menores que 1 ou maiores que 100 mil'
                 })
-        elif int(healthPoint) > int(healthPointMax) or int(manaActual) > int(manaMax):
-            errors.append({
-                'field' : 'atributes2',
-                'message' : 'Vida e mana não podem ultrapassar o valor máximo'
-                })
+       
     except:
         if not str(healthPoint) == '' and str(healthPoint) == '':
             errors.append({

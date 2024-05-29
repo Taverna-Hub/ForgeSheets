@@ -22,7 +22,8 @@ class Race(models.Model):
     constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
     speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
     campaign = models.ForeignKey(Campaign, related_name='races', on_delete=models.CASCADE, null=True)
-    
+    is_used = models.IntegerField(default=0)
+
     def __str__(self) -> str:
         return self.name
     
@@ -31,3 +32,4 @@ class Class(models.Model):
     name = models.CharField(max_length=75)
     roles = models.CharField(max_length=200, default=None, null=True, blank=True)
     campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE, null=True)
+    is_used = models.IntegerField(default=0)
