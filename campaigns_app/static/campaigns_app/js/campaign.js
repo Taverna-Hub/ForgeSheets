@@ -30,12 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
       event.stopPropagation();
       dropdownMenu.classList.toggle('show');
   });
-
-  document.addEventListener('click', function(event) {
-      if (!menuIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
-          dropdownMenu.classList.remove('show');
-      }
-  })
 })
 
 const editTitle = document.getElementById('edit-title');

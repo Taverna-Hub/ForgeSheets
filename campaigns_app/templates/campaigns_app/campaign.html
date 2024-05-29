@@ -3,12 +3,41 @@
 
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/delete-sheet.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Visualizar Campanha - ForgeSheets</title>
 {% endblock 'head' %}
 
 {% block 'body' %}
-<div id="modal-description" class="modal">
+{% for sheet in sheets %}
+    <section class="deleteSheetModal">
+        <div class="modal">
+            <button type="button" id="closeDeleteSheet">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="container">
+                <div>
+                    <h2>Você tem certeza que deseja excluir a ficha <strong>{{sheet.name}}</strong>?</h2>
+                    <p>Essa ação vai deletar a ficha permanentemente e o jogador perderá acesso a ela!</p>
+                    <br>
+                    <form id="formDeleteSheet" method="POST" action="">
+                        {% csrf_token %}
+                        <button type="button" class="cancel">
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="delete">
+                                Excluir
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section> 
+{%endfor%}
+
+<div id="modal-description" class="campaignModal">
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar descrição</h2>
@@ -30,7 +59,7 @@
     </div>
 </div>
 
-<div id="modal-title" class="modal">
+<div id="modal-title" class="campaignModal">
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar título</h2>
@@ -52,7 +81,7 @@
     </div>
 </div>
 
-<div id="modal-image" class="modal">
+<div id="modal-image" class="campaignModal">
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar imagem</h2>
@@ -74,7 +103,7 @@
     </div>
 </div>
 
-<div id="modal-delete" class="modal">
+<div id="modal-delete" class="campaignModal">
     <div class="modal-content">
         <h2>Tem certeza que deseja excluir a campanha?</h2>
         <p>Todas as fichas vinculadas serão perdidas</p>
@@ -117,57 +146,61 @@
     </div>
     <section class="campaignSheets">
         {% for sheet in sheets %}
-            <div id="Card" class="sheetCard" 
-                style="{% if sheet.image %}
-                {% if sheet.hp == 0%}
-                backdrop-filter: grayscale(1);
-                {% endif %}
-                background-image: url({{ sheet.image }});
-                background-position: center;
-                {% endif %}"
-            >
+        <div id="Card" class="sheetCard" 
+            style="{% if sheet.image %}
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
+            background-image: url({{ sheet.image }});
+            background-position: center;
+            {% endif %}"
+        >
 
-                <button type="button" class="deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">
-                        <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
-                </button>
+            <button type="button" class="menu">
+                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            </button>
 
-                <div id="Card" style="{% if sheet.image %}
-                background-color: rgba(0,0,0,0.5);
-                backdrop-filter: blur(2px);
-                {% if sheet.hp == 0%}
-                backdrop-filter: grayscale(1);
-                {% endif %}
-                {% endif %}">
+            <div id="Card" style="{% if sheet.image %}
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
+            {% endif %}">
 
-                    <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
-                        <h2>{{sheet.name}}</h2>
-                        <div class="sheet_info">
-                            <div class="sideBySide">
-                                <p><b>Nível:</b></p>
-                                {% if sheet.level == 20 %}
-                                    <p>{{sheet.level}} (Nível Max.)</p>
-                                {% else %}
-                                    <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
-                                {% endif %}
-                            </div>
-                            <div class="sideBySide">
-                                <p><b>Raça:</b></p>
-                                <p>{{sheet.race}}</p>
-                            </div>
-                            <div class="sideBySide">
-                                <p><b>Classe:</b></p>
-                                <p>{{sheet.role}}</p>
-                            </div>
-                            <div class="bar">
-                                <div class="background-bar"></div>
-                                <div class="background-bar2"></div>
-                                <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
-                                <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
-                            </div>                        
+                <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
+                    <h2>{{sheet.name}}</h2>
+                    <div class="sheet_info">
+                        <div class="sideBySide">
+                            <p><b>Nível:</b></p>
+                            {% if sheet.level == 20 %}
+                                <p>{{sheet.level}} (Nível Max.)</p>
+                            {% else %}
+                                <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                            {% endif %}
                         </div>
-                    </a>
+                        <div class="sideBySide">
+                            <p><b>Raça:</b></p>
+                            <p>{{sheet.race}}</p>
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Classe:</b></p>
+                            <p>{{sheet.role}}</p>
+                        </div>
+                        <div class="bar">
+                            <div class="background-bar"></div>
+                            <div class="background-bar2"></div>
+                            <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
+                            <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
+                        </div>                        
+                    </div>
+                </a>
+
+                <div class="dropdown-menu hide">
+                    <a href="#" class="dropdown-item deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">Excluir ficha</a>
                 </div>
             </div>
+        </div>
         {% endfor %}
     </section>
 
@@ -175,5 +208,7 @@
     <script src="{% static 'campaigns_app/js/campaign.js' %}"></script>
 </section>
 
+<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% include "dice.html" %}
 {% endblock 'body' %}
