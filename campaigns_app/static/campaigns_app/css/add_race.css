@@ -188,3 +188,18 @@ button {
 .ModalCreateRace .modal form div {
     margin-bottom: 8px;
 }
+
+#deleteRaceModal {
+    background: rgba(0,0,0,0.8);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+

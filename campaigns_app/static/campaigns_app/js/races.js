@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelRaceModalBtn = document.querySelector("#cancel");
     const addRaceModal = document.querySelector(".ModalCreateRace");
 
+    const openDeleteRaceModal = document.querySelector(".deleteRace");
+    const cancelDeleteRaceModal = document.querySelector("#cancel");
+
     function handleOpenAddRaceModal() {
         addRaceModal.style.display = "flex";
     }
@@ -61,6 +64,16 @@ document.addEventListener('DOMContentLoaded', function() {
             editmodal.style.display = 'none';
         });
     }
+    function handleOpenDeleteRaceModalBtn() {
+        openDeleteRaceModal.style.display = "flex";
+    }
+    function handleCancelDeleteRaceModalBtn(){
+        openDeleteRaceModal.style.display = "none";
+    }
+
+    openDeleteRaceModal?.addEventListener("click", () => handleOpenDeleteRaceModalBtn());
+    cancelDeleteRaceModal?.addEventListener("click", () => handleCancelDeleteRaceModalBtn());
+    
 
     window.addEventListener('click', function(event) {
         if (event.target === editmodal) {

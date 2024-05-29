@@ -4,6 +4,7 @@
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
+    <link rel="stylesheet" href="text/css" href="{% static 'campaigns_app/css/modal/delete_race.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Raças</title>
 {% endblock 'head' %}
@@ -52,11 +53,12 @@
                 </div>
             </div>
             <div class="actions">  
-                <button type="button" id="cancel">Cancelar</a> 
+                <button type="button" id="cancel">Cancelar</button> 
                 <button type="submit" id="submit_button" >Criar Raça</button>
             </div>
         </form>
 </section>
+
 <div id="editRaceModal" class="modal">
     <div class="modal-content">
         <span class="close" id="closeEditModal">&times;</span>
@@ -102,6 +104,17 @@
     </div>
 </div>
 
+<div id="deleteRaceModal" class="modal">
+    <div class="deleteRace">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="actions">
+            <h2>Deseja apagar esta raça?</h2>
+            <button type="button" id="cancel">Cancelar</button>
+            <button type="submit" class="delete_race">Apagar Raça</button>
+        </div>
+    </div>
+</div>
+
 <section class="raceList">
     <div class="sideBySide">
         <a href="{% url 'campaigns:view_campaign' campaign.id %}" class="back">
@@ -139,10 +152,13 @@
                             <button class="editRace" data-id="{{ race.id }}" data-name="{{ race.name }}" data-strength="{{ race.strength_buff }}" data-intelligence="{{ race.intelligence_buff }}" data-wisdom="{{ race.wisdom_buff }}" data-charisma="{{ race.charisma_buff }}" data-constitution="{{ race.constitution_buff }}" data-speed="{{ race.speed_buff }}">
                                 <i data-lucide="edit-3"></i>
                             </button>
-                            {% comment %}
-                            <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
-                            {% endcomment %}
+                            
                         </td> 
+                        <td>
+                            <button class="" onclick="">
+                                <i data-lucide="trash-2"></i>
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
