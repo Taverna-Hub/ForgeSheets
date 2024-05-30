@@ -107,9 +107,11 @@
         </form>
     </div>
 </section>
-<section class="deleteRaceModal">
+<section class="deleteRaceModal" id="deleteRaceModal">
     <div class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
+        <button type="button" class="closeDeleteModal">
+            <i data-lucide="x"></i>
+        </button>
         <h2>Deseja apagar esta raça?</h2>
         <form method="post" action="{% url 'campaigns:races' campaign.id %}">
             {% csrf_token %}
@@ -121,7 +123,7 @@
         </form>
     </div>
 </section>
-</section>
+
 
 <section class="raceList">
     <div class="sideBySide">

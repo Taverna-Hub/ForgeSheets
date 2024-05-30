@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     const openAddRaceModalBtn = document.querySelector(".addRace");
     const cancelAddRaceModalBtn = document.querySelector("#cancelAddRace");
     const addRaceModal = document.querySelector(".ModalCreateRace");
@@ -62,9 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const deleteButtons = document.querySelectorAll('.deleteRace');
-    const deleteModal = document.querySelector('.deleteRaceModal');
-    const closeDeleteModalButton = document.querySelector('.deleteRaceModal .close');
+    const deleteButtons = document.querySelectorAll('.delete_race_button');
+    const deleteModal = document.getElementById('deleteRaceModal');
+    const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
     const cancelDeleteButton = document.getElementById('cancelDelete');
     const deleteFormButton = document.querySelector('.delete_race');
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(event) {
             event.preventDefault();
             const raceId = this.dataset.id;
-            deleteFormButton.dataset.id = raceId;
+            document.getElementById('delete_race_id').value = raceId;
             deleteModal.style.display = 'flex';
         });
     });
@@ -89,15 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    deleteFormButton.addEventListener('click', function() {
-        const raceId = this.dataset.id;
-        console.log('Delete race with ID:', raceId);
-        deleteModal.style.display = 'none';
-    });
 
     window.addEventListener('click', function(event) {
         if (event.target === editModal) {
             editModal.style.display = 'none';
         }
+        if (event.target === deleteModal) {
+            deleteModal.style.display = 'none';
+        }
     });
-});

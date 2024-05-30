@@ -197,7 +197,7 @@ button {
     margin-bottom: 8px;
 }
 
-.deleteRaceModal {
+#deleteRaceModal {
     background: rgba(0,0,0,0.8);
     z-index: 999;
     position: fixed;
@@ -211,6 +211,26 @@ button {
     justify-content: center;
 }
 #closeEditModal {
+    background-color: var(--red-600);
+    cursor: pointer;
+    color: var(--gray-200);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+    left: 560px;
+    position: relative ;
+  }
+
+#deleteRaceModal .modal {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 4px;
+    width: 650px;
+    height: fit-content;
+  
+    
+}
+.closeDeleteModal {
     background-color: var(--red-600);
     cursor: pointer;
     color: var(--gray-200);
