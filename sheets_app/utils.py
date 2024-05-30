@@ -168,10 +168,13 @@ def save_sheet(name, race, role, image, strength, intelligence, wisdom, charisma
     image_treated = re.match(r'^(?:https?|ftp):\/\/(?:www\.)?[a-zA-Z0-9-]+(?:\.[a-zA-Z]{2,})+(?:\/[^\s?]*)?(?:\?[^\s]*)?$', image)
     if image != '':
         if not image_treated:
-            errors.append({
-                'field': 'image',
-                'message': 'Insira uma URL válida!'
-            })
+            if ("imgur.com" in image) or ("pbs.twimg.com" in image) or ("avatars.githubusercontent.com" in image):
+                pass
+            else:
+                errors.append({
+                    'field': 'image',
+                    'message': 'Insira uma URL válida!'
+                })
         elif len(str(image)) > 200:
             errors.append({
                     'field': 'image',
