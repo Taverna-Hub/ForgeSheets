@@ -67,6 +67,7 @@ label {
 
 h2 {
     color: var(--gray-800);
+    
 }
 
 button {
@@ -110,6 +111,7 @@ button {
 }
 
 .actions {
+    float: right;
     align-self: flex-end;
 }
 
@@ -120,7 +122,11 @@ button {
     border: none;
     font-weight: 600;
     font-size: 16px;
+    margin: 8px;
+    
+    
 }
+
 
 .actions button:first-child {
     background-color: var(--gray-300);
