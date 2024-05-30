@@ -48,7 +48,7 @@ Cypress.Commands.add('createCampaignRaceClass', () => {
     cy.get('.addClass').click()
     cy.get('.classNameContainer > input').type('Guerreiro')
     cy.get('#physicalDamage').check()
-    cy.get('.actions > [type="submit"]').click()
+    cy.get('.addClassModal > .modal > form > .actions > [type="submit"]').click()
     cy.get('.back').click()
 });
 
