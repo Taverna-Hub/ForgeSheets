@@ -84,46 +84,46 @@ Cypress.Commands.add('registerLoginCreateCampaign', () => {
 })
 
 describe('manage campaign tests', () => {
-    // it('editing campaign successfuly', () => {
-    //     cy.visit('/');
-    //     cy.exec('python manage.py migrate')
-    //     cy.deleteAllUsers();
-    //     cy.registerLoginCreateCampaign()
+    it('editing campaign successfuly', () => {
+        cy.visit('/');
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
+        cy.registerLoginCreateCampaign()
 
-    //     cy.get('#menu').click()
-    //     cy.get('#edit-title').click()
-    //     cy.get('#new-title').clear().type('Uma peça')
-    //     cy.get('#modal-title > .modal-content > form > [type="submit"]').click()
+        cy.get('#menu').click()
+        cy.get('#edit-title').click()
+        cy.get('#new-title').clear().type('Uma peça')
+        cy.get('#modal-title > .modal-content > form > [type="submit"]').click()
 
-    //     cy.get('#menu').click()
-    //     cy.get('#edit-description').click()
-    //     cy.get('#new-description').clear().type('The One Peak is Real')
-    //     cy.get('#modal-description > .modal-content > form > [type="submit"]').click()
+        cy.get('#menu').click()
+        cy.get('#edit-description').click()
+        cy.get('#new-description').clear().type('The One Peak is Real')
+        cy.get('#modal-description > .modal-content > form > [type="submit"]').click()
 
-    //     cy.get('#menu').click()
-    //     cy.get('#edit-image').click()
-    //     cy.get('#image').clear().type('https://sm.ign.com/t/ign_br/tv/o/one-piece-/one-piece-2_1xby.1200.jpg')
-    //     cy.get('#modal-image > .modal-content > form > [type="submit"]').click()
+        cy.get('#menu').click()
+        cy.get('#edit-image').click()
+        cy.get('#image').clear().type('https://sm.ign.com/t/ign_br/tv/o/one-piece-/one-piece-2_1xby.1200.jpg')
+        cy.get('#modal-image > .modal-content > form > [type="submit"]').click()
 
-    //     cy.get('.campaign > a').click()
+        cy.get('.campaign > a').click()
 
-    //     cy.get(':nth-child(1) > h2').invoke('text').should('have.string', 'Uma peça')
+        cy.get(':nth-child(1) > h2').invoke('text').should('have.string', 'Uma peça')
 
-    //     cy.get('body > main > section.listCampaignContainer > section > a:nth-child(2) > div > div > div > p').invoke('text').should('have.string', 'The One Peak is Real')
-    // });
+        cy.get('body > main > section.listCampaignContainer > section > a:nth-child(2) > div > div > div > p').invoke('text').should('have.string', 'The One Peak is Real')
+    });
 
-    // it('empty fields', () => {
-    //     cy.visit('/');
-    //     cy.exec('python manage.py migrate')
-    //     cy.deleteAllUsers();
-    //     cy.registerLoginCreateCampaign()
+    it('empty fields', () => {
+        cy.visit('/');
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
+        cy.registerLoginCreateCampaign()
 
-    //     cy.get('#menu').click()
-    //     cy.get('#edit-title').click()
-    //     cy.get('#new-title').clear().type(' ')
-    //     cy.get('#modal-title > .modal-content > form > [type="submit"]').click()
-    //     cy.get('#titleError').invoke('text').should('have.string', 'Este campo não pode ser vazio')
-    // })
+        cy.get('#menu').click()
+        cy.get('#edit-title').click()
+        cy.get('#new-title').clear().type(' ')
+        cy.get('#modal-title > .modal-content > form > [type="submit"]').click()
+        cy.get('#titleError').invoke('text').should('have.string', 'Este campo não pode ser vazio')
+    })
 
     it('hp and mana management in campaign sheet', () => {
         cy.visit('/');
@@ -161,4 +161,22 @@ describe('manage campaign tests', () => {
         cy.get('input[name="manaActual"]').should('have.value', "75")
 
     })
+
+    it('hp and mana management in campaign sheet', () => {
+            cy.visit('/');
+            cy.exec('python manage.py migrate')
+            cy.deleteAllUsers();
+            cy.registerLoginCreateCampaign()
+            cy.createCampaignRaceClass()
+            cy.createCampaignSheet()
+    
+            cy.get('.menu').click()
+            cy.get('#Card > .dropdown-menu > .dropdown-item').click()
+            cy.get('.delete').click()
+            cy.get('.campaign > a').click()
+            cy.get('.campaignCard > :nth-child(1)').click()
+
+            cy.get('.campaignContainer').contains('Roronoa Zoro').should('not.exist')
+    
+        })
 })
