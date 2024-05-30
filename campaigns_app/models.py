@@ -17,12 +17,12 @@ class Campaign(models.Model):
 
 class Race(models.Model):
     name = models.CharField(max_length=75)
-    strength_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    intelligence_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    wisdom_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    charisma_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    constitution_buff = models.IntegerField(validators=[MinValueValidator(0)])
-    speed_buff = models.IntegerField(validators=[MinValueValidator(0)])
+    strength_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    intelligence_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    wisdom_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    charisma_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    constitution_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    speed_buff = models.IntegerField(default=0, validators=[MinValueValidator(0)])
     campaign = models.ForeignKey(Campaign, related_name='races', on_delete=models.CASCADE, null=True)
     is_used = models.IntegerField(default=0)
 

@@ -32,27 +32,51 @@
             <div class="buff">
                 <div>
                     <label for="strength_buff">Modificador de Força: </label>
+                    {% if strength_buff %}
                     <input type="number" name="strength_buff" id="strength_buff" value="{{strength_buff}}">
+                    {% else %}
+                    <input type="number" name="strength_buff" id="strength_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="intelligence_buff">Modificador de Inteligência: </label>
+                    {% if intelligence_buff %}
                     <input type="number" name="intelligence_buff" id="intelligence_buff" value="{{intelligence_buff}}">
+                    {% else %}
+                    <input type="number" name="intelligence_buff" id="intelligence_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="wisdom_buff">Modificador de Sabedoria: </label>
+                    {% if wisdom_buff %}
                     <input type="number" name="wisdom_buff" id="wisdom_buff" value="{{wisdom_buff}}">
+                    {% else %}
+                    <input type="number" name="wisdom_buff" id="wisdom_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="charisma_buff">Modificador de Carisma: </label>
+                    {%if charisma_buff %}
                     <input type="number" name="charisma_buff" id="charisma_buff" value="{{charisma_buff}}">
+                    {% else %}
+                    <input type="number" name="charisma_buff" id="charisma_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="constitution_buff">Modificador de Constituição: </label>
+                    {%if constitution_buff %}
                     <input type="number" name="constitution_buff" id="constitution_buff" value="{{constitution_buff}}">
+                    {% else %}
+                    <input type="number" name="constitution_buff" id="constitution_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="speed_buff">Modificador de Velocidade: </label>
+                    {% if speed_buff %}
                     <input type="number" name="speed_buff" id="speed_buff" value="{{speed_buff}}">
+                    {% else %}
+                    <input type="number" name="speed_buff" id="speed_buff" value=0>
+                    {% endif %}
                 </div>
             </div>
             <div class="actions">  
