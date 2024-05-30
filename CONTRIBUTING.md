@@ -8,9 +8,12 @@ Antes de começar a contribuir com o nosso projeto, leia esse guia para você fi
 
 ## 🤔 Como contribuir?
 Você pode tanto colocar uma ideia de melhoria, uma feature nova em prática ou escolher uma das issues em aberto para solucioná-la.
-<a href="https://github.com/Taverna-Hub/ForgeSheets/issues">
-  <img src="https://img.shields.io/badge/Ver issues-7f1d1d?style=for-the-badge&logoColor=white"/>
-</a>
+<br>
+<p align="center">
+  <a href="https://github.com/Taverna-Hub/ForgeSheets/issues">
+    <img src="https://img.shields.io/badge/Ver issues-7f1d1d?style=for-the-badge&logoColor=white"/>
+  </a>
+</p>
 
 <br>
 
@@ -62,7 +65,7 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-<strong>5º) Rode o Servidor:</strong>
+<strong>6º) Rode o Servidor:</strong>
 ```
 python manage.py runserver
 ```
