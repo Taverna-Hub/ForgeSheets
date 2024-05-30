@@ -3,16 +3,17 @@
 
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
-    <link rel="stylesheet" href="text/css" href="{% static 'campaigns_app/css/modal/delete_race.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/modal/add_race.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Raças</title>
 {% endblock 'head' %}
+
 {% block 'body' %}
-
-
 <section class="ModalCreateRace">
     <div class="modal">
+        <button type="button" class="closeModal closeAddModal">
+            <i data-lucide="x"></i>
+        </button>
         <h2>Adicionar raça</h2>
         <form action="{% url 'campaigns:races' campaign.id %}" method="post">
             {%csrf_token%}
@@ -62,8 +63,8 @@
 </section>
 
 <section id="editRaceModal" >
-    <div class="modal-content">
-        <button type="button" id="closeEditModal">
+    <div class="modal">
+        <button type="button" class="closeModal closeEditModal">
             <i data-lucide="x"></i>
         </button>
         <h2>Editar Raça</h2>
@@ -107,9 +108,10 @@
         </form>
     </div>
 </section>
+
 <section class="deleteRaceModal" id="deleteRaceModal">
     <div class="modal">
-        <button type="button" class="closeDeleteModal">
+        <button type="button" class="closeModal closeDeleteModal">
             <i data-lucide="x"></i>
         </button>
         <h2>Deseja apagar esta raça?</h2>
