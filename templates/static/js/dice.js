@@ -62,6 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
       quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>A quantidade de dados não pode ser zero.</span>`;
       hasError = true;
     }
+    if (quantityInputs==''){
+      quantityError.innerHTML = `<span> <i data-lucide="octagon-alert"></i>Campo obrigatório.</span>`;
+      hasError = true;
+
+    }
 
     function validateIntegerInputs(inputs) {
       return inputs.every(Number.isInteger);
