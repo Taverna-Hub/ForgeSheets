@@ -12,7 +12,7 @@ function handleCloseAddClassModal() {
   classModal.style.display = "none";
 }
 
-    const editButtons = document.querySelectorAll('.editClass');
+    const editButtons = document.querySelectorAll('.conseditClass');
     const editModal = document.getElementById('editClassModal');
     const closeEditModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
