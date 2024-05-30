@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelAddRaceModalBtn.addEventListener("click", handleCloseAddRaceModal);
     }
 
+   
     const editButtons = document.querySelectorAll('.editRace');
-    const editModal = document.querySelector('.editRaceModal');
+    const editModal = document.getElementById('editRaceModal');
     const closeEditModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
-    const editForm = document.getElementById('editRaceForm');
 
     editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const raceId = this.dataset.id;
             const raceName = this.dataset.name;
             const strengthBuff = this.dataset.strength;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_constitution_buff').value = constitutionBuff;
             document.getElementById('edit_speed_buff').value = speedBuff;
 
-            editModal.style.display = 'block';
+            editModal.style.display = 'flex';
         });
     });
 
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.deleteRace');
     const deleteModal = document.querySelector('.deleteRaceModal');
     const closeDeleteModalButton = document.querySelector('.deleteRaceModal .close');
-    const cancelDeleteButton = document.getElementById('cancel');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
     const deleteFormButton = document.querySelector('.delete_race');
 
     deleteButtons.forEach(button => {
@@ -98,9 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         if (event.target === editModal) {
             editModal.style.display = 'none';
-        }
-        if (event.target === deleteModal) {
-            deleteModal.style.display = 'none';
         }
     });
 });
