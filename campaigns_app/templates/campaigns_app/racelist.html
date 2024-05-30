@@ -4,10 +4,13 @@
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
+    <link rel="stylesheet" href="text/css" href="{% static 'campaigns_app/css/modal/delete_race.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Raças</title>
 {% endblock 'head' %}
 {% block 'body' %}
+
+
 <section class="ModalCreateRace">
     <div class="modal">
         <h2>Adicionar raça</h2>
@@ -52,14 +55,17 @@
                 </div>
             </div>
             <div class="actions">  
-                <button type="button" id="cancel">Cancelar</a> 
-                <button type="submit" id="submit_button" >Adicionar</button>
+                <button type="button" id="cancelAddRace">Cancelar</button> 
+                <button type="submit" id="submit_button" >Criar</button>
             </div>
         </form>
 </section>
-<div id="editRaceModal" class="modal">
+
+<section id="editRaceModal" >
     <div class="modal-content">
-        <span class="close" id="closeEditModal">&times;</span>
+        <button type="button" id="closeEditModal">
+            <i data-lucide="x"></i>
+        </button>
         <h2>Editar Raça</h2>
         <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
@@ -94,13 +100,30 @@
                     <input type="number" name="speed_buff" id="edit_speed_buff">
                 </div>
             </div>
-            <div class="actions">
+            <div class="actions" id="editRaceBtn">
                 <button type="button" id="cancelEdit">Cancelar</button>
                 <button type="submit" id="submitEditButton">Salvar</button>
             </div>
         </form>
     </div>
-</div>
+</section>
+<section class="deleteRaceModal" id="deleteRaceModal">
+    <div class="modal">
+        <button type="button" class="closeDeleteModal">
+            <i data-lucide="x"></i>
+        </button>
+        <h2>Deseja apagar esta raça?</h2>
+        <form method="post" action="{% url 'campaigns:races' campaign.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="delete_race_id" id="delete_race_id">
+            <div class="actions">
+                <button type="button" id="cancelDelete">Cancelar</button>
+                <button type="submit">Apagar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
 
 <section class="raceList">
     <div class="sideBySide">
@@ -139,10 +162,13 @@
                             <button class="editRace" data-id="{{ race.id }}" data-name="{{ race.name }}" data-strength="{{ race.strength_buff }}" data-intelligence="{{ race.intelligence_buff }}" data-wisdom="{{ race.wisdom_buff }}" data-charisma="{{ race.charisma_buff }}" data-constitution="{{ race.constitution_buff }}" data-speed="{{ race.speed_buff }}">
                                 <i data-lucide="edit-3"></i>
                             </button>
-                            {% comment %}
-                            <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
-                            {% endcomment %}
+                            
                         </td> 
+                        <td>
+                            <button class="delete_race_button" data-id="{{ race.id }}">
+                                <i data-lucide="trash-2"></i>
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

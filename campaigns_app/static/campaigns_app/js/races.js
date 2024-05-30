@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     const openAddRaceModalBtn = document.querySelector(".addRace");
-    const cancelRaceModalBtn = document.querySelector("#cancel");
+    const cancelAddRaceModalBtn = document.querySelector("#cancelAddRace");
     const addRaceModal = document.querySelector(".ModalCreateRace");
 
     function handleOpenAddRaceModal() {
@@ -12,22 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (openAddRaceModalBtn) {
-        openAddRaceModalBtn.addEventListener("click", () => handleOpenAddRaceModal());
+        openAddRaceModalBtn.addEventListener("click", handleOpenAddRaceModal);
     }
 
-    if (cancelRaceModalBtn) {
-        cancelRaceModalBtn.addEventListener("click", () => handleCloseAddRaceModal());
+    if (cancelAddRaceModalBtn) {
+        cancelAddRaceModalBtn.addEventListener("click", handleCloseAddRaceModal);
     }
 
+   
     const editButtons = document.querySelectorAll('.editRace');
-    const editmodal = document.getElementById('editRaceModal');
-    const closeModalButton = document.getElementById('closeEditModal');
+    const editModal = document.getElementById('editRaceModal');
+    const closeEditModalButton = document.getElementById('closeEditModal');
     const cancelEditButton = document.getElementById('cancelEdit');
-    const editForm = document.getElementById('editRaceForm');
 
     editButtons.forEach(button => {
         button.addEventListener('click', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             const raceId = this.dataset.id;
             const raceName = this.dataset.name;
             const strengthBuff = this.dataset.strength;
@@ -46,25 +46,55 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('edit_constitution_buff').value = constitutionBuff;
             document.getElementById('edit_speed_buff').value = speedBuff;
 
-            editmodal.style.display = 'block';
+            editModal.style.display = 'flex';
         });
     });
 
-    if (closeModalButton) {
-        closeModalButton.addEventListener('click', function() {
-            editmodal.style.display = 'none';
+    if (closeEditModalButton) {
+        closeEditModalButton.addEventListener('click', function() {
+            editModal.style.display = 'none';
         });
     }
 
     if (cancelEditButton) {
         cancelEditButton.addEventListener('click', function() {
-            editmodal.style.display = 'none';
+            editModal.style.display = 'none';
         });
     }
 
+    const deleteButtons = document.querySelectorAll('.delete_race_button');
+    const deleteModal = document.getElementById('deleteRaceModal');
+    const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
+    const deleteFormButton = document.querySelector('.delete_race');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            const raceId = this.dataset.id;
+            document.getElementById('delete_race_id').value = raceId;
+            deleteModal.style.display = 'flex';
+        });
+    });
+
+    if (closeDeleteModalButton) {
+        closeDeleteModalButton.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+        });
+    }
+
+    if (cancelDeleteButton) {
+        cancelDeleteButton.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
+        });
+    }
+
+
     window.addEventListener('click', function(event) {
-        if (event.target === editmodal) {
-            editmodal.style.display = 'none';
+        if (event.target === editModal) {
+            editModal.style.display = 'none';
+        }
+        if (event.target === deleteModal) {
+            deleteModal.style.display = 'none';
         }
     });
-});

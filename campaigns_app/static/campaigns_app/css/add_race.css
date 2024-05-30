@@ -67,6 +67,7 @@ label {
 
 h2 {
     color: var(--gray-800);
+    
 }
 
 button {
@@ -110,6 +111,7 @@ button {
 }
 
 .actions {
+    float: right;
     align-self: flex-end;
 }
 
@@ -120,7 +122,11 @@ button {
     border: none;
     font-weight: 600;
     font-size: 16px;
+    margin: 8px;
+    
+    
 }
+
 
 .actions button:first-child {
     background-color: var(--gray-300);
@@ -169,12 +175,14 @@ button {
 
     margin-top: 8px;
 }
-#editRaceModal .modal {
+#editRaceModal .modal-content {
     background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
     width: 650px;
     height: fit-content;
+  
+    
 }
 
 #editRaceModal .modal form {
@@ -185,6 +193,50 @@ button {
     margin-top: 40px;
 }
 
-.ModalCreateRace .modal form div {
+#editRaceModal .modal form div {
     margin-bottom: 8px;
 }
+
+#deleteRaceModal {
+    background: rgba(0,0,0,0.8);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+#closeEditModal {
+    background-color: var(--red-600);
+    cursor: pointer;
+    color: var(--gray-200);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+    left: 560px;
+    position: relative ;
+  }
+
+#deleteRaceModal .modal {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: 4px;
+    width: 650px;
+    height: fit-content;
+  
+    
+}
+.closeDeleteModal {
+    background-color: var(--red-600);
+    cursor: pointer;
+    color: var(--gray-200);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+    left: 560px;
+    position: relative ;
+  }

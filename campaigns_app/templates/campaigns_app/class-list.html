@@ -54,6 +54,56 @@
   </div>
 </section>
 
+
+<section id="editClassModal" >
+  <div class="modal-content">
+      <button type="button" id="closeEditModal">
+          <i data-lucide="x"></i>
+      </button>
+      <h2>Editar Classe</h2>
+      <form id="editClassForm" action="{% url 'campaigns:campaign_classes' campaign.id %}" method="post">
+          {% csrf_token %}
+          <input type="hidden" name="edit_class_id" id="edit_class_id">
+
+          <div class="className">
+            <label for="className">Nome da classe:</label>
+            <input type="text" name="className">
+          </div>
+    
+          <div class="classRoleContainer">
+            <p>Papel da classe:</p>
+    
+            <div class="spellDamageContainer">
+              <input type="checkbox" name="role" id="spellDamage" value="spell_damage" >
+              <label for="spellDamage">Dano de magia</label>
+            </div>
+    
+            <div class="physicalDamageContainer">
+              <input type="checkbox" name="role" id="physicalDamage" value="physical_damage">
+              <label for="physicalDamage">Dano físico</label>
+            </div>
+    
+            <div class="supportContainer">
+              <input type="checkbox" name="role" id="support" value="support">
+              <label for="support">Suporte</label>
+            </div>
+    
+            <div class="tankContainer">
+              <input type="checkbox" name="role" id="tank" value="tank">
+              <label for="tank">Tanque</label>
+            </div>
+          </div>    
+          
+         </div>
+          <div class="actions" id="editRaceBtn">
+              <button type="button" id="cancelEdit">Cancelar</button>
+              <button type="submit" id="submitEditButton">Salvar</button>
+          </div>
+      </form>
+  </div>
+</section>
+
+
 <section class="classList">
   
     <div class="sideBySide">
@@ -106,6 +156,16 @@
                               <i data-lucide="shield"></i>
                             {% endif %}
                         </td>
+                        <td>
+                          <button class="editClass" data-id="{{ class.id }}" data-name="{{ class.name }}">
+                              <i data-lucide="edit-3"></i>
+                          </button>
+                      </td> 
+                      <td>
+                        <button class="delete_class_button" data-id="{{ race.id }}">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </td> 
                     </tr>
                 {% endfor %}
             </tbody>

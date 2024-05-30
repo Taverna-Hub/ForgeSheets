@@ -305,6 +305,9 @@
 
 <section class="mainSheet">
     <section class="sheet">
+        {% if sheet.campaign %}
+            <h5 class="title">{{sheet.campaign.title}}</h5><br><br>
+        {% endif %}
         <form action="{% url 'sheets:edit_sheet' sheet.id %}" id="form-edit-sheet" method="POST">
             {%csrf_token%}
             <input class="nameInput sheet-submit" type="text" name="name" id="" value="{{sheet.name}}">
@@ -531,26 +534,44 @@
                             <div>
                                 <label for="strength">Força: </label>
                                 <input type="number" name="strength" id="strength" value="{{sheet.strength}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.strength_buff}}" disabled  >
+                                {% endif %}
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
                                 <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.intelligence_buff}}" disabled  >
+                                {% endif %}
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
                                 <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.wisdom_buff}}" disabled  >
+                                {% endif %}
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
                                 <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.charisma_buff}}" disabled  >
+                                {% endif %}
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
                                 <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.constitution_buff}}" disabled  >
+                                {% endif %}
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
                                 <input type="number" name="speed" id="speed" value="{{sheet.speed}}" class="sheet-submit">
+                                {% if sheet.campaign %}
+                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.speed_buff}}" disabled  >
+                                {% endif %}
                             </div>
                         </div>
                         {% for error in errors %}
