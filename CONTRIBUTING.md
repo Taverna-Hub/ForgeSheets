@@ -93,11 +93,15 @@ Abra um Pull Request com uma descrição detalhada das alterações realizadas.
   <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/3643dc38-6a58-45ef-9d0d-e97fb7fbcead">
 </p>
 
-<strong>4º) Por fim, clique em ```Open pull request```:</strong>
+<strong>4º) Então, para criar seu PR, clique em ```Create pull request```:</strong>
 
 <p align="center">
-  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/c5a22c16-cd9b-4292-bf36-e938752c0ba9">
+  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/c5a22c16-cd9b-4292-bf36-e938752c0ba9" width="300">
 </p>
+
+<strong>5º) Por fim....</strong>
+
+<p>Nós da &lt;/Taverna&gt; iremos avaliar a sua submissão e caso algo esteja incompatível com nosso projeto, entraremos em contato para revisarmos o seu código.</p>
 
 <br>
 

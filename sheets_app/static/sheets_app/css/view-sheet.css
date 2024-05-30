@@ -182,6 +182,10 @@ input:disabled{
     margin-top: 6px;
 }
 
+.buffAtributes{
+    color: var(--red-life);
+}
+
 /*css de equipamentos*/
 
 .equipamentos div {

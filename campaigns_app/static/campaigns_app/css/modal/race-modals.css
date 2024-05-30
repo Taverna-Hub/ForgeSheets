@@ -11,8 +11,8 @@
     --gray-600: #4b5563;
     --gray-700: #374151;
     --gray-800: #1f2937;
-}
-
+  }
+  
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -24,22 +24,10 @@
     border-radius: 6px;
 }
 
-a {
-    text-decoration: none;
-}
-
-.campaignModalOverlay {
-    background: rgba(0,0,0,0.8);
-
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat';
 }
 
 input, textarea {
@@ -65,31 +53,56 @@ label {
 
 h2 {
     color: var(--gray-800);
+    
 }
 
 button {
     cursor: pointer;
 }
 
-.campaignModalOverlay .modal {
+.ModalCreateRace, #editRaceModal, #deleteRaceModal {
+    background: rgba(0,0,0,0.8);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.ModalCreateRace .modal, #editRaceModal .modal, #deleteRaceModal .modal {
     background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
     width: 650px;
-    min-height: 595px;
     height: fit-content;
+    position: relative;
 }
 
-.campaignModalOverlay .modal form {
+.ModalCreateRace .modal form, #editRaceModal .modal form, #deleteRaceModal .modal form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 40px;
 
     margin-top: 40px;
 }
 
-.campaignModalOverlay .modal span {
+.ModalCreateRace .modal form div, #editRaceModal .modal form div {
+    margin-bottom: 8px;
+}
+
+.buff {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 16px;
+    margin-top: 24px;
+}
+
+.ModalCreateRace .modal span, #editRaceModal .modal span {
     color: var(--red-600);
     display: flex;
     align-items: center;
@@ -103,11 +116,13 @@ button {
 }
 
 .actions button {
+    margin-top: 8px;
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
     font-weight: 600;
     font-size: 16px;
+    margin: 8px;
 }
 
 .actions button:first-child {
@@ -125,7 +140,7 @@ button {
     color: var(--gray-200);
 }
 
-#cancel{
+#cancel {
     padding: 8px 16px;
     border-radius: 4px;
     border: none;
@@ -134,4 +149,16 @@ button {
     background-color: var(--gray-300);
     color: var(--gray-700);
     margin-right: 16px;
+}
+
+.closeModal {
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--gray-700);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+    right: 16px;
+    top: 16px;
+    position: absolute;
 }

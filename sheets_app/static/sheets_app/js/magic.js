@@ -198,8 +198,8 @@ function handleAddMagicToList() {
     return
   }
 
-  if (magic.description.length > 200) {
-    handleMagicError('Esse campo deve ter no máximo 200 caracteres', 'magicDescription')
+  if (magic.description.length > 1000) {
+    handleMagicError('Esse campo deve ter no máximo 1000 caracteres', 'magicDescription')
     return
   }
 

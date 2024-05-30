@@ -14,7 +14,7 @@
   --gray-800: #1f2937;
 }
 
-.addClassModal {
+.addClassModal, .editClassModal {
   background: rgba(0,0,0,0.8);
 
   position: fixed;
@@ -30,7 +30,7 @@
   z-index: 9999;
 }
 
-.addClassModal input {
+.addClassModal input, .editClassModal input {
   width: 100%;
   border: 2px solid var(--gray-200);
   border-radius: 4px;
@@ -38,28 +38,28 @@
   height: 35px;
 }
 
-.addClassModal input[type="checkbox"] {
+.addClassModal input[type="checkbox"], .editClassModal input[type="checkbox"] {
   width: 20px;
   cursor: pointer;
   accent-color: var(--red-600);
 }
 
-.classNameContainer label, .addClassModal p {
+.classNameContainer label, .addClassModal p, .editClassModal p {
   display: block;
   margin-bottom: 8px;
   color: var(--gray-700);
   font-weight: 500;
 }
 
-.addClassModal h2 {
+.addClassModal h2, .editClassModal h2 {
   color: var(--gray-800);
 }
 
-.addClassModal button {
+.addClassModal button, .editClassModal button {
   cursor: pointer;
 }
 
-.addClassModal .modal {
+.addClassModal .modal, .editClassModal .modal {
   background-color: var(--white);
   padding: 24px;
   border-radius: 4px;
@@ -67,9 +67,10 @@
   max-height: 90vh;
   height: fit-content;
   overflow-y: auto;
+  position: relative;
 }
 
-.addClassModal .modal form {
+.addClassModal .modal form, .editClassModal .modal form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,17 +79,24 @@
   margin-top: 40px;
 }
 
+#closeEditModal {
+  position: absolute;
+  background-color: transparent;
+  color: var(--gray-700);
+  right: 24px;
+}
+
 .classRoleContainer div {
   display: flex;
   align-items: center;
   gap: 16px;
 }
 
-.addClassModal .actions {
+.addClassModal .actions, .editClassModal .actions {
   align-self: flex-end;
 }
 
-.addClassModal .actions button {
+.addClassModal .actions button, .editClassModal .actions button {
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
@@ -96,16 +104,16 @@
   font-size: 16px;
 }
 
-.addClassModal .actions button:first-child {
+.addClassModal .actions button:first-child, .editClassModal .actions button:first-child  {
   background-color: var(--gray-200);
   color: var(--gray-700);
 }
 
-.addClassModal .actions button:first-child a  {
+.addClassModal .actions button:first-child a, .editClassModal .actions button:first-child a  {
   color: var(--gray-700);
 }
 
-.addClassModal .actions button:last-child  {
+.addClassModal .actions button:last-child, .editClassModal .actions button:last-child  {
   background-color: var(--red-600);
   color: var(--gray-200);
 }

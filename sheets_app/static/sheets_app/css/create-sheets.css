@@ -1,4 +1,5 @@
 :root {
+  --red-life: #ee4343;
   --red-600: #dc2626;
   --red-700: #b91c1c;
   --red-950: #450a0a;
@@ -409,4 +410,8 @@ input:disabled{
     margin: 64px 5%;
     height: 100%;
   }
+}
+
+.buffAtributes p {
+  color: var(--red-life); 
 }
