@@ -170,6 +170,7 @@ class EditSheetView(LoginRequiredMixin, View):
         is_sheet_owner = (sheet.user_id == user_id)
         if sheet.campaign:
             campaign = sheet.campaign
+            race_camp = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
             is_campaign_owner = (campaign.user_id == user_id)
 
         image = sheet.image
@@ -189,15 +190,28 @@ class EditSheetView(LoginRequiredMixin, View):
             sheet.mana = sheet.manaMax
             mana = 100
         
-        ctx = { 
-            'app_name': 'sheets',
-            'sheet': sheet,
-            'mana': int(mana),
-            'hp': int(hp),
-            'exp': int(exp),
-            'atk': atk,
-            'def': defe,
-        }
+        if sheet.campaign:
+            ctx = { 
+                'app_name': 'sheets',
+                'race_buff': race_camp,
+                'sheet': sheet,
+                'mana': int(mana),
+                'hp': int(hp),
+                'exp': int(exp),
+                'atk': atk,
+                'def': defe,
+            }
+
+        else:    
+            ctx = { 
+                'app_name': 'sheets',
+                'sheet': sheet,
+                'mana': int(mana),
+                'hp': int(hp),
+                'exp': int(exp),
+                'atk': atk,
+                'def': defe,
+            }
         if  image:
             ctx['image'] = image
 

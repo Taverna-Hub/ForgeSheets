@@ -308,7 +308,16 @@
                         <option value=" " selected disabled>Selecione uma raça</option>
                         
                         {% for campaign_race in races %}
-                            <option value="{{campaign_race.name}}" {% if race == campaign_race.name %} selected {% endif %}> {{campaign_race.name}}</option>
+                            <option value="{{campaign_race.name}}" 
+                             data-strength="{{ campaign_race.strength_buff }}" 
+                             data-intelligence="{{ campaign_race.intelligence_buff }}" 
+                             data-wisdom="{{ campaign_race.wisdom_buff }}" 
+                             data-charisma="{{ campaign_race.charisma_buff }}" 
+                             data-constitution="{{ campaign_race.constitution_buff }}" 
+                             data-speed="{{ campaign_race.speed_buff }}" 
+                             {% if race == campaign_race.name %} selected {% endif %}> 
+                                {{campaign_race.name}}
+                            </option>
                         {% endfor %}
                     </select>
                     {% for error in errors %}
@@ -348,26 +357,38 @@
                             <div>
                                 <label for="strength">Força: </label>
                                 <input type="number" name="strength" id="strength" value="{{strength}}">
+
+                                <input type="number" name="strength_buff" id="strength_buff"  disabled  >
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
                                 <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
+                                
+                                <input type="number" name="strength_buff" id="intelligence_buff"  disabled  >
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
                                 <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
+                                
+                                <input type="number" name="strength_buff" id="wisdom_buff"  disabled  >
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
                                 <input type="number" name="charisma" id="charisma" value="{{charisma}}">
+                                
+                                <input type="number" name="strength_buff" id="charisma_buff"  disabled  >
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
                                 <input type="number" name="constitution" id="constitution" value="{{constitution}}">
+                                
+                                <input type="number" name="strength_buff" id="constitution_buff"  disabled  >
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
                                 <input type="number" name="speed" id="speed" value="{{speed}}">
+                                
+                                <input type="number" name="strength_buff" id="speed_buff"  disabled  >
                             </div>
                             {% for error in errors %}
                             {% if error.field == 'atributes1'%}
@@ -542,4 +563,5 @@
 <script src="{% static 'sheets_app/js/equipment.js' %}"></script>
 <script src="{% static 'sheets_app/js/image.js' %}"></script>
 <script src="{% static 'sheets_app/js/magic.js' %}"></script>
+<script src="{% static 'sheets_app/js/atributes-buff.js' %}"></script>
 {% endblock %}
