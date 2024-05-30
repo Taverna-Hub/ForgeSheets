@@ -14,7 +14,7 @@
   --gray-800: #1f2937;
 }
 
-.addClassModal, .editClassModal {
+.addClassModal, .editClassModal, .deleteClassModal {
   background: rgba(0,0,0,0.8);
 
   position: fixed;
@@ -30,7 +30,7 @@
   z-index: 9999;
 }
 
-.addClassModal input, .editClassModal input {
+.addClassModal input, .editClassModal input, .deleteClassModal input {
   width: 100%;
   border: 2px solid var(--gray-200);
   border-radius: 4px;
@@ -51,7 +51,7 @@
   font-weight: 500;
 }
 
-.addClassModal h2, .editClassModal h2 {
+.addClassModal h2, .editClassModal h2, .deleteClassModal h2 {
   color: var(--gray-800);
 }
 
@@ -59,7 +59,7 @@
   cursor: pointer;
 }
 
-.addClassModal .modal, .editClassModal .modal {
+.addClassModal .modal, .editClassModal .modal, .deleteClassModal .modal {
   background-color: var(--white);
   padding: 24px;
   border-radius: 4px;
@@ -70,7 +70,7 @@
   position: relative;
 }
 
-.addClassModal .modal form, .editClassModal .modal form {
+.addClassModal .modal form, .editClassModal .modal form, .deleteClassModal .modal form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -79,7 +79,7 @@
   margin-top: 40px;
 }
 
-#closeEditModal {
+.closeModal {
   position: absolute;
   background-color: transparent;
   color: var(--gray-700);
@@ -92,11 +92,11 @@
   gap: 16px;
 }
 
-.addClassModal .actions, .editClassModal .actions {
+.addClassModal .actions, .editClassModal .actions, .deleteClassModal .actions {
   align-self: flex-end;
 }
 
-.addClassModal .actions button, .editClassModal .actions button {
+.addClassModal .actions button, .editClassModal .actions button, .deleteClassModal .actions button {
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
@@ -104,16 +104,16 @@
   font-size: 16px;
 }
 
-.addClassModal .actions button:first-child, .editClassModal .actions button:first-child  {
+.addClassModal .actions button:first-child, .editClassModal .actions button:first-child, .deleteClassModal .actions button:first-child  {
   background-color: var(--gray-200);
   color: var(--gray-700);
 }
 
-.addClassModal .actions button:first-child a, .editClassModal .actions button:first-child a  {
+.addClassModal .actions button:first-child a, .editClassModal .actions button:first-child a, .deleteClassModal .actions button:first-child a  {
   color: var(--gray-700);
 }
 
-.addClassModal .actions button:last-child, .editClassModal .actions button:last-child  {
+.addClassModal .actions button:last-child, .editClassModal .actions button:last-child, .deleteClassModal .actions button:last-child  {
   background-color: var(--red-600);
   color: var(--gray-200);
 }

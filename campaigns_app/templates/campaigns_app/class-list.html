@@ -56,7 +56,7 @@
 
 <section id="editClassModal" class="editClassModal">
   <div class="modal">
-      <button type="button" id="closeEditModal">
+      <button type="button" class="closeModal closeEditModal">
           <i data-lucide="x"></i>
       </button>
       <h2>Editar Classe</h2>
@@ -98,6 +98,23 @@
             <button type="submit" id="submitEditButton">Salvar</button>
           </div>
          </div>
+      </form>
+  </div>
+</section>
+
+<section class="deleteClassModal" id="deleteClassModal">
+  <div class="modal">
+      <button type="button" class="closeModal closeDeleteModal">
+          <i data-lucide="x"></i>
+      </button>
+      <h2>Deseja apagar esta classe?</h2>
+      <form method="post" action="{% url 'campaigns:campaign_classes' campaign.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="delete_class_id" id="delete_class_id">
+          <div class="actions">
+              <button type="button" id="cancelDelete">Cancelar</button>
+              <button type="submit">Apagar</button>
+          </div>
       </form>
   </div>
 </section>

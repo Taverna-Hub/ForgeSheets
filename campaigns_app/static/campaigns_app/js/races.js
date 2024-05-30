@@ -59,7 +59,6 @@ const deleteButtons = document.querySelectorAll('.delete_race_button');
 const deleteModal = document.querySelector('#deleteRaceModal');
 const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
 const cancelDeleteButton = document.querySelector('#cancelDelete');
-const deleteFormButton = document.querySelector('.delete_race');
 
 deleteButtons.forEach(button => {
     button.addEventListener('click', function(event) {

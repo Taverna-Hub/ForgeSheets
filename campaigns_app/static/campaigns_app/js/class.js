@@ -69,3 +69,28 @@ closeEditModalButton?.addEventListener('click', function() {
 cancelEditButton?.addEventListener('click', function() {
   editModal.style.display = 'none';
 });
+
+// Deletar classe 
+const deleteButtons = document.querySelectorAll('.delete_class_button');
+const deleteModal = document.querySelector('#deleteClassModal');
+const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
+const cancelDeleteButton = document.querySelector('#cancelDelete');
+
+deleteButtons.forEach(button => {
+  button.addEventListener('click', function(event) {
+    event.preventDefault();
+    const raceId = this.dataset.id;
+    document.querySelector('#delete_class_id').value = raceId;
+    deleteModal.style.display = 'flex';
+  });
+});
+
+closeDeleteModalButton?.addEventListener('click', function() {
+  deleteModal.style.display = 'none';
+});
+
+cancelDeleteButton?.addEventListener('click', function() {
+  deleteModal.style.display = 'none';
+});
+
+

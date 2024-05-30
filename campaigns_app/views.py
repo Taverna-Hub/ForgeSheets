@@ -172,10 +172,30 @@ class ClassListView(LoginRequiredMixin, View):
       return render(request, "campaigns_app/class-list.html",ctx)
    
    def post(self, request, id):
+      if 'edit_class_id' in request.POST:
+         class_id = request.POST.get('edit_class_id')
+         existing_class = get_object_or_404(Class, id=class_id)
+
+         name = request.POST.get("className")
+         roles = request.POST.getlist("role")
+
+         existing_class.name = name
+         existing_class.roles = roles
+         existing_class.save()
+         
+         return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))
+
+      elif 'delete_class_id' in request.POST:
+         class_id = request.POST.get('delete_class_id')
+         deleted_class = get_object_or_404(Class, id=class_id)
+         deleted_class.delete()
+
+         return redirect(reverse('campaigns:campaign_classes', kwargs={'id':id}))
+
       name = request.POST.get("className")
       roles = request.POST.getlist("role")
 
-      newClass = Class(name=name, roles=roles, campaign_id=id)
-      newClass.save()
+      new_class = Class(name=name, roles=roles, campaign_id=id)
+      new_class.save()
 
       return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))
