@@ -37,7 +37,7 @@ git clone https://github.com/Taverna-Hub/ForgeSheets.git
 
 <br>
 
-## 💻 Configurando o ambiente de desenvolvinento
+## 💻 Configurando o ambiente de desenvolvimento
 
 <strong>1º) Entre no Diretório do Projeto:</strong>
 ```
