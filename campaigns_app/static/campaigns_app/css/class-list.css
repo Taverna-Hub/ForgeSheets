@@ -96,6 +96,11 @@ tbody td:nth-child(2) {
   gap: 16px;
 }
 
+tbody td button {
+  background-color: transparent;
+  color: var(--gray-700);
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -106,50 +111,6 @@ a {
   margin-right: 10px;
 }
 
-.sideBySide{
+.sideBySide {
   display: flex;
-}
-
-
-#editClassModal {
-  background: rgba(0,0,0,0.8);
-  z-index: 99999999999999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#editClassModal .modal span {
-  color: var(--red-600);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  margin-top: 8px;
-}
-#editClassModal .modal-content {
-  background-color: var(--white);
-  padding: 24px;
-  border-radius: 4px;
-  width: 650px;
-  height: fit-content;
-
-  
-}
-
-#editClassModal .modal form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  margin-top: 40px;
-}
-
-#editClassModal .modal form div {
-  margin-bottom: 8px;
 }

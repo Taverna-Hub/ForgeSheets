@@ -3,7 +3,7 @@
 
 {% block 'head' %}
   <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/class-list.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/modal/add-class.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/modal/class-modals.css' %}">
   <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
   <title>Classes | {{campaign.title}}</title>
 {% endblock 'head' %}
@@ -54,8 +54,8 @@
   </div>
 </section>
 
-<section id="editClassModal" >
-  <div class="modal-content">
+<section id="editClassModal" class="editClassModal">
+  <div class="modal">
       <button type="button" id="closeEditModal">
           <i data-lucide="x"></i>
       </button>
@@ -66,38 +66,38 @@
 
           <div class="className">
             <label for="className">Nome da classe:</label>
-            <input type="text" name="className">
+            <input type="text" name="className" id="edit_name">
           </div>
     
           <div class="classRoleContainer">
             <p>Papel da classe:</p>
     
             <div class="spellDamageContainer">
-              <input type="checkbox" name="role" id="spellDamage" value="spell_damage" >
-              <label for="spellDamage">Dano de magia</label>
+              <input type="checkbox" name="role" id="editSpellDamage" value="spell_damage" >
+              <label for="editSpellDamage">Dano de magia</label>
             </div>
     
             <div class="physicalDamageContainer">
-              <input type="checkbox" name="role" id="physicalDamage" value="physical_damage">
-              <label for="physicalDamage">Dano físico</label>
+              <input type="checkbox" name="role" id="editPhysicalDamage" value="physical_damage">
+              <label for="editPhysicalDamage">Dano físico</label>
             </div>
     
             <div class="supportContainer">
-              <input type="checkbox" name="role" id="support" value="support">
-              <label for="support">Suporte</label>
+              <input type="checkbox" name="role" id="editSupport" value="support">
+              <label for="editSupport">Suporte</label>
             </div>
     
             <div class="tankContainer">
-              <input type="checkbox" name="role" id="tank" value="tank">
-              <label for="tank">Tanque</label>
+              <input type="checkbox" name="role" id="editTank" value="tank">
+              <label for="editTank">Tanque</label>
             </div>
           </div>    
-          
-         </div>
-          <div class="actions" id="editRaceBtn">
-              <button type="button" id="cancelEdit">Cancelar</button>
-              <button type="submit" id="submitEditButton">Salvar</button>
+
+          <div class="actions">
+            <button type="button" id="cancelEdit">Cancelar</button>
+            <button type="submit" id="submitEditButton">Salvar</button>
           </div>
+         </div>
       </form>
   </div>
 </section>
@@ -155,7 +155,7 @@
                             {% endif %}
                         </td>
                         <td>
-                          <button class="editClass" data-id="{{ class.id }}" data-name="{{ class.name }}">
+                          <button class="editClass" data-id="{{ class.id }}" data-name="{{ class.name }}" data-roles="{{ class.roles }}">
                               <i data-lucide="edit-3"></i>
                           </button>
                       </td> 

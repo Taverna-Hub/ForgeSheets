@@ -13,16 +13,16 @@
     --gray-800: #1f2937;
   }
   
-  ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
-  }
-  ::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-track {
     background-color: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
+}
+::-webkit-scrollbar-thumb {
     background-color: var(--red-700);
     border-radius: 6px;
-  }
+}
 
 * {
     margin: 0;

@@ -16,7 +16,6 @@ openAddRaceModalBtn?.addEventListener("click", handleOpenAddRaceModal);
 cancelAddRaceModalBtn?.addEventListener("click", handleCloseAddRaceModal);
 closeAddRaceModalBtn?.addEventListener("click", handleCloseAddRaceModal);
 
-
 // Editar raça
 const editButtons = document.querySelectorAll('.editRace');
 const editModal = document.querySelector('#editRaceModal');
