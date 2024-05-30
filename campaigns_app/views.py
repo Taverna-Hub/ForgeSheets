@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views import View
+import campaigns_app
 from campaigns_app.models import Campaign, Class, Race
 from .utils import save_campaign, treat_race
 from django.contrib import messages
@@ -93,7 +94,6 @@ class CampaignView(LoginRequiredMixin, View):
          newImage = campaign.image
 
       fields = save_campaign(newImage, newTitle, newDescription, user_id, campaign.id)
-      print(fields)
       if fields == 1:
          return redirect('campaigns:view_campaign', id=id)
       else:
@@ -127,6 +127,11 @@ class RaceView(LoginRequiredMixin, View):
          race_id = request.POST.get('edit_race_id')
          race = get_object_or_404(Race, id=race_id)
 
+         ctx = {
+            'race':race,
+            'app_name':'campaign'
+         }
+
          race.name = request.POST.get('name')
          race.strength_buff = int(request.POST.get('strength_buff'))
          race.intelligence_buff = int(request.POST.get('intelligence_buff'))
@@ -152,10 +157,32 @@ class RaceView(LoginRequiredMixin, View):
       charisma_buff = request.POST.get('charisma_buff')
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
+      campaign = get_object_or_404(Campaign, id=id)
+      
 
-      race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
-      race.save()
+      ctx = {
+         'name':name,
+         'strength_buff':strength_buff,
+         'intelligence_buff':intelligence_buff,
+         'wisdom_buff':wisdom_buff,
+         'charisma_buff':charisma_buff,
+         'constitution_buff':constitution_buff,
+         'speed_buff':speed_buff
+      }
+
+      fields = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, 0,campaign)
+      if fields:
+         ctx['errors'] = fields
+         ctx['app_name'] = 'campaign'
+         for field_error in fields:
+            ctx.pop(field_error['field'], None)
+         return render(request, 'campaigns_app/racelist.html', ctx)
+      
       return redirect(reverse('campaigns:races', kwargs={'id': id}))
+
+      # race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
+      # race.save()
+      # return redirect(reverse('campaigns:races', kwargs={'id': id}))
    
 class ClassListView(LoginRequiredMixin, View):
    def get(self, request, id):
