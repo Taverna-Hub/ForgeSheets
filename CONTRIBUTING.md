@@ -101,7 +101,7 @@ Abra um Pull Request com uma descrição detalhada das alterações realizadas.
 
 <strong>5º) Por fim....</strong>
 
-<p>Nós, da </Taverna>, iremos avaliar o seu código e caso algo não esteja de acordo com o esperado, entraremos em contato com a revisão da submissão :)</p>
+<p>Nós da &lt;/Taverna&gt; iremos avaliar a sua submissão e caso algo esteja incompatível com nosso projeto, entraremos em contato para revisarmos o seu código.</p>
 
 <br>
 
