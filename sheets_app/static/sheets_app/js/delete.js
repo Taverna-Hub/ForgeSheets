@@ -3,24 +3,24 @@ const modal = document.querySelector('.deleteSheetModal');
 const cancelDeleteBtn = document.querySelector('.cancel')
 const deleteBtn = document.querySelector('.delete')
 const deleteSheetBtn = document.querySelectorAll('.deleteSheet');
-const closedeleteSheetModalBtnX = document.querySelector('#closeDeleteSheet');
+const closeDeleteSheetModalBtnX = document.querySelector('#closeDeleteSheet');
 const form = document.querySelector('#formDeleteSheet')
 let deleteUrl;
 
-function opendeleteSheetModal() {
+function openDeleteSheetModal() {
   modal.style.display = "flex";
 }
 
-function closedeleteSheetModal() {
+function closeDeleteSheetModal() {
   modal.style.display = "none";
 }
 
-closedeleteSheetModalBtnX?.addEventListener('click', () => closedeleteSheetModal());
+closeDeleteSheetModalBtnX?.addEventListener('click', () => closeDeleteSheetModal());
 
 deleteSheetBtn.forEach(button => {
   button?.addEventListener('click', () => {
 
-    opendeleteSheetModal();
+    openDeleteSheetModal();
     
     deleteUrl = button.getAttribute('data-url');
   })
@@ -31,5 +31,5 @@ deleteBtn?.addEventListener('click', () => {
 })
 
 cancelDeleteBtn?.addEventListener('click', () => {
-  closedeleteSheetModal();
+  closeDeleteSheetModal();
 })

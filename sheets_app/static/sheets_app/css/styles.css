@@ -53,7 +53,7 @@
   transition: all .3s;
 }
 
-.sheetCard>div, .createSheet {
+.sheetCard > div, .createSheet {
   width: 300px;
   height: 200px;
   padding: 24px;
@@ -107,7 +107,7 @@
   color: var(--gray-300);
 }
 
-.deleteSheet{
+.menu {
   position: absolute;
   z-index: 9999999999;
   right: 10px;
@@ -146,8 +146,6 @@
 .sideBySide {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
-  
   width: 100%;
   gap: 16px;
 }
@@ -196,6 +194,53 @@
   height: 5px;
 }
 
+.sheetCard:hover {
+  transform: translateY(-4px);
+  cursor: pointer;
+  filter: saturate(120%);
+  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
+}
+
+.detailLink{
+  width: 94%;
+  text-decoration: none;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: var(--gray-800);
+  border: 1px solid var(--gray-700);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 1000;
+  min-width: 200px;
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: var(--white);
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.dropdown-menu a {
+  font-weight: 600;
+}
+
+.dropdown-item:hover {
+  background: var(--gray-700);
+  color: var(--white);
+}
 
 @media (max-width: 1653px) {
   .cardList {
@@ -220,18 +265,4 @@
   .cardList {
     grid-template-columns: repeat(1, 1fr);
   }
-}
-
-.sheetCard:hover {
-  transform: translateY(-4px);
-  cursor: pointer;
-  filter: saturate(120%);
-  box-shadow: rgba(53, 11, 11, 0.3) 0px 8px 24px;
-}
-
-.detailLink{
-  width: 94%;
-  text-decoration: none;
-  color: var(--white);
-  cursor: pointer;
 }

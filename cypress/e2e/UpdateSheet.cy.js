@@ -1,10 +1,8 @@
-Cypress.Commands.add('removeDatabase', () => {
-    cy.exec('rm ./db.sqlite3')
-    cy.exec('python3 manage.py migrate')
-})
-
+Cypress.Commands.add('deleteAllUsers', () => {
+    cy.exec('python delete_users.py', { failOnNonZeroExit: false })
+});
 Cypress.Commands.add('registerLoginCreateSheet', () => {
-    cy.removeDatabase()
+    cy.deleteAllUsers()
 
     cy.get('.registerAnchor').click()
     cy.get('#cadastrinho > form > #user').type('updatesheet')
@@ -42,8 +40,8 @@ describe ('update sheet', () => {
     it('succesful sheet management', () => {
         cy.visit('/')
 
-        cy.exec('rm ./db.sqlite3')
-        cy.exec('python3 manage.py migrate')
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
 
         cy.get('.registerAnchor').click()
         cy.get('#cadastrinho > form > #user').type('updatesheet')
@@ -131,7 +129,7 @@ describe ('update sheet', () => {
 
     it ('submitting empty attributes', () => {
         cy.visit('/')
-
+        cy.exec('python manage.py migrate')
         cy.registerLoginCreateSheet()
         
         cy.get('.cardList > #Card').last().click()
@@ -161,7 +159,7 @@ describe ('update sheet', () => {
 
     it ('submitting out-of-scope attributes', () => {
         cy.visit('/')
-
+        cy.exec('python manage.py migrate')
         cy.registerLoginCreateSheet()
         
         cy.get('.cardList > #Card').last().click()
@@ -174,7 +172,7 @@ describe ('update sheet', () => {
 
     it ('submitting HP and Mana values higher than max', () => {
         cy.visit('/')
-        
+        cy.exec('python manage.py migrate')
         cy.registerLoginCreateSheet()
 
         cy.get('.cardList > #Card').last().click()

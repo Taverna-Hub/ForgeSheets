@@ -2,12 +2,122 @@
 {% load static %}
 
 {% block 'head' %}
-<link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
-<link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
-<title>Visualizar Campanha - ForgeSheets</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/campaign.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'sheets_app/css/delete-sheet.css' %}">
+    <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
+    <title>Visualizar Campanha - ForgeSheets</title>
 {% endblock 'head' %}
 
 {% block 'body' %}
+{% for sheet in sheets %}
+    <section class="deleteSheetModal">
+        <div class="modal">
+            <button type="button" id="closeDeleteSheet">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="container">
+                <div>
+                    <h2>Você tem certeza que deseja excluir a ficha <strong>{{sheet.name}}</strong>?</h2>
+                    <p>Essa ação vai deletar a ficha permanentemente e o jogador perderá acesso a ela!</p>
+                    <br>
+                    <form id="formDeleteSheet" method="POST" action="">
+                        {% csrf_token %}
+                        <button type="button" class="cancel">
+                            Cancelar
+                        </button>
+
+                        <button type="submit" class="delete">
+                                Excluir
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </section> 
+{%endfor%}
+
+<div id="modal-description" class="campaignModal">
+    <div class="modal-content">
+        <div class="closeH2">
+            <h2>Editar descrição</h2>
+            <span class="close" data-modal="modal-description">&times;</span>
+        </div>
+        <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+            {% csrf_token %}
+            <textarea id="new-description" name="new-description">{{campaign.description}}</textarea>
+            {% if descriptionError %}
+                {% for message in messages %}
+                <span id="descriptionError">
+                    <i data-lucide="octagon-alert"></i>
+                    {{ message }}
+                </span>
+                {% endfor %}
+            {% endif %}
+            <input type="submit" value="Editar" class="submitInput">
+        </form>
+    </div>
+</div>
+
+<div id="modal-title" class="campaignModal">
+    <div class="modal-content">
+        <div class="closeH2">
+            <h2>Editar título</h2>
+            <span class="close" data-modal="modal-title">&times;</span>
+        </div>
+        <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+            {% csrf_token %}
+            <input type="text" id="new-title" name="new-title" value="{{campaign.title}}">
+            {% if titleError %}
+                {% for message in messages %}
+                <span id="titleError">
+                    <i data-lucide="octagon-alert"></i>
+                    {{ message }}
+                </span>
+                {% endfor %}
+            {% endif %}
+            <input type="submit" value="Editar" class="submitInput">
+        </form>
+    </div>
+</div>
+
+<div id="modal-image" class="campaignModal">
+    <div class="modal-content">
+        <div class="closeH2">
+            <h2>Editar imagem</h2>
+            <span class="close" data-modal="modal-image">&times;</span>
+        </div>
+        <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="new-image" id="image" value="{{campaign.image}}">
+            {% if imageError %}
+                {% for message in messages %}
+                <span id="imageError">
+                    <i data-lucide="octagon-alert"></i>
+                    {{ message }}
+                </span>
+                {% endfor %}
+            {% endif %}
+            <input type="submit" value="Editar" class="submitInput">
+        </form>
+    </div>
+</div>
+
+<div id="modal-delete" class="campaignModal">
+    <div class="modal-content">
+        <h2>Tem certeza que deseja excluir a campanha?</h2>
+        <p>Todas as fichas vinculadas serão perdidas</p>
+        <div id="delete-form">
+            <button id="delete-close" class="close" data-modal="modal-delete">Cancelar</button>
+            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="delete">
+                <button type="submit" id="submit-delete">Excluir</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <section class="campaignContainer">
     <div class="campaignImage" style="background-image: url('{{campaign.image}}')">
         <h1 class="campaignName">{{ campaign.title }}</h1>
@@ -20,8 +130,8 @@
         </div>
     </div>
     <div class="buttons">
-        <a href="{% url 'campaigns:races' campaign.id %}" class="button">Gerenciar Raças</a>
-        <a href="{% url 'campaigns:campaign_classes' campaign.id %}" class="button">Gerenciar Classes</a>
+        <a href="{% url 'campaigns:races' campaign.id %}" id="manageRaces" class="button">Gerenciar Raças</a>
+        <a href="{% url 'campaigns:campaign_classes' campaign.id %}" id="manageClasses" class="button">Gerenciar Classes</a>
         <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
             <circle cx="12" cy="12" r="1"/>
             <circle cx="12" cy="5" r="1"/>
@@ -34,98 +144,71 @@
             <a href="#" class="dropdown-item" id="edit-delete">Excluir campanha</a>
         </div>
     </div>
-    <div class="sheets">
+    <section class="campaignSheets">
         {% for sheet in sheets %}
-        <div class="sheetCard">
-            {% comment %} <p>{{sheet.name}}</p> {% endcomment %}
+        <div id="Card" class="sheetCard" 
+            style="{% if sheet.image %}
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
+            background-image: url({{ sheet.image }});
+            background-position: center;
+            {% endif %}"
+        >
+
+            <button type="button" class="menu">
+                <i data-lucide="ellipsis-vertical" width="24px" height="24px"></i>
+            </button>
+
+            <div id="Card" style="{% if sheet.image %}
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            {% if sheet.hp == 0%}
+            backdrop-filter: grayscale(1);
+            {% endif %}
+            {% endif %}">
+
+                <a href="{% url 'sheets:edit_sheet' sheet.id %}" class="detailLink">
+                    <h2>{{sheet.name}}</h2>
+                    <div class="sheet_info">
+                        <div class="sideBySide">
+                            <p><b>Nível:</b></p>
+                            {% if sheet.level == 20 %}
+                                <p>{{sheet.level}} (Nível Max.)</p>
+                            {% else %}
+                                <p>{{sheet.level}} ({{sheet.exp}}/{{sheet.expMax}}xp)</p>
+                            {% endif %}
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Raça:</b></p>
+                            <p>{{sheet.race}}</p>
+                        </div>
+                        <div class="sideBySide">
+                            <p><b>Classe:</b></p>
+                            <p>{{sheet.role}}</p>
+                        </div>
+                        <div class="bar">
+                            <div class="background-bar"></div>
+                            <div class="background-bar2"></div>
+                            <span class="hp-bar" style="width: {{sheet.hp}}%"></span>
+                            <span class="mana-bar" style="width: {{sheet.mana}}%"></span>
+                        </div>                        
+                    </div>
+                </a>
+
+                <div class="dropdown-menu hide">
+                    <a href="#" class="dropdown-item deleteSheet" data-url="{% url 'sheets:delete_sheet' sheet.id %}">Excluir ficha</a>
+                </div>
+            </div>
         </div>
         {% endfor %}
-    </div>
-
-    <div id="modal-title" class="modal">
-        <div class="modal-content">
-            <div class="closeH2">
-                <h2>Editar título</h2>
-                <span class="close" data-modal="modal-title">&times;</span>
-            </div>
-            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
-                {% csrf_token %}
-                <input type="text" id="new-title" name="new-title" value="{{campaign.title}}">
-                {% if titleError %}
-                    {% for message in messages %}
-                    <span id="titleError">
-                        <i data-lucide="octagon-alert"></i>
-                        {{ message }}
-                    </span>
-                    {% endfor %}
-                {% endif %}
-                <input type="submit" value="Editar" class="submitInput">
-            </form>
-        </div>
-    </div>
-    
-    <div id="modal-description" class="modal">
-        <div class="modal-content">
-            <div class="closeH2">
-                <h2>Editar descrição</h2>
-                <span class="close" data-modal="modal-description">&times;</span>
-            </div>
-            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
-                {% csrf_token %}
-                <textarea id="new-description" name="new-description">{{campaign.description}}</textarea>
-                {% if descriptionError %}
-                    {% for message in messages %}
-                    <span id="descriptionError">
-                        <i data-lucide="octagon-alert"></i>
-                        {{ message }}
-                    </span>
-                    {% endfor %}
-                {% endif %}
-                <input type="submit" value="Editar" class="submitInput">
-            </form>
-        </div>
-    </div>
-    
-    <div id="modal-image" class="modal">
-        <div class="modal-content">
-            <div class="closeH2">
-                <h2>Editar imagem</h2>
-                <span class="close" data-modal="modal-image">&times;</span>
-            </div>
-            <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
-                {% csrf_token %}
-                <input type="text" name="new-image" id="image" value="{{campaign.image}}">
-                {% if imageError %}
-                    {% for message in messages %}
-                    <span id="imageError">
-                        <i data-lucide="octagon-alert"></i>
-                        {{ message }}
-                    </span>
-                    {% endfor %}
-                {% endif %}
-                <input type="submit" value="Editar" class="submitInput">
-            </form>
-        </div>
-    </div>
-
-    <div id="modal-delete" class="modal">
-        <div class="modal-content">
-            <h2>Tem certeza que deseja excluir a campanha?</h2>
-            <p>Todas as fichas vinculadas serão perdidas</p>
-            <div id="delete-form">
-                <button id="delete-close" class="close" data-modal="modal-delete">Cancelar</button>
-                <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="delete">
-                    <button type="submit" id="submit-delete">Excluir</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js" integrity="sha512-jEnuDt6jfecCjthQAJ+ed0MTVA++5ZKmlUcmDGBv2vUI/REn6FuIdixLNnQT+vKusE2hhTk2is3cFvv5wA+Sgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'campaigns_app/js/campaign.js' %}"></script>
 </section>
 
+<script src="{% static 'sheets_app/js/sheet.js' %}"></script>
+<script src="{% static 'sheets_app/js/delete.js' %}"></script>
 {% include "dice.html" %}
 {% endblock 'body' %}

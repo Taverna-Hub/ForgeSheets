@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.http import HttpResponse
 from .models import Equipment, Sheet, Magic
-from .utils import save_equipment, save_sheet, sheet_update
+from campaigns_app.models import Class, Race, Campaign
+from .utils import save_equipment, save_sheet, save_sheet_in_campaign, sheet_update
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
@@ -24,7 +25,42 @@ class SheetsView(LoginRequiredMixin, View):
         }
         
         return render(request, 'sheets_app/sheets.html', ctx)
+    
+    def post(self, request):
+        campaign_code = request.POST.get("code")
+        if not campaign_code.strip():
+            sheets_view = Sheet.objects.filter(user_id=request.user.id)
+            for sheet in sheets_view:
+                sheet.hp = int((sheet.healthPoint / sheet.healthPointMax) * 100)
+                sheet.mana = int((sheet.mana / sheet.manaMax) * 100)
 
+            ctx = {
+                'sheets_view': sheets_view,
+                'app_name': 'sheets',
+                'user': request.user,
+                "error": {
+                    "message": "O campo de código não pode ser vazio!"
+                }
+            }
+        
+            return render(request, 'sheets_app/sheets.html', ctx)
+            
+        try:
+            sheets_view = Sheet.objects.filter(user_id=request.user.id)
+            campaign = Campaign.objects.get(code=campaign_code)
+        except Campaign.DoesNotExist:
+            ctx = {
+                'sheets_view': sheets_view,
+                'app_name': 'sheets',
+                'user': request.user,
+                "error": {
+                    "message": "Insira um codigo valido!"
+                }
+            }
+            return render(request, 'sheets_app/sheets.html', ctx)
+        
+        return redirect(reverse('sheets:create_sheet_in_campaign', kwargs={'id': campaign_code}))
+     
 class CreateSheetView(LoginRequiredMixin, View):
     def get(self, request):
         ctx = {
@@ -126,11 +162,17 @@ class CreateSheetView(LoginRequiredMixin, View):
             magic.save()
         return redirect('sheets:homesheets')
 
-class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
+class EditSheetView(LoginRequiredMixin, View): 
     def get(self, request, id):
         user_id = request.user.id
 
         sheet = get_object_or_404(Sheet, id=id)
+        is_sheet_owner = (sheet.user_id == user_id)
+        if sheet.campaign:
+            campaign = sheet.campaign
+            race_camp = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
+            is_campaign_owner = (campaign.user_id == user_id)
+
         image = sheet.image
         magics = Magic.objects.filter(sheet_id=id)
         equipments = Equipment.objects.filter(sheet_id=id)
@@ -148,20 +190,31 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             sheet.mana = sheet.manaMax
             mana = 100
         
-        ctx = { 
-            'app_name': 'sheets',
-            'sheet': sheet,
-            'mana': int(mana),
-            'hp': int(hp),
-            'exp': int(exp),
-            'atk': atk,
-            'def': defe,
-        }
+        if sheet.campaign:
+            ctx = { 
+                'app_name': 'sheets',
+                'race_buff': race_camp,
+                'sheet': sheet,
+                'mana': int(mana),
+                'hp': int(hp),
+                'exp': int(exp),
+                'atk': atk,
+                'def': defe,
+            }
+
+        else:    
+            ctx = { 
+                'app_name': 'sheets',
+                'sheet': sheet,
+                'mana': int(mana),
+                'hp': int(hp),
+                'exp': int(exp),
+                'atk': atk,
+                'def': defe,
+            }
         if  image:
             ctx['image'] = image
-        #elif not image:
-        #   ctx['image'] = None
-        #print(image)
+
         if not magics:
             ctx['magics'] = None
         else:
@@ -172,7 +225,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         else:
             ctx['equipments'] = equipments
 
-        if user_id == sheet.user_id:
+        if is_sheet_owner or is_campaign_owner:
             return render(request, 'sheets_app/view-sheet.html', ctx)
     
     def post(self, request, id):
@@ -217,8 +270,6 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
         expMax = sheet.expMax
         expActual = sheet.exp
 
-        # if exp < xp:
-        #     errors.append()
         updated = sheet_update(name, strength, intelligence, wisdom, charisma, constitution, speed, healthPoint, healthPointMax, manaActual, manaMax, exp, expActual, expMax)
         if not isinstance(updated, Sheet):
             atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
@@ -267,10 +318,7 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
                 if atributo not in updated:
                     valor = request.POST.get(atributo)
                     ctx[atributo] = valor
-            # for xp in experiencia:
-            #     if xp not in updated:
-            #         valor = request.POST.get(xp)
-            #         ctx[xp] = valor
+            
             return render(request, 'sheets_app/view-sheet.html', ctx)
 
         equipments = Equipment.objects.filter(sheet_id=sheet.id)
@@ -374,47 +422,166 @@ class EditSheetView(LoginRequiredMixin, View): # classe pra atualizar fichas :
             return render(request, 'sheets_app/view-sheet.html', ctx)   
 
 class CreateSheetInCampaingView(LoginRequiredMixin, View):
+  
     def get(self, request, id):
-        return render(request, 'sheets_app/create-sheets.html')
+        campaign = Campaign.objects.get(code=id)
+        races = Race.objects.filter(campaign_id=campaign.id)
+        classes = Class.objects.filter(campaign_id=campaign.id)
+
+        ctx = {
+            'app_name': 'sheets',
+            'id': campaign.id,
+            'title': campaign.title,
+            'races': races,
+            'classes': classes       
+        }
+        return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
+    
+    def post(self, request, id):
+        campaign = Campaign.objects.get(id=id)
+        races = Race.objects.filter(campaign_id=campaign.id)
+        classes = Class.objects.filter(campaign_id=campaign.id)
+
+        name = request.POST.get('name')
+        image = request.POST.get('image')
+        race = request.POST.get('race', " ")
+        role = request.POST.get('role', " ")
+
+        strength = request.POST.get('strength')
+        intelligence = request.POST.get('intelligence')
+        wisdom = request.POST.get('wisdom')
+        charisma = request.POST.get('charisma')
+        constitution = request.POST.get('constitution')
+        speed = request.POST.get('speed')
+
+        healthPointMax = request.POST.get('healthPointMax')
+        manaMax = request.POST.get('manaMax')
+        exp = request.POST.get('exp')
+
+        description = request.POST.get('description')
+
+        eqpsName = request.POST.getlist('equipmentName')
+        eqpsQnt = request.POST.getlist('equipmentQnt')
+        eqpsAtk = request.POST.getlist('equipmentAtk')
+        eqpsDef = request.POST.getlist('equipmentDef')
+
+        magicName = request.POST.getlist('mgcName')
+        magicDescription = request.POST.getlist('mgcDesc')
+        magicDamage = request.POST.getlist('mgcDamage')
+        atributeModifier = request.POST.getlist('mgcAttribute')
+        element = request.POST.getlist('mgcElement')
+        user_id = request.user.id
+
+        equipment_list = []
+        magic_list = []
+
+        errors = save_sheet_in_campaign(name, race, role, image, strength, intelligence, wisdom, charisma, constitution, speed, healthPointMax, manaMax, exp, user_id, description, campaign.id)
+        if errors:
+            atributos = ['strength', 'intelligence', 'wisdom', 'charisma', 'constitution', 'speed']
+            atributos2 = ['healthPointMax', 'manaMax', 'exp']
+            if str(type(errors)) != "<class 'sheets_app.models.Sheet'>":
+                for mgcName,mgcDesc, magicDamage , mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+                    magic = {
+                        'name': mgcName,
+                        'description': mgcDesc,
+                        'damage': magicDamage,
+                        'atribute': mgcAtribute,
+                        'element': mgcElement,
+                    }
+                    magic_list.append(magic)
+                for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+                    equipment = {
+                        'name': equipmentName,
+                        'quantity': equipmentQnt,
+                        'attack': equipmentAtk,
+                        'defense': equipmentDef
+                    }
+                    equipment_list.append(equipment)
+                ctx = {
+                    'errors': errors,
+                    'equipments': equipment_list,
+                    'magics': magic_list,
+                    'app_name': 'sheets',
+                    'id': campaign.id,
+                    'races': races,
+                    'classes': classes
+                }
+                if 'name' not in errors:
+                    ctx['name'] = name
+                if 'image' not in errors:
+                    ctx['image'] = image
+                if 'race' not in errors:
+                    ctx['race'] = race
+                if 'role' not in errors:
+                    ctx['role'] = role
+                if 'description' not in errors:
+                    ctx['description'] = description
+                for atributo in atributos:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                for atributo in atributos2:
+                    if atributo not in errors:
+                        valor = request.POST.get(atributo)
+                        ctx[atributo] = valor
+                        
+                if errors:
+                    print("Errors: ", errors)
+                return render(request, 'sheets_app/create-sheets-campaign.html', ctx)
+        
+        race_used = Race.objects.filter(campaign_id=campaign.id, name=race).first()
+        race_used.is_used += 1     
+
+        role_used = Class.objects.filter(campaign_id=campaign.id, name=role).first()
+        role_used.is_used += 1        
+   
+        for equipmentName, equipmentQnt, equipmentAtk, equipmentDef in zip(eqpsName, eqpsQnt, eqpsAtk, eqpsDef):
+            equipment = Equipment(name=equipmentName, quantity=equipmentQnt, attack=equipmentAtk, defense=equipmentDef, sheet_id=errors.id)
+            equipment.save()       
+        
+        for mgcName,mgcDesc, mgcDamage, mgcAtribute, mgcElement in zip(magicName, magicDescription, magicDamage, atributeModifier, element):
+            magic =  Magic(name=mgcName,description=mgcDesc, damage = mgcDamage, atribute_modifier = mgcAtribute, element = mgcElement, sheet_id = errors.id)
+            magic.save()
+
+        race_used.save()
+        role_used.save()
+        return redirect('sheets:homesheets')
 
 class DeleteSheetView(LoginRequiredMixin, View):
     def post(self, request, id):
-        sheet = get_object_or_404(Sheet, pk=id, user=request.user)
-        sheet.delete()
-        return redirect('sheets:homesheets')
 
-class AddEquipmentView(LoginRequiredMixin, View):
+        sheet = get_object_or_404(Sheet, pk=id)
+        current_user = request.user
+        sheet_owner = sheet.user
+        campaign = sheet.campaign 
+        if current_user == sheet_owner or current_user == campaign.user:
+            
+            if campaign:
+                campaign_id = sheet.campaign_id
+                race_used = Race.objects.filter(campaign_id=campaign.id, name=sheet.race).first()
+                race_used.is_used -= 1     
+                if race_used.is_used < 0:     
+                    race_used.is_used = 0     
 
-    # TO DO: Tratar se um equipamento já existe
-    def get(self, request):
-        return render(request, 'sheets_app/create_equip.html')
+                role_used = Class.objects.filter(campaign_id=campaign.id, name=sheet.role).first()
+                role_used.is_used -= 1   
+                if role_used.is_used < 0:     
+                    role_used.is_used = 0     
 
-    def post(self, request):
-        name = (request.POST.get('name'))
-        quantity = int(request.POST.get('quantity'))
-        attack = int(request.POST.get('attack'))
-        defense = int(request.POST.get('defense'))
-        sheet = (request.POST.get('sheet'))
+                race_used.save()
+                role_used.save()
 
-        addEquipmentFields = save_equipment(0, name, int(quantity), int(attack), int(defense), 1)
+            sheet.delete()
+            if current_user == sheet_owner:
+                return redirect('sheets:homesheets')
+            if current_user == campaign.user:
+                return redirect('campaigns:view_campaign', id=campaign_id)
 
-        if addEquipmentFields != 1:
-            ctx = {
-                'errors': addEquipmentFields,
-                'app_name': 'sheets'
-            }
-        return render(request, 'sheets_app/create_equip.html', ctx)
+        
+        
 
-class ListEquipmentView(LoginRequiredMixin, View):
-    def get(self, request):
-        equipments = Equipment.objects.all()
-        ctx = {
-            'equipments': equipments
-        }
-        return render(request, 'sheets_app/testEquipment2.html', ctx)
     
 class EditEquipmentView(LoginRequiredMixin, View): 
-    # Editar equipamento na visualização de ficha
     def post(self, request, id):
         try:
             equipment = Equipment.objects.get(id=id)
@@ -432,8 +599,7 @@ class EditEquipmentView(LoginRequiredMixin, View):
             ctx = {
                 'errors': errors
             }
-            #messages.error('Erro ao editar equipamento')
-            print(errors)
+
             return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}), ctx)
         
         return redirect(reverse('sheets:edit_sheet', kwargs={'id': equipment.sheet_id}))

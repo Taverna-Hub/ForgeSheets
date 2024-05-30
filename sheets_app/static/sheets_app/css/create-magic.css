@@ -22,7 +22,7 @@ textarea {
   resize: none;
 }
 
-select {
+.magicAttribute select {
   width: 100%;
   border: 2px solid var(--gray-200);
   border-radius: 4px;
@@ -30,12 +30,12 @@ select {
   background: transparent;
 }
 
-select option:checked {
+.magicAttribute select option:checked {
   background-color: var(--red-600);
   color: var(--white);
 }
 
-select option:hover {
+.magicAttribute select option:hover {
   box-shadow: 0 0 10px 100px #1882A8 inset;
 }
 

@@ -4,10 +4,13 @@
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
+    <link rel="stylesheet" href="text/css" href="{% static 'campaigns_app/css/modal/delete_race.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Raças</title>
 {% endblock 'head' %}
 {% block 'body' %}
+
+
 <section class="ModalCreateRace">
     <div class="modal">
         <h2>Adicionar raça</h2>
@@ -52,10 +55,72 @@
                 </div>
             </div>
             <div class="actions">  
-                <button type="button" id="cancel">Cancelar</a> 
-                <button type="submit" id="submit_button" >Criar Raça</button>
+                <button type="button" id="cancelAddRace">Cancelar</button> 
+                <button type="submit" id="submit_button" >Criar</button>
             </div>
         </form>
+</section>
+
+<section id="editRaceModal" >
+    <div class="modal-content">
+        <button type="button" id="closeEditModal">
+            <i data-lucide="x"></i>
+        </button>
+        <h2>Editar Raça</h2>
+        <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="edit_race_id" id="edit_race_id">
+            <div class="RaceName">
+                <label for="edit_name">Nome da Raça: </label>
+                <input type="text" name="name" id="edit_name">
+            </div>
+            <div class="buff">
+                <div>
+                    <label for="edit_strength_buff">Modificador de Força: </label>
+                    <input type="number" name="strength_buff" id="edit_strength_buff">
+                </div>
+                <div>
+                    <label for="edit_intelligence_buff">Modificador de Inteligência: </label>
+                    <input type="number" name="intelligence_buff" id="edit_intelligence_buff">
+                </div>
+                <div>
+                    <label for="edit_wisdom_buff">Modificador de Sabedoria: </label>
+                    <input type="number" name="wisdom_buff" id="edit_wisdom_buff">
+                </div>
+                <div>
+                    <label for="edit_charisma_buff">Modificador de Carisma: </label>
+                    <input type="number" name="charisma_buff" id="edit_charisma_buff">
+                </div>
+                <div>
+                    <label for="edit_constitution_buff">Modificador de Constituição: </label>
+                    <input type="number" name="constitution_buff" id="edit_constitution_buff">
+                </div>
+                <div>
+                    <label for="edit_speed_buff">Modificador de Velocidade: </label>
+                    <input type="number" name="speed_buff" id="edit_speed_buff">
+                </div>
+            </div>
+            <div class="actions" id="editRaceBtn">
+                <button type="button" id="cancelEdit">Cancelar</button>
+                <button type="submit" id="submitEditButton">Salvar</button>
+            </div>
+        </form>
+    </div>
+</section>
+<section class="deleteRaceModal">
+    <div class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Deseja apagar esta raça?</h2>
+        <form method="post" action="{% url 'campaigns:races' campaign.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="delete_race_id" id="delete_race_id">
+            <div class="actions">
+                <button type="button" id="cancelDelete">Cancelar</button>
+                <button type="submit">Apagar</button>
+            </div>
+        </form>
+    </div>
+</section>
 </section>
 
 <section class="raceList">
@@ -89,12 +154,19 @@
                         <td>{{ race.name }}</td>
                         <td>
                             <i data-lucide="users"></i> 
-                            <p>1</p>
+                            <p>{{ race.is_used }}</p>
                         </td> 
-                        {% comment %} <td>
-                            <a href="{% url 'campaigns:edit_race' race.id %}" class="edit-btn"><i data-lucide="edit-3"></i></a>
-                            <a href="{% url 'campaigns:delete_race' race.id %}" class="delete-btn"><i data-lucide="trash-2"></i></a>
-                        </td> {% endcomment %}
+                        <td>
+                            <button class="editRace" data-id="{{ race.id }}" data-name="{{ race.name }}" data-strength="{{ race.strength_buff }}" data-intelligence="{{ race.intelligence_buff }}" data-wisdom="{{ race.wisdom_buff }}" data-charisma="{{ race.charisma_buff }}" data-constitution="{{ race.constitution_buff }}" data-speed="{{ race.speed_buff }}">
+                                <i data-lucide="edit-3"></i>
+                            </button>
+                            
+                        </td> 
+                        <td>
+                            <button class="delete_race_button" data-id="{{ race.id }}">
+                                <i data-lucide="trash-2"></i>
+                            </button>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -102,4 +174,6 @@
     </div>
     <script src="{% static 'campaigns_app/js/races.js' %}"></script>
 </section>
+
+{% include "dice.html" %}
 {% endblock 'body' %}

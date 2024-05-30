@@ -8,11 +8,6 @@ def save_campaign(image, title, description, user_id, edit):
   title_treated = title.strip()
   wrong_fields = []
 
-  if len(image) == image.count(" "):
-    wrong_fields.append({
-          'field': 'image',
-          'message': 'Este campo não pode ser vazio'
-        })
   if image.strip():
     if not image_treated:
         wrong_fields.append({

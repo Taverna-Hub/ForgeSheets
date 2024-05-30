@@ -87,7 +87,7 @@
                         <td>{{ class.name }}</td>
                         <td>
                           <i data-lucide="users"></i> 
-                          <p>1</p>
+                          <p>{{ class.is_used }}</p>
                         </td> 
                         <td>
                             {% if 'spell_damage' in class.roles %}
@@ -113,4 +113,6 @@
     </div>
     <script src="{% static 'campaigns_app/js/class.js' %}"></script>
 </section>
+
+{% include "dice.html" %}
 {% endblock 'body' %}
