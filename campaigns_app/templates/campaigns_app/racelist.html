@@ -63,7 +63,9 @@
 
 <section id="editRaceModal" >
     <div class="modal-content">
-        <span class="close" id="closeEditModal">&times;</span>
+        <button type="button" id="closeEditModal">
+            <i data-lucide="x"></i>
+        </button>
         <h2>Editar Raça</h2>
         <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}

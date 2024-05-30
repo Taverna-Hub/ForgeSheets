@@ -204,3 +204,13 @@ button {
     align-items: center;
     justify-content: center;
 }
+#closeEditModal {
+    background-color: var(--red-600);
+    cursor: pointer;
+    color: var(--gray-200);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+    left: 560px;
+    position: relative ;
+  }
