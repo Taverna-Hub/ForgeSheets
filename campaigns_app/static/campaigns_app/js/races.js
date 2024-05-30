@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const deleteButtons = document.querySelectorAll('.deleteRace');
     const deleteModal = document.querySelector('.deleteRaceModal');
     const closeDeleteModalButton = document.querySelector('.deleteRaceModal .close');
-    const cancelDeleteButton = document.getElementById('cancel');
+    const cancelDeleteButton = document.getElementById('cancelDelete');
     const deleteFormButton = document.querySelector('.delete_race');
 
     deleteButtons.forEach(button => {

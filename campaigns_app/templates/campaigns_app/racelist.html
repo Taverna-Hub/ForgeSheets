@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="actions">  
-                <button type="button" id="cancel">Cancelar</button> 
+                <button type="button" id="cancelAddRace">Cancelar</button> 
                 <button type="submit" id="submit_button" >Criar</button>
             </div>
         </form>
@@ -63,7 +63,9 @@
 
 <section id="editRaceModal" >
     <div class="modal-content">
-        <span class="close" id="closeEditModal">&times;</span>
+        <button type="button" id="closeEditModal">
+            <i data-lucide="x"></i>
+        </button>
         <h2>Editar Raça</h2>
         <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
@@ -98,7 +100,7 @@
                     <input type="number" name="speed_buff" id="edit_speed_buff">
                 </div>
             </div>
-            <div class="actions">
+            <div class="actions" id="editRaceBtn">
                 <button type="button" id="cancelEdit">Cancelar</button>
                 <button type="submit" id="submitEditButton">Salvar</button>
             </div>
@@ -113,7 +115,7 @@
             {% csrf_token %}
             <input type="hidden" name="delete_race_id" id="delete_race_id">
             <div class="actions">
-                <button type="button" id="cancel">Cancelar</button>
+                <button type="button" id="cancelDelete">Cancelar</button>
                 <button type="submit">Apagar</button>
             </div>
         </form>
