@@ -57,7 +57,7 @@ def save_campaign(image, title, description, user_id, edit):
     campaign.save()
     return 1
 
-def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, edit):
+def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, edit, campaign):
   buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
   name_treated = name.strip()
   errors = []
@@ -86,7 +86,7 @@ def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buf
     return errors 
   
   if edit == 0:
-    race = Race(name=name, strength_buff=strength_buff, intelligence_buff=intelligence_buff, wisdom_buff=wisdom_buff, charisma_buff=charisma_buff, constitution_buff=constitution_buff, speed_buff=speed_buff)
+    race = Race(name=name, strength_buff=strength_buff, intelligence_buff=intelligence_buff, wisdom_buff=wisdom_buff, charisma_buff=charisma_buff, constitution_buff=constitution_buff, speed_buff=speed_buff, campaign=campaign)
     race.save()
   else:
     race = Race.objects.filter(id=edit).first()
@@ -98,6 +98,7 @@ def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buf
     race.charisma_buff=charisma_buff
     race.constitution_buff=constitution_buff
     race.speed_buff=speed_buff
+    
 
     race.save()
     return 1

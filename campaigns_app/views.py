@@ -157,6 +157,8 @@ class RaceView(LoginRequiredMixin, View):
       charisma_buff = request.POST.get('charisma_buff')
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
+      campaign = get_object_or_404(Campaign, id=id)
+      
 
       ctx = {
          'name':name,
@@ -168,14 +170,15 @@ class RaceView(LoginRequiredMixin, View):
          'speed_buff':speed_buff
       }
 
-      fields = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, 0)
+      fields = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, 0,campaign)
       if fields:
          ctx['errors'] = fields
          ctx['app_name'] = 'campaign'
          for field_error in fields:
             ctx.pop(field_error['field'], None)
          return render(request, 'campaigns_app/racelist.html', ctx)
-      return redirect(reverse('campaigns:races'))
+      
+      return redirect(reverse('campaigns:races', kwargs={'id': id}))
 
       # race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
       # race.save()
