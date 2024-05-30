@@ -10,6 +10,7 @@ from .utils import save_campaign, treat_race
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from sheets_app.models import Sheet
+import re
 
 class CampaignsView(LoginRequiredMixin, View): 
   def get(self, request):
@@ -133,11 +134,11 @@ class RaceView(LoginRequiredMixin, View):
          race.charisma_buff = int(request.POST.get('charisma_buff'))
          race.constitution_buff = int(request.POST.get('constitution_buff'))
          race.speed_buff = int(request.POST.get('speed_buff'))
+         
          race.save()
-
          return redirect(reverse('campaigns:races', kwargs={'id': id}))
             
-      if 'delete_race_id' in request.POST:
+      elif 'delete_race_id' in request.POST:
          race_id = request.POST.get('delete_race_id')
          race = get_object_or_404(Race, id=race_id)
          race.delete()
