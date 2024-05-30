@@ -7,7 +7,7 @@ Antes de começar a contribuir com o nosso projeto, leia esse guia para você fi
 <br>
 
 ## 🤔 Como contribuir?
-Você pode tanto colocar uma ideia de melhoria, uma feature nova em prática ou escolher uma das issues em aberto para solucioná-la.
+Você pode colocar uma feature nova em prática, uma ideia de melhoria ou escolher uma das issues em aberto para solucioná-la.
 <br>
 <p align="center">
   <a href="https://github.com/Taverna-Hub/ForgeSheets/issues">
