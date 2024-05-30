@@ -138,7 +138,8 @@ class RaceView(LoginRequiredMixin, View):
          return redirect(reverse('campaigns:races', kwargs={'id': id}))
             
       if 'delete_race_id' in request.POST:
-         race = get_object_or_404(Race, id=id)
+         race_id = request.POST.get('delete_race_id')
+         race = get_object_or_404(Race, id=race_id)
          race.delete()
 
          return redirect(reverse('campaigns:races', kwargs={'id':id}))
