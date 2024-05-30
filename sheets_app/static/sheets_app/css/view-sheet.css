@@ -66,6 +66,18 @@ button {
     overflow-y: scroll;
     height: 100%;
 }
+
+.title {
+    color: var(--gray-600);
+    float: right;
+}
+
+/*precisa mudar a cor e ajeitar o tamanho*/
+input:disabled{
+    width: 50px;
+    color: var(--red-600); 
+    background: rgba(255, 255, 255, 0.85)
+}
   
 .sheet {
     background-color: var(--white);
@@ -449,7 +461,6 @@ button {
     
     width: 100%;
     gap: 40px;
-    /* margin-bottom: -77px; */
     align-items: baseline;
 }
 

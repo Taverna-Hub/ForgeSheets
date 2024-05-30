@@ -126,6 +126,13 @@ select option:checked {
   border-radius: 2px;
 }
 
+/*precisa mudar a cor e ajeitar o tamanho*/
+input:disabled{
+  width: 10%;
+  color: var(--red-600);
+  background: rgba(255, 255, 255, 0.85)
+}
+
 .image_svg {
   color: var(--gray-800);
 }
