@@ -1,7 +1,7 @@
 from email import errors
 from turtle import title
 from .models import Campaign
-from campaigns_app.models import Race
+from campaigns_app.models import Race, Class
 import re
 
 def save_campaign(image, title, description, user_id, edit):
@@ -108,3 +108,23 @@ def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buf
         race.save()
     
     return None
+
+def treat_class(name, campaign):
+  errors=[]
+  
+  name_treated = name.strip()
+  existing_class = Class.objects.filter(name=name, campaign=campaign)
+
+  if not name_treated:
+    errors.append({
+            'field': 'name',
+            'message': 'O nome não pode ser vazio'
+        })
+    return errors
+  elif existing_class:
+    errors.append({
+            'field': 'name',
+            'message': 'Esta nome ja existe nessa campanha',
+                  })
+    return errors
+  return 0
