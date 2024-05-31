@@ -9,7 +9,7 @@ Cypress.Commands.add('createCampaign', () => {
 
     cy.get('#image').type('https://image.api.playstation.com/vulcan/ap/rnd/202308/1519/95cce955dc59d04e2ea5ab624a823ace14e9c5f7e24dfb8f.png')
     cy.get('#title').type('Baldur´s Gate III')
-    cy.get('#description').type('Kaizoku ou ni ore wa naru!')
+    cy.get('#description').type('Baldur´s Gate III é um RPG baseado em Dungeons & Dragons, que vem com uma mecânica facilitada e simples para Jogadores Iniciantes')
     cy.get('#submit_button').click()
 
     cy.get('.campaignCard > :nth-child(1)').click()
@@ -87,8 +87,8 @@ Cypress.Commands.add('createCampaignSheet', () => {
 });
 
 
-describe('sheet sharing tests', () => {
-    it('sucess creating campaign code', () => {
+describe('test suite sheet sharing', () => {
+    it('successfully creating campaign code', () => {
         cy.visit('/');
         cy.exec('python manage.py migrate');
         cy.deleteAllUsers();
@@ -98,7 +98,7 @@ describe('sheet sharing tests', () => {
 
     })
 
-    it('sucess creating a sheet in a campaign', () => {
+    it('successfully creating a sheet in a campaign', () => {
         cy.visit('/');
         cy.exec('python manage.py migrate');
         cy.deleteAllUsers();
