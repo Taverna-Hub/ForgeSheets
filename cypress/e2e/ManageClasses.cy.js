@@ -26,6 +26,14 @@ Cypress.Commands.add('registerLoginCreateCampaign', () => {
     cy.get('.campaignCard > :nth-child(1)').click()
 })
 
+Cypress.Commands.add('creatingClass', () => {
+    cy.get('#manageClasses').click()
+    cy.get('.addClass').click()
+    cy.get('.classNameContainer > input').type('Paladino')
+    cy.get('#tank').check()
+    cy.get('.addClassModal > .modal > form > .actions > [type="submit"]').click()
+})
+
 Cypress.on('uncaught:exception', (err, runnable) => {
     return false
   })
@@ -37,6 +45,44 @@ Cypress.on('uncaught:exception', (err, runnable) => {
         cy.deleteAllUsers();
         cy.registerLoginCreateCampaign()
 
-        
+        cy.creatingClass()
+
+        cy.get('tbody > tr > :nth-child(1)').invoke('text').should('have.string', 'Paladino')
+    })
+
+    it ('successfully editing class', () => {
+        cy.visit('/');
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
+        cy.registerLoginCreateCampaign()
+
+        cy.creatingClass()
+        cy.get('.editClass').click()
+        cy.get('#edit_name').clear()
+        cy.get('#edit_name').type('Bardo')
+        cy.get('#editTank').click()
+        cy.get('#editSupport').click()
+        cy.get('#submitEditButton').click()
+
+        cy.get('tbody > tr > :nth-child(1)').invoke('text').should('have.string', 'Bardo')
+
+    })
+
+    it ('successfully deleting class', () => {
+        cy.visit('/');
+        cy.exec('python manage.py migrate')
+        cy.deleteAllUsers();
+        cy.registerLoginCreateCampaign()
+
+        cy.get('#manageClasses').click()
+        cy.get('.addClass').click()
+        cy.get('.classNameContainer > input').type('Bardo')
+        cy.get('#support').check()
+        cy.get('.addClassModal > .modal > form > .actions > [type="submit"]').click()
+
+        cy.get('.delete_class_button').click()
+        cy.get('#deleteClassModal > .modal > form > .actions > [type="submit"]').click()
+
+        cy.get('.classList').contains('Bardo').should('not.exist')
     })
   })
