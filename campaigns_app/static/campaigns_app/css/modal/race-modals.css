@@ -162,10 +162,16 @@ button {
     top: 16px;
     position: absolute;
 }
-.error-message {
-    color: var(--red-600);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 8px;
+
+@media (max-width: 700px) {
+    .ModalCreateRace .modal, #editRaceModal .modal, #deleteRaceModal .modal {
+        margin: 0 5%;
+        width: 100%;
+    }  
+}
+
+@media (max-width: 600px) {
+    .buff {
+        grid-template-columns: 1fr;
+    }
 }

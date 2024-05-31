@@ -29,6 +29,14 @@
 
   z-index: 9999;
 }
+.addClassModal span, .editClassModal span{
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 8px;
+}
 
 .addClassModal input, .editClassModal input, .deleteClassModal input {
   width: 100%;
@@ -116,4 +124,11 @@
 .addClassModal .actions button:last-child, .editClassModal .actions button:last-child, .deleteClassModal .actions button:last-child  {
   background-color: var(--red-600);
   color: var(--gray-200);
+}
+
+@media (max-width: 700px) {
+  .addClassModal .modal, .editClassModal .modal, .deleteClassModal .modal {
+      margin: 0 5%;
+      width: 100%;
+  }  
 }
