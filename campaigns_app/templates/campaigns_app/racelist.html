@@ -9,7 +9,7 @@
 {% endblock 'head' %}
 
 {% block 'body' %}
-<section class="ModalCreateRace">
+<section class="ModalCreateRace" style="{% if error_in_create %}display: flex;{% else %}display: none;{% endif %}">
     <div class="modal">
         <button type="button" class="closeModal closeAddModal">
             <i data-lucide="x"></i>
@@ -79,6 +79,14 @@
                     {% endif %}
                 </div>
             </div>
+                {% for error in errors %}
+                    {% if error.field == 'buff' %}
+                    <span class="error-message">
+                        <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
             <div class="actions">  
                 <button type="button" id="cancelAddRace">Cancelar</button> 
                 <button type="submit" id="submit_button" >Criar</button>

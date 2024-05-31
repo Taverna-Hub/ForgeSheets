@@ -58,47 +58,53 @@ def save_campaign(image, title, description, user_id, edit):
     return 1
 
 def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, edit, campaign):
-  buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
-  name_treated = name.strip()
-  errors = []
-
-  for buff in buffs:
-    buff_str = str(buff)
-    if not re.match(r'^[+-]?\d+$', buff_str):
-       errors.append({
-          'field':'buff',
-          'message': 'Insira números ou caracteres de + ou -'
-       })
-  
-  if name_treated:
-    if len(name_treated) > 75:
-        errors.append({
-           'field':'name',
-           'message':'Insira no máximo 75 caracteres'
-        })
-    elif str(name_treated).count(' ') == len(name_treated):
-       errors.append({
-          'field':'name',
-          'message':'Insira o nome da Raça'
-       })
-
-  if len(errors) > 0:
-    return errors 
-  
-  if edit == 0:
-    race = Race(name=name, strength_buff=strength_buff, intelligence_buff=intelligence_buff, wisdom_buff=wisdom_buff, charisma_buff=charisma_buff, constitution_buff=constitution_buff, speed_buff=speed_buff, campaign=campaign)
-    race.save()
-  else:
-    race = Race.objects.filter(id=edit).first()
-
-    race.name = name
-    race.strength_buff=strength_buff
-    race.intelligence_buff=intelligence_buff
-    race.wisdom_buff=wisdom_buff
-    race.charisma_buff=charisma_buff
-    race.constitution_buff=constitution_buff
-    race.speed_buff=speed_buff
     
+    name_treated = name.strip()
+    errors = []
 
-    race.save()
-    return 1
+
+    if not name_treated:
+        errors.append({
+            'field': 'name',
+            'message': 'Insira o nome da raça'
+        })
+    elif len(name_treated) > 75:
+        errors.append({
+            'field': 'name',
+            'message': 'Insira no máximo 75 caracteres'
+        })
+    else:
+      existing_race = Race.objects.filter(name=name_treated, campaign=campaign).exclude(id=edit).first()
+      if existing_race:
+        errors.append({
+          'field': 'name',
+          'message': 'Uma raça com esse nome já existe'
+        })
+
+    if len(errors) > 0:
+        return errors
+    
+    if edit == 0:
+        race = Race(
+            name=name,
+            strength_buff=int(strength_buff),
+            intelligence_buff=int(intelligence_buff),
+            wisdom_buff=int(wisdom_buff),
+            charisma_buff=int(charisma_buff),
+            constitution_buff=int(constitution_buff),
+            speed_buff=int(speed_buff),
+            campaign=campaign
+        )
+        race.save()
+    else:
+        race = Race.objects.filter(id=edit).first()
+        race.name = name
+        race.strength_buff = int(strength_buff)
+        race.intelligence_buff = int(intelligence_buff)
+        race.wisdom_buff = int(wisdom_buff)
+        race.charisma_buff = int(charisma_buff)
+        race.constitution_buff = int(constitution_buff)
+        race.speed_buff = int(speed_buff)
+        race.save()
+    
+    return None
