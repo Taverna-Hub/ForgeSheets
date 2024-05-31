@@ -56,9 +56,6 @@
 
 <section id="editClassModal" class="editClassModal">
   <div class="modal">
-      <button type="button" class="closeModal closeEditModal">
-          <i data-lucide="x"></i>
-      </button>
       <h2>Editar Classe</h2>
       <form id="editClassForm" action="{% url 'campaigns:campaign_classes' campaign.id %}" method="post">
           {% csrf_token %}
@@ -104,9 +101,6 @@
 
 <section class="deleteClassModal" id="deleteClassModal">
   <div class="modal">
-      <button type="button" class="closeModal closeDeleteModal">
-          <i data-lucide="x"></i>
-      </button>
       <h2>Deseja apagar esta classe?</h2>
       <form method="post" action="{% url 'campaigns:campaign_classes' campaign.id %}">
           {% csrf_token %}

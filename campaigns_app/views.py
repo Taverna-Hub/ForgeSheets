@@ -167,15 +167,18 @@ class RaceView(LoginRequiredMixin, View):
          'wisdom_buff':wisdom_buff,
          'charisma_buff':charisma_buff,
          'constitution_buff':constitution_buff,
-         'speed_buff':speed_buff
+         'speed_buff':speed_buff,
+         'campaign': campaign,
+         'races': Race.objects.filter(campaign=campaign),
+         'app_name': 'campaign'
       }
 
       fields = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, 0,campaign)
       if fields:
          ctx['errors'] = fields
          ctx['app_name'] = 'campaign'
-         for field_error in fields:
-            ctx.pop(field_error['field'], None)
+         ctx['error_in_create'] = True
+         
          return render(request, 'campaigns_app/racelist.html', ctx)
       
       return redirect(reverse('campaigns:races', kwargs={'id': id}))

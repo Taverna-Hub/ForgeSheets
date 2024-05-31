@@ -19,7 +19,6 @@ closeAddRaceModalBtn?.addEventListener("click", handleCloseAddRaceModal);
 // Editar raça
 const editButtons = document.querySelectorAll('.editRace');
 const editModal = document.querySelector('#editRaceModal');
-const closeEditModalButton = document.querySelector('.closeEditModal');
 const cancelEditButton = document.querySelector('#cancelEdit');
 
 editButtons.forEach(button => {
@@ -47,9 +46,6 @@ editButtons.forEach(button => {
     });
 });
 
-closeEditModalButton?.addEventListener('click', function() {
-    editModal.style.display = 'none';
-});
 cancelEditButton?.addEventListener('click', function() {
     editModal.style.display = 'none';
 });
@@ -57,7 +53,6 @@ cancelEditButton?.addEventListener('click', function() {
 // Deletar raça
 const deleteButtons = document.querySelectorAll('.delete_race_button');
 const deleteModal = document.querySelector('#deleteRaceModal');
-const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
 const cancelDeleteButton = document.querySelector('#cancelDelete');
 
 deleteButtons.forEach(button => {
@@ -69,9 +64,6 @@ deleteButtons.forEach(button => {
     });
 });
 
-closeDeleteModalButton?.addEventListener('click', function() {
-    deleteModal.style.display = 'none';
-});
 
 cancelDeleteButton?.addEventListener('click', function() {
     deleteModal.style.display = 'none';

@@ -3,7 +3,6 @@ const modal = document.querySelector('.deleteSheetModal');
 const cancelDeleteBtn = document.querySelector('.cancel')
 const deleteBtn = document.querySelector('.delete')
 const deleteSheetBtn = document.querySelectorAll('.deleteSheet');
-const closeDeleteSheetModalBtnX = document.querySelector('#closeDeleteSheet');
 const form = document.querySelector('#formDeleteSheet')
 let deleteUrl;
 
@@ -15,7 +14,6 @@ function closeDeleteSheetModal() {
   modal.style.display = "none";
 }
 
-closeDeleteSheetModalBtnX?.addEventListener('click', () => closeDeleteSheetModal());
 
 deleteSheetBtn.forEach(button => {
   button?.addEventListener('click', () => {
