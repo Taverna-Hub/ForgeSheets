@@ -3,6 +3,7 @@
 
 {% block 'head' %}
   <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/modal/create-campaign.css' %}">
   <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
   <title>Suas campanhas - ForgeSheets</title>
 {% endblock %}
@@ -10,97 +11,96 @@
 {% block 'body' %}
 
 
-  <section {% if errors %}  class="modal-create-campaign active"  {% else %} class="modal-create-campaign" {% endif %} >
-      <div class="modal">
-        <h2>Criar uma nova campanha</h2>
-        <form action="{% url 'campaigns:create_campaign' %}" method="POST">
-            {% csrf_token %}
-            <div>
-                <label for="image">Insira uma URL para a foto da campanha: </label>
-                <input type="text" id="image" name="image" value="{{image}}">
-                {% for error in errors %}
-                {% if error.field == 'image'%}
-                <span>
-                    <i data-lucide="octagon-alert"></i>
-                    {{ error.message }}
-                </span>
-                {% endif %}
-                {% endfor %}
-            </div>
-        
-            <div>
-                <label for="title">Nome da campanha: </label>
-                <input type="text" id="title" name="title" value="{{title}}">
-                {% for error in errors %}
-                {% if error.field == 'title'%}
-                            <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-        
-                        <div>
-                            <label for="description">Descrição: </label>
-                            <textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
-                            {% for error in errors %}
-                            {% if error.field == 'description'%}
-                            <span>
-                                <i data-lucide="octagon-alert"></i>
-                                {{ error.message }}
-                            </span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-        
-                        <div class="actions">
-
-                    <button id="cancelAddCampaign" type="button">Cancelar</button>
-                    <button id="submit_button" type="submit">Criar</button>
-                </div>
-            </form>
-      </div>
-  </section>
-
-
-  <section class="listCampaignContainer">
-    <h1 class="title">Suas Campanhas</h1>
-    <section class="cardList">
-       
-        <div class="createCampaign">
+<section {% if errors %}  class="modal-create-campaign active"  {% else %} class="modal-create-campaign" {% endif %} >
+    <div class="modal">
+      <h2>Criar uma nova campanha</h2>
+      <form action="{% url 'campaigns:create_campaign' %}" method="POST">
+          {% csrf_token %}
           <div>
-          <i data-lucide="plus" width="64" height="64" stroke-width="1.5px" ></i>
-        </div>
-        </div>
+              <label for="image">Insira uma URL para a foto da campanha: </label>
+              <input type="text" id="image" name="image" value="{{image}}">
+              {% for error in errors %}
+              {% if error.field == 'image'%}
+              <span>
+                  <i data-lucide="octagon-alert"></i>
+                  {{ error.message }}
+              </span>
+              {% endif %}
+              {% endfor %}
+          </div>
       
+          <div>
+              <label for="title">Nome da campanha: </label>
+              <input type="text" id="title" name="title" value="{{title}}">
+              {% for error in errors %}
+              {% if error.field == 'title'%}
+                          <span>
+                              <i data-lucide="octagon-alert"></i>
+                              {{ error.message }}
+                          </span>
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+      
+                      <div>
+                          <label for="description">Descrição: </label>
+                          <textarea name="description" id="description" cols="30" rows="10">{{description}}</textarea>
+                          {% for error in errors %}
+                          {% if error.field == 'description'%}
+                          <span>
+                              <i data-lucide="octagon-alert"></i>
+                              {{ error.message }}
+                          </span>
+                          {% endif %}
+                          {% endfor %}
+                      </div>
+      
+                      <div class="actions">
 
-      {% for campaign in campaigns %}
-        <a href="{% url 'campaigns:view_campaign' campaign.id %}">
+                  <button id="cancelAddCampaign" type="button">Cancelar</button>
+                  <button id="submit_button" type="submit">Criar</button>
+              </div>
+          </form>
+    </div>
+</section>
+
+
+<section class="listCampaignContainer">
+  <h1 class="title">Suas Campanhas</h1>
+  <section class="cardList">
+    <div class="createCampaign">
+        <div>
+        <i data-lucide="plus" width="64" height="64" stroke-width="1.5px" ></i>
+      </div>
+    </div>
+    
+
+    {% for campaign in campaigns %}
+      <a href="{% url 'campaigns:view_campaign' campaign.id %}">
+        <div
+          class="campaignCard"
+          style="{% if campaign.image %}
+                  background-image: url({{ campaign.image }});
+                  background-position: center;
+                {% endif %}"
+        >
           <div
-            class="campaignCard"
             style="{% if campaign.image %}
-                    background-image: url({{ campaign.image }});
-                    background-position: center;
+                    backdrop-filter: blur(2px);
+                    background-color: rgba(0,0,0,0.5);
                   {% endif %}"
           >
-            <div
-              style="{% if campaign.image %}
-                      backdrop-filter: blur(2px);
-                      background-color: rgba(0,0,0,0.5);
-                    {% endif %}"
-            >
-                <h2> {{ campaign.title }} </h2>
-                <div class="campaignInfo">
-                  <span>Descrição: </span>
-                  <p> {{ campaign.description }} </p>
-                </div>
-            </div>
+              <h2> {{ campaign.title }} </h2>
+              <div class="campaignInfo">
+                <span>Descrição: </span>
+                <p> {{ campaign.description }} </p>
+              </div>
           </div>
-        </a>
-      {% endfor %}
-    </section>
-    <script src="{% static 'campaigns_app/js/create_campaign.js' %}"></script>
+        </div>
+      </a>
+    {% endfor %}
   </section>
-  {% include "dice.html" %}
+  <script src="{% static 'campaigns_app/js/create_campaign.js' %}"></script>
+</section>
+{% include "dice.html" %}
 {% endblock %}

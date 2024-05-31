@@ -178,6 +178,8 @@ a {
 
 .campaignModal {
   display: none;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   z-index: 1001;
   left: 0;
@@ -462,8 +464,61 @@ form span {
   cursor: pointer;
 }
 
+@media (max-width: 1653px) {
+  .campaignSheets {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sheetCard > div, .createSheet {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1333px) {
+  .campaignSheets {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1080px) {
+  .campaignSheets {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 @media (max-width: 800px) {
   .campaignImage {
     width: 100vw;
+  }
+
+  .modal-content {
+    margin: 0 5%;
+    width: 100%;
+  }  
+}
+
+@media (max-width: 470px) {
+  .campaignName {
+    font-size: 48px;
+  }
+
+  .campaignSheets {
+    margin-top: calc(30vh + 180px);
+  }
+
+  .buttons {
+    width: 85%;
+    flex-direction: column;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .buttons .button {
+    width: 100%;
+  }
+
+  .buttons #menu {
+    order: -1;
+    align-self: flex-end;
   }
 }

@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views import View
 import campaigns_app
 from campaigns_app.models import Campaign, Class, Race
-from .utils import save_campaign, treat_race
+from .utils import save_campaign, treat_race, treat_class
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from sheets_app.models import Sheet
@@ -210,7 +210,6 @@ class RaceView(LoginRequiredMixin, View):
       # race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
       # race.save()
       # return redirect(reverse('campaigns:races', kwargs={'id': id}))
-   
 class ClassListView(LoginRequiredMixin, View):
    def get(self, request, id):
       campaign = get_object_or_404(Campaign, id=id)
@@ -221,6 +220,7 @@ class ClassListView(LoginRequiredMixin, View):
          'campaign': campaign,
          'classes': classes,
          'app_name': 'campaign'
+         
       }
    
       return render(request, "campaigns_app/class-list.html",ctx)
@@ -248,7 +248,18 @@ class ClassListView(LoginRequiredMixin, View):
 
       name = request.POST.get("className")
       roles = request.POST.getlist("role")
-
+      campaign = get_object_or_404(Campaign, id=id)
+      errors = treat_class(name, campaign)
+      ctx = {
+         'campaign': campaign,
+         'app_name': 'campaign',
+         'classes': Class.objects.filter(campaign=campaign)
+      }
+      if errors:
+         ctx['errors'] = errors
+         ctx['error_in_create'] = True
+         ctx['roles'] = roles
+         return render(request, 'campaigns_app/class-list.html', ctx)
       new_class = Class(name=name, roles=roles, campaign_id=id)
       new_class.save()
 

@@ -12,6 +12,7 @@
     --gray-700: #374151;
     --gray-800: #1f2937;
 }
+
 .deleteSheetModal {
     background: rgba(0,0,0,0.8);
   
@@ -142,4 +143,23 @@
 
 .delete:hover {
     background-color: var(--gray-300) !important;
+}
+
+@media (max-width: 840px) {
+    .deleteSheetModal .modal {
+        margin: 0 5%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    #formDeleteSheet {
+        margin-top: 20px;
+        display: flex;
+        justify-content: baseline;
+        
+        width: 100%;
+    
+        align-items: baseline;
+    }
 }

@@ -36,10 +36,10 @@ const editTitle = document.getElementById('edit-title');
 const modalTitle = document.getElementById('modal-title');
 
 editTitle.addEventListener('click', function () {
-  if (modalTitle.style.display === 'block') {
+  if (modalTitle.style.display === 'flex') {
     modalTitle.style.display = 'none';
   } else {
-    modalTitle.style.display = 'block';
+    modalTitle.style.display = 'flex';
   }
 });
 
@@ -47,10 +47,10 @@ const editDescription = document.getElementById('edit-description');
 const modalDescription = document.getElementById('modal-description');
 
 editDescription.addEventListener('click', function () {
-  if (modalDescription.style.display === 'block') {
+  if (modalDescription.style.display === 'flex') {
     modalDescription.style.display = 'none';
   } else {
-    modalDescription.style.display = 'block';
+    modalDescription.style.display = 'flex';
   }
 });
 
@@ -58,10 +58,10 @@ const editImage = document.getElementById('edit-image');
 const modalImage = document.getElementById('modal-image');
 
 editImage.addEventListener('click', function () {
-  if (modalImage.style.display === 'block') {
+  if (modalImage.style.display === 'flex') {
     modalImage.style.display = 'none';
   } else {
-    modalImage.style.display = 'block';
+    modalImage.style.display = 'flex';
   }
 });
 
@@ -69,10 +69,10 @@ const editDelete = document.getElementById('edit-delete');
 const modalDelete = document.getElementById('modal-delete');
 
 editDelete.addEventListener('click', function () {
-  if (modalDelete.style.display === 'block') {
+  if (modalDelete.style.display === 'flex') {
     modalDelete.style.display = 'none';
   } else {
-    modalDelete.style.display = 'block';
+    modalDelete.style.display = 'flex';
   }
 });
 
@@ -91,29 +91,29 @@ document.addEventListener("DOMContentLoaded", function() {
 const titleError = document.getElementById('titleError');
 
 if (titleError) {
-  if (modalTitle.style.display === 'block') {
+  if (modalTitle.style.display === 'flex') {
     modalTitle.style.display = 'none';
   } else {
-    modalTitle.style.display = 'block';
+    modalTitle.style.display = 'flex';
   }
 }
 
 const imageError = document.getElementById('imageError');
 
 if (imageError) {
-  if (modalImage.style.display === 'block') {
+  if (modalImage.style.display === 'flex') {
     modalImage.style.display = 'none';
   } else {
-    modalImage.style.display = 'block';
+    modalImage.style.display = 'flex';
   }
 }
 
 const descriptionError = document.getElementById('descriptionError');
 
 if (descriptionError) {
-  if (modalDescription.style.display === 'block') {
+  if (modalDescription.style.display === 'flex') {
     modalDescription.style.display = 'none';
   } else {
-    modalDescription.style.display = 'block';
+    modalDescription.style.display = 'flex';
   }
 }

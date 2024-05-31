@@ -148,3 +148,10 @@ textarea {
 .magicModal .sideBySide div, .editMagicModal .sideBySide div {
   width: 100%; 
 } 
+
+@media (max-width: 700px) {
+  .magicModal .modal, .editMagicModal .modal {
+    margin: 0 5%;
+    width: 100%;
+  }  
+}
