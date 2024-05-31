@@ -29,6 +29,14 @@
 
   z-index: 9999;
 }
+.addClassModal span, .editClassModal span{
+  color: var(--red-600);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 8px;
+}
 
 .addClassModal input, .editClassModal input, .deleteClassModal input {
   width: 100%;
