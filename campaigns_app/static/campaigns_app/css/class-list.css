@@ -96,6 +96,11 @@ tbody td:nth-child(2) {
   gap: 16px;
 }
 
+tbody td button {
+  background-color: transparent;
+  color: var(--gray-700);
+}
+
 a {
   text-decoration: none;
   color: white;
@@ -106,7 +111,6 @@ a {
   margin-right: 10px;
 }
 
-.sideBySide{
+.sideBySide {
   display: flex;
 }
-

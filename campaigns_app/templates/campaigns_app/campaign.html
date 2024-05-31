@@ -12,9 +12,6 @@
 {% for sheet in sheets %}
     <section class="deleteSheetModal">
         <div class="modal">
-            <button type="button" id="closeDeleteSheet">
-                <i data-lucide="x"></i>
-            </button>
             <div class="container">
                 <div>
                     <h2>Você tem certeza que deseja excluir a ficha <strong>{{sheet.name}}</strong>?</h2>
@@ -41,7 +38,9 @@
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar descrição</h2>
-            <span class="close" data-modal="modal-description">&times;</span>
+            <span class="close" data-modal="modal-description">
+                <i data-lucide="x"></i>
+            </span>
         </div>
         <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
             {% csrf_token %}
@@ -63,7 +62,9 @@
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar título</h2>
-            <span class="close" data-modal="modal-title">&times;</span>
+            <span class="close" data-modal="modal-title">
+                <i data-lucide="x"></i>
+            </span>
         </div>
         <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
             {% csrf_token %}
@@ -85,7 +86,9 @@
     <div class="modal-content">
         <div class="closeH2">
             <h2>Editar imagem</h2>
-            <span class="close" data-modal="modal-image">&times;</span>
+            <span class="close" data-modal="modal-image">
+                <i data-lucide="x"></i>
+            </span>
         </div>
         <form action="{% url 'campaigns:view_campaign' campaign.id %}" method="POST">
             {% csrf_token %}
@@ -132,11 +135,7 @@
     <div class="buttons">
         <a href="{% url 'campaigns:races' campaign.id %}" id="manageRaces" class="button">Gerenciar Raças</a>
         <a href="{% url 'campaigns:campaign_classes' campaign.id %}" id="manageClasses" class="button">Gerenciar Classes</a>
-        <svg id="menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-ellipsis-vertical">
-            <circle cx="12" cy="12" r="1"/>
-            <circle cx="12" cy="5" r="1"/>
-            <circle cx="12" cy="19" r="1"/>
-        </svg>
+        <i data-lucide="settings" id="menu"></i>
         <div class="dropdown-menu hide">
             <a href="#" class="dropdown-item" id="edit-title">Editar título</a>
             <a href="#" class="dropdown-item" id="edit-description">Editar descrição</a>

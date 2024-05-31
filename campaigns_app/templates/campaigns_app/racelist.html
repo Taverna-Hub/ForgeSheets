@@ -3,15 +3,13 @@
 
 {% block 'head' %}
     <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/races.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/add_race.css' %}">
-    <link rel="stylesheet" href="text/css" href="{% static 'campaigns_app/css/modal/delete_race.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'campaigns_app/css/modal/race-modals.css' %}">
     <link rel="shortcut icon" href="https://i.imgur.com/cwTGnjY.png" type="image/x-icon">
     <title>Raças</title>
 {% endblock 'head' %}
+
 {% block 'body' %}
-
-
-<section class="ModalCreateRace">
+<section class="ModalCreateRace" style="{% if error_in_create %}display: flex;{% else %}display: none;{% endif %}">
     <div class="modal">
         <h2>Adicionar raça</h2>
         <form action="{% url 'campaigns:races' campaign.id %}" method="post">
@@ -31,29 +29,61 @@
             <div class="buff">
                 <div>
                     <label for="strength_buff">Modificador de Força: </label>
+                    {% if strength_buff %}
                     <input type="number" name="strength_buff" id="strength_buff" value="{{strength_buff}}">
+                    {% else %}
+                    <input type="number" name="strength_buff" id="strength_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="intelligence_buff">Modificador de Inteligência: </label>
+                    {% if intelligence_buff %}
                     <input type="number" name="intelligence_buff" id="intelligence_buff" value="{{intelligence_buff}}">
+                    {% else %}
+                    <input type="number" name="intelligence_buff" id="intelligence_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="wisdom_buff">Modificador de Sabedoria: </label>
+                    {% if wisdom_buff %}
                     <input type="number" name="wisdom_buff" id="wisdom_buff" value="{{wisdom_buff}}">
+                    {% else %}
+                    <input type="number" name="wisdom_buff" id="wisdom_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="charisma_buff">Modificador de Carisma: </label>
+                    {%if charisma_buff %}
                     <input type="number" name="charisma_buff" id="charisma_buff" value="{{charisma_buff}}">
+                    {% else %}
+                    <input type="number" name="charisma_buff" id="charisma_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="constitution_buff">Modificador de Constituição: </label>
+                    {%if constitution_buff %}
                     <input type="number" name="constitution_buff" id="constitution_buff" value="{{constitution_buff}}">
+                    {% else %}
+                    <input type="number" name="constitution_buff" id="constitution_buff" value=0>
+                    {% endif %}
                 </div>
                 <div>
                     <label for="speed_buff">Modificador de Velocidade: </label>
+                    {% if speed_buff %}
                     <input type="number" name="speed_buff" id="speed_buff" value="{{speed_buff}}">
+                    {% else %}
+                    <input type="number" name="speed_buff" id="speed_buff" value=0>
+                    {% endif %}
                 </div>
             </div>
+                {% for error in errors %}
+                    {% if error.field == 'buff' %}
+                    <span class="error-message">
+                        <i data-lucide="octagon-alert"></i>
+                    {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
             <div class="actions">  
                 <button type="button" id="cancelAddRace">Cancelar</button> 
                 <button type="submit" id="submit_button" >Criar</button>
@@ -62,10 +92,7 @@
 </section>
 
 <section id="editRaceModal" >
-    <div class="modal-content">
-        <button type="button" id="closeEditModal">
-            <i data-lucide="x"></i>
-        </button>
+    <div class="modal">
         <h2>Editar Raça</h2>
         <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
@@ -107,9 +134,9 @@
         </form>
     </div>
 </section>
-<section class="deleteRaceModal">
+
+<section class="deleteRaceModal" id="deleteRaceModal">
     <div class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
         <h2>Deseja apagar esta raça?</h2>
         <form method="post" action="{% url 'campaigns:races' campaign.id %}">
             {% csrf_token %}
@@ -121,7 +148,7 @@
         </form>
     </div>
 </section>
-</section>
+
 
 <section class="raceList">
     <div class="sideBySide">

@@ -1,6 +1,7 @@
 from email import errors
+from turtle import title
 from .models import Campaign
-from campaigns_app.models import Race
+from campaigns_app.models import Race, Class
 import re
 
 def save_campaign(image, title, description, user_id, edit):
@@ -14,10 +15,10 @@ def save_campaign(image, title, description, user_id, edit):
           'field': 'image',
           'message': 'Insira uma URL válida'
         })
-    elif len(str(image)) > 200:
+    elif len(str(image)) > 1000:
             wrong_fields.append({
                     'field': 'image',
-                    'message': 'A URL deve ter no maximo 200 caracteres'
+                    'message': 'A URL deve ter no maximo 1000 caracteres'
                 })
   
   if not title_treated:
@@ -38,7 +39,7 @@ def save_campaign(image, title, description, user_id, edit):
   if len(description) > 200:
     wrong_fields.append({
       'field': 'description',
-      'message': 'Este campo deve ter menos de 200 caracteres'
+      'message': 'Este campo deve ter menos de 1000 caracteres'
     })
   if len(wrong_fields) > 0:
     return wrong_fields
@@ -56,33 +57,74 @@ def save_campaign(image, title, description, user_id, edit):
     campaign.save()
     return 1
 
-def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff):
-  buffs = [int(strength_buff), int(intelligence_buff), int(wisdom_buff), int(charisma_buff), int(constitution_buff), int(speed_buff)]
-  name_treated = name.strip()
-  errors = []
+def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, edit, campaign):
+    
+    name_treated = name.strip()
+    errors = []
 
-  for buff in buffs:
-    buff_str = str(buff)
-    if not re.match(r'^[+-]?\d+$', buff_str):
-       errors.append({
-          'field':'buff',
-          'message': 'Insira números ou caracteres de + ou -'
-       })
-  
-  if name_treated:
-    if len(name_treated) > 75:
+
+    if not name_treated:
         errors.append({
-           'field':'name',
-           'message':'Insira no máximo 75 caracteres'
+            'field': 'name',
+            'message': 'Insira o nome da raça'
         })
-    elif str(name_treated).count(' ') == len(name_treated):
-       errors.append({
-          'field':'name',
-          'message':'Insira o nome da Raça'
-       })
+    elif len(name_treated) > 75:
+        errors.append({
+            'field': 'name',
+            'message': 'Insira no máximo 75 caracteres'
+        })
+    else:
+      existing_race = Race.objects.filter(name=name_treated, campaign=campaign).exclude(id=edit).first()
+      if existing_race:
+        errors.append({
+          'field': 'name',
+          'message': 'Uma raça com esse nome já existe'
+        })
 
-  if len(errors) > 0:
-    return errors 
+    if len(errors) > 0:
+        return errors
+    
+    if edit == 0:
+        race = Race(
+            name=name,
+            strength_buff=int(strength_buff),
+            intelligence_buff=int(intelligence_buff),
+            wisdom_buff=int(wisdom_buff),
+            charisma_buff=int(charisma_buff),
+            constitution_buff=int(constitution_buff),
+            speed_buff=int(speed_buff),
+            campaign=campaign
+        )
+        race.save()
+    else:
+        race = Race.objects.filter(id=edit).first()
+        race.name = name
+        race.strength_buff = int(strength_buff)
+        race.intelligence_buff = int(intelligence_buff)
+        race.wisdom_buff = int(wisdom_buff)
+        race.charisma_buff = int(charisma_buff)
+        race.constitution_buff = int(constitution_buff)
+        race.speed_buff = int(speed_buff)
+        race.save()
+    
+    return None
 
-  race = Race(name_treated=name, strength_buff=strength_buff, intelligence_buff=intelligence_buff, wisdom_buff=wisdom_buff, charisma_buff=charisma_buff, constitution_buff=constitution_buff, speed_buff=speed_buff)
-  race.save()
+def treat_class(name, campaign):
+  errors=[]
+  
+  name_treated = name.strip()
+  existing_class = Class.objects.filter(name=name, campaign=campaign)
+
+  if not name_treated:
+    errors.append({
+            'field': 'name',
+            'message': 'O nome não pode ser vazio'
+        })
+    return errors
+  elif existing_class:
+    errors.append({
+            'field': 'name',
+            'message': 'Esta nome ja existe nessa campanha',
+                  })
+    return errors
+  return 0

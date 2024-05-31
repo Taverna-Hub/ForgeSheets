@@ -25,14 +25,14 @@ Você pode colocar uma feature nova em prática, uma ideia de melhoria ou escolh
   <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/12601fac-539b-4456-96cb-f435a5347938">
 </p>
 
-<strong>2º) Crie sua Branch:</strong> 
+<strong>2º) Clone o repositório:</strong> 
 ```
-git checkout -b minha-nova-funcionalidade
+git clone https://github.com/SuaConta/ForgeSheets.git
 ```
 
-<strong>3º) Clone o repositório:</strong> 
+<strong>3º) Crie sua Branch:</strong> 
 ```
-git clone https://github.com/Taverna-Hub/ForgeSheets.git
+git checkout -b minha-nova-funcionalidade
 ```
 
 <br>
@@ -74,9 +74,34 @@ python manage.py runserver
 
 ## 🛰️ Submetendo suas Alterações
 Abra um Pull Request com uma descrição detalhada das alterações realizadas.
+
+<strong>1º) No repositório que você deu fork, clique em ```Contribute```:</strong>
+
 <p align="center">
-  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/cf34ecc7-f1bf-4928-ae17-6f895c77c0d0">
+  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/12782460-6c5e-49df-a65a-d279c36f1ea3">
 </p>
+
+<strong>2º) Depois clique em ```Open pull request```:</strong>
+
+<p align="center">
+  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/74a477b3-e314-44a4-8fb6-14c3a3752eeb" width="300">
+</p>
+
+<strong>3º) Agora selecione o repositório que você deu fork e a branch que você fez suas alterações:</strong>
+
+<p align="center">
+  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/3643dc38-6a58-45ef-9d0d-e97fb7fbcead">
+</p>
+
+<strong>4º) Então, para criar seu PR, clique em ```Create pull request```:</strong>
+
+<p align="center">
+  <img src="https://github.com/Taverna-Hub/ForgeSheets/assets/67246528/c5a22c16-cd9b-4292-bf36-e938752c0ba9" width="300">
+</p>
+
+<strong>5º) Por fim....</strong>
+
+<p>Nós da &lt;/Taverna&gt; iremos avaliar a sua submissão e caso algo esteja incompatível com nosso projeto, entraremos em contato para revisarmos o seu código.</p>
 
 <br>
 

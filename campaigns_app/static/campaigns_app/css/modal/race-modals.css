@@ -13,35 +13,21 @@
     --gray-800: #1f2937;
   }
   
-  ::-webkit-scrollbar {
+::-webkit-scrollbar {
     width: 6px;
-  }
-  ::-webkit-scrollbar-track {
+}
+::-webkit-scrollbar-track {
     background-color: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
+}
+::-webkit-scrollbar-thumb {
     background-color: var(--red-700);
     border-radius: 6px;
-  }
+}
 
 * {
     margin: 0;
     padding: 0;
     font-family: 'Montserrat';
-}
-
-.ModalCreateRace {
-    background: rgba(0,0,0,0.8);
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: none;
-    align-items: center;
-    justify-content: center;
 }
 
 input, textarea {
@@ -74,15 +60,30 @@ button {
     cursor: pointer;
 }
 
-.ModalCreateRace .modal {
+.ModalCreateRace, #editRaceModal, #deleteRaceModal {
+    background: rgba(0,0,0,0.8);
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.ModalCreateRace .modal, #editRaceModal .modal, #deleteRaceModal .modal {
     background-color: var(--white);
     padding: 24px;
     border-radius: 4px;
     width: 650px;
     height: fit-content;
+    position: relative;
 }
 
-.ModalCreateRace .modal form {
+.ModalCreateRace .modal form, #editRaceModal .modal form, #deleteRaceModal .modal form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -90,7 +91,7 @@ button {
     margin-top: 40px;
 }
 
-.ModalCreateRace .modal form div {
+.ModalCreateRace .modal form div, #editRaceModal .modal form div {
     margin-bottom: 8px;
 }
 
@@ -101,7 +102,7 @@ button {
     margin-top: 24px;
 }
 
-.ModalCreateRace .modal span {
+.ModalCreateRace .modal span, #editRaceModal .modal span {
     color: var(--red-600);
     display: flex;
     align-items: center;
@@ -111,7 +112,6 @@ button {
 }
 
 .actions {
-    float: right;
     align-self: flex-end;
 }
 
@@ -123,10 +123,7 @@ button {
     font-weight: 600;
     font-size: 16px;
     margin: 8px;
-    
-    
 }
-
 
 .actions button:first-child {
     background-color: var(--gray-300);
@@ -154,69 +151,27 @@ button {
     margin-right: 16px;
 }
 
-#editRaceModal {
-    background: rgba(0,0,0,0.8);
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-#editRaceModal .modal span {
-    color: var(--red-600);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-top: 8px;
-}
-#editRaceModal .modal-content {
-    background-color: var(--white);
-    padding: 24px;
-    border-radius: 4px;
-    width: 650px;
-    height: fit-content;
-  
-    
-}
-
-#editRaceModal .modal form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    margin-top: 40px;
-}
-
-#editRaceModal .modal form div {
-    margin-bottom: 8px;
-}
-
-.deleteRaceModal {
-    background: rgba(0,0,0,0.8);
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-#closeEditModal {
-    background-color: var(--red-600);
+.closeModal {
+    background-color: transparent;
     cursor: pointer;
-    color: var(--gray-200);
+    color: var(--gray-700);
     border-radius: 4px;
     height: 24px;
     width: 24px;
-    left: 560px;
-    position: relative ;
-  }
+    right: 16px;
+    top: 16px;
+    position: absolute;
+}
+
+@media (max-width: 700px) {
+    .ModalCreateRace .modal, #editRaceModal .modal, #deleteRaceModal .modal {
+        margin: 0 5%;
+        width: 100%;
+    }  
+}
+
+@media (max-width: 600px) {
+    .buff {
+        grid-template-columns: 1fr;
+    }
+}

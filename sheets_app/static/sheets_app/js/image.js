@@ -96,8 +96,11 @@ function addImageToSheet() {
   const imageSrc = imageLink.value ? imageLink.value : contextImage.value;
 
   if (!regex.test(imageSrc)) {
-    handleErrorImage('Insira uma URL válida', 'imageInput')
-    return
+      if (((!imageSrc.includes("pbs.twimg.com")) && (!imageSrc.includes("avatars.githubusercontent.com")))){
+        handleErrorImage('Insira uma URL válida', 'imageInput')
+        return
+      }
+
   }
 
   // if (handleCheckImage(modalImageValue)) {

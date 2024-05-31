@@ -357,38 +357,50 @@
                             <div>
                                 <label for="strength">Força: </label>
                                 <input type="number" name="strength" id="strength" value="{{strength}}">
-
-                                <input type="number" name="strength_buff" id="strength_buff"  disabled  >
+                                
+                                <strong class="buffAtributes">
+                                    <p name="strength_buff" id="strength_buff"></p>
+                                </strong>
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
                                 <input type="number" name="intelligence" id="intelligence" value="{{intelligence}}">
                                 
-                                <input type="number" name="strength_buff" id="intelligence_buff"  disabled  >
+                                <strong class="buffAtributes">
+                                    <p name="intelligence_buff" id="intelligence_buff"></p>
+                                </strong>
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
                                 <input type="number" name="wisdom" id="wisdom" value="{{wisdom}}">
                                 
-                                <input type="number" name="strength_buff" id="wisdom_buff"  disabled  >
+                                <strong class="buffAtributes">
+                                    <p name="wisdom_buff" id="wisdom_buff"></p>
+                                </strong>
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
                                 <input type="number" name="charisma" id="charisma" value="{{charisma}}">
                                 
-                                <input type="number" name="strength_buff" id="charisma_buff"  disabled  >
+                                <strong class="buffAtributes">
+                                    <p name="charisma_buff" id="charisma_buff"></p>
+                                </strong>
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
                                 <input type="number" name="constitution" id="constitution" value="{{constitution}}">
                                 
-                                <input type="number" name="strength_buff" id="constitution_buff"  disabled  >
+                                <strong class="buffAtributes">
+                                    <p name="constitution_buff" id="constitution_buff"></p>
+                                </strong>
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
                                 <input type="number" name="speed" id="speed" value="{{speed}}">
                                 
-                                <input type="number" name="strength_buff" id="speed_buff"  disabled  >
+                                <strong class="buffAtributes">
+                                    <p name="speed_buff" id="speed_buff"></p>
+                                </strong>
                             </div>
                             {% for error in errors %}
                             {% if error.field == 'atributes1'%}

@@ -99,14 +99,22 @@ tbody td:nth-child(2) {
 a {
     text-decoration: none;
     color: white;
-  }
+}
   
-  .back {
+.back {
     padding: 2px;
     margin-right: 10px;
-  }
+}
   
-  .sideBySide{
-    display: flex;
-  }
-  
+.sideBySide {
+ display: flex;
+}
+
+.editRace, .delete_race_button {
+    background-color: transparent;
+    cursor: pointer;
+    color: var(--gray-800);
+    border-radius: 4px;
+    height: 28px;
+    width: 28px;
+}

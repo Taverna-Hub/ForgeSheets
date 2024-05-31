@@ -5,11 +5,13 @@ from django.http import HttpResponse
 from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.urls import reverse
 from django.views import View
+import campaigns_app
 from campaigns_app.models import Campaign, Class, Race
-from .utils import save_campaign, treat_race
+from .utils import save_campaign, treat_race, treat_class
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from sheets_app.models import Sheet
+import re
 
 class CampaignsView(LoginRequiredMixin, View): 
   def get(self, request):
@@ -46,9 +48,9 @@ class CreateCampaignView(LoginRequiredMixin, View):
          ctx['app_name'] = 'campaign'
          for field_error in fields:
                ctx.pop(field_error['field'], None)
-         return render(request, 'campaigns_app/create_campaign.html', ctx)
+         return render(request,'campaigns_app\campaigns.html', ctx)
 
-      return redirect('campaigns:campaigns')
+      return redirect(reverse('campaigns:campaigns'))
 
 class CampaignView(LoginRequiredMixin, View):
    def get(self, request, id):
@@ -92,7 +94,6 @@ class CampaignView(LoginRequiredMixin, View):
          newImage = campaign.image
 
       fields = save_campaign(newImage, newTitle, newDescription, user_id, campaign.id)
-      print(fields)
       if fields == 1:
          return redirect('campaigns:view_campaign', id=id)
       else:
@@ -126,6 +127,11 @@ class RaceView(LoginRequiredMixin, View):
          race_id = request.POST.get('edit_race_id')
          race = get_object_or_404(Race, id=race_id)
 
+         ctx = {
+            'race':race,
+            'app_name':'campaign'
+         }
+
          race.name = request.POST.get('name')
          race.strength_buff = int(request.POST.get('strength_buff'))
          race.intelligence_buff = int(request.POST.get('intelligence_buff'))
@@ -133,12 +139,13 @@ class RaceView(LoginRequiredMixin, View):
          race.charisma_buff = int(request.POST.get('charisma_buff'))
          race.constitution_buff = int(request.POST.get('constitution_buff'))
          race.speed_buff = int(request.POST.get('speed_buff'))
+         
          race.save()
-
          return redirect(reverse('campaigns:races', kwargs={'id': id}))
             
-      if 'delete_race_id' in request.POST:
-         race = get_object_or_404(Race, id=id)
+      elif 'delete_race_id' in request.POST:
+         race_id = request.POST.get('delete_race_id')
+         race = get_object_or_404(Race, id=race_id)
          race.delete()
 
          return redirect(reverse('campaigns:races', kwargs={'id':id}))
@@ -150,11 +157,35 @@ class RaceView(LoginRequiredMixin, View):
       charisma_buff = request.POST.get('charisma_buff')
       constitution_buff = request.POST.get('constitution_buff')
       speed_buff = request.POST.get('speed_buff')
+      campaign = get_object_or_404(Campaign, id=id)
+      
 
-      race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
-      race.save()
+      ctx = {
+         'name':name,
+         'strength_buff':strength_buff,
+         'intelligence_buff':intelligence_buff,
+         'wisdom_buff':wisdom_buff,
+         'charisma_buff':charisma_buff,
+         'constitution_buff':constitution_buff,
+         'speed_buff':speed_buff,
+         'campaign': campaign,
+         'races': Race.objects.filter(campaign=campaign),
+         'app_name': 'campaign'
+      }
+
+      fields = treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, 0,campaign)
+      if fields:
+         ctx['errors'] = fields
+         ctx['app_name'] = 'campaign'
+         ctx['error_in_create'] = True
+         
+         return render(request, 'campaigns_app/racelist.html', ctx)
+      
       return redirect(reverse('campaigns:races', kwargs={'id': id}))
-   
+
+      # race = Race(name=name, strength_buff=int(strength_buff), intelligence_buff=int(intelligence_buff), wisdom_buff=int(wisdom_buff), charisma_buff=int(charisma_buff), constitution_buff=int(constitution_buff), speed_buff=int(speed_buff), campaign_id=id)
+      # race.save()
+      # return redirect(reverse('campaigns:races', kwargs={'id': id}))
 class ClassListView(LoginRequiredMixin, View):
    def get(self, request, id):
       campaign = get_object_or_404(Campaign, id=id)
@@ -165,15 +196,47 @@ class ClassListView(LoginRequiredMixin, View):
          'campaign': campaign,
          'classes': classes,
          'app_name': 'campaign'
+         
       }
    
       return render(request, "campaigns_app/class-list.html",ctx)
    
    def post(self, request, id):
+      if 'edit_class_id' in request.POST:
+         class_id = request.POST.get('edit_class_id')
+         existing_class = get_object_or_404(Class, id=class_id)
+
+         name = request.POST.get("className")
+         roles = request.POST.getlist("role")
+
+         existing_class.name = name
+         existing_class.roles = roles
+         existing_class.save()
+         
+         return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))
+
+      elif 'delete_class_id' in request.POST:
+         class_id = request.POST.get('delete_class_id')
+         deleted_class = get_object_or_404(Class, id=class_id)
+         deleted_class.delete()
+
+         return redirect(reverse('campaigns:campaign_classes', kwargs={'id':id}))
+
       name = request.POST.get("className")
       roles = request.POST.getlist("role")
-
-      newClass = Class(name=name, roles=roles, campaign_id=id)
-      newClass.save()
+      campaign = get_object_or_404(Campaign, id=id)
+      errors = treat_class(name, campaign)
+      ctx = {
+         'campaign': campaign,
+         'app_name': 'campaign',
+         'classes': Class.objects.filter(campaign=campaign)
+      }
+      if errors:
+         ctx['errors'] = errors
+         ctx['error_in_create'] = True
+         ctx['roles'] = roles
+         return render(request, 'campaigns_app/class-list.html', ctx)
+      new_class = Class(name=name, roles=roles, campaign_id=id)
+      new_class.save()
 
       return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))

@@ -535,47 +535,59 @@
                                 <label for="strength">Força: </label>
                                 <input type="number" name="strength" id="strength" value="{{sheet.strength}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.strength_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.strength_buff > 0 %}+{% endif %}{{race_buff.strength_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                             <div>
                                 <label for="intelligence">Inteligência: </label>
                                 <input type="number" name="intelligence" id="intelligence" value="{{sheet.intelligence}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.intelligence_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.intelligence_buff > 0 %}+{% endif %}{{race_buff.intelligence_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                             <div>
                                 <label for="wisdom">Sabedoria: </label>
                                 <input type="number" name="wisdom" id="wisdom" value="{{sheet.wisdom}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.wisdom_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.wisdom_buff > 0 %}+{% endif %}{{race_buff.wisdom_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                             <div>
                                 <label for="charisma">Carisma: </label>
                                 <input type="number" name="charisma" id="charisma" value="{{sheet.charisma}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.charisma_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.charisma_buff > 0 %}+{% endif %}{{race_buff.charisma_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                             <div>
                                 <label for="constitution">Constituição: </label>
                                 <input type="number" name="constitution" id="constitution" value="{{sheet.constitution}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.constitution_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.constitution_buff > 0 %}+{% endif %}{{race_buff.constitution_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                             <div>
                                 <label for="speed">Velocidade: </label>
                                 <input type="number" name="speed" id="speed" value="{{sheet.speed}}" class="sheet-submit">
                                 {% if sheet.campaign %}
-                                <input type="number" name="strength_buff" id="strength_buff" value="{{race_buff.speed_buff}}" disabled  >
+                                <strong class="buffAtributes">
+                                    <p>{% if race_buff.speed_buff > 0 %}+{% endif %}{{race_buff.speed_buff}}</p>
+                                </strong>
                                 {% endif %}
                             </div>
                         </div>
                         {% for error in errors %}
-                            {% if error.field == 'atributes1'%}
+                        {% if error.field == 'atributes1'%}
                             <span>
                                 <i data-lucide="octagon-alert"></i>
                                 {{ error.message }}

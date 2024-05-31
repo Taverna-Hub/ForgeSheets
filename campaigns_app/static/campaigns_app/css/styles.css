@@ -29,7 +29,7 @@
   backdrop-filter: blur(12px);
   z-index: 999;
   height: 100vh;
-  
+
   padding: 32px 64px;
   overflow: auto;
 }
@@ -38,7 +38,7 @@
   display: grid;
   grid-template-columns: repeat(4, 300px);
   justify-content: space-between;
-  
+
   gap: 16px;
 }
 
@@ -49,7 +49,12 @@
 .campaignCard {
   border-radius: 4px;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  width: 100%;
   transition: all .3s;
 }
 
@@ -64,7 +69,7 @@
   width: 300px;
   height: 200px;
   padding: 24px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   position: relative;
   border-radius: 4px;
 }
@@ -75,10 +80,10 @@
   justify-content: center;
   border: 3px dashed var(--red-700);
   cursor: pointer;
-  
+
   background-size: cover;
   background-repeat: no-repeat;
-  
+
   transition: all .3s;
 }
 
@@ -91,11 +96,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  
+
   border: 3px dashed var(--red-700);
   color: var(--red-700);
 }
@@ -143,7 +148,7 @@
   .cardList {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .campaignCard > div, .createCampaign {
     width: 100%;
   }
@@ -164,3 +169,8 @@
   }
 }
 
+@media (max-width: 470px) {
+  .listCampaignContainer {
+    padding: 64px 24px;
+  }
+}
