@@ -29,7 +29,7 @@
   backdrop-filter: blur(12px);
   z-index: 999;
   height: 100vh;
-  
+
   padding: 32px 64px;
   overflow: auto;
 }
@@ -38,7 +38,7 @@
   display: grid;
   grid-template-columns: repeat(4, 300px);
   justify-content: space-between;
-  
+
   gap: 16px;
 }
 
@@ -49,7 +49,12 @@
 .campaignCard {
   border-radius: 4px;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  width: 100%;
   transition: all .3s;
 }
 
@@ -64,7 +69,7 @@
   width: 300px;
   height: 200px;
   padding: 24px;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   position: relative;
   border-radius: 4px;
 }
@@ -75,10 +80,10 @@
   justify-content: center;
   border: 3px dashed var(--red-700);
   cursor: pointer;
-  
+
   background-size: cover;
   background-repeat: no-repeat;
-  
+
   transition: all .3s;
 }
 
@@ -91,11 +96,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  
+
   border: 3px dashed var(--red-700);
   color: var(--red-700);
 }
@@ -143,7 +148,7 @@
   .cardList {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .campaignCard > div, .createCampaign {
     width: 100%;
   }
@@ -164,104 +169,8 @@
   }
 }
 
-
-.modal-create-campaign {
-  background: rgba(0,0,0,0.8);
-  z-index: 999999;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  display: none;
-  align-items: center;
-  justify-content: center;
+@media (max-width: 470px) {
+  .listCampaignContainer {
+    padding: 64px 24px;
+  }
 }
-.modal-create-campaign.active{
-  display: flex;
-}
- .modal-create-campaign .modal {
-  background-color: var(--white);
-  padding: 24px;
-  
-  border-radius: 4px;
-  width: 650px;
-  min-height: 595px;
-  height: fit-content;
-}
-
-.modal-create-campaign .modal form {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: space-between;
-  gap: 40px;
-
-  margin-top: 40px;
-}
-
-.modal-create-campaign .modal span {
-  color: var(--red-600);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  margin-top: 8px;
-}
-
-.modal input, textarea {
-  width: 100%;
-  border: 2px solid var(--gray-200);
-  border-radius: 4px;
-  padding: 8px;
-}
-
-.modal input {
-  height: 35px;
-}
-
-.modal textarea {
-  resize: none;
-}
-
-.modal-create-campaing .modal label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--gray-700);
-}
-
-.modal-create-campaing .modal h2 {
-  color: var(--gray-800);
-}
-
-.modal-create-campaing .modal button {
-  cursor: pointer;
-}
-
-.modal .actions {
-  align-self: flex-end;
-}
-
-.modal .actions button {
-  padding: 8px 16px;
-  border-radius: 4px;
-  border: none;
-  font-weight: 600;
-  font-size: 16px;
-}
-
-.modal .actions button:first-child {
-  background-color: var(--gray-300);
-  color: var(--gray-700);
-  margin-right: 16px;
-}
-
-.modal .actions button:first-child a {
-  color: var(--gray-700);
-}
-
-.modal .actions button:last-child {
-  background-color: var(--red-600);
-  color: var(--gray-200);
-} 
