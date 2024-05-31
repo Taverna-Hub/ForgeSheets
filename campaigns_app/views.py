@@ -72,10 +72,12 @@ class CampaignView(LoginRequiredMixin, View):
    def post(self, request, id):
       campaign = get_object_or_404(Campaign, id=id)
       user_id = request.user.id
-
+      sheets = Sheet.objects.filter(campaign_id=campaign.id)
+      
       ctx = {
          'campaign': campaign,
-         'app_name': 'campaign'
+         'app_name': 'campaign',
+         'sheets': sheets,
       }
       
       newTitle = request.POST.get('new-title')
