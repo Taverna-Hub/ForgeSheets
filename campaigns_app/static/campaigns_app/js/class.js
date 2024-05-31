@@ -19,7 +19,6 @@ cancelAddClassModalBtn.addEventListener("click", () => handleCloseAddClassModal(
 // Editar classe
 const editButtons = document.querySelectorAll('.editClass');
 const editModal = document.querySelector('.editClassModal');
-const closeEditModalButton = document.querySelector('#closeEditModal');
 const cancelEditButton = document.querySelector('#cancelEdit');
 
 const rolesIds = ['editSpellDamage', 'editPhysicalDamage', 'editSupport', 'editTank'];
@@ -63,9 +62,6 @@ editButtons.forEach(button => {
   });
 });
 
-closeEditModalButton?.addEventListener('click', function() {
-  editModal.style.display = 'none';
-});
 cancelEditButton?.addEventListener('click', function() {
   editModal.style.display = 'none';
 });
@@ -73,7 +69,6 @@ cancelEditButton?.addEventListener('click', function() {
 // Deletar classe 
 const deleteButtons = document.querySelectorAll('.delete_class_button');
 const deleteModal = document.querySelector('#deleteClassModal');
-const closeDeleteModalButton = document.querySelector('.closeDeleteModal');
 const cancelDeleteButton = document.querySelector('#cancelDelete');
 
 deleteButtons.forEach(button => {
@@ -85,9 +80,6 @@ deleteButtons.forEach(button => {
   });
 });
 
-closeDeleteModalButton?.addEventListener('click', function() {
-  deleteModal.style.display = 'none';
-});
 
 cancelDeleteButton?.addEventListener('click', function() {
   deleteModal.style.display = 'none';

@@ -11,9 +11,6 @@
 {% block 'body' %}
 <section class="ModalCreateRace">
     <div class="modal">
-        <button type="button" class="closeModal closeAddModal">
-            <i data-lucide="x"></i>
-        </button>
         <h2>Adicionar raça</h2>
         <form action="{% url 'campaigns:races' campaign.id %}" method="post">
             {%csrf_token%}
@@ -88,9 +85,6 @@
 
 <section id="editRaceModal" >
     <div class="modal">
-        <button type="button" class="closeModal closeEditModal">
-            <i data-lucide="x"></i>
-        </button>
         <h2>Editar Raça</h2>
         <form id="editRaceForm" action="{% url 'campaigns:races' campaign.id %}" method="post">
             {% csrf_token %}
@@ -135,9 +129,6 @@
 
 <section class="deleteRaceModal" id="deleteRaceModal">
     <div class="modal">
-        <button type="button" class="closeModal closeDeleteModal">
-            <i data-lucide="x"></i>
-        </button>
         <h2>Deseja apagar esta raça?</h2>
         <form method="post" action="{% url 'campaigns:races' campaign.id %}">
             {% csrf_token %}
