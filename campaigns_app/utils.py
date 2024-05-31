@@ -56,10 +56,8 @@ def save_campaign(image, title, description, user_id, edit):
     return 1
 
 def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buff, constitution_buff, speed_buff, edit, campaign):
-    
     name_treated = name.strip()
     errors = []
-
 
     if not name_treated:
         errors.append({
@@ -72,16 +70,43 @@ def treat_race(name, strength_buff, intelligence_buff, wisdom_buff, charisma_buf
             'message': 'Insira no máximo 75 caracteres'
         })
     else:
-      existing_race = Race.objects.filter(name=name_treated, campaign=campaign).exclude(id=edit).first()
-      if existing_race:
-        errors.append({
-          'field': 'name',
-          'message': 'Uma raça com esse nome já existe'
-        })
+        existing_race = Race.objects.filter(name=name_treated, campaign=campaign).exclude(id=edit).first()
+        if existing_race:
+            errors.append({
+                'field': 'name',
+                'message': 'Uma raça com esse nome já existe'
+            })
+    
+    def validate_buff(field, value):
+        if not value:
+            errors.append({
+                'field': field,
+                'message': f'O campo  não pode ser vazio'
+            })
+        else:
+            try:
+                val = int(value)
+                if val < -20 or val > 100:
+                    errors.append({
+                        'field': field,
+                        'message': f'Valor deve estar entre -20 e 100'
+                    })
+            except ValueError:
+                errors.append({
+                    'field': field,
+                    'message': f'Valor para {field} deve ser um número inteiro'
+                })
+
+    validate_buff('strength_buff', strength_buff)
+    validate_buff('intelligence_buff', intelligence_buff)
+    validate_buff('wisdom_buff', wisdom_buff)
+    validate_buff('charisma_buff', charisma_buff)
+    validate_buff('constitution_buff', constitution_buff)
+    validate_buff('speed_buff', speed_buff)
 
     if len(errors) > 0:
         return errors
-    
+
     if edit == 0:
         race = Race(
             name=name,

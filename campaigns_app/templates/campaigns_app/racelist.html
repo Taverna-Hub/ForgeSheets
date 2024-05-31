@@ -34,6 +34,14 @@
                     {% else %}
                     <input type="number" name="strength_buff" id="strength_buff" value=0>
                     {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'strength_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="intelligence_buff">Modificador de Inteligência: </label>
@@ -42,6 +50,14 @@
                     {% else %}
                     <input type="number" name="intelligence_buff" id="intelligence_buff" value=0>
                     {% endif %}
+                    {% for error in errors %}
+                    {% if error.field == 'intelligence_buff' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
                 <div>
                     <label for="wisdom_buff">Modificador de Sabedoria: </label>
@@ -50,6 +66,14 @@
                     {% else %}
                     <input type="number" name="wisdom_buff" id="wisdom_buff" value=0>
                     {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'wisdom_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="charisma_buff">Modificador de Carisma: </label>
@@ -58,6 +82,14 @@
                     {% else %}
                     <input type="number" name="charisma_buff" id="charisma_buff" value=0>
                     {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'charisma_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="constitution_buff">Modificador de Constituição: </label>
@@ -66,6 +98,14 @@
                     {% else %}
                     <input type="number" name="constitution_buff" id="constitution_buff" value=0>
                     {% endif %}
+                    {% for error in errors %}
+                        {% if error.field == 'constitution_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="speed_buff">Modificador de Velocidade: </label>
@@ -74,16 +114,16 @@
                     {% else %}
                     <input type="number" name="speed_buff" id="speed_buff" value=0>
                     {% endif %}
-                </div>
-            </div>
-                {% for error in errors %}
-                    {% if error.field == 'buff' %}
-                    <span class="error-message">
+                    {% for error in errors %}
+                    {% if error.field == 'speed_buff' %}
+                    <span>
                         <i data-lucide="octagon-alert"></i>
-                    {{ error.message }}
+                        {{ error.message }}
                     </span>
                     {% endif %}
                 {% endfor %}
+                </div>
+            </div>
             <div class="actions">  
                 <button type="button" id="cancelAddRace">Cancelar</button> 
                 <button type="submit" id="submit_button" >Criar</button>
@@ -113,28 +153,77 @@
                 <div>
                     <label for="edit_strength_buff">Modificador de Força: </label>
                     <input type="number" name="strength_buff" id="edit_strength_buff">
+                    {% for error in errors %}
+                    {% if error.field == 'strength_buff' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
                 <div>
                     <label for="edit_intelligence_buff">Modificador de Inteligência: </label>
                     <input type="number" name="intelligence_buff" id="edit_intelligence_buff">
+                    {% for error in errors %}
+                    {% if error.field == 'intelligence_buff' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
                 <div>
                     <label for="edit_wisdom_buff">Modificador de Sabedoria: </label>
                     <input type="number" name="wisdom_buff" id="edit_wisdom_buff">
+                    {% for error in errors %}
+                    {% if error.field == 'wisdom_buff' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
                 <div>
                     <label for="edit_charisma_buff">Modificador de Carisma: </label>
                     <input type="number" name="charisma_buff" id="edit_charisma_buff">
+                    {% for error in errors %}
+                        {% if error.field == 'charisma_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="edit_constitution_buff">Modificador de Constituição: </label>
                     <input type="number" name="constitution_buff" id="edit_constitution_buff">
+                    {% for error in errors %}
+                        {% if error.field == 'constitution_buff' %}
+                        <span>
+                            <i data-lucide="octagon-alert"></i>
+                            {{ error.message }}
+                        </span>
+                        {% endif %}
+                    {% endfor %}
                 </div>
                 <div>
                     <label for="edit_speed_buff">Modificador de Velocidade: </label>
                     <input type="number" name="speed_buff" id="edit_speed_buff">
+                    {% for error in errors %}
+                    {% if error.field == 'speed_buff' %}
+                    <span>
+                        <i data-lucide="octagon-alert"></i>
+                        {{ error.message }}
+                    </span>
+                    {% endif %}
+                {% endfor %}
                 </div>
             </div>
+            
             <div class="actions" id="editRaceBtn">
                 <button type="button" id="cancelEdit">Cancelar</button>
                 <button type="submit" id="submitEditButton">Salvar</button>
