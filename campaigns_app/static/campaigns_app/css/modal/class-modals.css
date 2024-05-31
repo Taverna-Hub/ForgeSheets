@@ -117,3 +117,10 @@
   background-color: var(--red-600);
   color: var(--gray-200);
 }
+
+@media (max-width: 700px) {
+  .addClassModal .modal, .editClassModal .modal, .deleteClassModal .modal {
+      margin: 0 5%;
+      width: 100%;
+  }  
+}

@@ -1,3 +1,17 @@
+:root {
+  --red-600: #DC2626;
+  --red-700: #b91c1c;
+  --green-500: #22c55e;
+  --white: #f7f7f7;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+}
+
 button {
   border: none;
 }
@@ -41,9 +55,7 @@ button {
   right: 0;
   bottom: 105px;
   right: 64px;
-
   display: none;
-
   z-index: 9999;
 }
 
@@ -64,6 +76,8 @@ button {
   justify-content: flex-start;
   width: 100%;
   padding: 10px;
+  right: 24px;
+  color: var(--gray-700);
 }
 
 .rollButton {
@@ -79,12 +93,13 @@ button {
 }
 
 #closeDice {
-  background-color: var(--red-600);
+  background-color: transparent;
   cursor: pointer;
-  color: var(--gray-200);
+  color: var(--gray-700);
   border-radius: 4px;
   height: 24px;
   width: 24px;
+  float: right;
 }
 
 #formDice h2 {
@@ -149,3 +164,21 @@ input {
     transform: rotate(360deg) scale(1.1);
   }
 }
+
+@media (max-width: 1080px) {
+  .diceButton {
+    right: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .diceModal {
+    right: 28px;
+  }
+
+  .diceModal .modal {
+    width: 100%;
+    margin: 0 5%;
+  }
+}
+
