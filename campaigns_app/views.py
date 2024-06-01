@@ -248,7 +248,7 @@ class ClassListView(LoginRequiredMixin, View):
          deleted_class = get_object_or_404(Class, id=class_id)
          deleted_class.delete()
 
-         return redirect(reverse('campaigns:campaign_classes', kwargs={'id':id}))
+         return redirect(reverse('campaigns:campaign_classes', kwargs={'id': id}))
 
       name = request.POST.get("className")
       roles = request.POST.getlist("role")

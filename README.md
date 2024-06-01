@@ -189,7 +189,7 @@
   <img src="https://img.shields.io/badge/Gerenciamento de Campanhas-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_Criar_uma_Ficha_dentro_de_uma_Campanha_no_ForgeSheets__XZsEiz46QZCLjZNO3LDXPg?referrer=documents">
   <img src="https://img.shields.io/badge/Compartilhamento de Fichas-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a><br>
-<a href="">
+<a href="https://scribehow.com/shared/Como_gerenciar_as_classes_de_sua_campanha_no_ForgeSheets__YxA0Z0QCQhm3kdASE5jbbA?referrer=documents">
   <img src="https://img.shields.io/badge/Gerenciamento de Classes na Campanha-000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://scribehow.com/shared/Como_gerenciar_as_racas_de_sua_campanha_no_ForgeSheets__x9LVqsIgSwKVDc-D8YOG_g?referrer=documents">
   <img src="https://img.shields.io/badge/Gerenciamento de Raças na Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
