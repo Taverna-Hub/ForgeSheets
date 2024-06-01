@@ -177,6 +177,8 @@
   <img src="https://img.shields.io/badge/relatório programação em par-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
 <a href="https://forgesheets.azurewebsites.net/"">
   <img src="https://img.shields.io/badge/site na azure-000000?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/></a>
+<a href="https://www.figma.com/design/13pPqSSHOOJ5K3Dh011poG/Slides-de-Apresenta%C3%A7%C3%A3o-Entrega-04?node-id=0-1&t=Lhz1zTEfW9xejCAl-1">
+  <img src="https://img.shields.io/badge/slides apresentação final-7f1d1d?style=for-the-badge&logo=figma&logoColor=white" height="35px"/></a>
 </p>
 </br>
 
@@ -217,12 +219,6 @@
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/af898810-926a-42ad-ab8e-d43d7ae21429)
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/b7a543f9-611d-4adf-a820-2441455ac719)
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/3eec519b-d728-4a10-94b1-3f74361fe2a6)
-
-<br/>
-
-- <strong> Diagrama de Atividades - Entrega 04 </strong>
-
-![Diagrama-de-Atividades-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
 
 ---
 
