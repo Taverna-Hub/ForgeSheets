@@ -96,7 +96,7 @@
 ![image](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/df32dd8e-3a8a-4ca1-a61d-3f7e0d7d631b)
 ![print2](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/d2671693-dbcb-449c-8c9e-383cdbd02c66)
 
-- <strong> Diagrama de Atividades </strong>
+- <strong> Diagrama de Atividades - Entrega 02</strong>
 
 ![Diagrama-de-atividade-(1)](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/b3d271e9-0ca4-4380-a334-bdc434a25ad7)
 
@@ -154,19 +154,75 @@
 
 <br/>
 
-- <strong> Diagrama de Atividades Atualizado </strong>
+- <strong> Diagrama de Atividades - Entrega 03 </strong>
 
-![Diagrama-de-Atividades-ATUALIZADO](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
+![Diagrama-de-Atividades-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
 
 ---
 
 # Entrega 04
 
 <p align="center" style="">
+  <a href="">
+  <img src="https://img.shields.io/badge/screencast das histórias em produção-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
+<a href="">
   <a href="https://youtu.be/D7V9OTswqSA">
     <img src="https://img.shields.io/badge/screencast dos protótipos-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
   </a>
+<a href="">
+  <img src="https://img.shields.io/badge/screencast de build & deploy-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
+<a href="">
+  <img src="https://img.shields.io/badge/screencast dos testes e2e-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
+<a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
+  <img src="https://img.shields.io/badge/relatório programação em par-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
+<a href="https://forgesheets.azurewebsites.net/"">
+  <img src="https://img.shields.io/badge/site na azure-000000?style=for-the-badge&logo=microsoft-azure&logoColor=white" height="35px"/></a>
 </p>
+</br>
+
+- <strong> Instruções de acesso </strong>
+
+<p align="center" style="">
+<a href="https://scribehow.com/shared/Como_gerenciar_sua_Campanha_no_ForgeSheets__4TKZT9qnQiqMTQjS0xR8ag?referrer=documents">
+  <img src="https://img.shields.io/badge/Gerenciamento de Campanhas-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
+<a href="https://scribehow.com/shared/Como_Criar_uma_Ficha_dentro_de_uma_Campanha_no_ForgeSheets__XZsEiz46QZCLjZNO3LDXPg?referrer=documents">
+  <img src="https://img.shields.io/badge/Compartilhamento de Fichas-000000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a><br>
+<a href="">
+  <img src="https://img.shields.io/badge/Gerenciamento de Classes na Campanha-000?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
+<a href="https://scribehow.com/shared/Como_gerenciar_as_racas_de_sua_campanha_no_ForgeSheets__x9LVqsIgSwKVDc-D8YOG_g?referrer=documents">
+  <img src="https://img.shields.io/badge/Gerenciamento de Raças na Campanha-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
+</p>
+<br/>
+
+- <strong> Backlog </strong>
+
+![Backlog-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/c85331aa-a46b-437c-920d-2d1e0ada3973)
+
+<br/>
+  
+- <strong> Board </strong>
+
+![Board-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/7252555f-64cd-47f4-90ee-8413526ff95d)
+<br/>
+
+- <strong> Issues </strong>
+
+![openedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/d5bfe6ac-3b85-4fe2-a405-f674da220973)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/e8bfe9f6-6e89-4f05-afd4-4c84b018708a)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/07e358f7-dbe7-47cb-8d25-80fac61621a4)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/d0353360-8bde-41bb-94b6-664f19d91208)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/158ea16c-a60d-48ce-8a55-4f605011f8f8)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/927440ce-8b5d-4d16-8d64-dd0137efc13d)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/ba9424d5-1dc8-4eed-a622-edba1c68f65d)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/af898810-926a-42ad-ab8e-d43d7ae21429)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/b7a543f9-611d-4adf-a820-2441455ac719)
+![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/3eec519b-d728-4a10-94b1-3f74361fe2a6)
+
+<br/>
+
+- <strong> Diagrama de Atividades - Entrega 04 </strong>
+
+![Diagrama-de-Atividades-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
 
 ---
 
