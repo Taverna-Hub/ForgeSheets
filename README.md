@@ -163,7 +163,7 @@
 # Entrega 04
 
 <p align="center" style="">
-  <a href="">
+  <a href="https://youtu.be/5rhp3hcSp5U?si=TX4h9RlTtAXg-m9T">
   <img src="https://img.shields.io/badge/screencast das histórias em produção-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="">
   <a href="https://youtu.be/D7V9OTswqSA">
