@@ -13,7 +13,6 @@ class Sheet(models.Model):
     name = models.CharField(max_length=75)
     image = models.URLField(null=True)
 
-    # race = models.ForeignKey(Race, on_delete=models.SET_NULL, null=True)
     race = models.CharField(max_length=75)
     role = models.CharField(max_length=75)
 
@@ -68,7 +67,6 @@ class Sheet(models.Model):
             expMax *= 2
         return level
     
-    # ;-;
 
 class Equipment(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
