@@ -70,6 +70,21 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+<strong>OBS:</strong>
+<p>Caso queira garantir que o código adicionado não quebre outras partes da aplicação, rode os testes existentes e, se necessário, crie novos testes. Para fazer isto:</p>
+
+<strong>1º) Baixe o <a href="https://nodejs.org/en" target="_blank">Node</a> na sua versão LTS:</strong>
+
+<strong>2º) Instale as dependências:</strong>
+```
+npm ci
+```
+
+<strong>2º) Rode os testes com:</strong>
+```
+npx cypress run
+```
+
 <br>
 
 ## 🛰️ Submetendo suas Alterações
