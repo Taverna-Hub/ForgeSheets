@@ -171,7 +171,7 @@
   </a>
 <a href="https://youtu.be/oa4FoHR9w5M?si=5ypds5xCiAWyC-nr">
   <img src="https://img.shields.io/badge/screencast de build & deploy-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
-<a href="">
+<a href="https://www.youtube.com/watch?v=ekjUYtmMRko">
   <img src="https://img.shields.io/badge/screencast dos testes e2e-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
   <img src="https://img.shields.io/badge/relatório programação em par-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
@@ -219,6 +219,13 @@
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/af898810-926a-42ad-ab8e-d43d7ae21429)
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/b7a543f9-611d-4adf-a820-2441455ac719)
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/3eec519b-d728-4a10-94b1-3f74361fe2a6)
+
+<br/>
+
+- <strong> Diagrama de Atividades - Entrega 04 </strong>
+
+![Diagrama-de-Atividades-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
+
 
 ---
 
