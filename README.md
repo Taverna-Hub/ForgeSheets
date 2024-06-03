@@ -169,7 +169,7 @@
   <a href="https://youtu.be/D7V9OTswqSA">
     <img src="https://img.shields.io/badge/screencast dos protótipos-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
   </a>
-<a href="">
+<a href="https://youtu.be/oa4FoHR9w5M?si=5ypds5xCiAWyC-nr">
   <img src="https://img.shields.io/badge/screencast de build & deploy-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="">
   <img src="https://img.shields.io/badge/screencast dos testes e2e-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
