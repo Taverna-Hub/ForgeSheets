@@ -1,0 +1,17 @@
+name: End-to-end Tests 🧪
+on:
+  push:
+    branches:
+      - main
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          npm ci
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
