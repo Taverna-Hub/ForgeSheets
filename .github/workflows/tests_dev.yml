@@ -1,17 +1,37 @@
-name: End-to-end Tests 🧪
+name: CI E2E 
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
 jobs:
-  cypress-run:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Set up Python version
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.12'
+
+      - name: Create and start virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+      
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
           npm ci
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+          cd ..
+
+      - name: Run local server
+        run: |
+          python manage.py migrate
+          python manage.py runserver &
+          sleep 5
+          npx cypress run
