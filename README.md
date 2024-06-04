@@ -220,13 +220,6 @@
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/b7a543f9-611d-4adf-a820-2441455ac719)
 ![closedIssues-E4](https://github.com/Taverna-Hub/ForgeSheets/assets/142417782/3eec519b-d728-4a10-94b1-3f74361fe2a6)
 
-<br/>
-
-- <strong> Diagrama de Atividades - Entrega 04 </strong>
-
-![Diagrama-de-Atividades-E3](https://github.com/Taverna-Hub/ForgeSheets/assets/117609505/e0dff8c9-f979-47b4-9a13-785723d996b6)
-
-
 ---
 
 # 👥 Equipe
