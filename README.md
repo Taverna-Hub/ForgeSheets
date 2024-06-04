@@ -163,15 +163,15 @@
 # Entrega 04
 
 <p align="center" style="">
-  <a href="">
+  <a href="https://youtu.be/5rhp3hcSp5U?si=TX4h9RlTtAXg-m9T">
   <img src="https://img.shields.io/badge/screencast das histórias em produção-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="">
   <a href="https://youtu.be/D7V9OTswqSA">
     <img src="https://img.shields.io/badge/screencast dos protótipos-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/>
   </a>
-<a href="">
+<a href="https://youtu.be/oa4FoHR9w5M?si=5ypds5xCiAWyC-nr">
   <img src="https://img.shields.io/badge/screencast de build & deploy-7f1d1d?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
-<a href="">
+<a href="https://www.youtube.com/watch?v=ekjUYtmMRko">
   <img src="https://img.shields.io/badge/screencast dos testes e2e-000000?style=for-the-badge&logo=youtube&logoColor=white" height="35px"/></a>
 <a href="https://docs.google.com/document/d/13SVAn4s2bloI9BRC-cFVQm3AeOYhq9guzU9kyz2zRFk/edit?usp=sharing"">
   <img src="https://img.shields.io/badge/relatório programação em par-7f1d1d?style=for-the-badge&logo=googledocs&logoColor=white" height="35px"/></a>
