@@ -48,7 +48,7 @@ class CreateCampaignView(LoginRequiredMixin, View):
          ctx['app_name'] = 'campaign'
          for field_error in fields:
                ctx.pop(field_error['field'], None)
-         return render(request,'campaigns_app\campaigns.html', ctx)
+         return render(request,'campaigns_app/campaigns.html', ctx)
 
       return redirect(reverse('campaigns:campaigns'))
 
