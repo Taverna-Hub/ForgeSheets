@@ -164,13 +164,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function getDiceImageUrl(diceType) {
     const urls = {
-      4: 'https://pbs.twimg.com/media/GMnhDY5XUAAnIvO?format=png&name=240x240',
-      6: 'https://pbs.twimg.com/media/GMnhDY0XsAAvjb_?format=png&name=240x240',
-      8: 'https://pbs.twimg.com/media/GMnhDY3W0AAXXSJ?format=png&name=240x240',
-      10: 'https://pbs.twimg.com/media/GMnhDY2WwAEZNuL?format=png&name=240x240',
-      12: 'https://pbs.twimg.com/media/GMnhMHAWQAAXLtq?format=png&name=240x240',
-      20: 'https://pbs.twimg.com/media/GMnhMIJXIAAtIpm?format=png&name=240x240',
-      100: 'https://pbs.twimg.com/media/GMnhMJ2WkAAKjLx?format=png&name=240x240',
+      4: 'https://utfs.io/f/b4b53167-45c5-454b-aaaa-93417478cf69-2fk.png',
+      6: 'https://utfs.io/f/d1aca81d-17a1-48d7-a7be-ceee748f4361-2fm.png',
+      8: 'https://utfs.io/f/7fcca6b6-a4f2-49ff-8e9f-77ee83363a95-2fo.png',
+      10: 'https://utfs.io/f/06f0436a-ead7-4bb9-a942-49a3d402dca8-23cz.png',
+      12: 'https://utfs.io/f/8c038c6d-e41f-4632-9cb2-681de6986ead-23d1.png',
+      20: 'https://utfs.io/f/17da7839-eb61-4b51-8927-ebab31a83eef-23du.png',
+      100: 'https://utfs.io/f/115694a7-ef00-4044-88c0-22709d68e642-1sw7h.png',
     };
     return `url('${urls[diceType]}')`;
   }
