@@ -114,7 +114,7 @@ main {
   grid-template-columns: 280px 1fr;
   width: 100vw;
   height: 100vh;
-  background-image: url('https://pbs.twimg.com/media/GKWA-b8WAAAMFBY?format=jpg&name=large');
+  background-image: url('https://utfs.io/f/c27a32b8-8586-4c63-b935-3bd8f953c330-pbfz1.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   position: relative;
@@ -125,7 +125,7 @@ main {
 }
 
 .mainSheets {
-  background-image: url('https://pbs.twimg.com/media/GKCEn7FW0AA0AzQ?format=jpg&name=large');
+  background-image: url('https://utfs.io/f/421f62ae-4e42-48f8-94ea-83d33130dbd4-l45huf.png');
 }
 
 .usuario {
